@@ -1,8 +1,0 @@
-{
-  "generated": "2026-07-11",
-  "count": 2,
-  "members": [
-    { "email": "vip@fincap.com", "expire": "2027-07-11", "name": "测试会员" },
-    { "email": "demo@fincap.com", "expire": "2027-07-11", "name": "演示账号" }
-  ]
-}
