@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>强女思维 · 金融资本库 · 阅览室</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图">☾</button>
+
+<!-- 封面层：金融资本 · 深咖幕布（同一会话只出现一次） -->
+<div class="cover" id="cover">
+  <div class="cover-bg">
+    <img src="assets/img/cover-hero.jpg" alt="资本夜景：曼哈顿与碰杯的人">
+  </div>
+  <div class="cover-veil"></div>
+  <div class="cover-card">
+    <div class="cover-kicker">Capital Mind · 金融资本库</div>
+    <h1 class="cover-title" id="cover-title">懂资本，是高智女性最体面的底气</h1>
+    <p class="cover-subtitle">让资本的语言，成为你谈吐里的分寸</p>
+    <p class="cover-sub">资产配置、上市公司、资本案例、金融书单——四间私人展厅，陪你把资本读成一种审美，而不是一门焦虑。</p>
+    <p class="cover-welcome" id="cover-greet"></p>
+    <button class="cover-enter" id="enter">进入展厅</button>
+    <div class="cover-foot">付费会员专享 · 1 年通行</div>
+  </div>
+</div>
+
+
+<div class="page">
+  <div class="brandrule"></div>
+  <header class="topbar">
+    <a class="brand" href="index.html">强女思维 · 金融资本库</a>
+    <span class="brand-sub" id="greet-bar">Reader</span>
+  </header>
+
+  <section class="masthead">
+    <div class="masthead-kicker">Four Halls · 金融资本库</div>
+    <h1 class="masthead-title">选择一处展厅进入</h1>
+    <p class="masthead-desc">高级财富管理 · 上市公司业务 · 资本案例 · 金融书单——各自的门面，同一种调性。这里不是信息堆叠，而是一座为高智女性整理的私人金融智识展厅。</p>
+  </section>
+
+  <div class="hall-grid">
+<section class="hall">
+  <a class="hall-room" href="hall-a.html">
+    <div class="hall-fig">
+      <img src="assets/img/entry-a.jpg" alt="高级财富管理">
+    </div>
+    <div class="hall-cap">
+      <div class="hall-no">01</div>
+      <div class="hall-label">A</div>
+      <div class="hall-name">高级财富管理</div>
+      <div class="hall-word">把财富当作一门艺术来经营</div>
+      <div class="hall-meta"><span>23 篇</span><span class="arrow">进入 →</span></div>
+    </div>
+  </a>
+</section>
+<section class="hall">
+  <a class="hall-room" href="hall-b.html">
+    <div class="hall-fig">
+      <img src="assets/img/entry-b.jpg" alt="上市公司业务">
+    </div>
+    <div class="hall-cap">
+      <div class="hall-no">02</div>
+      <div class="hall-label">B</div>
+      <div class="hall-name">上市公司业务</div>
+      <div class="hall-word">看懂资本如何运转一家公司</div>
+      <div class="hall-meta"><span>23 篇</span><span class="arrow">进入 →</span></div>
+    </div>
+  </a>
+</section>
+<section class="hall">
+  <a class="hall-room" href="hall-cases.html">
+    <div class="hall-fig">
+      <img src="assets/img/entry-cases.jpg" alt="资本案例">
+    </div>
+    <div class="hall-cap">
+      <div class="hall-no">03</div>
+      <div class="hall-label">CASES</div>
+      <div class="hall-name">资本案例</div>
+      <div class="hall-word">30 个真实资本切片</div>
+      <div class="hall-meta"><span>30 篇</span><span class="arrow">进入 →</span></div>
+    </div>
+  </a>
+</section>
+<section class="hall">
+  <a class="hall-room" href="hall-books.html">
+    <div class="hall-fig">
+      <img src="assets/img/entry-books.jpg" alt="金融书单">
+    </div>
+    <div class="hall-cap">
+      <div class="hall-no">04</div>
+      <div class="hall-label">BOOKS</div>
+      <div class="hall-name">金融书单</div>
+      <div class="hall-word">30 本，每一本都是一把钥匙</div>
+      <div class="hall-meta"><span>30 篇</span><span class="arrow">进入 →</span></div>
+    </div>
+  </a>
+</section>
+</div>
+
+  <footer class="foot">
+    <span>强女思维 · 金融资本库</span>
+    <span>仅限付费会员</span>
+  </footer>
+</div>
+
+<!-- 会员验证：进入首页后的第二步，输入会员邮箱方可阅读 -->
+<div id="gate" class="gate">
+  <div class="gate-card">
+    <div class="gate-lock">⌘</div>
+    <h2 id="gate-title">订阅会员专享</h2>
+    <p id="gate-desc">输入你购买时登记的邮箱，解锁全部展厅。</p>
+    <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+    <button id="unlock" class="gate-btn">解锁阅读</button>
+    <p id="gate-msg" class="gate-msg"></p>
+    <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买 →</a>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
