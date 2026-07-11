@@ -5,7 +5,7 @@
    2) 会员验证（第二步）：进入首页后立即弹出，输入会员邮箱方可阅读；
       解锁状态在「本会话」内全局有效（首页 / 分区 / 文章通用）。
    3) 主题：深色 / 浅色可切换，偏好持久保存。
-   ⚠️ MVP 用客户端校验；生产应改服务端校验（不暴露名单）。
+   MVP 用客户端校验；生产应改服务端校验（不暴露名单）。
    ============================================================ */
 (function () {
   var ASSET_BASE = new URL('.', document.currentScript.src).href; // .../assets/
@@ -23,8 +23,7 @@
   function applyTheme(t) {
     if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
     else document.documentElement.removeAttribute('data-theme');
-    var btn = $('themeToggle');
-    if (btn) btn.textContent = (t === 'light') ? '☀' : '☾';
+    document.documentElement.classList.toggle('theme-light', t === 'light');
   }
   function initTheme() {
     var saved = null;
