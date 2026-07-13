@@ -4,59 +4,158 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>孙正义的阿里赌注：2000 万美元，换回一个时代 · 强女思维 · 金融资本库</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/styles.css">
+<style>
+  :root{
+    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
+    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
+    --white:#FFFFFF; --muted:#7A6B60;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
+    line-height:1.95;font-size:17px;}
+  .page{min-height:100vh;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
+    background:var(--bg);position:sticky;top:0;z-index:50;}
+  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
+  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
+    padding:6px 14px;border-radius:999px;background:var(--white);}
+  .topbar .greet{font-size:13px;color:var(--muted);}
+  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
+  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
+  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
+    border-bottom:1px solid var(--border);padding-bottom:16px;}
+  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
+  .choose b{color:var(--brand);}
+  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
+    padding-bottom:8px;border-bottom:1px solid var(--border);}
+  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
+  p{margin:12px 0;}
+  .lead{font-size:18px;}
+  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
+  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
+  ol,ul{margin:12px 0;padding-left:24px;}
+  li{margin:7px 0;}
+  .small{font-size:14px;color:var(--muted);}
+  .note{font-size:14px;color:var(--muted);font-style:italic;}
+  .divider{height:1px;background:var(--border);margin:40px 0;}
+  .yr{color:var(--muted);font-weight:700;}
+  /* 分支入口：两个 tag 卡，点进去用 :target 锚点展开（纯 CSS，无 JS，微信兼容） */
+  .branch-gate{margin:30px 0 6px;}
+  .branch-cards{display:flex;gap:14px;}
+  .branch-card{flex:1;display:block;text-decoration:none;cursor:pointer;
+    border:1px solid var(--accent);background:var(--white);color:var(--brand);
+    font-family:inherit;padding:18px 16px;border-radius:12px;transition:all .2s ease;}
+  .branch-card:hover{background:var(--surface);transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(51,37,27,.12);}
+  .branch-card .bc-tag{font-size:12px;letter-spacing:2px;color:var(--muted);font-weight:700;}
+  .branch-card .bc-title{font-size:17px;font-weight:700;margin:6px 0 4px;color:var(--brand);}
+  .branch-card .bc-sub{font-size:13px;color:var(--muted);line-height:1.5;}
+  .branch-card .bc-go{font-size:13px;color:var(--brand);font-weight:700;margin-top:10px;}
+  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
+  /* 分支纵深：默认隐藏，锚点命中才展开 */
+  .branch-panel{display:none;margin-top:26px;border-top:2px solid var(--border);padding-top:8px;}
+  .branch-panel:target{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:20px 0 4px;}
+  .branch-back{display:inline-block;margin:18px 0 4px;font-size:13px;color:var(--brand);
+    text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:6px 14px;background:var(--white);}
+  .branch-back:hover{background:var(--surface);}
+  /* 门禁（内联，复用 app.js） */
+  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
+  .gate.visible{display:flex;}
+  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
+    box-shadow:0 24px 60px rgba(51,37,27,.3);}
+  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
+  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
+  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
+  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
+    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
+  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .gate-btn:hover{background:var(--brand-hover);}
+  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
+  .gate-msg.err{color:#c0392b;}
+  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
+  #article-body.locked{display:none;}
+  @media (max-width:600px){
+    .wrap{padding:36px 18px 70px;}
+    h1{font-size:22px;}
+    .branch-cards{flex-direction:column;}
+    .branch-card{padding:16px 14px;}
+  }
+</style>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
-  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <span class="brand-sub" id="top-greet">Reader</span>
+    <a class="back" href="../../hall-cases.html">返回案例库</a>
+    <span id="top-greet" class="greet"></span>
   </header>
 
-  <article class="reader">
-    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
-    <div class="reader-meta">资本案例 · 第 5 篇</div>
-    <h1 class="reader-title">孙正义的阿里赌注：2000 万美元，换回一个时代</h1>
-    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-09.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-10.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-11.jpg" alt="" loading="lazy">
-<i class="blk blk--gold"></i></div>
+  <div class="wrap">
+    <div id="article-body" class="locked">
+      <h1>孙正义的阿里赌注：2000 万美元，换回一个时代</h1>
+      <div class="tagline">【经典回报】【早期风投】【长期持有】【资本回报】　难度 ★★★☆☆　阅读 14 分钟　更新 2026.07</div>
 
-    <div id="lede" class="lede">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最该被读透的，是"敢下重注 + 忍住不卖"这门课。</div>
+      <div class="choose">
+        <b>▍怎么读这篇？</b><br>
+        上面是 <b>案例来龙去脉</b>（两类读者共读，先读完它）。<br>
+        然后按你的目标，<b>点下面的入口卡进入对应分支</b>——两个分支同源、各写纵深，落点完全不同：<br>
+        <b>· 把我的企业做好</b> → 视角向内，怎么用到自己企业。<br>
+        <b>· 跟我的客户分享</b> → 视角向外，怎么拿去跟高净值客户体面对话。
+      </div>
 
-    <div id="article-body" class="prose locked"><h2>案例来龙去脉：一笔 10 分钟聊出来的 2000 万美元，如何长成超 730 亿美元的持仓</h2>
-<p>先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最该被读透的，是"敢下重注 + 忍住不卖"这门课。</p>
-<h3>1.1 来路：1999-2000，互联网泡沫前夕的下注</h3>
+      <h2>案例背景｜案例来龙去脉：一笔 10 分钟聊出来的 2000 万美元，如何长成超 730 亿美元的持仓</h2>
+<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最该被读透的，是"敢下重注 + 忍住不卖"这门课。</p>
+<h3>1.1 来路：1999–2000，互联网泡沫前夕的下注</h3>
 <p>1999 年，软银（SoftBank）已上市五年，孙正义正全球撒网找互联网标的，结识了刚创办阿里巴巴不到一年的马云。到了 2000 年，两人初次见面只聊了约 <strong>10 分钟</strong>，孙正义就决定投资。彼时阿里还没有淘宝、没有盈利，软银看中的是团队和赛道。广为流传的版本：软银先投 <strong>2000 万美元</strong>，拿下约 <strong>30%+</strong> 股份。</p>
 <h3>1.2 诞生：赌一个"看不懂但信得过"的年轻人</h3>
-<p>当时几乎没人敢投一家"卖货给小商家"的中国初创公司。"10 分钟决策"后来成了风投神话--它不是草率，是孙正义十几年积累的"看人"直觉在那一瞬兑现。此后 2004 年阿里推出淘宝后，软银又在约 8200 万美元的融资轮中追加约 6000 万美元，使累计投入约 <strong>8000 万美元</strong>、持股约 <strong>30%+</strong>。口径上，外界常以"2000 万美元起投、占 30%+"概括这笔传奇。</p>
+<p>当时几乎没人敢投一家"卖货给小商家"的中国初创公司。"10 分钟决策"后来成了风投神话——它不是草率，是孙正义十几年积累的"看人"直觉在那一瞬兑现。此后 2004 年阿里推出淘宝后，软银又在约 8200 万美元的融资轮中追加约 6000 万美元，使累计投入约 <strong>8000 万美元</strong>、持股约 <strong>30%+</strong>。口径上，外界常以"2000 万美元起投、占 30%+"概括这笔传奇。</p>
 <h3>1.3 上线即爆：阿里从 B2B 到电商帝国</h3>
 <p>阿里从 B2B 黄页，长成淘宝 + 天猫 + 支付宝 + 阿里云的综合体，吃下中国电商与支付的半壁江山。这条成长曲线，是软银持仓从"纸面"走向"印钞机"的底色。</p>
 <h3>1.4 资本弧：2014 IPO，史诗级兑现</h3>
-<p>2014 年 9 月 19 日，阿里巴巴在纽交所上市，估值约 <strong>2300 亿美元+</strong>。软银持约 <strong>32%</strong> 股份，价值 <strong>超 730 亿美元</strong>（据公开报道）。以初始 2000 万美元计，回报约 <strong>2900 倍</strong>。这一年，孙正义个人净资产飙至约 <strong>166 亿美元</strong>，登顶日本首富、跻身亚洲第一梯队。直到 2020 年 6 月，他才退出阿里巴巴董事会--持有长达二十年。</p>
+<p>2014 年 9 月 19 日，阿里巴巴在纽交所上市，估值约 <strong>2300 亿美元+</strong>。软银持约 <strong>32%</strong> 股份，价值 <strong>超 730 亿美元</strong>（据公开报道）。以初始 2000 万美元计，回报约 <strong>2900 倍</strong>。这一年，孙正义个人净资产飙至约 <strong>166 亿美元</strong>，登顶日本首富、跻身亚洲第一梯队。直到 2020 年 6 月，他才退出阿里巴巴董事会——持有长达二十年。</p>
 <h3>1.5 竞争弧：为什么是软银吃到了这块</h3>
 <p>早期几乎无人敢投中国初创电商，孙正义的"看人 + 敢下重注 + 长期持有"组合，是回报来源。很多基金 7 年就要退出、要回本，软银却陪跑了十四年，把时间变成了最贵的杠杆。</p>
 <h3>1.6 资本逻辑：长期持有 + 不干涉</h3>
 <p>软银基本不插手阿里经营，给团队空间。这种"下重注、不指手画脚、忍住不卖"的姿态，让它吃到了完整的复利曲线。对比后来很多"涨一点就套现"的操作，孙正义在这笔上展现了罕见的耐心。</p>
 <h3>1.7 悬念：这笔投资如何塑造了后来的孙正义</h3>
-<p>阿里回报成了软银的"压舱石"，既撑起了它的资产负债表，也让孙正义后来敢在 WeWork、OpenAI 上豪赌（成败参半）。这笔经典回报，正是后续案例 06 / 07 里"AI 豪赌"与"重登亚洲首富"的隐性底气--敢赌，是因为前面赢过。</p>
-<h2>分支 A ｜ 向内做企业（把我的企业做好）</h2>
-<h2>0. 你为什么读这个：把别人的"神级回报"，变成自己的决策框架</h2>
+<p>阿里回报成了软银的"压舱石"，既撑起了它的资产负债表，也让孙正义后来敢在 WeWork、OpenAI 上豪赌（成败参半）。这笔经典回报，正是后续案例 06 / 07 里"AI 豪赌"与"重登亚洲首富"的隐性底气——敢赌，是因为前面赢过。</p>
+
+      <div class="divider"></div>
+
+      <div class="branch-gate" id="branchGate">
+        <div class="branch-cards">
+          <a class="branch-card" href="#branchA">
+            <div class="bc-tag">分支 A · 向内</div>
+            <div class="bc-title">{{BTN_A_SHORT}}</div>
+            <div class="bc-sub">把我的企业做好</div>
+            <div class="bc-go">点此进入 →</div>
+          </a>
+          <a class="branch-card" href="#branchB">
+            <div class="bc-tag">分支 B · 向外</div>
+            <div class="bc-title">{{BTN_B_SHORT}}</div>
+            <div class="bc-sub">跟我的客户分享</div>
+            <div class="bc-go">点此进入 →</div>
+          </a>
+        </div>
+        <p class="hint">入口卡是两个独立的阅读视角。进入后向下是只属于该目标的纵深内容；想换视角，回到卡片重选即可。</p>
+      </div>
+
+      <section class="branch-panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人的"神级回报"，变成自己的决策框架</h2>
 <p>别人 2000 万变 730 亿，你最该拿它当"下注与持有"的决策样本，而不是当暴富神话膜拜。</p>
 <p>这个案例的清醒处在于：回报不是运气，是"看准一个人、下重注、然后忍住不卖"三件事叠加。读它，是为了想清楚你自己的企业，怎么融资、怎么选伙伴、怎么给时间以复利。</p>
 <h2>2. 案例主角这一步步，对你做企业意味着什么</h2>
-<h3>(1) 早期下注，赌的是人和赛道，不是当期利润</h3>
+<h3>① 早期下注，赌的是人和赛道，不是当期利润</h3>
 <p>阿里当时没盈利，孙正义看的是团队与赛道。对你：你做企业融资时，怎么讲"未来"让投资人信？反过来，你自己的投资 / 合作，是不是只盯着当期报表，错过了"看人"？</p>
-<h3>(2) 敢下重注 + 长期持有 = 复利</h3>
+<h3>② 敢下重注 + 长期持有 = 复利</h3>
 <p>他没在泡沫破裂时割肉，持有十四年。对你：你的"长期主义"是真持有，还是涨一点就卖？复利的朋友是时间，敌人是躁动。</p>
-<h3>(3) 不干涉，是对被投企业最大的尊重</h3>
+<h3>③ 不干涉，是对被投企业最大的尊重</h3>
 <p>软银基本不插手阿里经营。对你：你若引进投资人 / 合伙人，给不给对方空间？越想控，越容易把牌打烂。</p>
-<h3>(4) 一笔大赢，能撑起后续所有冒险</h3>
+<h3>④ 一笔大赢，能撑起后续所有冒险</h3>
 <p>阿里回报是软银压舱石，让他后来敢赌 AI。对你：你有没有一笔"确定性资产"撑你的冒险？没有压舱石，豪赌就是赌博。</p>
 <h2>3. 你自己的企业，可以对照这四步</h2>
 <p>同一个案例，落到"怎么做企业"上，是四个可执行的动作，不是四个抽象层级：</p>
@@ -75,7 +174,7 @@
 <li>你若有一笔大赢，是会落袋分掉，还是留着撑下一次跃迁？</li>
 </ol>
 <h2>5. 相关映射：用框架看一个国内样本（思维训练）</h2>
-<p>国内有个样本和这笔投资形成一组有意思的对照--<strong>今日资本徐新投京东</strong>：早期下注、长期持有、陪伴刘强东从自营电商长成零售基础设施，是典型的"看人 + 重注 + 不急退"样本。它和孙正义投阿里，是同一种资本心智的两种地域表达。用第 3 节的"切口 / 资产 / 控制权 / 跃迁"四步，去拆解今日资本投京东（或你自己的企业）：</p>
+<p>国内有个样本和这笔投资形成一组有意思的对照——<strong>今日资本徐新投京东</strong>：早期下注、长期持有、陪伴刘强东从自营电商长成零售基础设施，是典型的"看人 + 重注 + 不急退"样本。它和孙正义投阿里，是同一种资本心智的两种地域表达。用第 3 节的"切口 / 资产 / 控制权 / 跃迁"四步，去拆解今日资本投京东（或你自己的企业）：</p>
 <ol>
 <li>它当年的"切口"是哪一个被忽略的赛道？和你可能的切口，打法差在哪？</li>
 <li>它的"不可替代资产"是眼光还是生态？和孙正义的压舱石逻辑，相同不同在哪？</li>
@@ -84,39 +183,39 @@
 </ol>
 <p>这套四步不只对一级市场有效。任何"下注 + 持有"的决策，都能这么拆一遍自己的逻辑。训练几次，你看自己企业资本动作的思路会不一样。</p>
 <h2>6. 我读完后自己的一点想法</h2>
-<p>写完这篇，我最触动的不是 2900 倍，而是那句老话的资本版：<strong>一个人 / 一家企业最值钱的，从来不是被看见，是被需要且不可替。</strong>孙正义看清了阿里"被需要且不可替"，然后给了它十四年。你做自己的企业，最该守住的，也是这句：先把"被需要且不可替"的那一点磨出来，再给它足够长的时间--时间会替你放大它。</p>
-<h2>分支 B ｜ 向外连客户（跟我的客户分享）</h2>
-<h2>0. 你为什么读这个：用一个"经典回报"的好案例，跟客户聊到一起去</h2>
+<p>写完这篇，我最触动的不是 2900 倍，而是那句老话的资本版：<strong>一个人 / 一家企业最值钱的，从来不是被看见，是被需要且不可替。</strong>孙正义看清了阿里"被需要且不可替"，然后给了它十四年。你做自己的企业，最该守住的，也是这句：先把"被需要且不可替"的那一点磨出来，再给它足够长的时间——时间会替你放大它。</p><a class="branch-back" href="#branchGate">← 返回案例入口，换一个分支读</a></section>
+
+      <section class="branch-panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个"经典回报"的好案例，跟客户聊到一起去</h2>
 <p>高净值客户不缺一个"卖产品的人"，她缺一个能跟她在同一个资本语境里聊世界的人。</p>
-<p>你的门户有一句客户证言："以前看财报像天书，现在能跟家里管钱的先生平起平坐地聊资产配置了。"这句话泄露高净值女性最深的两层心理：<strong>第一，她长期被"降维"对待--先生、banker、顾问都默认她不懂；第二，她渴望的不是被服务，是被"平视"。</strong>孙正义这个案例，我的一个感受是：它是一张体面获客的入场券--你能用它证明"我和你在同一认知语境里"，而不是靠推销硬闯。不是"我懂比你多"的俯视，也不是凑上去讨好，是"我也在这个资本世界里，咱们对等聊"。</p>
+<p>你的门户有一句客户证言："以前看财报像天书，现在能跟家里管钱的先生平起平坐地聊资产配置了。"这句话泄露高净值女性最深的两层心理：<strong>第一，她长期被"降维"对待——先生、banker、顾问都默认她不懂；第二，她渴望的不是被服务，是被"平视"。</strong>孙正义这个案例，我的一个感受是：它是一张体面获客的入场券——你能用它证明"我和你在同一认知语境里"，而不是靠推销硬闯。不是"我懂比你多"的俯视，也不是凑上去讨好，是"我也在这个资本世界里，咱们对等聊"。</p>
 <h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
-<h3>(1) 2000 万 -&gt; 730 亿，约 2900 倍的神话</h3>
+<h3>① 2000 万 → 730 亿，约 2900 倍的神话</h3>
 <p>客户爱听"暴富故事"，你能接住：神话背后是"看人 + 敢赌 + 长期持有"，不是运气。你这么一拆，客户立刻知道你看得比热搜深。</p>
-<h3>(2) 10 分钟决策--顶级投资人的"直觉"从哪来</h3>
+<h3>② 10 分钟决策——顶级投资人的"直觉"从哪来</h3>
 <p>聊"认知变现"：真正的快决策，是背后十几年积累。这很适合跟"总觉得自己慢半拍"的客户聊：慢，是因为认知还没到。</p>
-<h3>(3) 长期持有 vs 频繁交易--谁是复利的朋友</h3>
+<h3>③ 长期持有 vs 频繁交易——谁是复利的朋友</h3>
 <p>很适合跟"爱择时 / 爱换手"的客户聊：你是在赚企业成长的钱，还是赚波动的钱？十四年持有和年年换手，结局天差地别。</p>
-<h3>(4) 一笔大赢撑起所有冒险--资产配置的"压舱石"</h3>
+<h3>④ 一笔大赢撑起所有冒险——资产配置的"压舱石"</h3>
 <p>聊客户自己的资产：有没有一笔"不用动、长期涨"的压舱石？没有它，所有的"机会"都只是冒险。</p>
 <h2>3. 你跟客户聊资本，可以用的一个框架</h2>
 <p>同一个案例，你带客户从浅到深，是四层递进，不是四个层级评判。目的是让她觉得"你带我一层层看透了"：</p>
 <ol>
-<li>先聊事件：孙正义 2000 年投阿里 2000 万，2014 年值 730 亿。--破冰，谁都接得上。</li>
-<li>再聊逻辑：为什么赚这么多？早期下注 + 长期持有 + 不干涉，吃的是 14 年复利。--展示你懂行，不止追热点。</li>
-<li>聊资本视角：一笔大赢如何成为"压舱石"，撑起后续所有冒险--这是控制权思维。--展示你深，能看到老板的难。</li>
-<li>聊资本与权力：从"10 分钟下注"到"日本首富"，资本权力最终落在"认知 + 耐心"。--让客户觉得你看得透。</li>
+<li>先聊事件：孙正义 2000 年投阿里 2000 万，2014 年值 730 亿。——破冰，谁都接得上。</li>
+<li>再聊逻辑：为什么赚这么多？早期下注 + 长期持有 + 不干涉，吃的是 14 年复利。——展示你懂行，不止追热点。</li>
+<li>聊资本视角：一笔大赢如何成为"压舱石"，撑起后续所有冒险——这是控制权思维。——展示你深，能看到老板的难。</li>
+<li>聊资本与权力：从"10 分钟下注"到"日本首富"，资本权力最终落在"认知 + 耐心"。——让客户觉得你看得透。</li>
 </ol>
 <h2>4. 下次跟客户聊，你可以试着抛的几个问题</h2>
 <p>这篇没有标准话术，留几个你能自然抛出的问题：</p>
 <ol>
-<li>一个 2000 万变 730 亿的故事--您觉得最贵的是钱，还是"忍住不卖"的定力？</li>
+<li>一个 2000 万变 730 亿的故事——您觉得最贵的是钱，还是"忍住不卖"的定力？</li>
 <li>您自己的资产，有没有一笔"不用动、长期涨"的压舱石？还是全在频繁换手？</li>
 <li>如果一位投资人问您"这只票拿不拿得住"，您会拿什么逻辑平起平坐地聊，而不是附和？</li>
 <li>用刚才那个"四层框架"，您给自己的资本认知打到第几层？身边很多人其实停在第一层（只看倍数）。</li>
 </ol>
 <h2>5. 相关映射：用框架聊一个国内样本（思维训练）</h2>
 <p>跟客户聊"对照样本"，<strong>今日资本徐新投京东</strong>几乎是孙正义的镜像：早期下注、长期持有、陪伴企业长成基础设施。同样是"看人 + 重注 + 不急退"，路径可对照。</p>
-<p>用第 3 节的"事件 -&gt; 逻辑 -&gt; 资本视角 -&gt; 资本与权力"框架，跟客户聊今日资本投京东：</p>
+<p>用第 3 节的"事件 → 逻辑 → 资本视角 → 资本与权力"框架，跟客户聊今日资本投京东：</p>
 <ol>
 <li>今日资本大众现在认知在第几层？它走到"资本与权力"这层了吗？</li>
 <li>它的"不可替代资产"是什么？和孙正义的压舱石逻辑，相同不同在哪？</li>
@@ -126,25 +225,21 @@
 <p>这套框架不只对一级市场有效。任何"经典回报"的样本，都能这么带客户拆。练几次，您跟客户聊资本的底气会不一样。</p>
 <h2>6. 我读完后自己的一点想法</h2>
 <p>写完这篇，我最触动的不是数字，是孙正义那股"忍住不卖"的定力：<strong>最贵的不是钱，是给时间以复利的耐心。</strong>他让我看清，能跟客户聊"暴富神话"不稀奇，能跟她聊"复利的敌人是躁动"才稀奇。你跟客户的关系，最稳的是这句：你不是卖产品的，你是那个能跟她对等聊"长期主义怎么落地"的人。</p>
-<hr /></div>
-
-    <div id="gate" class="gate">
-      <div class="gate-card">
-        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
-        <h2 id="gate-title">订阅会员专享</h2>
-        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-        <button id="unlock" class="gate-btn">解锁阅读</button>
-        <p id="gate-msg" class="gate-msg"></p>
-        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
-      </div>
+<hr /><a class="branch-back" href="#branchGate">← 返回案例入口，换一个分支读</a></section>
     </div>
-  </article>
+  </div>
 
-  <footer class="foot">
-    <span>强女思维 · 金融资本库</span>
-    <span>仅限付费会员</span>
-  </footer>
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="gate-lock"></div>
+      <h2 id="gate-title">订阅会员专享</h2>
+      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+      <button id="unlock" class="gate-btn">解锁阅读</button>
+      <p id="gate-msg" class="gate-msg"></p>
+      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    </div>
+  </div>
 </div>
 <script src="../../assets/app.js"></script>
 </body>

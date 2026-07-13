@@ -4,58 +4,157 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>泡泡玛特：从盲盒到IP帝国，Labubu 重启增长的资本故事 · 强女思维 · 金融资本库</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/styles.css">
+<style>
+  :root{
+    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
+    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
+    --white:#FFFFFF; --muted:#7A6B60;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
+    line-height:1.95;font-size:17px;}
+  .page{min-height:100vh;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
+    background:var(--bg);position:sticky;top:0;z-index:50;}
+  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
+  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
+    padding:6px 14px;border-radius:999px;background:var(--white);}
+  .topbar .greet{font-size:13px;color:var(--muted);}
+  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
+  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
+  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
+    border-bottom:1px solid var(--border);padding-bottom:16px;}
+  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
+  .choose b{color:var(--brand);}
+  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
+    padding-bottom:8px;border-bottom:1px solid var(--border);}
+  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
+  p{margin:12px 0;}
+  .lead{font-size:18px;}
+  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
+  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
+  ol,ul{margin:12px 0;padding-left:24px;}
+  li{margin:7px 0;}
+  .small{font-size:14px;color:var(--muted);}
+  .note{font-size:14px;color:var(--muted);font-style:italic;}
+  .divider{height:1px;background:var(--border);margin:40px 0;}
+  .yr{color:var(--muted);font-weight:700;}
+  /* 分支入口：两个 tag 卡，点进去用 :target 锚点展开（纯 CSS，无 JS，微信兼容） */
+  .branch-gate{margin:30px 0 6px;}
+  .branch-cards{display:flex;gap:14px;}
+  .branch-card{flex:1;display:block;text-decoration:none;cursor:pointer;
+    border:1px solid var(--accent);background:var(--white);color:var(--brand);
+    font-family:inherit;padding:18px 16px;border-radius:12px;transition:all .2s ease;}
+  .branch-card:hover{background:var(--surface);transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(51,37,27,.12);}
+  .branch-card .bc-tag{font-size:12px;letter-spacing:2px;color:var(--muted);font-weight:700;}
+  .branch-card .bc-title{font-size:17px;font-weight:700;margin:6px 0 4px;color:var(--brand);}
+  .branch-card .bc-sub{font-size:13px;color:var(--muted);line-height:1.5;}
+  .branch-card .bc-go{font-size:13px;color:var(--brand);font-weight:700;margin-top:10px;}
+  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
+  /* 分支纵深：默认隐藏，锚点命中才展开 */
+  .branch-panel{display:none;margin-top:26px;border-top:2px solid var(--border);padding-top:8px;}
+  .branch-panel:target{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:20px 0 4px;}
+  .branch-back{display:inline-block;margin:18px 0 4px;font-size:13px;color:var(--brand);
+    text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:6px 14px;background:var(--white);}
+  .branch-back:hover{background:var(--surface);}
+  /* 门禁（内联，复用 app.js） */
+  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
+  .gate.visible{display:flex;}
+  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
+    box-shadow:0 24px 60px rgba(51,37,27,.3);}
+  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
+  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
+  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
+  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
+    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
+  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .gate-btn:hover{background:var(--brand-hover);}
+  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
+  .gate-msg.err{color:#c0392b;}
+  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
+  #article-body.locked{display:none;}
+  @media (max-width:600px){
+    .wrap{padding:36px 18px 70px;}
+    h1{font-size:22px;}
+    .branch-cards{flex-direction:column;}
+    .branch-card{padding:16px 14px;}
+  }
+</style>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
-  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <span class="brand-sub" id="top-greet">Reader</span>
+    <a class="back" href="../../hall-cases.html">返回案例库</a>
+    <span id="top-greet" class="greet"></span>
   </header>
 
-  <article class="reader">
-    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
-    <div class="reader-meta">资本案例 · 第 21 篇</div>
-    <h1 class="reader-title">泡泡玛特：从盲盒到IP帝国，Labubu 重启增长的资本故事</h1>
-    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-11.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-12.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-13.jpg" alt="" loading="lazy">
-<i class="blk blk--gold"></i></div>
+  <div class="wrap">
+    <div id="article-body" class="locked">
+      <h1>泡泡玛特：从盲盒到IP帝国，Labubu 重启增长的资本故事</h1>
+      <div class="tagline">【女性向】【潮玩 IP】【港股】【情绪消费】　难度 ★★★☆☆　阅读 16 分钟　更新 2026.07</div>
 
-    <div id="lede" class="lede">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最迷人的，是它证明了：当物质过剩，人们愿意为"情绪、审美、身份"付溢价，而且付得相当慷慨...</div>
+      <div class="choose">
+        <b>▍怎么读这篇？</b><br>
+        上面是 <b>案例来龙去脉</b>（两类读者共读，先读完它）。<br>
+        然后按你的目标，<b>点下面的入口卡进入对应分支</b>——两个分支同源、各写纵深，落点完全不同：<br>
+        <b>· 把我的企业做好</b> → 视角向内，怎么用到自己企业。<br>
+        <b>· 跟我的客户分享</b> → 视角向外，怎么拿去跟高净值客户体面对话。
+      </div>
 
-    <div id="article-body" class="prose locked"><h2>案例来龙去脉：一个靠"盲盒"起家、被 Labubu 一把拉回千亿市值的IP样本</h2>
-<p>先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最迷人的，是它证明了：当物质过剩，人们愿意为"情绪、审美、身份"付溢价，而且付得相当慷慨。</p>
-<h3>1.1 来路：从泡泡杂货店到潮玩第一股（2010-2020）</h3>
+      <h2>案例背景｜案例来龙去脉：一个靠"盲盒"起家、被 Labubu 一把拉回千亿市值的IP样本</h2>
+<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最迷人的，是它证明了：当物质过剩，人们愿意为"情绪、审美、身份"付溢价，而且付得相当慷慨。</p>
+<h3>1.1 来路：从泡泡杂货店到潮玩第一股（2010–2020）</h3>
 <p>王宁 2010 年在北京创立泡泡玛特，最早是潮流杂货店；2015 年转型聚焦潮玩，签下 Molly，2016 年推盲盒，引爆"收集欲"。2020 年底港股上市（09992.HK），发行价 38.5 港元，彼时市场把它当"新消费明星"。</p>
 <h3>1.2 诞生分歧：它卖的不是玩具，是"情绪"</h3>
-<p>泡泡玛特把"无用的小玩具"卖成"有身份感的收藏"，核心客群是女性与年轻世代。它证明：当功能过剩，情绪、审美、身份才是稀缺品。这是它整个估值逻辑的底座--卖的是感觉，不是塑料。</p>
+<p>泡泡玛特把"无用的小玩具"卖成"有身份感的收藏"，核心客群是女性与年轻世代。它证明：当功能过剩，情绪、审美、身份才是稀缺品。这是它整个估值逻辑的底座——卖的是感觉，不是塑料。</p>
 <h3>1.3 上线即爆：盲盒经济学</h3>
 <p>盲盒用"未知 + 收集 + 社交"制造复购，Molly、Dimoo 等 IP 奠定基本盘。2020 上市时，市场为这套"成瘾机制"给足了想象空间，市值一度冲高。</p>
 <h3>1.4 成长弧：2024 被 Labubu 点燃</h3>
-<p>2024 年营收 130.4 亿元（+106.9%），经调整净利润 34.0 亿元（+185.9%）；2025 年营收约 371.2 亿元（+184.7%）。增长引擎是 Labubu（艺术家龙家升创作的 IP）全球爆火--从东南亚火到欧美，二手溢价数倍，拍卖会百万成交。一个 IP，把公司从增长焦虑里一把拉了回来。</p>
+<p>2024 年营收 130.4 亿元（+106.9%），经调整净利润 34.0 亿元（+185.9%）；2025 年营收约 371.2 亿元（+184.7%）。增长引擎是 Labubu（艺术家龙家升创作的 IP）全球爆火——从东南亚火到欧美，二手溢价数倍，拍卖会百万成交。一个 IP，把公司从增长焦虑里一把拉了回来。</p>
 <h3>1.5 资本弧：市值过山车</h3>
 <p>据公开报道，2025 年中市值一度突破 3500 亿港元（6 月 12 日约 3583 亿港元），较发行价累计涨数倍；随后随业绩与预期波动，2026 年初回落至约 2500 亿港元区间（2026.3.25 公布业绩后单日蒸发超 200 亿、约 2485 亿港元）。市值在千亿至三千亿+港元间剧烈摆动，被 Labubu 重启后屡创新高又回落。</p>
 <h3>1.6 竞争弧：它赢在"IP 运营"，不止"盲盒"</h3>
-<p>当市场以为泡泡玛特只是盲盒，它用 Labubu 证明自己是 IP 运营公司：签艺术家、做内容、做全球渠道。对比单纯卖玩具的，它的护城河是"持续造星 IP"的能力--这才是资本市场真正买单的部分。</p>
+<p>当市场以为泡泡玛特只是盲盒，它用 Labubu 证明自己是 IP 运营公司：签艺术家、做内容、做全球渠道。对比单纯卖玩具的，它的护城河是"持续造星 IP"的能力——这才是资本市场真正买单的部分。</p>
 <h3>1.7 悬念：Labubu 之后，下一个是谁</h3>
 <p>单一 IP 依赖是风险，Labubu 终有热度周期。泡泡玛特能否再造下一个现象级 IP、把"盲盒公司"彻底变成"IP 帝国"，决定它市值能不能稳在千亿之上。这又回到了 IP 公司的终极考题：你是在运营 IP，还是在赌一个 IP。</p>
-<h2>分支 A ｜ 向内做企业（把我的企业做好）</h2>
-<h2>0. 你为什么读这个：把别人的弯路，变成自己的捷径</h2>
-<p>泡泡玛特最值得琢磨的，是它怎么把"没用的小东西"卖成"被争抢的资产"。对做任何面向女性、面向年轻客群生意的人，这是一本活教材--它讲的是"情绪怎么定价"。</p>
+
+      <div class="divider"></div>
+
+      <div class="branch-gate" id="branchGate">
+        <div class="branch-cards">
+          <a class="branch-card" href="#branchA">
+            <div class="bc-tag">分支 A · 向内</div>
+            <div class="bc-title">{{BTN_A_SHORT}}</div>
+            <div class="bc-sub">把我的企业做好</div>
+            <div class="bc-go">点此进入 →</div>
+          </a>
+          <a class="branch-card" href="#branchB">
+            <div class="bc-tag">分支 B · 向外</div>
+            <div class="bc-title">{{BTN_B_SHORT}}</div>
+            <div class="bc-sub">跟我的客户分享</div>
+            <div class="bc-go">点此进入 →</div>
+          </a>
+        </div>
+        <p class="hint">入口卡是两个独立的阅读视角。进入后向下是只属于该目标的纵深内容；想换视角，回到卡片重选即可。</p>
+      </div>
+
+      <section class="branch-panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人的弯路，变成自己的捷径</h2>
+<p>泡泡玛特最值得琢磨的，是它怎么把"没用的小东西"卖成"被争抢的资产"。对做任何面向女性、面向年轻客群生意的人，这是一本活教材——它讲的是"情绪怎么定价"。</p>
 <h2>2. 案例主角这一步步，对你做企业意味着什么</h2>
-<h3>(1) 卖情绪比卖功能值钱</h3>
+<h3>① 卖情绪比卖功能值钱</h3>
 <p>女性愿意为审美和身份付溢价，功能反而最不稀缺。你的产品，有没有"非功能"的那层价值？</p>
-<h3>(2) 盲盒是机制，不是产品</h3>
+<h3>② 盲盒是机制，不是产品</h3>
 <p>复购靠"未知 + 收集"，不是靠东西本身好用。你能不能给你的生意设计一套"让人想再来"的机制？</p>
-<h3>(3) IP 要"造星"而非"买断"</h3>
+<h3>③ IP 要"造星"而非"买断"</h3>
 <p>签艺术家、做内容，才能持续产出。买一个现成 IP，热闹一时；建一套造星机制，才长久。</p>
-<h3>(4) 警惕单一 IP 依赖，持续增长靠 IP 矩阵</h3>
+<h3>④ 警惕单一 IP 依赖，持续增长靠 IP 矩阵</h3>
 <p>Labubu 救了它，也可能困住它。你的增长，是绑在一个爆款上，还是长在一组 IP 上？</p>
 <h2>3. 你自己的企业，可以对照这四步</h2>
 <ol>
@@ -81,25 +180,25 @@
 </ol>
 <p>据公开报道，名创优品以 IP 联名与全球化见长，可作为本案例的对照样本。</p>
 <h2>6. 我读完后自己的一点想法</h2>
-<p>落到"守住被需要且不可替"：泡泡被需要，是因为它把"无用之美"做成了身份表达。它的不可替，是持续造 IP 的能力。任何面向人的生意，先把"被情感需要"做厚，资本才会追--别只学它卖盲盒，要学它造情绪。</p>
-<h2>分支 B ｜ 向外连客户（跟我的客户分享）</h2>
-<h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
-<p>女性客户、年轻客户里，几乎没人没听过 Labubu。泡泡玛特是一个天然能聊出共鸣的资本案例--它讲的是"情绪怎么变成钱、IP 怎么变成市值"，而这个话题，客户自己就带着感受。</p>
+<p>落到"守住被需要且不可替"：泡泡被需要，是因为它把"无用之美"做成了身份表达。它的不可替，是持续造 IP 的能力。任何面向人的生意，先把"被情感需要"做厚，资本才会追——别只学它卖盲盒，要学它造情绪。</p><a class="branch-back" href="#branchGate">← 返回案例入口，换一个分支读</a></section>
+
+      <section class="branch-panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
+<p>女性客户、年轻客户里，几乎没人没听过 Labubu。泡泡玛特是一个天然能聊出共鸣的资本案例——它讲的是"情绪怎么变成钱、IP 怎么变成市值"，而这个话题，客户自己就带着感受。</p>
 <h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
-<h3>(1) 情绪消费是真实的大生意，不是小打小闹</h3>
+<h3>① 情绪消费是真实的大生意，不是小打小闹</h3>
 <p>一个塑料娃娃撑起三千亿市值，足以刷新客户对"非刚需"的认知。</p>
-<h3>(2) 盲盒机制制造复购，是商业设计</h3>
+<h3>② 盲盒机制制造复购，是商业设计</h3>
 <p>帮客户看懂：让人"上瘾"的，不是东西，是机制。这层能聊出消费心理的纵深。</p>
-<h3>(3) Labubu 全球爆火，说明中国 IP 能出海</h3>
-<p>从东南亚到欧美，二手溢价数倍--这是关于"文化输出"的好话题，客户容易有共鸣。</p>
-<h3>(4) 市值过山车，提醒"单一 IP 依赖"的风险</h3>
+<h3>③ Labubu 全球爆火，说明中国 IP 能出海</h3>
+<p>从东南亚到欧美，二手溢价数倍——这是关于"文化输出"的好话题，客户容易有共鸣。</p>
+<h3>④ 市值过山车，提醒"单一 IP 依赖"的风险</h3>
 <p>涨到 3500 亿又回落，帮客户理解：再火的 IP，也有热度周期，估值要打折看。</p>
 <h2>3. 你跟客户聊资本，可以用的一个框架</h2>
 <ol>
 <li>先聊事件：泡泡玛特 2024 靠 Labubu 营收翻倍、市值一度破 3500 亿港元，后又回落至约 2500 亿。</li>
 <li>再聊逻辑：卖情绪 + 盲盒机制 + IP 运营，让它从玩具商变 IP 公司。</li>
 <li>聊资本视角：市场为"增长确定性"给高溢价，但单一 IP 热度周期带来估值波动。</li>
-<li>聊资本与权力：谁掌握 IP 与艺术家，谁就掌握定价权--泡泡用独家签约锁定，这层很适合聊"无形资产的控制权"。</li>
+<li>聊资本与权力：谁掌握 IP 与艺术家，谁就掌握定价权——泡泡用独家签约锁定，这层很适合聊"无形资产的控制权"。</li>
 </ol>
 <h2>4. 下次跟客户聊，你可以试着抛的几个问题</h2>
 <ol>
@@ -114,30 +213,26 @@
 <li>事件：泡泡自造 Labubu 引爆，名创靠联名扩圈。</li>
 <li>逻辑：情绪溢价 + 机制复购，是两类公司共同的底层。</li>
 <li>资本视角：市场为"可复制的增长"给溢价，为"单一依赖"打折。</li>
-<li>资本与权力：IP 的控制权在谁手里，谁就掌握定价--用框架带客户看"无形资产怎么变成市值"。</li>
+<li>资本与权力：IP 的控制权在谁手里，谁就掌握定价——用框架带客户看"无形资产怎么变成市值"。</li>
 </ol>
 <p>据公开报道，名创优品以 IP 联名与全球化见长，可作为本案例的对照样本。</p>
 <h2>6. 我读完后自己的一点想法</h2>
 <p>落到"你是她对等聊世界的人"：聊泡泡玛特，不是显摆你知道 Labubu，而是帮客户看懂"情绪、IP、市值"这条价值链。你能把潮流讲成资本逻辑，而不是只聊娃娃多可爱，你就是她对等聊世界的人。</p>
-<hr /></div>
-
-    <div id="gate" class="gate">
-      <div class="gate-card">
-        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
-        <h2 id="gate-title">订阅会员专享</h2>
-        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-        <button id="unlock" class="gate-btn">解锁阅读</button>
-        <p id="gate-msg" class="gate-msg"></p>
-        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
-      </div>
+<hr /><a class="branch-back" href="#branchGate">← 返回案例入口，换一个分支读</a></section>
     </div>
-  </article>
+  </div>
 
-  <footer class="foot">
-    <span>强女思维 · 金融资本库</span>
-    <span>仅限付费会员</span>
-  </footer>
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="gate-lock"></div>
+      <h2 id="gate-title">订阅会员专享</h2>
+      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+      <button id="unlock" class="gate-btn">解锁阅读</button>
+      <p id="gate-msg" class="gate-msg"></p>
+      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    </div>
+  </div>
 </div>
 <script src="../../assets/app.js"></script>
 </body>

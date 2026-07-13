@@ -4,59 +4,158 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>惠普 110 亿收购 Autonomy：科技史上最贵的一记闷棍 · 强女思维 · 金融资本库</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/styles.css">
+<style>
+  :root{
+    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
+    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
+    --white:#FFFFFF; --muted:#7A6B60;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
+    line-height:1.95;font-size:17px;}
+  .page{min-height:100vh;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
+    background:var(--bg);position:sticky;top:0;z-index:50;}
+  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
+  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
+    padding:6px 14px;border-radius:999px;background:var(--white);}
+  .topbar .greet{font-size:13px;color:var(--muted);}
+  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
+  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
+  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
+    border-bottom:1px solid var(--border);padding-bottom:16px;}
+  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
+  .choose b{color:var(--brand);}
+  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
+    padding-bottom:8px;border-bottom:1px solid var(--border);}
+  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
+  p{margin:12px 0;}
+  .lead{font-size:18px;}
+  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
+  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
+  ol,ul{margin:12px 0;padding-left:24px;}
+  li{margin:7px 0;}
+  .small{font-size:14px;color:var(--muted);}
+  .note{font-size:14px;color:var(--muted);font-style:italic;}
+  .divider{height:1px;background:var(--border);margin:40px 0;}
+  .yr{color:var(--muted);font-weight:700;}
+  /* 分支入口：两个 tag 卡，点进去用 :target 锚点展开（纯 CSS，无 JS，微信兼容） */
+  .branch-gate{margin:30px 0 6px;}
+  .branch-cards{display:flex;gap:14px;}
+  .branch-card{flex:1;display:block;text-decoration:none;cursor:pointer;
+    border:1px solid var(--accent);background:var(--white);color:var(--brand);
+    font-family:inherit;padding:18px 16px;border-radius:12px;transition:all .2s ease;}
+  .branch-card:hover{background:var(--surface);transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(51,37,27,.12);}
+  .branch-card .bc-tag{font-size:12px;letter-spacing:2px;color:var(--muted);font-weight:700;}
+  .branch-card .bc-title{font-size:17px;font-weight:700;margin:6px 0 4px;color:var(--brand);}
+  .branch-card .bc-sub{font-size:13px;color:var(--muted);line-height:1.5;}
+  .branch-card .bc-go{font-size:13px;color:var(--brand);font-weight:700;margin-top:10px;}
+  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
+  /* 分支纵深：默认隐藏，锚点命中才展开 */
+  .branch-panel{display:none;margin-top:26px;border-top:2px solid var(--border);padding-top:8px;}
+  .branch-panel:target{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:20px 0 4px;}
+  .branch-back{display:inline-block;margin:18px 0 4px;font-size:13px;color:var(--brand);
+    text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:6px 14px;background:var(--white);}
+  .branch-back:hover{background:var(--surface);}
+  /* 门禁（内联，复用 app.js） */
+  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
+  .gate.visible{display:flex;}
+  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
+    box-shadow:0 24px 60px rgba(51,37,27,.3);}
+  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
+  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
+  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
+  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
+    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
+  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .gate-btn:hover{background:var(--brand-hover);}
+  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
+  .gate-msg.err{color:#c0392b;}
+  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
+  #article-body.locked{display:none;}
+  @media (max-width:600px){
+    .wrap{padding:36px 18px 70px;}
+    h1{font-size:22px;}
+    .branch-cards{flex-direction:column;}
+    .branch-card{padding:16px 14px;}
+  }
+</style>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
-  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <span class="brand-sub" id="top-greet">Reader</span>
+    <a class="back" href="../../hall-cases.html">返回案例库</a>
+    <span id="top-greet" class="greet"></span>
   </header>
 
-  <article class="reader">
-    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
-    <div class="reader-meta">资本案例 · 第 16 篇</div>
-    <h1 class="reader-title">惠普 110 亿收购 Autonomy：科技史上最贵的一记闷棍</h1>
-    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-06.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-07.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-08.jpg" alt="" loading="lazy">
-<i class="blk blk--gold"></i></div>
+  <div class="wrap">
+    <div id="article-body" class="locked">
+      <h1>惠普 110 亿收购 Autonomy：科技史上最贵的一记闷棍</h1>
+      <div class="tagline">【跨境并购失败】【尽职调查】【商誉减值】【治理失控】　难度 ★★★★☆　阅读 17 分钟　更新 2026.07</div>
 
-    <div id="lede" class="lede">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最有价值的，恰恰是一个全球最大 PC 厂商，如何用 110 亿美元买来科技史上最贵的教训...</div>
+      <div class="choose">
+        <b>▍怎么读这篇？</b><br>
+        上面是 <b>案例来龙去脉</b>（两类读者共读，先读完它）。<br>
+        然后按你的目标，<b>点下面的入口卡进入对应分支</b>——两个分支同源、各写纵深，落点完全不同：<br>
+        <b>· 把我的企业做好</b> → 视角向内，怎么用到自己企业。<br>
+        <b>· 跟我的客户分享</b> → 视角向外，怎么拿去跟高净值客户体面对话。
+      </div>
 
-    <div id="article-body" class="prose locked"><h2>案例来龙去脉：一笔"转型赌注"如何一年减记 88 亿</h2>
-<p>先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最有价值的，恰恰是一个全球最大 PC 厂商，如何用 110 亿美元买来科技史上最贵的教训之一。</p>
-<h3>1.1 来路：惠普的"软件转型"焦虑（2010-2011）</h3>
+      <h2>案例背景｜案例来龙去脉：一笔"转型赌注"如何一年减记 88 亿</h2>
+<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最有价值的，恰恰是一个全球最大 PC 厂商，如何用 110 亿美元买来科技史上最贵的教训之一。</p>
+<h3>1.1 来路：惠普的"软件转型"焦虑（2010–2011）</h3>
 <p>2010 年，惠普还是全球最大 PC 厂商，但硬件增长见顶，管理层一心想从硬件转向高利润的软件 / 企业服务。契机在 2011 年：时任 CEO 李艾科（Léo Apotheker）主导寻软件标的。关键人物是李艾科，以及 Autonomy 的操盘者迈克·林奇（Mike Lynch，被媒体称作"英国比尔·盖茨"）。这场"硬件巨头买软件新贵"的戏，从动机上就埋了错配。</p>
 <h3>1.2 蜕变：110 亿的"世纪收购"（2011.8）</h3>
-<p>2011 年 8 月，惠普宣布以约 <strong>110 亿美元</strong>收购英国软件公司 Autonomy（企业搜索 / 大数据软件）。Autonomy 当时年营收约 <strong>10 亿美元</strong>，110 亿对价对应极高溢价--约 10 倍营收、数十倍利润。李艾科的意图，是用 Autonomy 撑起"软件帝国"，对标 IBM / Oracle。戏剧性的是，仅过约 6 周，李艾科就被董事会赶下台（2011 年 9 月），惠特曼（Meg Whitman）接任 CEO--<strong>收购决策人和执行人已经不是同一拨人</strong>，裂痕从第一天就存在。</p>
+<p>2011 年 8 月，惠普宣布以约 <strong>110 亿美元</strong>收购英国软件公司 Autonomy（企业搜索 / 大数据软件）。Autonomy 当时年营收约 <strong>10 亿美元</strong>，110 亿对价对应极高溢价——约 10 倍营收、数十倍利润。李艾科的意图，是用 Autonomy 撑起"软件帝国"，对标 IBM / Oracle。戏剧性的是，仅过约 6 周，李艾科就被董事会赶下台（2011 年 9 月），惠特曼（Meg Whitman）接任 CEO——<strong>收购决策人和执行人已经不是同一拨人</strong>，裂痕从第一天就存在。</p>
 <h3>1.3 引爆：减记 88 亿（2012.11）</h3>
 <p>2012 年 11 月 20 日，惠普宣布 Autonomy 在收购前存在"会计欺诈"，对该笔资产减记（减值）约 <strong>88 亿美元</strong>。指控要点：Autonomy 前管理层在收购前约 2.5 年，通过虚报硬件转售、瞒报成本等手法，夸大约 <strong>7.09 亿美元</strong>营收。消息一出，惠普当日股价重挫约 <strong>12%</strong>。林奇坚决否认，反称是惠普自己管理不善、把减值甩锅。一笔收购，几乎把对价蒸发了约 80%。</p>
 <h3>1.4 成长弧：没有成长，只有缩水</h3>
-<p>收购后 Autonomy 的业务并未如预期整合进惠普软件体系，反而持续拖累。88 亿减记，相当于收购价的约 80%--也就是说，这笔"转型赌注"几乎在账面上一夜归零。惠普的软件梦，没有靠它做成，反而背上了沉重的商誉包袱。</p>
-<h3>1.5 资本弧：法律战与落幕（2012-2024）</h3>
-<p>惠普随后起诉林奇及前 CFO 欺诈，索赔约 40-50 亿美元；林奇反诉惠普诽谤。2024 年 6 月，英国高等法院作出裁决（部分支持惠普，但判赔金额远低于其索赔，具体以公开裁决为准）；同月，林奇在意大利的游艇事故中身亡（2024 年 8 月前），这桩旷日持久的法律战以极具戏剧性的方式落幕。据公开报道，惠普就股东集体诉讼达成和解，支付约 <strong>1 亿美元</strong>（具体数额见公开报道）。</p>
+<p>收购后 Autonomy 的业务并未如预期整合进惠普软件体系，反而持续拖累。88 亿减记，相当于收购价的约 80%——也就是说，这笔"转型赌注"几乎在账面上一夜归零。惠普的软件梦，没有靠它做成，反而背上了沉重的商誉包袱。</p>
+<h3>1.5 资本弧：法律战与落幕（2012–2024）</h3>
+<p>惠普随后起诉林奇及前 CFO 欺诈，索赔约 40–50 亿美元；林奇反诉惠普诽谤。2024 年 6 月，英国高等法院作出裁决（部分支持惠普，但判赔金额远低于其索赔，具体以公开裁决为准）；同月，林奇在意大利的游艇事故中身亡（2024 年 8 月前），这桩旷日持久的法律战以极具戏剧性的方式落幕。据公开报道，惠普就股东集体诉讼达成和解，支付约 <strong>1 亿美元</strong>（具体数额见公开报道）。</p>
 <h3>1.6 竞争弧：对比谁</h3>
-<p>横向看，IBM / Oracle 的软件转型算成功，惠普的算典型失败；再把镜头拉宽，微软 2013 年后收购诺基亚手机业务并减记约 76 亿美元，同样是"跨界并购高溢价-&gt;减值"的剧本。跨境、跨界、高溢价并购的失败率，被这两笔交易钉在了教科书里。</p>
+<p>横向看，IBM / Oracle 的软件转型算成功，惠普的算典型失败；再把镜头拉宽，微软 2013 年后收购诺基亚手机业务并减记约 76 亿美元，同样是"跨界并购高溢价→减值"的剧本。跨境、跨界、高溢价并购的失败率，被这两笔交易钉在了教科书里。</p>
 <h3>1.7 悬念：并购教训的延续</h3>
 <p>Autonomy 的技术后来被并入惠普企业（HPE）软件，品牌逐渐淡出。真正留下的，是对所有买家的提醒：尽职调查失效、溢价失控、文化整合缺位，三件事只要占一样，巨额并购就可能变成减记。这个悬念，至今还在无数会议室里重演。</p>
-<h2>分支 A ｜ 向内做企业（把我的企业做好）</h2>
-<h2>0. 你为什么读这个：把别人 110 亿买来的教训，变成自己的尽调清单</h2>
+
+      <div class="divider"></div>
+
+      <div class="branch-gate" id="branchGate">
+        <div class="branch-cards">
+          <a class="branch-card" href="#branchA">
+            <div class="bc-tag">分支 A · 向内</div>
+            <div class="bc-title">{{BTN_A_SHORT}}</div>
+            <div class="bc-sub">把我的企业做好</div>
+            <div class="bc-go">点此进入 →</div>
+          </a>
+          <a class="branch-card" href="#branchB">
+            <div class="bc-tag">分支 B · 向外</div>
+            <div class="bc-title">{{BTN_B_SHORT}}</div>
+            <div class="bc-sub">跟我的客户分享</div>
+            <div class="bc-go">点此进入 →</div>
+          </a>
+        </div>
+        <p class="hint">入口卡是两个独立的阅读视角。进入后向下是只属于该目标的纵深内容；想换视角，回到卡片重选即可。</p>
+      </div>
+
+      <section class="branch-panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人 110 亿买来的教训，变成自己的尽调清单</h2>
 <p>巨头也会交学费。惠普这 88 亿减记，最该被读成一份"并购前必查清单"，而不是吃瓜素材。</p>
-<p>我读它的一个感受：很多做企业的人以为"大公司尽调一定专业"，惠普恰恰证明--决策层脱节 + 溢价失控 + 尽调形式化，巨头一样翻车。你对照的，应该是自己的并购刹车，不是它的体量。</p>
+<p>我读它的一个感受：很多做企业的人以为"大公司尽调一定专业"，惠普恰恰证明——决策层脱节 + 溢价失控 + 尽调形式化，巨头一样翻车。你对照的，应该是自己的并购刹车，不是它的体量。</p>
 <h2>2. 惠普这一步步，对你做企业意味着什么</h2>
-<h3>(1) 溢价买的是"故事"还是"现金流"</h3>
+<h3>① 溢价买的是"故事"还是"现金流"</h3>
 <p>10 倍营收、数十倍利润的溢价，买的是增长叙事。对你：你出高价买资产，买的是真实自由现金流，还是别人讲的增长故事？故事一破，减记就来了。</p>
-<h3>(2) 尽职调查不是形式--自己的团队要下场</h3>
+<h3>② 尽职调查不是形式——自己的团队要下场</h3>
 <p>惠普过度依赖卖方与审计，独立验证不足。对你：重大交易，你自己的财务 / 法务有没有独立下场核数？把尽调外包给"相信对方"，是最贵的省事。</p>
-<h3>(3) 收购后整合--买完才是开始</h3>
+<h3>③ 收购后整合——买完才是开始</h3>
 <p>惠普买完没把 Autonomy 真正整合进体系。对你：你并购后的"100 天计划"写了吗？没计划的整合，比不买更贵。</p>
-<h3>(4) 决策与执行层脱节--换帅也不能翻车</h3>
+<h3>④ 决策与执行层脱节——换帅也不能翻车</h3>
 <p>李艾科下课，收购照推。对你：你的重大资本决策，有没有"即使换帅也不翻车"的机制？把公司命运绑在一个人的判断上，是治理漏洞。</p>
 <h2>3. 你自己的企业，可以对照这四步</h2>
 <p>同一个案例，落到"怎么做企业"上，是四个可执行的动作，不是四个抽象层级：</p>
@@ -64,7 +163,7 @@
 <li>切口：你并购的第一刀，是"补短板"还是"追热点"？惠普追"软件故事"是教训，方向错了再贵也白搭。</li>
 <li>资产：你估值锚的是"可比公司溢价"还是"自由现金流"？Autonomy 锚错了锚点，才撑出虚高对价。</li>
 <li>控制权：你并购的治理，有没有"独立尽调委员会"这道闸？惠普缺的正是这道刹车。</li>
-<li>跃迁：并购有没有让你"从硬件跳软件"？惠普没完成跃迁，反而减值--跃迁要靠真整合，不靠发布会。</li>
+<li>跃迁：并购有没有让你"从硬件跳软件"？惠普没完成跃迁，反而减值——跃迁要靠真整合，不靠发布会。</li>
 </ol>
 <h2>4. 合上文章，想想你自己的四件事</h2>
 <p>这篇没有标准答案，留四个问题给你自己：</p>
@@ -84,41 +183,41 @@
 </ol>
 <p>这套四步不只对科技并购有效。任何"大买小、跨行买"的交易，都能这么拆一遍。训练几次，你看自己并购风险眼光会不一样。</p>
 <h2>6. 我读完后自己的一点想法</h2>
-<p>写完这篇，我最触动的不是 88 亿的数字，而是那句没说出口的常识：一个人 / 一家企业最值钱的，从来不是被看见，是被需要且不可替。惠普最贵的教训，是它以为"买下品牌就买下了能力"--可真正值钱的资产，是经得起独立尽调的真实价值，不是PPT 上的溢价。这中间的认知，才是并购真正的护城河。你做自己的企业，最该守住的，也是这句：先把"被需要且不可替"的真实价值磨出来，再谈放大。</p>
-<h2>分支 B ｜ 向外连客户（跟我的客户分享）</h2>
-<h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
+<p>写完这篇，我最触动的不是 88 亿的数字，而是那句没说出口的常识：一个人 / 一家企业最值钱的，从来不是被看见，是被需要且不可替。惠普最贵的教训，是它以为"买下品牌就买下了能力"——可真正值钱的资产，是经得起独立尽调的真实价值，不是PPT 上的溢价。这中间的认知，才是并购真正的护城河。你做自己的企业，最该守住的，也是这句：先把"被需要且不可替"的真实价值磨出来，再谈放大。</p><a class="branch-back" href="#branchGate">← 返回案例入口，换一个分支读</a></section>
+
+      <section class="branch-panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
 <p>高净值客户不缺一个"卖产品的人"，她缺一个能跟她在同一个资本语境里聊世界的人。</p>
 <blockquote>
-<p>客户心声 你的门户里有一句客户证言："以前看财报像天书，现在能跟家里管钱的先生平起平坐地聊资产配置了。"这句话泄露高净值女性最深的两层心理：第一，她长期被"降维"对待--先生、banker、顾问都默认她不懂；第二，她渴望的不是被服务，是被"平视"。</p>
+<p>客户心声 你的门户里有一句客户证言："以前看财报像天书，现在能跟家里管钱的先生平起平坐地聊资产配置了。"这句话泄露高净值女性最深的两层心理：第一，她长期被"降维"对待——先生、banker、顾问都默认她不懂；第二，她渴望的不是被服务，是被"平视"。</p>
 </blockquote>
-<p>惠普这个案例，我的一个感受是：它其实是一张体面获客的入场券--你能用它证明"我和你在同一认知语境里"，而不是靠推销硬闯。不是"我懂比你多"的俯视，也不是凑上去讨好，是"我也在这个资本世界里，咱们对等聊"。</p>
+<p>惠普这个案例，我的一个感受是：它其实是一张体面获客的入场券——你能用它证明"我和你在同一认知语境里"，而不是靠推销硬闯。不是"我懂比你多"的俯视，也不是凑上去讨好，是"我也在这个资本世界里，咱们对等聊"。</p>
 <h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
-<h3>(1) 110 亿 -&gt; 88 亿减记--"巨头也会交学费"</h3>
+<h3>① 110 亿 → 88 亿减记——"巨头也会交学费"</h3>
 <p>很多客户以为大公司尽调一定专业。你能接住这句话，带她看另一面：巨头决策层脱节 + 溢价失控，一样减记 80%。这比任何风险提示都更"懂老板的难"。</p>
-<h3>(2) 会计欺诈信号--带她识别"营收与现金流背离"</h3>
+<h3>② 会计欺诈信号——带她识别"营收与现金流背离"</h3>
 <p>Autonomy 被指虚报 7.09 亿营收，破绽在"账面营收好看、现金回不来"。你能带客户识别这类信号：高溢价并购里，最该盯的是经营性现金流，不是利润表。</p>
-<h3>(3) 跨境并购的治理雷</h3>
+<h3>③ 跨境并购的治理雷</h3>
 <p>跟有海外资产的客户聊：买下股权容易，独立验证难、文化整合更难。这个点很适合聊她自己海外布局的盲区。</p>
-<h3>(4) 溢价并购 = 股价跌</h3>
+<h3>④ 溢价并购 = 股价跌</h3>
 <p>惠普公告减记当日股价跌 12%。你能聊"并购公告后的市场反应"：市场用脚投票，往往比老板更早看清减值风险。</p>
 <h2>3. 你跟客户聊资本，可以用的一个框架</h2>
 <p>同一个案例，你带客户从浅到深，是四层递进，不是四个层级评判。目的是让她觉得"你带我一层层看透了"：</p>
 <ol>
-<li>先聊事件：惠普 110 亿买 Autonomy，一年后减记 88 亿。--破冰，谁都接得上。</li>
-<li>再聊逻辑：为什么减值？高溢价 + 尽调失效 + 会计欺诈疑云--展示你懂行，不止追热点。</li>
-<li>聊资本视角：决策人和执行人脱节、并购后没整合--展示你深，能看到老板做资本时的治理漏洞。</li>
-<li>聊资本与权力：从"买下品牌"到"买下减值"，真正的权力是经得起尽调的真实价值--让客户觉得你看得透，聊到了别人聊不到的层。</li>
+<li>先聊事件：惠普 110 亿买 Autonomy，一年后减记 88 亿。——破冰，谁都接得上。</li>
+<li>再聊逻辑：为什么减值？高溢价 + 尽调失效 + 会计欺诈疑云——展示你懂行，不止追热点。</li>
+<li>聊资本视角：决策人和执行人脱节、并购后没整合——展示你深，能看到老板做资本时的治理漏洞。</li>
+<li>聊资本与权力：从"买下品牌"到"买下减值"，真正的权力是经得起尽调的真实价值——让客户觉得你看得透，聊到了别人聊不到的层。</li>
 </ol>
 <h2>4. 下次跟客户聊，你可以试着抛的几个问题</h2>
 <p>这篇没有标准话术，留几个你能自然抛出的问题：</p>
 <ol>
-<li>惠普"110 亿买、88 亿减"--您自己投的跨界并购，有没有类似的高溢价隐患？</li>
+<li>惠普"110 亿买、88 亿减"——您自己投的跨界并购，有没有类似的高溢价隐患？</li>
 <li>用刚才那个"四层框架"，您给自己的资本认知打到第几层？身边很多人其实停在第一层（只看估值）。</li>
 <li>如果一位老板问您"这笔收购值不值"，您会拿什么证据平起平坐地聊，而不是附和？</li>
-<li>Autonomy"营收好看现金回不来"--您自己资产里，有没有这类"看着好、摸不着"的？</li>
+<li>Autonomy"营收好看现金回不来"——您自己资产里，有没有这类"看着好、摸不着"的？</li>
 </ol>
 <h2>5. 相关映射：用框架聊一个"跨界减值"样本（思维训练）</h2>
-<p>跟客户聊"对照组"，<strong>微软收购诺基亚手机业务</strong> 几乎是惠普的镜像：同样巨头跨界、同样高溢价、同样巨额减记。用第 3 节的"事件 -&gt; 逻辑 -&gt; 资本视角 -&gt; 资本与权力"框架，跟客户聊微软 - 诺基亚：</p>
+<p>跟客户聊"对照组"，<strong>微软收购诺基亚手机业务</strong> 几乎是惠普的镜像：同样巨头跨界、同样高溢价、同样巨额减记。用第 3 节的"事件 → 逻辑 → 资本视角 → 资本与权力"框架，跟客户聊微软 - 诺基亚：</p>
 <ol>
 <li>微软 - 诺基亚这个事件，大众现在认知在第几层？它走到"资本与权力"这层了吗？</li>
 <li>它怎么把"买品牌"做成"减记"？和惠普的教训对照，给客户看跨界并购的共同雷区。</li>
@@ -128,25 +227,21 @@
 <p>这个框架不只聊科技并购。任何"大买小、跨行买"的故事，都能这么带客户一层层拆。练熟了，你和她聊的就不只是新闻，是认知。</p>
 <h2>6. 我读完后自己的一点想法</h2>
 <p>写完这篇，我最想跟客户分享的不是 88 亿的减记，而是那个被反复验证的常识：真正站得住的资产，从来不是被看见，是被真实需要且不可替。你带客户看透这一层，她记住的就不是"你又给我讲了个案例"，而是"你是那个能跟我对等聊世界的人"。这，才是这类案例在你手里最值钱的地方。</p>
-<hr /></div>
-
-    <div id="gate" class="gate">
-      <div class="gate-card">
-        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
-        <h2 id="gate-title">订阅会员专享</h2>
-        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-        <button id="unlock" class="gate-btn">解锁阅读</button>
-        <p id="gate-msg" class="gate-msg"></p>
-        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
-      </div>
+<hr /><a class="branch-back" href="#branchGate">← 返回案例入口，换一个分支读</a></section>
     </div>
-  </article>
+  </div>
 
-  <footer class="foot">
-    <span>强女思维 · 金融资本库</span>
-    <span>仅限付费会员</span>
-  </footer>
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="gate-lock"></div>
+      <h2 id="gate-title">订阅会员专享</h2>
+      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+      <button id="unlock" class="gate-btn">解锁阅读</button>
+      <p id="gate-msg" class="gate-msg"></p>
+      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    </div>
+  </div>
 </div>
 <script src="../../assets/app.js"></script>
 </body>

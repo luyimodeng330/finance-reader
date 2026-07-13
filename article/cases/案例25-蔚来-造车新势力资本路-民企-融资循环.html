@@ -4,68 +4,167 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>蔚来：造车新势力的融资循环与生死腾挪 · 强女思维 · 金融资本库</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/styles.css">
+<style>
+  :root{
+    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
+    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
+    --white:#FFFFFF; --muted:#7A6B60;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
+    line-height:1.95;font-size:17px;}
+  .page{min-height:100vh;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
+    background:var(--bg);position:sticky;top:0;z-index:50;}
+  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
+  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
+    padding:6px 14px;border-radius:999px;background:var(--white);}
+  .topbar .greet{font-size:13px;color:var(--muted);}
+  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
+  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
+  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
+    border-bottom:1px solid var(--border);padding-bottom:16px;}
+  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
+  .choose b{color:var(--brand);}
+  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
+    padding-bottom:8px;border-bottom:1px solid var(--border);}
+  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
+  p{margin:12px 0;}
+  .lead{font-size:18px;}
+  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
+  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
+  ol,ul{margin:12px 0;padding-left:24px;}
+  li{margin:7px 0;}
+  .small{font-size:14px;color:var(--muted);}
+  .note{font-size:14px;color:var(--muted);font-style:italic;}
+  .divider{height:1px;background:var(--border);margin:40px 0;}
+  .yr{color:var(--muted);font-weight:700;}
+  /* 分支入口：两个 tag 卡，点进去用 :target 锚点展开（纯 CSS，无 JS，微信兼容） */
+  .branch-gate{margin:30px 0 6px;}
+  .branch-cards{display:flex;gap:14px;}
+  .branch-card{flex:1;display:block;text-decoration:none;cursor:pointer;
+    border:1px solid var(--accent);background:var(--white);color:var(--brand);
+    font-family:inherit;padding:18px 16px;border-radius:12px;transition:all .2s ease;}
+  .branch-card:hover{background:var(--surface);transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(51,37,27,.12);}
+  .branch-card .bc-tag{font-size:12px;letter-spacing:2px;color:var(--muted);font-weight:700;}
+  .branch-card .bc-title{font-size:17px;font-weight:700;margin:6px 0 4px;color:var(--brand);}
+  .branch-card .bc-sub{font-size:13px;color:var(--muted);line-height:1.5;}
+  .branch-card .bc-go{font-size:13px;color:var(--brand);font-weight:700;margin-top:10px;}
+  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
+  /* 分支纵深：默认隐藏，锚点命中才展开 */
+  .branch-panel{display:none;margin-top:26px;border-top:2px solid var(--border);padding-top:8px;}
+  .branch-panel:target{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:20px 0 4px;}
+  .branch-back{display:inline-block;margin:18px 0 4px;font-size:13px;color:var(--brand);
+    text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:6px 14px;background:var(--white);}
+  .branch-back:hover{background:var(--surface);}
+  /* 门禁（内联，复用 app.js） */
+  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
+  .gate.visible{display:flex;}
+  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
+    box-shadow:0 24px 60px rgba(51,37,27,.3);}
+  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
+  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
+  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
+  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
+    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
+  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .gate-btn:hover{background:var(--brand-hover);}
+  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
+  .gate-msg.err{color:#c0392b;}
+  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
+  #article-body.locked{display:none;}
+  @media (max-width:600px){
+    .wrap{padding:36px 18px 70px;}
+    h1{font-size:22px;}
+    .branch-cards{flex-direction:column;}
+    .branch-card{padding:16px 14px;}
+  }
+</style>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
-  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <span class="brand-sub" id="top-greet">Reader</span>
+    <a class="back" href="../../hall-cases.html">返回案例库</a>
+    <span id="top-greet" class="greet"></span>
   </header>
 
-  <article class="reader">
-    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
-    <div class="reader-meta">资本案例 · 第 25 篇</div>
-    <h1 class="reader-title">蔚来：造车新势力的融资循环与生死腾挪</h1>
-    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-01.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-02.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-03.jpg" alt="" loading="lazy">
-<i class="blk blk--gold"></i></div>
+  <div class="wrap">
+    <div id="article-body" class="locked">
+      <h1>蔚来：造车新势力的融资循环与生死腾挪</h1>
+      <div class="tagline">【民企 + 融资循环】【造车新势力】【双重主要上市】【合肥纾困】　难度 ★★★★☆　阅读 18 分钟　更新 2026.07</div>
 
-    <div id="lede" class="lede">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最有价值的，恰恰是它怎么在离破产只差一步时，靠一座城市的 70 亿和一套融资循环活了过来...</div>
+      <div class="choose">
+        <b>▍怎么读这篇？</b><br>
+        上面是 <b>案例来龙去脉</b>（两类读者共读，先读完它）。<br>
+        然后按你的目标，<b>点下面的入口卡进入对应分支</b>——两个分支同源、各写纵深，落点完全不同：<br>
+        <b>· 把我的企业做好</b> → 视角向内，怎么用到自己企业。<br>
+        <b>· 跟我的客户分享</b> → 视角向外，怎么拿去跟高净值客户体面对话。
+      </div>
 
-    <div id="article-body" class="prose locked"><h2>案例来龙去脉：一家靠"融资-造车-再融资"活下来的公司，怎么在至暗时刻被一座城市救回</h2>
-<p>先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最有价值的，恰恰是它怎么在离破产只差一步时，靠一座城市的 70 亿和一套融资循环活了过来。</p>
-<h3>1.1 来路：李斌的"造车梦"与多轮融资（2014-2017）</h3>
-<p>2014.11，李斌创立蔚来，讲的是一个"用户企业"的故事--不只卖车，是建社群、做服务。早期融资极其豪华：2015 天使轮李斌个人出资 <strong>1.5 亿美元</strong>，腾讯、高瓴、红杉等入局；此后多轮，股东名单拉到腾讯、高瓴、红杉、淡马锡、Baillie Gifford、愉悦资本等。它用 EP9 超跑、NIO Day 发布会把"高端 + 社群"的调性先立起来--先让资本和用户"信"，再谈交付。</p>
+      <h2>案例背景｜案例来龙去脉：一家靠"融资—造车—再融资"活下来的公司，怎么在至暗时刻被一座城市救回</h2>
+<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最有价值的，恰恰是它怎么在离破产只差一步时，靠一座城市的 70 亿和一套融资循环活了过来。</p>
+<h3>1.1 来路：李斌的"造车梦"与多轮融资（2014–2017）</h3>
+<p>2014.11，李斌创立蔚来，讲的是一个"用户企业"的故事——不只卖车，是建社群、做服务。早期融资极其豪华：2015 天使轮李斌个人出资 <strong>1.5 亿美元</strong>，腾讯、高瓴、红杉等入局；此后多轮，股东名单拉到腾讯、高瓴、红杉、淡马锡、Baillie Gifford、愉悦资本等。它用 EP9 超跑、NIO Day 发布会把"高端 + 社群"的调性先立起来——先让资本和用户"信"，再谈交付。</p>
 <h3>1.2 蜕变：美股上市，中国新能源车赴美第一股（2018）</h3>
-<p>2018.9.12，蔚来在纽交所上市（NIO），发行价 <strong>6.26 美元</strong>，募资约 <strong>10 亿美元</strong>，成为"中国新能源车赴美第一股"。它刻意和特斯拉差异化：特斯拉拼技术与降价，蔚来拼"用户企业"--NIO House 体验空间、一键加电、社群运营，把车做成"生活方式会员"。这套叙事在资本市场很吃香，但也意味着：它比传统车企更烧钱。</p>
-<h3>1.3 上线即爆：ES8 / ES6 交付，却很快坠入至暗（2018-2019）</h3>
+<p>2018.9.12，蔚来在纽交所上市（NIO），发行价 <strong>6.26 美元</strong>，募资约 <strong>10 亿美元</strong>，成为"中国新能源车赴美第一股"。它刻意和特斯拉差异化：特斯拉拼技术与降价，蔚来拼"用户企业"——NIO House 体验空间、一键加电、社群运营，把车做成"生活方式会员"。这套叙事在资本市场很吃香，但也意味着：它比传统车企更烧钱。</p>
+<h3>1.3 上线即爆：ES8 / ES6 交付，却很快坠入至暗（2018–2019）</h3>
 <p>2018 ES8 交付、2019 ES6 上市，销量起来，但隐患同时爆发：交付瓶颈、自燃召回、现金流急速告急。股价从上市约 6 美元一路跌到 <strong>2019 年 10 月最低的约 1.19 美元</strong>，市场流传"离破产只差一个月"。一家上市才一年的明星车企，差点死在产能和现金上。</p>
 <h3>1.4 成长弧：合肥 70 亿纾困，绝地反转（2020）</h3>
-<p>转折点来自一座城市。2020.4.29，合肥市建设投资控股、国投招商、安徽高新产投等战略投资者，向<strong>蔚来中国投资 70 亿元人民币</strong>，换取 <strong>24.1% 股权</strong>，蔚来中国估值约 <strong>290 亿元</strong>，总部落地合肥；李斌保留控制权。这笔钱把蔚来从死亡线拉回。效果立竿见影：股价从不到 2 美元，涨到 2021.1 最高的 <strong>66.99 美元</strong>--合肥"抄底"成了中国地方政府风投的经典神话。</p>
-<h3>1.5 资本弧：美股 + 港股双重主要上市 + 中东资本接力（2021-2023）</h3>
-<p>活过来后，蔚来把融资通道开得更宽。2022.3.10，在港交所<strong>双重主要上市（9866.HK）</strong>，采用"介绍上市"、不募资，成为"蔚小理"中又一家聚齐港股的公司--相当于给美股投资者开了一扇退出的备份门。2023，中东资本接力：阿布扎比投资机构 CYVN 先投 <strong>11 亿美元</strong>（6 月），再投 <strong>22 亿美元</strong>（12 月），成为第一大股东，但<strong>李斌保持最多投票权</strong>，CYVN 持股约 20%+。多轮融资循环，撑住了它持续的研发与换电投入。</p>
+<p>转折点来自一座城市。2020.4.29，合肥市建设投资控股、国投招商、安徽高新产投等战略投资者，向<strong>蔚来中国投资 70 亿元人民币</strong>，换取 <strong>24.1% 股权</strong>，蔚来中国估值约 <strong>290 亿元</strong>，总部落地合肥；李斌保留控制权。这笔钱把蔚来从死亡线拉回。效果立竿见影：股价从不到 2 美元，涨到 2021.1 最高的 <strong>66.99 美元</strong>——合肥"抄底"成了中国地方政府风投的经典神话。</p>
+<h3>1.5 资本弧：美股 + 港股双重主要上市 + 中东资本接力（2021–2023）</h3>
+<p>活过来后，蔚来把融资通道开得更宽。2022.3.10，在港交所<strong>双重主要上市（9866.HK）</strong>，采用"介绍上市"、不募资，成为"蔚小理"中又一家聚齐港股的公司——相当于给美股投资者开了一扇退出的备份门。2023，中东资本接力：阿布扎比投资机构 CYVN 先投 <strong>11 亿美元</strong>（6 月），再投 <strong>22 亿美元</strong>（12 月），成为第一大股东，但<strong>李斌保持最多投票权</strong>，CYVN 持股约 20%+。多轮融资循环，撑住了它持续的研发与换电投入。</p>
 <h3>1.6 竞争弧：它赢在"用户企业"叙事与换电生态</h3>
-<p>对特斯拉：蔚来走高端社群 + 换电，不正面拼降价。对"蔚小理"：理想押增程、小鹏押智驾，蔚来押<strong>换电 + BaaS（电池租用）</strong>。它把换电网络向第三方开放，长安、吉利等品牌已接入--硬件微利、靠后端服务与生态赚钱，像"打印机便宜、墨盒赚钱"的模型。这条路的争议一直很大：重资产、回报慢。</p>
+<p>对特斯拉：蔚来走高端社群 + 换电，不正面拼降价。对"蔚小理"：理想押增程、小鹏押智驾，蔚来押<strong>换电 + BaaS（电池租用）</strong>。它把换电网络向第三方开放，长安、吉利等品牌已接入——硬件微利、靠后端服务与生态赚钱，像"打印机便宜、墨盒赚钱"的模型。这条路的争议一直很大：重资产、回报慢。</p>
 <h3>1.7 悬念：盈利拐点与现金消耗</h3>
-<p>据公开报道，蔚来在 2025 实现<strong>单季度首次盈利（约 12.5 亿元）</strong>--成立 11 年第一次--但全年仍承压，研发与换电的持续大额投入没停。截至 2026.7 股价约 <strong>4.78 美元</strong>，远低于 2021 年高点。一个问题悬在这里：靠融资循环撑起来的车企，到底能不能真正跑通盈利、不再依赖下一轮？</p>
-<h2>分支 A ｜ 向内做企业（把我的企业做好）</h2>
-<h2>0. 你为什么读这个：把别人的"融资循环"，变成自己的现金流清单</h2>
+<p>据公开报道，蔚来在 2025 实现<strong>单季度首次盈利（约 12.5 亿元）</strong>——成立 11 年第一次——但全年仍承压，研发与换电的持续大额投入没停。截至 2026.7 股价约 <strong>4.78 美元</strong>，远低于 2021 年高点。一个问题悬在这里：靠融资循环撑起来的车企，到底能不能真正跑通盈利、不再依赖下一轮？</p>
+
+      <div class="divider"></div>
+
+      <div class="branch-gate" id="branchGate">
+        <div class="branch-cards">
+          <a class="branch-card" href="#branchA">
+            <div class="bc-tag">分支 A · 向内</div>
+            <div class="bc-title">{{BTN_A_SHORT}}</div>
+            <div class="bc-sub">把我的企业做好</div>
+            <div class="bc-go">点此进入 →</div>
+          </a>
+          <a class="branch-card" href="#branchB">
+            <div class="bc-tag">分支 B · 向外</div>
+            <div class="bc-title">{{BTN_B_SHORT}}</div>
+            <div class="bc-sub">跟我的客户分享</div>
+            <div class="bc-go">点此进入 →</div>
+          </a>
+        </div>
+        <p class="hint">入口卡是两个独立的阅读视角。进入后向下是只属于该目标的纵深内容；想换视角，回到卡片重选即可。</p>
+      </div>
+
+      <section class="branch-panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人的"融资循环"，变成自己的现金流清单</h2>
 <p>蔚来最值钱的不是车，是它"在快没钱时，总能融到下一轮"的能力。</p>
-<p>读它，对你做企业的人，价值不是"学造车"，是"学续命"。我自己的一个感受是：很多做企业的人卡在"只会赚钱、不会融资"--行情好时无所谓，一到至暗就断流。蔚来这个案例，把"怎么用叙事 + 资产在快死时换来救命钱"摊开了，你对照的，应该是自己的现金流安全垫，不是它的车。</p>
+<p>读它，对你做企业的人，价值不是"学造车"，是"学续命"。我自己的一个感受是：很多做企业的人卡在"只会赚钱、不会融资"——行情好时无所谓，一到至暗就断流。蔚来这个案例，把"怎么用叙事 + 资产在快死时换来救命钱"摊开了，你对照的，应该是自己的现金流安全垫，不是它的车。</p>
 <h2>2. 蔚来这一步步，对你做企业意味着什么</h2>
 <p>把蔚来当成主角，看它每一步动作背后的取舍。对你最有用的，不是"它多会烧"，而是"它怎么在没米下锅时还能借到米"。</p>
-<h3>(1) 早期多轮融资 + 高端叙事：先让人信的能力</h3>
+<h3>① 早期多轮融资 + 高端叙事：先让人信的能力</h3>
 <p>它上市前就把"用户企业"的故事讲透，资本才肯在没交付时下注。很多做企业的人产品没影就谈估值，或有了产品却讲不清"为什么是你"。对你：你有没有一个"让人先信"的叙事？在没钱时，叙事本身就是融资资产。</p>
-<h3>(2) 至暗时刻的现金流管理：差一个月破产靠什么续命</h3>
+<h3>② 至暗时刻的现金流管理：差一个月破产靠什么续命</h3>
 <p>2019 它离出清只差一步，靠的是此前铺好的股东关系和可抵押的产能。很多做企业的人不设现金缓冲，潮水一退就裸泳。对你：你的现金够撑几个月？至暗时靠什么续命？</p>
-<h3>(3) 合肥纾困：把总部 / 资产落到一个城市换资源</h3>
+<h3>③ 合肥纾困：把总部 / 资产落到一个城市换资源</h3>
 <p>它用"中国总部 + 产能落地合肥"换来了 70 亿。很多做企业的人只盯着财务投资人，看不见地方政府也是"带资源的股东"。对你：你愿不愿意用股权，换地方政府的钱、地、场景？</p>
-<h3>(4) 双重上市 + 中东资本：融资通道要多开几条</h3>
+<h3>④ 双重上市 + 中东资本：融资通道要多开几条</h3>
 <p>美股、港股、中东主权基金，它把退路和钱路都铺好。很多做企业的人只靠一条融资路，一断就死。对你：你的融资通道有几条？只靠一条会不会断？</p>
 <h2>3. 你自己的企业，可以对照这四步动作（切口 / 资产 / 控制权 / 跃迁）</h2>
 <p>同一个案例，落到"怎么做企业"上，是四个可执行的动作，不是四个抽象层级：</p>
 <ol>
 <li>切口：你有没有一个"让人先信"的叙事（像"用户企业"）？在没钱时，叙事就是你的融资资产，别只埋头做产品。</li>
-<li>资产：你真正能抵押 / 入股的"硬资产"是什么--工厂、技术、数据、还是用户社群？蔚来用"中国总部 + 产能"换了合肥 70 亿。</li>
-<li>控制权：多轮融资后你怎么保住话事权？李斌让出股份、却用投票权设计留住控制--控制权是谈出来的，不是股份自然给的。</li>
-<li>跃迁：从"一家烧钱公司"跳到"被城市 / 国家资本背书"，融资通道从市场到政府到中东--多元才活，单一必断。</li>
+<li>资产：你真正能抵押 / 入股的"硬资产"是什么——工厂、技术、数据、还是用户社群？蔚来用"中国总部 + 产能"换了合肥 70 亿。</li>
+<li>控制权：多轮融资后你怎么保住话事权？李斌让出股份、却用投票权设计留住控制——控制权是谈出来的，不是股份自然给的。</li>
+<li>跃迁：从"一家烧钱公司"跳到"被城市 / 国家资本背书"，融资通道从市场到政府到中东——多元才活，单一必断。</li>
 </ol>
 <h2>4. 合上文章，想想你自己的四件事</h2>
 <p>这篇没有标准答案，留四个问题给你自己：</p>
@@ -79,34 +178,34 @@
 <p>和蔚来形成残酷反照的是 <strong>威马汽车</strong>：同样是第一波造车新势力，却没能跑通融资循环，最终陷入困境、申请破产重整。用第 3 节的"切口 / 资产 / 控制权 / 跃迁"四步，去拆威马（或你自己的企业）：</p>
 <ol>
 <li>它的"切口"也是新能源，为什么叙事没能持续换来钱？和你可能的差距差在哪？</li>
-<li>它的"资产"问题在哪--重资产工厂是不是变成了包袱而非筹码？</li>
+<li>它的"资产"问题在哪——重资产工厂是不是变成了包袱而非筹码？</li>
 <li>它的"控制权 / 融资节奏"出了什么错？和蔚来"多通道续命"对照，你更想避开哪条路？</li>
 <li>如果用这四步写一段"我的企业现金流诊断"，你会怎么写？最该补的是哪一步？</li>
 </ol>
 <p>这套四步不只对车企有效。任何"靠融资循环长大"的企业，都能这么拆一遍自己的现金安全垫。训练几次，你看生死的眼光会不一样。</p>
 <h2>6. 我读完后自己的一点想法</h2>
-<p>写完这篇，我最触动的不是它冲到 67 美元，而是那句藏在背后的逻辑：<strong>一家企业最值钱的，从来不是被看见，是被需要且不可替。</strong>蔚来之所以能在至暗被合肥、被中东资本接力救回，是因为它成了"用户愿意社群化追随、城市愿意下注"的节点--多方都需要它，才有人愿意在它快死时接盘。这中间的认知转折，才是它真正的护城河：你做自己的企业，最该守住的，也是这句--先把"被需要且不可替"的那一点磨出来，再谈融资和规模。</p>
-<h2>分支 B ｜ 向外连客户（跟我的客户分享）</h2>
-<h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
+<p>写完这篇，我最触动的不是它冲到 67 美元，而是那句藏在背后的逻辑：<strong>一家企业最值钱的，从来不是被看见，是被需要且不可替。</strong>蔚来之所以能在至暗被合肥、被中东资本接力救回，是因为它成了"用户愿意社群化追随、城市愿意下注"的节点——多方都需要它，才有人愿意在它快死时接盘。这中间的认知转折，才是它真正的护城河：你做自己的企业，最该守住的，也是这句——先把"被需要且不可替"的那一点磨出来，再谈融资和规模。</p><a class="branch-back" href="#branchGate">← 返回案例入口，换一个分支读</a></section>
+
+      <section class="branch-panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
 <p>高净值客户不缺一个"卖产品的人"，她缺一个能跟她在同一个资本语境里聊世界的人。</p>
-<p>你的门户有一句客户证言："以前看财报像天书，现在能跟家里管钱的先生平起平坐地聊资产配置了。"这句话泄露高净值女性最深的两层心理：<strong>第一，她长期被"降维"对待--先生、banker、顾问都默认她不懂；第二，她渴望的不是被服务，是被"平视"。</strong>蔚来这个案例，我的一个感受是：它是一张体面获客的入场券--从"合肥 70 亿抄底"到"中东主权基金接力"，你能带她看透"企业生死背后的资本逻辑"，证明你和她在同一认知语境，而不是靠推销硬闯。</p>
+<p>你的门户有一句客户证言："以前看财报像天书，现在能跟家里管钱的先生平起平坐地聊资产配置了。"这句话泄露高净值女性最深的两层心理：<strong>第一，她长期被"降维"对待——先生、banker、顾问都默认她不懂；第二，她渴望的不是被服务，是被"平视"。</strong>蔚来这个案例，我的一个感受是：它是一张体面获客的入场券——从"合肥 70 亿抄底"到"中东主权基金接力"，你能带她看透"企业生死背后的资本逻辑"，证明你和她在同一认知语境，而不是靠推销硬闯。</p>
 <h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
 <p>把蔚来当成素材，看哪些点能让你跟客户从破冰聊到深。不是背数据，是借它的故事，露出你的认知。</p>
-<h3>(1) 合肥 70 亿"抄底"--地方政府怎么当风投</h3>
-<p>很多客户只把政府当监管者。你能接住这句话，带她看：合肥用 70 亿换 24.1% 股权 + 总部落地，赌成了风投神话。这不是八卦，是让她知道你看得比热搜深--你聊的是"地方资本的逻辑"，不是"救了一家车企"。</p>
-<h3>(2) 股价从 1 美元到 67 美元--极端波动里的机会与风险</h3>
+<h3>① 合肥 70 亿"抄底"——地方政府怎么当风投</h3>
+<p>很多客户只把政府当监管者。你能接住这句话，带她看：合肥用 70 亿换 24.1% 股权 + 总部落地，赌成了风投神话。这不是八卦，是让她知道你看得比热搜深——你聊的是"地方资本的逻辑"，不是"救了一家车企"。</p>
+<h3>② 股价从 1 美元到 67 美元——极端波动里的机会与风险</h3>
 <p>这个过山车特别适合跟有股价的客户聊：同一家公司，一年半涨 50 倍又跌回去。你能带她看"故事"和"现金"怎么共同决定价格，比任何理财话术都让她觉得你看得透。</p>
-<h3>(3) 李斌保控制权--老板怎么在多次融资后还说了算</h3>
-<p>客户里很多是企业家或家属，这个"让股份、留投票权"的故事，比任何话术都能让她觉得"你懂老板的难"--她自己的企业，融资后话事权还在吗？</p>
-<h3>(4) 换电开放--重资产怎么变成生态</h3>
+<h3>③ 李斌保控制权——老板怎么在多次融资后还说了算</h3>
+<p>客户里很多是企业家或家属，这个"让股份、留投票权"的故事，比任何话术都能让她觉得"你懂老板的难"——她自己的企业，融资后话事权还在吗？</p>
+<h3>④ 换电开放——重资产怎么变成生态</h3>
 <p>蔚来把烧钱的换电网络开放给别家，把成本项变生态项。这点很适合跟"重资产怕套牢"的客户聊：你的重投入，有没有可能变成别人也来用的网络？</p>
-<h2>3. 你跟客户聊资本，可以用的四层框架（事件 -&gt; 逻辑 -&gt; 资本视角 -&gt; 资本与权力）</h2>
+<h2>3. 你跟客户聊资本，可以用的四层框架（事件 → 逻辑 → 资本视角 → 资本与权力）</h2>
 <p>同一个案例，你带客户从浅到深，是四层递进，不是四个层级评判。目的是让她觉得"你带我一层层看透了"：</p>
 <ol>
-<li>事件：蔚来一度跌到 1 美元，合肥 70 亿救回，又冲到 67 美元。--破冰，谁都接得上。</li>
-<li>逻辑：它活下来靠"融资循环 + 用户叙事"，不是单一产品能打--展示你懂行，不止追热点。</li>
-<li>资本视角：合肥用 70 亿换 24.1% 股权 + 总部，双赢；后来中东资本接力。资本买的是"不被出清"的期权。--展示你深，能看到老板的难。</li>
-<li>资本与权力：当一家企业被城市和国家资本同时背书，它的权力来自"被多方需要"--这是它至暗还能续命的根。--让她觉得你看得透，聊到了别人聊不到的层。</li>
+<li>事件：蔚来一度跌到 1 美元，合肥 70 亿救回，又冲到 67 美元。——破冰，谁都接得上。</li>
+<li>逻辑：它活下来靠"融资循环 + 用户叙事"，不是单一产品能打——展示你懂行，不止追热点。</li>
+<li>资本视角：合肥用 70 亿换 24.1% 股权 + 总部，双赢；后来中东资本接力。资本买的是"不被出清"的期权。——展示你深，能看到老板的难。</li>
+<li>资本与权力：当一家企业被城市和国家资本同时背书，它的权力来自"被多方需要"——这是它至暗还能续命的根。——让她觉得你看得透，聊到了别人聊不到的层。</li>
 </ol>
 <h2>4. 下次跟客户聊，你可以试着抛的几个问题</h2>
 <p>这篇没有标准话术，留几个你能自然抛出的问题：</p>
@@ -117,7 +216,7 @@
 <li>如果一项重资产投入能开放成生态（像换电），您的"重"有没有可能变"轻"？</li>
 </ol>
 <h2>5. 相关映射：用框架聊"风投之城"的打法（思维训练）</h2>
-<p>跟客户聊"对照样本"，<strong>合肥的"风投之城"模式</strong>几乎是蔚来案例的放大版：京东方（面板）、长鑫（存储）、蔚来（整车），合肥用地方政府资本一连押中几条硬科技赛道。用第 3 节的"事件 -&gt; 逻辑 -&gt; 资本视角 -&gt; 资本与权力"框架，跟客户聊合肥：</p>
+<p>跟客户聊"对照样本"，<strong>合肥的"风投之城"模式</strong>几乎是蔚来案例的放大版：京东方（面板）、长鑫（存储）、蔚来（整车），合肥用地方政府资本一连押中几条硬科技赛道。用第 3 节的"事件 → 逻辑 → 资本视角 → 资本与权力"框架，跟客户聊合肥：</p>
 <ol>
 <li>合肥的"事件"层：它怎么从"最不出名省会"变成"风投神话"？</li>
 <li>它的"逻辑"层：政府当投资人，赌的是产业集聚还是单笔回报？</li>
@@ -126,26 +225,22 @@
 </ol>
 <p>这套四层框架不只对蔚来有效。任何"企业生死 + 资本接力"的新闻，你都能带客户这么拆。训练几次，你跟客户聊资本的深度会不一样。</p>
 <h2>6. 我读完后自己的一点想法</h2>
-<p>写完这篇，我最想跟客户分享的不是股价涨跌，而是那句：<strong>一家企业最被记住的，不是它多大，是它"被需要且不可替"到了哪一层。</strong>蔚来在至暗能被一座城市、一个主权基金接力救回，靠的是它成了多方都需要、都舍不得它死的节点。你带客户聊透这个，她记住的不是几个数字，是"你带我把一个生死故事看透了"。你不是卖产品的，是能和她平起平坐、聊资本世界的人--这，才是这个案例真正帮你连上的东西。</p>
-<hr /></div>
-
-    <div id="gate" class="gate">
-      <div class="gate-card">
-        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
-        <h2 id="gate-title">订阅会员专享</h2>
-        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-        <button id="unlock" class="gate-btn">解锁阅读</button>
-        <p id="gate-msg" class="gate-msg"></p>
-        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
-      </div>
+<p>写完这篇，我最想跟客户分享的不是股价涨跌，而是那句：<strong>一家企业最被记住的，不是它多大，是它"被需要且不可替"到了哪一层。</strong>蔚来在至暗能被一座城市、一个主权基金接力救回，靠的是它成了多方都需要、都舍不得它死的节点。你带客户聊透这个，她记住的不是几个数字，是"你带我把一个生死故事看透了"。你不是卖产品的，是能和她平起平坐、聊资本世界的人——这，才是这个案例真正帮你连上的东西。</p>
+<hr /><a class="branch-back" href="#branchGate">← 返回案例入口，换一个分支读</a></section>
     </div>
-  </article>
+  </div>
 
-  <footer class="foot">
-    <span>强女思维 · 金融资本库</span>
-    <span>仅限付费会员</span>
-  </footer>
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="gate-lock"></div>
+      <h2 id="gate-title">订阅会员专享</h2>
+      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+      <button id="unlock" class="gate-btn">解锁阅读</button>
+      <p id="gate-msg" class="gate-msg"></p>
+      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    </div>
+  </div>
 </div>
 <script src="../../assets/app.js"></script>
 </body>
