@@ -40,32 +40,26 @@
   .note{font-size:14px;color:var(--muted);font-style:italic;}
   .divider{height:1px;background:var(--border);margin:40px 0;}
   .yr{color:var(--muted);font-weight:700;}
-  /* 分支入口：两个 tag 卡，点进去用 :target 锚点展开（纯 CSS，无 JS，微信兼容） */
-  .branch-gate{margin:30px 0 6px;}
-  .branch-cards{display:flex;gap:16px;}
-  .branch-card{flex:1;display:flex;flex-direction:column;min-height:148px;
+  /* 分支入口：两个精致 tag 卡，点进去用 :target 锚点展开（纯 CSS，无 JS，微信兼容） */
+  .branch-gate{margin:24px 0 8px;}
+  .branch-cards{display:flex;gap:12px;}
+  .branch-card{flex:1;display:flex;flex-direction:column;
     text-decoration:none;cursor:pointer;font-family:inherit;
-    padding:22px 20px;border-radius:16px;transition:all .25s ease;position:relative;overflow:hidden;
-    border:1px solid var(--border);background:var(--white);}
-  /* 分支 A · 向内：酒红调，自体成长 */
-  .branch-card.a{background:linear-gradient(155deg,#FFFFFF 0%,#F7E9E6 100%);
-    border-color:#E4C9C2;}
-  .branch-card.a:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(67,28,30,.18);
-    border-color:var(--brand);}
-  /* 分支 B · 向外：暖灰蓝调，对外连接 */
-  .branch-card.b{background:linear-gradient(155deg,#FFFFFF 0%,#EBEEF1 100%);
-    border-color:#CBD3D9;}
-  .branch-card.b:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(67,28,30,.14);
-    border-color:var(--brand);}
-  .bc-eye{position:absolute;top:16px;right:18px;font-size:13px;font-weight:700;letter-spacing:1px;
-    color:var(--brand);opacity:.5;}
-  .branch-card .bc-tag{font-size:12px;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:10px;}
-  .branch-card .bc-title{font-size:19px;font-weight:700;line-height:1.35;color:var(--brand);}
-  .branch-card .bc-sub{font-size:14px;color:var(--muted);line-height:1.55;margin-top:6px;}
-  .branch-card .bc-go{margin-top:auto;padding-top:14px;font-size:13px;font-weight:700;color:var(--brand);
-    display:flex;align-items:center;gap:6px;}
-  .branch-card .bc-go .arrow{transition:transform .25s ease;display:inline-block;}
-  .branch-card:hover .bc-go .arrow{transform:translateX(5px);}
+    padding:12px 14px;border-radius:10px;transition:all .2s ease;position:relative;overflow:hidden;
+    border:1px solid transparent;color:#431C1E;}
+  /* 分支 A · 向内：浅粉色 #E6C2C0 */
+  .branch-card.a{background:#E6C2C0;}
+  .branch-card.a:hover{background:#D9B0AE;transform:translateY(-2px);box-shadow:0 6px 16px rgba(67,28,30,.14);}
+  /* 分支 B · 向外：浅棕黄色 #CBA877 */
+  .branch-card.b{background:#CBA877;}
+  .branch-card.b:hover{background:#C09A6B;transform:translateY(-2px);box-shadow:0 6px 16px rgba(67,28,30,.14);}
+  .bc-label{font-size:10px;letter-spacing:1px;font-weight:700;opacity:.7;margin-bottom:6px;}
+  .branch-card .bc-title{font-size:15px;font-weight:700;line-height:1.4;}
+  .branch-card .bc-sub{font-size:11px;line-height:1.5;margin-top:3px;opacity:.8;}
+  .branch-card .bc-go{margin-top:auto;padding-top:10px;font-size:11px;font-weight:700;
+    display:flex;align-items:center;gap:4px;}
+  .branch-card .bc-go .arrow{transition:transform .2s ease;display:inline-block;}
+  .branch-card:hover .bc-go .arrow{transform:translateX(4px);}
   .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
   /* 分支纵深：默认隐藏，锚点命中才展开 */
   .branch-panel{display:none;margin-top:26px;border-top:2px solid var(--border);padding-top:8px;}
@@ -96,8 +90,11 @@
   @media (max-width:600px){
     .wrap{padding:36px 18px 70px;}
     h1{font-size:22px;}
-    .branch-cards{flex-direction:column;gap:12px;}
-    .branch-card{padding:18px 16px;min-height:0;}
+    .branch-cards{flex-direction:column;gap:10px;}
+    .branch-card{padding:12px 14px;}
+    .bc-label{font-size:10px;}
+    .branch-card .bc-title{font-size:15px;}
+    .branch-card .bc-sub{font-size:11px;}
   }
 </style>
 </head>
@@ -144,15 +141,13 @@
       <div class="branch-gate" id="branchGate">
         <div class="branch-cards">
           <a class="branch-card a" href="#branchA">
-            <span class="bc-eye">视角 · 向内</span>
-            <div class="bc-tag">分支 A</div>
+            <span class="bc-label">分支 A · 向内</span>
             <div class="bc-title">向内做企业</div>
             <div class="bc-sub">把我的企业做好</div>
             <div class="bc-go">点此进入<span class="arrow">→</span></div>
           </a>
           <a class="branch-card b" href="#branchB">
-            <span class="bc-eye">视角 · 向外</span>
-            <div class="bc-tag">分支 B</div>
+            <span class="bc-label">分支 B · 向外</span>
             <div class="bc-title">向外连客户</div>
             <div class="bc-sub">跟我的客户分享</div>
             <div class="bc-go">点此进入<span class="arrow">→</span></div>
