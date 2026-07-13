@@ -4,108 +4,34 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>孙正义的 OpenAI 豪赌：346 亿美元下去，浮盈约 450 亿 · 强女思维 · 金融资本库</title>
-<style>
-  :root{
-    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
-    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
-    --white:#FFFFFF; --muted:#7A6B60;
-  }
-  body{margin:0;background:var(--bg);color:var(--text);
-    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
-    line-height:1.95;font-size:17px;}
-  .page{min-height:100vh;display:flex;flex-direction:column;}
-  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
-    background:var(--bg);position:sticky;top:0;z-index:50;}
-  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
-  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
-    padding:6px 14px;border-radius:999px;background:var(--white);}
-  .topbar .greet{font-size:13px;color:var(--muted);}
-  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
-  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
-  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
-    border-bottom:1px solid var(--border);padding-bottom:16px;}
-  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
-    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
-  .choose b{color:var(--brand);}
-  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
-    padding-bottom:8px;border-bottom:1px solid var(--border);}
-  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
-  p{margin:12px 0;}
-  .lead{font-size:18px;}
-  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
-  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
-  ol,ul{margin:12px 0;padding-left:24px;}
-  li{margin:7px 0;}
-  .small{font-size:14px;color:var(--muted);}
-  .note{font-size:14px;color:var(--muted);font-style:italic;}
-  .divider{height:1px;background:var(--border);margin:40px 0;}
-  .yr{color:var(--muted);font-weight:700;}
-  /* 分支切换：纯 CSS，不依赖 JS（兼容微信/内置浏览器） */
-  .tab-radio{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;}
-  .switch{display:flex;gap:14px;margin:30px 0 6px;}
-  .tab{flex:1;cursor:pointer;border:1px solid var(--accent);background:var(--white);color:var(--brand);
-    font-family:inherit;font-size:16px;font-weight:700;padding:14px 10px;border-radius:10px;
-    text-align:center;letter-spacing:.5px;}
-  .tab:hover{background:var(--surface);}
-  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
-  .panel{display:none;}
-  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:30px 0 4px;}
-  #rA:checked ~ #branchA{display:block;}
-  #rB:checked ~ #branchB{display:block;}
-  #rA:checked ~ .switch label[for="rA"],
-  #rB:checked ~ .switch label[for="rB"]{background:var(--brand);color:var(--white);border-color:var(--brand);}
-  /* 门禁（内联，复用 app.js） */
-  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
-    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
-  .gate.visible{display:flex;}
-  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
-    box-shadow:0 24px 60px rgba(51,37,27,.3);}
-  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
-  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
-  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
-  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
-    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
-  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
-    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
-  .gate-btn:hover{background:var(--brand-hover);}
-  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
-  .gate-msg.err{color:#c0392b;}
-  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
-  #article-body.locked{display:none;}
-  @media (max-width:600px){
-    .wrap{padding:36px 18px 70px;}
-    h1{font-size:22px;}
-    .switch{flex-direction:column;}
-  }
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/styles.css">
 </head>
 <body>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
+  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <a class="back" href="../../hall-cases.html">返回案例库</a>
-    <span id="top-greet" class="greet"></span>
+    <span class="brand-sub" id="top-greet">Reader</span>
   </header>
 
-  <div class="wrap">
-    <div id="article-body" class="locked">
-      <input type="radio" name="branch" id="rA" class="tab-radio" checked>
-      <input type="radio" name="branch" id="rB" class="tab-radio">
+  <article class="reader">
+    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
+    <div class="reader-meta">资本案例 · 第 6 篇</div>
+    <h1 class="reader-title">孙正义的 OpenAI 豪赌：346 亿美元下去，浮盈约 450 亿</h1>
+    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-10.jpg" alt="" loading="lazy">
+<img src="../../assets/img/tile-11.jpg" alt="" loading="lazy">
+<img src="../../assets/img/tile-12.jpg" alt="" loading="lazy">
+<i class="blk blk--gold"></i></div>
 
-      <h1>孙正义的 OpenAI 豪赌：346 亿美元下去，浮盈约 450 亿</h1>
-      <div class="tagline">【2026 热议】【AI 重注】【愿景基金】【资本与风险】　难度 ★★★★☆　阅读 16 分钟　更新 2026.07</div>
+    <div id="lede" class="lede">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最该被读透的，是"敢赌"和"赌得起"之间的那道分水岭。以下 2026 年数据为据公开报道...</div>
 
-      <div class="choose">
-        <b>▍怎么读这篇？</b><br>
-        上面是 <b>案例来龙去脉</b>（两类读者共读）。读完它，<b>按你的目标选一条</b>：<br>
-        <b>· 把我的企业做好</b> → 点左边按钮（视角向内：怎么用到自己企业）。<br>
-        <b>· 跟我的客户分享</b> → 点右边按钮（视角向外：怎么拿去跟高净值客户体面对话）。<br>
-        <span class="small">两条分支同源、各写纵深，落点完全不同：一个改自己，一个连客户。</span>
-      </div>
-
-      <h2>案例背景｜案例来龙去脉：一笔截至 2026 年初累计 346 亿美元的下注，如何浮盈约 450 亿、又再追 300 亿</h2>
-<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最该被读透的，是"敢赌"和"赌得起"之间的那道分水岭。以下 2026 年数据为据公开报道的实时进展，仍处在演变中。</p>
-<h3>1.1 来路：从阿里赢家到 AI 赌徒（2019–2024）</h3>
+    <div id="article-body" class="prose locked"><h2>案例来龙去脉：一笔截至 2026 年初累计 346 亿美元的下注，如何浮盈约 450 亿、又再追 300 亿</h2>
+<p>先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最该被读透的，是"敢赌"和"赌得起"之间的那道分水岭。以下 2026 年数据为据公开报道的实时进展，仍处在演变中。</p>
+<h3>1.1 来路：从阿里赢家到 AI 赌徒（2019-2024）</h3>
 <p>孙正义曾在 WeWork、共享出行等愿景基金（Vision Fund）项目上巨亏，叠加阿里股价回调，身家大幅缩水，多年被优衣库创始人柳井正、印度实业富豪压制。但阿里那笔经典回报留下的"压舱石"与"敢赌基因"还在。2024 年起，他把筹码全面推向 AI。</p>
 <h3>1.2 诞生：2024.9 起通过愿景基金 2 期重仓 OpenAI</h3>
 <p>据公开报道，自 2024 年 9 月以来，软银通过愿景基金 2 期向 OpenAI 累计投资 <strong>346 亿美元</strong>。这一步不是小注试探，而是把集团弹药集中压在一个标的上的"All in"。</p>
@@ -116,35 +42,27 @@
 <h3>1.5 资本弧：2026.2 再追 300 亿</h3>
 <p>据公开报道，2026 年 2 月 27 日，软银与 OpenAI 达成最终协议，通过愿景基金 2 期追加 <strong>300 亿美元</strong>，分三期各 100 亿，交割时间分别为 2026 年 4 月 1 日、7 月 1 日、10 月 1 日（日本时间）。完成后累计投资达 <strong>646 亿美元</strong>，持股比例从约 11% 升至约 <strong>13%</strong>。为筹这笔钱，软银甚至一度减持英伟达股份。</p>
 <h3>1.6 竞争弧 / 风险：豪赌的另一面</h3>
-<p>据公开报道，2026 年 3 月 标普全球评级将软银的信用展望从"稳定"下调至"负面"，理由是 OpenAI 敞口过高，资产流动性、投资组合质量与财务状况可能恶化。市场也担忧其债务负担——大赢的另一面，是集中度的脆弱。</p>
+<p>据公开报道，2026 年 3 月 标普全球评级将软银的信用展望从"稳定"下调至"负面"，理由是 OpenAI 敞口过高，资产流动性、投资组合质量与财务状况可能恶化。市场也担忧其债务负担--大赢的另一面，是集中度的脆弱。</p>
 <h3>1.7 悬念：Arm + OpenAI 双击，还远没结束</h3>
-<p>孙正义持有软银约 <strong>33.74%</strong> 股权，布局覆盖 AI 芯片（Arm）、应用（OpenAI）、算力基建（Stargate 及法国数据中心）。这笔 OpenAI 豪赌，正是案例 07"重登亚洲首富"的直接推手。悬念留在这里：AI 估值能否持续，债务能否被覆盖——浮盈终究是账面，落袋才算数。</p>
-
-      <div class="divider"></div>
-
-      <div class="switch">
-        <label for="rA" class="tab">把我的企业做好</label>
-        <label for="rB" class="tab">跟我的客户分享</label>
-      </div>
-      <p class="hint">点上面的目标，查看对应分支的完整后半部分（案例背景已读完，下面这段是只属于你这个目标的纵深）。</p>
-
-      <div class="panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人的"集中下注"，变成自己的风险课</h2>
+<p>孙正义持有软银约 <strong>33.74%</strong> 股权，布局覆盖 AI 芯片（Arm）、应用（OpenAI）、算力基建（Stargate 及法国数据中心）。这笔 OpenAI 豪赌，正是案例 07"重登亚洲首富"的直接推手。悬念留在这里：AI 估值能否持续，债务能否被覆盖--浮盈终究是账面，落袋才算数。</p>
+<h2>分支 A ｜ 向内做企业（把我的企业做好）</h2>
+<h2>0. 你为什么读这个：把别人的"集中下注"，变成自己的风险课</h2>
 <p>别人 346 亿砸下去、浮盈 450 亿，你最该拿它当"集中下注 + 风控"的样本，而不是当勇气勋章。</p>
 <p>这个案例的清醒处在于：孙正义敢赌，是因为前面赢过、有压舱石；但他也用"分期交割"给自己留了缓冲。读它，是为了想清楚你自己的大投入，是"赌得起"还是"借来的杠杆"。</p>
 <h2>2. 案例主角这一步步，对你做企业意味着什么</h2>
-<h3>① 集中下注的前提：你有一笔赢来的"子弹"</h3>
+<h3>(1) 集中下注的前提：你有一笔赢来的"子弹"</h3>
 <p>他能豪赌 AI，是因为阿里等历史回报给了弹药。对你：你冒险的钱，是"赢来的冗余"，还是"借来的杠杆"？前者叫豪赌，后者叫赌博。</p>
-<h3>② 看准趋势就下重注，但留分期交割的缓冲</h3>
-<p>300 亿分三期交割，是风控动作——边投边验证。对你：你的大额投入，是一次梭哈，还是分批验证、留修正空间？</p>
-<h3>③ 浮盈 ≠ 落袋，估值靠"下一轮"支撑</h3>
+<h3>(2) 看准趋势就下重注，但留分期交割的缓冲</h3>
+<p>300 亿分三期交割，是风控动作--边投边验证。对你：你的大额投入，是一次梭哈，还是分批验证、留修正空间？</p>
+<h3>(3) 浮盈 != 落袋，估值靠"下一轮"支撑</h3>
 <p>450 亿是账面浮盈，依赖 OpenAI 持续融资推高估值。对你：你的企业"估值"是营收撑的，还是下一轮融资撑的？前者稳，后者悬。</p>
-<h3>④ 集中度风险会反噬信用</h3>
+<h3>(4) 集中度风险会反噬信用</h3>
 <p>标普下调展望至负面，正因敞口过度集中。对你：你把所有筹码押一个方向时，有没有留"被下调"的预案？最贵的不是亏钱，是信用被调降后融不到钱。</p>
 <h2>3. 你自己的企业，可以对照这四步</h2>
 <p>同一个案例，落到"怎么做企业"上，是四个可执行的动作，不是四个抽象层级：</p>
 <ol>
 <li>切口：你押注的"大趋势"，是真趋势还是泡沫？孙正义押 AI，你押的是什么？先分清赛道成色。</li>
-<li>资产：你下注的"本金"来自冗余还是杠杆？资产健康度决定你能扛多久——杠杆下的重注，风一停就塌。</li>
+<li>资产：你下注的"本金"来自冗余还是杠杆？资产健康度决定你能扛多久--杠杆下的重注，风一停就塌。</li>
 <li>控制权：你大额投资 / 融资的条款，有没有"分期 + 退出"的缓冲？控制权是"不被单一方向绑架"。</li>
 <li>跃迁：你的跃迁靠"集中爆发"还是"多元压舱"？跃迁的前提是活到下个拐点，而不是死在半路。</li>
 </ol>
@@ -157,7 +75,7 @@
 <li>你若把筹码过度集中在一个方向，有没有"被下调 / 被抽贷"的预案？</li>
 </ol>
 <h2>5. 相关映射：用框架看一个国内样本（思维训练）</h2>
-<p>国内有个样本和这笔豪赌形成一组有意思的对照——<strong>国内科技巨头的 AI 重注（以字节豆包、阿里通义为代表）</strong>：同样是把集团弹药集中压向大模型与算力，同样面临"估值靠持续投入支撑、回报尚在兑现中"的命题。用第 3 节的"切口 / 资产 / 控制权 / 跃迁"四步，去拆解其中一家（或你自己的企业）：</p>
+<p>国内有个样本和这笔豪赌形成一组有意思的对照--<strong>国内科技巨头的 AI 重注（以字节豆包、阿里通义为代表）</strong>：同样是把集团弹药集中压向大模型与算力，同样面临"估值靠持续投入支撑、回报尚在兑现中"的命题。用第 3 节的"切口 / 资产 / 控制权 / 跃迁"四步，去拆解其中一家（或你自己的企业）：</p>
 <ol>
 <li>它押注 AI 的"切口"是真的需求还是叙事？和你可能的切口，打法差在哪？</li>
 <li>它的"本金"来自主业利润（冗余）还是外部融资（杠杆）？和孙正义的压舱石逻辑，相同不同在哪？</li>
@@ -166,39 +84,39 @@
 </ol>
 <p>这套四步不只对 AI 赛道有效。任何"集中下注重押趋势"的决策，都能这么拆一遍自己的风险。训练几次，你看自己企业下注的眼光会不一样。</p>
 <h2>6. 我读完后自己的一点想法</h2>
-<p>写完这篇，我最触动的不是 450 亿浮盈，而是那道分水岭：<strong>敢赌是天赋，但"赌得起"是因为前面赢过。</strong>孙正义让我看清，一个人 / 一家企业最值钱的，从来不是被看见，是被需要且不可替——而"不可替"的那块，得先磨成你的压舱石，才敢去豪赌。你做自己的企业，最该守住的，也是这句：先把压舱石磨硬，再谈 All in。</p></div>
-
-      <div class="panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个"2026 热议"的 AI 豪赌，跟客户聊到一起去</h2>
+<p>写完这篇，我最触动的不是 450 亿浮盈，而是那道分水岭：<strong>敢赌是天赋，但"赌得起"是因为前面赢过。</strong>孙正义让我看清，一个人 / 一家企业最值钱的，从来不是被看见，是被需要且不可替--而"不可替"的那块，得先磨成你的压舱石，才敢去豪赌。你做自己的企业，最该守住的，也是这句：先把压舱石磨硬，再谈 All in。</p>
+<h2>分支 B ｜ 向外连客户（跟我的客户分享）</h2>
+<h2>0. 你为什么读这个：用一个"2026 热议"的 AI 豪赌，跟客户聊到一起去</h2>
 <p>高净值客户不缺一个"卖产品的人"，她缺一个能跟她在同一个资本语境里聊世界的人。</p>
-<p>你的门户有一句客户证言："以前看财报像天书，现在能跟家里管钱的先生平起平坐地聊资产配置了。"这句话泄露高净值女性最深的两层心理：<strong>第一，她长期被"降维"对待——先生、banker、顾问都默认她不懂；第二，她渴望的不是被服务，是被"平视"。</strong>孙正义这笔 OpenAI 豪赌，我的一个感受是：它是 2026 年一张体面获客的入场券——AI 是当下最热的话题，你能用它证明"我和你在同一认知语境里"，而不是靠推销硬闯。不是"我懂比你多"的俯视，也不是凑上去讨好，是"我也在这个资本世界里，咱们对等聊"。</p>
+<p>你的门户有一句客户证言："以前看财报像天书，现在能跟家里管钱的先生平起平坐地聊资产配置了。"这句话泄露高净值女性最深的两层心理：<strong>第一，她长期被"降维"对待--先生、banker、顾问都默认她不懂；第二，她渴望的不是被服务，是被"平视"。</strong>孙正义这笔 OpenAI 豪赌，我的一个感受是：它是 2026 年一张体面获客的入场券--AI 是当下最热的话题，你能用它证明"我和你在同一认知语境里"，而不是靠推销硬闯。不是"我懂比你多"的俯视，也不是凑上去讨好，是"我也在这个资本世界里，咱们对等聊"。</p>
 <h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
-<h3>① 346 亿下去、浮盈 450 亿——AI 是当下最大的故事</h3>
+<h3>(1) 346 亿下去、浮盈 450 亿--AI 是当下最大的故事</h3>
 <p>客户爱聊 AI，你能接住：神话背后是"集中下注 + 估值靠下一轮"。你这么一拆，客户立刻知道你看得比热搜深。</p>
-<h3>② 浮盈 ≠ 落袋——账面富贵的风险</h3>
-<p>聊客户自己的"浮盈资产"：哪些是真赚到，哪些是账面？这点她极有共鸣——房价、股价的纸上富贵，都经不起变现检验。</p>
-<h3>③ 标普下调展望——集中度风险的信号</h3>
+<h3>(2) 浮盈 != 落袋--账面富贵的风险</h3>
+<p>聊客户自己的"浮盈资产"：哪些是真赚到，哪些是账面？这点她极有共鸣--房价、股价的纸上富贵，都经不起变现检验。</p>
+<h3>(3) 标普下调展望--集中度风险的信号</h3>
 <p>聊客户资产配置：是不是 too concentrated in one theme（比如全仓某赛道）？首富都会被下调展望，普通人更该分散。</p>
-<h3>④ 分期交割——大佬也在做风控</h3>
+<h3>(4) 分期交割--大佬也在做风控</h3>
 <p>聊"再看好也分批"的智慧：孙正义 300 亿都分三期，凭什么普通人的重仓要一次梭哈？</p>
 <h2>3. 你跟客户聊资本，可以用的一个框架</h2>
 <p>同一个案例，你带客户从浅到深，是四层递进，不是四个层级评判。目的是让她觉得"你带我一层层看透了"：</p>
 <ol>
-<li>先聊事件：孙正义往 OpenAI 砸了 346 亿，浮盈 450 亿，还要再追 300 亿。——破冰，热搜级话题。</li>
-<li>再聊逻辑：为什么值？AI 估值靠持续融资推高，账面浮盈依赖下一轮。——展示你懂行，不止追热点。</li>
-<li>聊资本视角：集中下注的前提是"前面赢过"，以及分期交割的风控——这是控制权思维。——展示你深，能看到老板的难。</li>
-<li>聊资本与权力：从"豪赌"到"被标普下调展望"，资本权力最终落在"可持续的现金流"。——让客户觉得你看得透。</li>
+<li>先聊事件：孙正义往 OpenAI 砸了 346 亿，浮盈 450 亿，还要再追 300 亿。--破冰，热搜级话题。</li>
+<li>再聊逻辑：为什么值？AI 估值靠持续融资推高，账面浮盈依赖下一轮。--展示你懂行，不止追热点。</li>
+<li>聊资本视角：集中下注的前提是"前面赢过"，以及分期交割的风控--这是控制权思维。--展示你深，能看到老板的难。</li>
+<li>聊资本与权力：从"豪赌"到"被标普下调展望"，资本权力最终落在"可持续的现金流"。--让客户觉得你看得透。</li>
 </ol>
 <h2>4. 下次跟客户聊，你可以试着抛的几个问题</h2>
 <p>这篇没有标准话术，留几个你能自然抛出的问题：</p>
 <ol>
-<li>一个浮盈 450 亿的故事——您觉得"账面富贵"和"落袋为安"，哪个更该信？</li>
+<li>一个浮盈 450 亿的故事--您觉得"账面富贵"和"落袋为安"，哪个更该信？</li>
 <li>您自己的资产里，有没有"全仓一个主题"的集中度隐患？像孙正义那样被下调过展望吗？</li>
 <li>如果一位投资人问您"这赛道还敢加仓吗"，您会拿什么逻辑平起平坐地聊，而不是附和？</li>
 <li>用刚才那个"四层框架"，您给自己的资本认知打到第几层？身边很多人其实停在第一层（只看倍数）。</li>
 </ol>
 <h2>5. 相关映射：用框架聊一个国内样本（思维训练）</h2>
 <p>跟客户聊"对照样本"，<strong>国内大模型玩家的 AI 重注（字节豆包、阿里通义为代表）</strong>几乎是孙正义的镜像：同样集中弹药压向 AI，同样"估值靠持续投入、回报在兑现中"。用它来演示"集中下注的另一面"。</p>
-<p>用第 3 节的"事件 → 逻辑 → 资本视角 → 资本与权力"框架，跟客户聊其中一家：</p>
+<p>用第 3 节的"事件 -&gt; 逻辑 -&gt; 资本视角 -&gt; 资本与权力"框架，跟客户聊其中一家：</p>
 <ol>
 <li>这家公司大众现在认知在第几层？它走到"资本与权力"这层了吗？</li>
 <li>它的"不可替代资产"是什么？和孙正义的压舱石逻辑，相同不同在哪？</li>
@@ -209,20 +127,24 @@
 <h2>6. 我读完后自己的一点想法</h2>
 <p>写完这篇，我最触动的不是数字，是那句老话的新解：<strong>能跟客户聊 AI 的不稀奇，能跟她聊"浮盈和落袋之间差多远、集中度风险怎么管"才稀奇。</strong>孙正义让我看清，热故事人人会讲，冷风险没几个人讲得透。你跟客户的关系，最稳的是这句：你不是卖产品的，你是那个能跟她对等聊"热故事背后的冷风险"的人。</p>
 <hr /></div>
-    </div>
-  </div>
 
-  <div id="gate" class="gate">
-    <div class="gate-card">
-      <div class="gate-lock"></div>
-      <h2 id="gate-title">订阅会员专享</h2>
-      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-      <button id="unlock" class="gate-btn">解锁阅读</button>
-      <p id="gate-msg" class="gate-msg"></p>
-      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    <div id="gate" class="gate">
+      <div class="gate-card">
+        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
+        <h2 id="gate-title">订阅会员专享</h2>
+        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+        <button id="unlock" class="gate-btn">解锁阅读</button>
+        <p id="gate-msg" class="gate-msg"></p>
+        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+      </div>
     </div>
-  </div>
+  </article>
+
+  <footer class="foot">
+    <span>强女思维 · 金融资本库</span>
+    <span>仅限付费会员</span>
+  </footer>
 </div>
 <script src="../../assets/app.js"></script>
 </body>

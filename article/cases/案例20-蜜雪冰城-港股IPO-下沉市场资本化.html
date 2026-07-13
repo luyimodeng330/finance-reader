@@ -4,140 +4,58 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>蜜雪冰城：6元茶饮撬动千亿市值，下沉市场资本化样本 · 强女思维 · 金融资本库</title>
-<style>
-  :root{
-    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
-    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
-    --white:#FFFFFF; --muted:#7A6B60;
-  }
-  body{margin:0;background:var(--bg);color:var(--text);
-    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
-    line-height:1.95;font-size:17px;}
-  .page{min-height:100vh;display:flex;flex-direction:column;}
-  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
-    background:var(--bg);position:sticky;top:0;z-index:50;}
-  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
-  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
-    padding:6px 14px;border-radius:999px;background:var(--white);}
-  .topbar .greet{font-size:13px;color:var(--muted);}
-  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
-  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
-  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
-    border-bottom:1px solid var(--border);padding-bottom:16px;}
-  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
-    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
-  .choose b{color:var(--brand);}
-  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
-    padding-bottom:8px;border-bottom:1px solid var(--border);}
-  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
-  p{margin:12px 0;}
-  .lead{font-size:18px;}
-  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
-  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
-  ol,ul{margin:12px 0;padding-left:24px;}
-  li{margin:7px 0;}
-  .small{font-size:14px;color:var(--muted);}
-  .note{font-size:14px;color:var(--muted);font-style:italic;}
-  .divider{height:1px;background:var(--border);margin:40px 0;}
-  .yr{color:var(--muted);font-weight:700;}
-  /* 分支切换：纯 CSS，不依赖 JS（兼容微信/内置浏览器） */
-  .tab-radio{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;}
-  .switch{display:flex;gap:14px;margin:30px 0 6px;}
-  .tab{flex:1;cursor:pointer;border:1px solid var(--accent);background:var(--white);color:var(--brand);
-    font-family:inherit;font-size:16px;font-weight:700;padding:14px 10px;border-radius:10px;
-    text-align:center;letter-spacing:.5px;}
-  .tab:hover{background:var(--surface);}
-  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
-  .panel{display:none;}
-  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:30px 0 4px;}
-  #rA:checked ~ #branchA{display:block;}
-  #rB:checked ~ #branchB{display:block;}
-  #rA:checked ~ .switch label[for="rA"],
-  #rB:checked ~ .switch label[for="rB"]{background:var(--brand);color:var(--white);border-color:var(--brand);}
-  /* 门禁（内联，复用 app.js） */
-  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
-    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
-  .gate.visible{display:flex;}
-  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
-    box-shadow:0 24px 60px rgba(51,37,27,.3);}
-  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
-  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
-  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
-  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
-    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
-  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
-    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
-  .gate-btn:hover{background:var(--brand-hover);}
-  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
-  .gate-msg.err{color:#c0392b;}
-  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
-  #article-body.locked{display:none;}
-  @media (max-width:600px){
-    .wrap{padding:36px 18px 70px;}
-    h1{font-size:22px;}
-    .switch{flex-direction:column;}
-  }
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/styles.css">
 </head>
 <body>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
+  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <a class="back" href="../../hall-cases.html">返回案例库</a>
-    <span id="top-greet" class="greet"></span>
+    <span class="brand-sub" id="top-greet">Reader</span>
   </header>
 
-  <div class="wrap">
-    <div id="article-body" class="locked">
-      <input type="radio" name="branch" id="rA" class="tab-radio" checked>
-      <input type="radio" name="branch" id="rB" class="tab-radio">
+  <article class="reader">
+    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
+    <div class="reader-meta">资本案例 · 第 20 篇</div>
+    <h1 class="reader-title">蜜雪冰城：6元茶饮撬动千亿市值，下沉市场资本化样本</h1>
+    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-10.jpg" alt="" loading="lazy">
+<img src="../../assets/img/tile-11.jpg" alt="" loading="lazy">
+<img src="../../assets/img/tile-12.jpg" alt="" loading="lazy">
+<i class="blk blk--gold"></i></div>
 
-      <h1>蜜雪冰城：6元茶饮撬动千亿市值，下沉市场资本化样本</h1>
-      <div class="tagline">【下沉市场】【供应链】【港股 IPO】【消费品牌】　难度 ★★★☆☆　阅读 15 分钟　更新 2026.07</div>
+    <div id="lede" class="lede">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最反直觉的，是它证明了：卖6块钱的便宜东西，也能撑起一个千亿市值的上市公司。</div>
 
-      <div class="choose">
-        <b>▍怎么读这篇？</b><br>
-        上面是 <b>案例来龙去脉</b>（两类读者共读）。读完它，<b>按你的目标选一条</b>：<br>
-        <b>· 把我的企业做好</b> → 点左边按钮（视角向内：怎么用到自己企业）。<br>
-        <b>· 跟我的客户分享</b> → 点右边按钮（视角向外：怎么拿去跟高净值客户体面对话）。<br>
-        <span class="small">两条分支同源、各写纵深，落点完全不同：一个改自己，一个连客户。</span>
-      </div>
-
-      <h2>案例背景｜案例来龙去脉：一个靠"便宜"和"供应链"把4万多家店塞进港股、首日大涨43%的样本</h2>
-<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最反直觉的，是它证明了：卖6块钱的便宜东西，也能撑起一个千亿市值的上市公司。</p>
-<h3>1.1 来路：从郑州刨冰摊到全球最大茶饮连锁（1997–2020）</h3>
-<p>张红超 1997 年在郑州创立（最早是刨冰摊），弟弟张红甫后来加入。靠"极致低价 + 加盟"模式，蜜雪从河南走向全国再走向全球。到 2020 年门店已数万家，是名副其实的"下沉市场王者"——它服务的不是白领，是小镇青年和价格敏感人群。</p>
+    <div id="article-body" class="prose locked"><h2>案例来龙去脉：一个靠"便宜"和"供应链"把4万多家店塞进港股、首日大涨43%的样本</h2>
+<p>先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最反直觉的，是它证明了：卖6块钱的便宜东西，也能撑起一个千亿市值的上市公司。</p>
+<h3>1.1 来路：从郑州刨冰摊到全球最大茶饮连锁（1997-2020）</h3>
+<p>张红超 1997 年在郑州创立（最早是刨冰摊），弟弟张红甫后来加入。靠"极致低价 + 加盟"模式，蜜雪从河南走向全国再走向全球。到 2020 年门店已数万家，是名副其实的"下沉市场王者"--它服务的不是白领，是小镇青年和价格敏感人群。</p>
 <h3>1.2 诞生分歧：它卖的不是奶茶，是供应链</h3>
-<p>别人卖奶茶赚产品差价，蜜雪赚的是"给加盟商卖原料、设备、包材"的钱。它的核心资产不是门店，而是一张覆盖全国的供应链网络——这是它能把价格压到 6 元还赚钱的根本。换句话说，它是一家披着奶茶外衣的供应链公司。</p>
+<p>别人卖奶茶赚产品差价，蜜雪赚的是"给加盟商卖原料、设备、包材"的钱。它的核心资产不是门店，而是一张覆盖全国的供应链网络--这是它能把价格压到 6 元还赚钱的根本。换句话说，它是一家披着奶茶外衣的供应链公司。</p>
 <h3>1.3 上线即爆：打新"冻资王"</h3>
-<p>2025 年 2 月 招股，认购火爆，据公开报道打新冻资约 1.6 万亿港元，成港股"冻资王"。下沉市场的庞大门店数与稳定盈利，让它成为机构与散户都抢的标的——市场终于重新审视"便宜"这门生意的分量。</p>
+<p>2025 年 2 月 招股，认购火爆，据公开报道打新冻资约 1.6 万亿港元，成港股"冻资王"。下沉市场的庞大门店数与稳定盈利，让它成为机构与散户都抢的标的--市场终于重新审视"便宜"这门生意的分量。</p>
 <h3>1.4 成长弧：全球门店数第一，利润厚</h3>
 <p>据公开报道，蜜雪全球门店超 4.5 万家（全球现制饮品门店数第一），靠薄利多销加供应链，盈利稳定。它是少数"不靠讲故事、靠真利润"上市的消费公司，这点在破发频出的新茶饮里格外稀缺。</p>
 <h3>1.5 资本弧：2025.3.3 港股敲钟</h3>
-<p>2025 年 3 月 3 日 港交所上市，证券简称"蜜雪集团"（02097.HK），发行价每股 202.5 港元，募资净额约 32.91 亿港元，发行估值约 700–760 亿港元。上市首日开盘涨 29.38%、收盘大涨 43.21%，总市值超 1093 亿港元，打破茶饮品牌上市"破发"魔咒。张红超、张红甫兄弟身家合计超 850 亿港元。</p>
+<p>2025 年 3 月 3 日 港交所上市，证券简称"蜜雪集团"（02097.HK），发行价每股 202.5 港元，募资净额约 32.91 亿港元，发行估值约 700-760 亿港元。上市首日开盘涨 29.38%、收盘大涨 43.21%，总市值超 1093 亿港元，打破茶饮品牌上市"破发"魔咒。张红超、张红甫兄弟身家合计超 850 亿港元。</p>
 <h3>1.6 竞争弧：它赢在"让加盟商赚钱"</h3>
-<p>对比喜茶、奈雪走"直营 + 高端"，蜜雪走"加盟 + 极致性价比"。当高端茶饮集体承压，蜜雪反而稳——因为它帮加盟商赚到钱，加盟商就肯开更多店，门店网络越密、供应链越摊薄成本，形成正循环。</p>
+<p>对比喜茶、奈雪走"直营 + 高端"，蜜雪走"加盟 + 极致性价比"。当高端茶饮集体承压，蜜雪反而稳--因为它帮加盟商赚到钱，加盟商就肯开更多店，门店网络越密、供应链越摊薄成本，形成正循环。</p>
 <h3>1.7 悬念：千亿市值之后，增长从哪来</h3>
 <p>门店已 4.5 万+，国内下沉接近饱和。增长要靠出海（东南亚已铺开）、咖啡（幸运咖）、品类扩张。能否把"中国的蜜雪"做成"世界的蜜雪"，决定它千亿市值能不能站住。这又回到了那个老问题：当第一曲线见顶，第二曲线在哪。</p>
-
-      <div class="divider"></div>
-
-      <div class="switch">
-        <label for="rA" class="tab">把我的企业做好</label>
-        <label for="rB" class="tab">跟我的客户分享</label>
-      </div>
-      <p class="hint">点上面的目标，查看对应分支的完整后半部分（案例背景已读完，下面这段是只属于你这个目标的纵深）。</p>
-
-      <div class="panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人的弯路，变成自己的捷径</h2>
-<p>蜜雪最值得学的，不是"卖便宜"，而是"把便宜做成一门能赚钱的供应链生意"。很多人以为低价等于低利润，蜜雪证明反过来——前提是你真的有那张别人抄不全的网。</p>
+<h2>分支 A ｜ 向内做企业（把我的企业做好）</h2>
+<h2>0. 你为什么读这个：把别人的弯路，变成自己的捷径</h2>
+<p>蜜雪最值得学的，不是"卖便宜"，而是"把便宜做成一门能赚钱的供应链生意"。很多人以为低价等于低利润，蜜雪证明反过来--前提是你真的有那张别人抄不全的网。</p>
 <h2>2. 案例主角这一步步，对你做企业意味着什么</h2>
-<h3>① 不要只卖产品，要卖"让下游赚钱的系统"</h3>
+<h3>(1) 不要只卖产品，要卖"让下游赚钱的系统"</h3>
 <p>加盟商赚钱你才赚钱。你的商业模式，是压榨下游，还是成就下游？这决定了你的网络能不能扩张。</p>
-<h3>② 极致低价需要极致供应链，不是单纯降价</h3>
+<h3>(2) 极致低价需要极致供应链，不是单纯降价</h3>
 <p>6 元还能赚，靠的是规模化采购、自建工厂、物流密度。降价谁都会，把降价变成利润才是本事。</p>
-<h3>③ 下沉市场不是低端，是体量</h3>
+<h3>(3) 下沉市场不是低端，是体量</h3>
 <p>小镇青年和价格敏感人群，是肉眼可见的最大基本盘。别用一线城市审美，低估了下沉的分量。</p>
-<h3>④ 上市用真利润说话，不靠故事，破发魔咒自然破</h3>
+<h3>(4) 上市用真利润说话，不靠故事，破发魔咒自然破</h3>
 <p>它首日涨 43%，因为盈利扎实。你的"性感故事"，有没有对应的真利润兜底？</p>
 <h2>3. 你自己的企业，可以对照这四步</h2>
 <ol>
@@ -156,32 +74,32 @@
 <h2>5. 相关映射：用框架看一个国内品牌（思维训练）</h2>
 <p>对标：古茗 / 茶百道（同赛道已上市茶饮）。它们也做加盟，但定位、供应链密度、门店结构各有不同，恰好能照出"为什么蜜雪市值能压过一众高端茶饮"。</p>
 <ol>
-<li>切口：蜜雪切下沉，古茗/茶百道切二线，高端茶饮切一线——市场体量决定天花板。</li>
-<li>资产：蜜雪强在自建供应链，别人强在品牌与选址——资产结构不同，估值逻辑不同。</li>
-<li>控制权：蜜雪用供应链强管控，别人用品牌授权——扩张与失控的天平不同。</li>
+<li>切口：蜜雪切下沉，古茗/茶百道切二线，高端茶饮切一线--市场体量决定天花板。</li>
+<li>资产：蜜雪强在自建供应链，别人强在品牌与选址--资产结构不同，估值逻辑不同。</li>
+<li>控制权：蜜雪用供应链强管控，别人用品牌授权--扩张与失控的天平不同。</li>
 <li>作业：用"切口 / 资产 / 控制权 / 跃迁"四步，拆解为什么同是茶饮，市值差这么多。</li>
 </ol>
 <p>据公开报道，古茗、茶百道均已登陆港股，可作为同赛道对照样本。</p>
 <h2>6. 我读完后自己的一点想法</h2>
-<p>落到"守住被需要且不可替"：蜜雪被需要，是因为它让"6 元喝好"和"加盟商赚钱"同时成立。它的不可替，是那张别人抄不全的供应链网。先把"被下游需要"做扎实，资本自然来——别本末倒置，先追估值忘了生意。</p></div>
-
-      <div class="panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
-<p>下沉市场、加盟、供应链——这些词对客户未必性感，但蜜雪用"首日涨 43%、市值破千亿"把故事讲成了真金白银。这是一个能帮客户理解"什么是好生意"的朴素样本。</p>
+<p>落到"守住被需要且不可替"：蜜雪被需要，是因为它让"6 元喝好"和"加盟商赚钱"同时成立。它的不可替，是那张别人抄不全的供应链网。先把"被下游需要"做扎实，资本自然来--别本末倒置，先追估值忘了生意。</p>
+<h2>分支 B ｜ 向外连客户（跟我的客户分享）</h2>
+<h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
+<p>下沉市场、加盟、供应链--这些词对客户未必性感，但蜜雪用"首日涨 43%、市值破千亿"把故事讲成了真金白银。这是一个能帮客户理解"什么是好生意"的朴素样本。</p>
 <h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
-<h3>① 千亿市值不是靠贵，是靠"便宜还赚钱"</h3>
+<h3>(1) 千亿市值不是靠贵，是靠"便宜还赚钱"</h3>
 <p>打破"便宜=不值钱"的偏见。帮客户重新理解：生意的价值，在利润结构，不在客单价。</p>
-<h3>② 发行估值 700 亿、首日破千亿，市场为"确定性利润"买单</h3>
+<h3>(2) 发行估值 700 亿、首日破千亿，市场为"确定性利润"买单</h3>
 <p>在破发频出的新股里，蜜雪逆势上涨，本质是市场给确定性溢价。</p>
-<h3>③ 冻资 1.6 万亿，说明下沉市场被严重低估过</h3>
-<p>曾经没人看得上卖 6 元奶茶的公司，如今抢破头——这本身就是个关于"认知差"的好话题。</p>
-<h3>④ 打破破发魔咒，因为盈利扎实</h3>
+<h3>(3) 冻资 1.6 万亿，说明下沉市场被严重低估过</h3>
+<p>曾经没人看得上卖 6 元奶茶的公司，如今抢破头--这本身就是个关于"认知差"的好话题。</p>
+<h3>(4) 打破破发魔咒，因为盈利扎实</h3>
 <p>对比一堆"上市即破发"的新消费，蜜雪用真利润说话，这点特别适合跟客户聊"好资产"的标准。</p>
 <h2>3. 你跟客户聊资本，可以用的一个框架</h2>
 <ol>
 <li>先聊事件：蜜雪 2025.3.3 港股上市，发行价 202.5 港元，首日涨 43%，市值破千亿。</li>
-<li>再聊逻辑：它赚供应链的钱而非奶茶差价，所以低价也能厚利——生意结构决定估值。</li>
+<li>再聊逻辑：它赚供应链的钱而非奶茶差价，所以低价也能厚利--生意结构决定估值。</li>
 <li>聊资本视角：市场给"确定性利润"高溢价，破发魔咒因真盈利而破，认知差被资金修复。</li>
-<li>聊资本与权力：加盟网络的管控权，决定了它扩张而不失控——这是控制权设计的胜利。</li>
+<li>聊资本与权力：加盟网络的管控权，决定了它扩张而不失控--这是控制权设计的胜利。</li>
 </ol>
 <h2>4. 下次跟客户聊，你可以试着抛的几个问题</h2>
 <ol>
@@ -196,26 +114,30 @@
 <li>事件：蜜雪市值破千亿，同赛道其他品牌市值明显 smaller。</li>
 <li>逻辑：供应链密度与下沉覆盖，决定利润厚度与抗风险力。</li>
 <li>资本视角：市场愿意为"确定性 + 体量"付溢价。</li>
-<li>资本与权力：谁掌控供应链与加盟管控，谁就掌控定价与扩张——用框架带客户看"为什么同是茶饮，市值差这么多"。</li>
+<li>资本与权力：谁掌控供应链与加盟管控，谁就掌控定价与扩张--用框架带客户看"为什么同是茶饮，市值差这么多"。</li>
 </ol>
 <p>据公开报道，古茗、茶百道均已登陆港股，可作为同赛道对照样本。</p>
 <h2>6. 我读完后自己的一点想法</h2>
-<p>落到"你是她对等聊世界的人"：聊蜜雪，不是炫它涨多少，而是帮客户看清"好生意"的底层——让下游赚钱、自己才赚钱。你能把这层讲明白，而不是替他算涨幅，你就是她对等聊世界的人。</p>
+<p>落到"你是她对等聊世界的人"：聊蜜雪，不是炫它涨多少，而是帮客户看清"好生意"的底层--让下游赚钱、自己才赚钱。你能把这层讲明白，而不是替他算涨幅，你就是她对等聊世界的人。</p>
 <hr /></div>
-    </div>
-  </div>
 
-  <div id="gate" class="gate">
-    <div class="gate-card">
-      <div class="gate-lock"></div>
-      <h2 id="gate-title">订阅会员专享</h2>
-      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-      <button id="unlock" class="gate-btn">解锁阅读</button>
-      <p id="gate-msg" class="gate-msg"></p>
-      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    <div id="gate" class="gate">
+      <div class="gate-card">
+        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
+        <h2 id="gate-title">订阅会员专享</h2>
+        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+        <button id="unlock" class="gate-btn">解锁阅读</button>
+        <p id="gate-msg" class="gate-msg"></p>
+        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+      </div>
     </div>
-  </div>
+  </article>
+
+  <footer class="foot">
+    <span>强女思维 · 金融资本库</span>
+    <span>仅限付费会员</span>
+  </footer>
 </div>
 <script src="../../assets/app.js"></script>
 </body>

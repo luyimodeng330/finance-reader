@@ -4,140 +4,58 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SHEIN：在美英新港三地辗转、估值腰斩又重估的出海样本 · 强女思维 · 金融资本库</title>
-<style>
-  :root{
-    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
-    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
-    --white:#FFFFFF; --muted:#7A6B60;
-  }
-  body{margin:0;background:var(--bg);color:var(--text);
-    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
-    line-height:1.95;font-size:17px;}
-  .page{min-height:100vh;display:flex;flex-direction:column;}
-  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
-    background:var(--bg);position:sticky;top:0;z-index:50;}
-  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
-  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
-    padding:6px 14px;border-radius:999px;background:var(--white);}
-  .topbar .greet{font-size:13px;color:var(--muted);}
-  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
-  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
-  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
-    border-bottom:1px solid var(--border);padding-bottom:16px;}
-  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
-    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
-  .choose b{color:var(--brand);}
-  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
-    padding-bottom:8px;border-bottom:1px solid var(--border);}
-  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
-  p{margin:12px 0;}
-  .lead{font-size:18px;}
-  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
-  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
-  ol,ul{margin:12px 0;padding-left:24px;}
-  li{margin:7px 0;}
-  .small{font-size:14px;color:var(--muted);}
-  .note{font-size:14px;color:var(--muted);font-style:italic;}
-  .divider{height:1px;background:var(--border);margin:40px 0;}
-  .yr{color:var(--muted);font-weight:700;}
-  /* 分支切换：纯 CSS，不依赖 JS（兼容微信/内置浏览器） */
-  .tab-radio{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;}
-  .switch{display:flex;gap:14px;margin:30px 0 6px;}
-  .tab{flex:1;cursor:pointer;border:1px solid var(--accent);background:var(--white);color:var(--brand);
-    font-family:inherit;font-size:16px;font-weight:700;padding:14px 10px;border-radius:10px;
-    text-align:center;letter-spacing:.5px;}
-  .tab:hover{background:var(--surface);}
-  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
-  .panel{display:none;}
-  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:30px 0 4px;}
-  #rA:checked ~ #branchA{display:block;}
-  #rB:checked ~ #branchB{display:block;}
-  #rA:checked ~ .switch label[for="rA"],
-  #rB:checked ~ .switch label[for="rB"]{background:var(--brand);color:var(--white);border-color:var(--brand);}
-  /* 门禁（内联，复用 app.js） */
-  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
-    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
-  .gate.visible{display:flex;}
-  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
-    box-shadow:0 24px 60px rgba(51,37,27,.3);}
-  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
-  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
-  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
-  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
-    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
-  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
-    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
-  .gate-btn:hover{background:var(--brand-hover);}
-  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
-  .gate-msg.err{color:#c0392b;}
-  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
-  #article-body.locked{display:none;}
-  @media (max-width:600px){
-    .wrap{padding:36px 18px 70px;}
-    h1{font-size:22px;}
-    .switch{flex-direction:column;}
-  }
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/styles.css">
 </head>
 <body>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
+  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <a class="back" href="../../hall-cases.html">返回案例库</a>
-    <span id="top-greet" class="greet"></span>
+    <span class="brand-sub" id="top-greet">Reader</span>
   </header>
 
-  <div class="wrap">
-    <div id="article-body" class="locked">
-      <input type="radio" name="branch" id="rA" class="tab-radio" checked>
-      <input type="radio" name="branch" id="rB" class="tab-radio">
+  <article class="reader">
+    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
+    <div class="reader-meta">资本案例 · 第 19 篇</div>
+    <h1 class="reader-title">SHEIN：在美英新港三地辗转、估值腰斩又重估的出海样本</h1>
+    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-09.jpg" alt="" loading="lazy">
+<img src="../../assets/img/tile-10.jpg" alt="" loading="lazy">
+<img src="../../assets/img/tile-11.jpg" alt="" loading="lazy">
+<i class="blk blk--gold"></i></div>
 
-      <h1>SHEIN：在美英新港三地辗转、估值腰斩又重估的出海样本</h1>
-      <div class="tagline">【女性消费】【跨境出海】【IPO 辗转】【估值重估】　难度 ★★★★☆　阅读 17 分钟　更新 2026.07</div>
+    <div id="lede" class="lede">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最扎心的，是它证明了：你可以增长很快、估值很高，但"上市地"和"利润"这两件事，会在你最...</div>
 
-      <div class="choose">
-        <b>▍怎么读这篇？</b><br>
-        上面是 <b>案例来龙去脉</b>（两类读者共读）。读完它，<b>按你的目标选一条</b>：<br>
-        <b>· 把我的企业做好</b> → 点左边按钮（视角向内：怎么用到自己企业）。<br>
-        <b>· 跟我的客户分享</b> → 点右边按钮（视角向外：怎么拿去跟高净值客户体面对话）。<br>
-        <span class="small">两条分支同源、各写纵深，落点完全不同：一个改自己，一个连客户。</span>
-      </div>
-
-      <h2>案例背景｜案例来龙去脉：一个估值从千亿巅峰跌落、又在全球资本市场门口反复折返的快时尚故事</h2>
-<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最扎心的，是它证明了：你可以增长很快、估值很高，但"上市地"和"利润"这两件事，会在你最得意的时候反咬一口。</p>
-<h3>1.1 来路：南京起家、新加坡总部、全球卖便宜女装（2008–2020）</h3>
+    <div id="article-body" class="prose locked"><h2>案例来龙去脉：一个估值从千亿巅峰跌落、又在全球资本市场门口反复折返的快时尚故事</h2>
+<p>先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁--而这个故事最扎心的，是它证明了：你可以增长很快、估值很高，但"上市地"和"利润"这两件事，会在你最得意的时候反咬一口。</p>
+<h3>1.1 来路：南京起家、新加坡总部、全球卖便宜女装（2008-2020）</h3>
 <p>许仰天 2008 年在南京创立（前身做跨境婚纱/女装），2012 年前后转型为"小单快反"的柔性供应链女装电商，靠数据选品把又便宜又好看的衣服卖向全球，女性是最主要客群。总部后来迁至新加坡。它的内核很简单：用中国供应链加算法，把"低价快时尚"做到极致。</p>
 <h3>1.2 诞生分歧：上市地成了一场政治题</h3>
-<p>SHEIN 的资本诉求很明确——上市融资、股东退出。但它身份复杂（中国供应链、新加坡总部、全球销售），在中美博弈的大背景下，任何上市地都变成了监管与政治的叠加题，而不再是纯商业选择。这一步的分歧，注定了后面四地折返的宿命。</p>
+<p>SHEIN 的资本诉求很明确--上市融资、股东退出。但它身份复杂（中国供应链、新加坡总部、全球销售），在中美博弈的大背景下，任何上市地都变成了监管与政治的叠加题，而不再是纯商业选择。这一步的分歧，注定了后面四地折返的宿命。</p>
 <h3>1.3 上线即爆：2022 估值冲到 1000 亿美元</h3>
 <p>2022 年私募轮，SHEIN 估值一度达约 1000 亿美元，挤入全球未上市科技公司第一梯队，与字节、SpaceX 同列。彼时增速惊人，被视作"中国出海最成功的消费品牌"，也是女性消费赛道里估值最高的独角兽。</p>
 <h3>1.4 成长弧：销售额还在涨，利润先掉了</h3>
 <p>据公开报道，2024 年 SHEIN 净利润下滑近 40% 至约 10 亿美元，全年销售额仍增长约 19%（2025 年平台出口额已超千亿元人民币）。增长还在，但"以价换量 + 关税 + 合规成本"压薄了利润，给高高在上的估值叙事泼了一盆冷水。</p>
-<h3>1.5 资本弧：美 → 英 → 新 → 港，四次折返</h3>
-<p><strong>纽约</strong>：2021–2023 年秘密递表 SEC，因中美监管与数据安全受阻；<strong>伦敦</strong>：2024 年获 FCA 原则性批准，但英国政府与舆论对"血汗工厂""数据合规"的质疑不断，估值一度从 1000 亿跌至约 300 亿美元（跌超 70%）；<strong>新加坡 / 总部迁回中国</strong>的传闻反复出现；<strong>香港</strong>：2025 年 5 月 传提交港股招股书，2025 年 7 月 10 日 证监会出具境外发行上市备案通知书（SHEIN Global Holdings Limited），拟发行不超过约 3.416 亿股。估值随之重新锚定在约 600–800 亿美元区间（约合 4500–5300 亿元人民币，2026 年中报道约 4560 亿元）。</p>
+<h3>1.5 资本弧：美 -&gt; 英 -&gt; 新 -&gt; 港，四次折返</h3>
+<p><strong>纽约</strong>：2021-2023 年秘密递表 SEC，因中美监管与数据安全受阻；<strong>伦敦</strong>：2024 年获 FCA 原则性批准，但英国政府与舆论对"血汗工厂""数据合规"的质疑不断，估值一度从 1000 亿跌至约 300 亿美元（跌超 70%）；<strong>新加坡 / 总部迁回中国</strong>的传闻反复出现；<strong>香港</strong>：2025 年 5 月 传提交港股招股书，2025 年 7 月 10 日 证监会出具境外发行上市备案通知书（SHEIN Global Holdings Limited），拟发行不超过约 3.416 亿股。估值随之重新锚定在约 600-800 亿美元区间（约合 4500-5300 亿元人民币，2026 年中报道约 4560 亿元）。</p>
 <h3>1.6 竞争弧：它赢在"快与便宜"，也困在"快与便宜"</h3>
-<p>SHEIN 用"小单快反"把 Zara 的快复制并加速，价格更低，女性客群黏性高。但优势也最易被复制——Temu、TikTok Shop 用更轻的模式抢食。估值回落，部分是市场意识到"低价供应链"的护城河没想象中深，潮水退去，大家开始问：它到底值 1000 亿，还是 600 亿？</p>
+<p>SHEIN 用"小单快反"把 Zara 的快复制并加速，价格更低，女性客群黏性高。但优势也最易被复制--Temu、TikTok Shop 用更轻的模式抢食。估值回落，部分是市场意识到"低价供应链"的护城河没想象中深，潮水退去，大家开始问：它到底值 1000 亿，还是 600 亿？</p>
 <h3>1.7 悬念：港股能接住这个"三地折返"的故事吗</h3>
-<p>备案已过，真正的考验是港股投资者愿不愿意为"利润变薄 + 合规不确定 + 地缘标签"买单。一个被重估到 600–800 亿美元的公司，能否在公开市场把估值重新讲贵回去，是接下来最大的悬念。对它而言，上市不是终点，是另一场定价的开始。</p>
-
-      <div class="divider"></div>
-
-      <div class="switch">
-        <label for="rA" class="tab">把我的企业做好</label>
-        <label for="rB" class="tab">跟我的客户分享</label>
-      </div>
-      <p class="hint">点上面的目标，查看对应分支的完整后半部分（案例背景已读完，下面这段是只属于你这个目标的纵深）。</p>
-
-      <div class="panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人的弯路，变成自己的捷径</h2>
+<p>备案已过，真正的考验是港股投资者愿不愿意为"利润变薄 + 合规不确定 + 地缘标签"买单。一个被重估到 600-800 亿美元的公司，能否在公开市场把估值重新讲贵回去，是接下来最大的悬念。对它而言，上市不是终点，是另一场定价的开始。</p>
+<h2>分支 A ｜ 向内做企业（把我的企业做好）</h2>
+<h2>0. 你为什么读这个：把别人的弯路，变成自己的捷径</h2>
 <p>SHEIN 的故事对做消费、做出海的人特别扎心：你可以增长很快，但"上市地"和"利润"这两件事，会在你最得意时反咬一口。它是一份关于"别在巅峰时忘记防守"的活教材。</p>
 <h2>2. 案例主角这一步步，对你做企业意味着什么</h2>
-<h3>① 小单快反是切口，但别把它当护城河</h3>
+<h3>(1) 小单快反是切口，但别把它当护城河</h3>
 <p>它最易被复制。Temu 用更轻的模式就抢了食。你的效率优势，必须尽快升级成别人抄不动的东西，否则估值天花板就是别人进入的速度。</p>
-<h3>② 上市地要趁早定，别等做大才发现自己"身份复杂"</h3>
+<h3>(2) 上市地要趁早定，别等做大才发现自己"身份复杂"</h3>
 <p>SHEIN 的股东结构与身份复杂度，直接卡住了上市。你从第一天就要想清楚：我的公司，未来能在哪上市、会被什么监管卡。</p>
-<h3>③ 增长和利润要同步，利润掉 40% 估值就腰斩</h3>
-<p>私募高估值靠故事，公开市场靠利润。一旦利润失真，估值蒸发的是"故事溢价"——这部分最虚，也最脆。</p>
-<h3>④ 估值巅峰时最该冷静，因为那往往是退出窗口</h3>
+<h3>(3) 增长和利润要同步，利润掉 40% 估值就腰斩</h3>
+<p>私募高估值靠故事，公开市场靠利润。一旦利润失真，估值蒸发的是"故事溢价"--这部分最虚，也最脆。</p>
+<h3>(4) 估值巅峰时最该冷静，因为那往往是退出窗口</h3>
 <p>1000 亿美元是顶点也是陷阱。真正聪明的玩家，会在估值最高时把该退的退了，而不是等跌到 300 亿才后悔。</p>
 <h2>3. 你自己的企业，可以对照这四步</h2>
 <ol>
@@ -154,31 +72,31 @@
 <li>估值最高时，我有没有趁机把该退的退了？</li>
 </ol>
 <h2>5. 相关映射：用框架看一个国内品牌（思维训练）</h2>
-<p>对标：安克创新（Anker）——同样做出海，靠品类聚焦和品牌力顺利登陆 A 股；对比 SHEIN 的全品类、身份复杂、上市折返，恰好能照出"干净身份 + 清晰利润"对资本路径的决定性。</p>
+<p>对标：安克创新（Anker）--同样做出海，靠品类聚焦和品牌力顺利登陆 A 股；对比 SHEIN 的全品类、身份复杂、上市折返，恰好能照出"干净身份 + 清晰利润"对资本路径的决定性。</p>
 <ol>
-<li>切口：安克从充电品类聚焦切入，SHEIN 从女装全品类铺开——前者更清晰，后者更大却更重。</li>
+<li>切口：安克从充电品类聚焦切入，SHEIN 从女装全品类铺开--前者更清晰，后者更大却更重。</li>
 <li>资产：安克慢慢攒下品牌心智，SHEIN 强在供应链效率却弱在心智。</li>
 <li>控制权：安克股权结构相对简单，上市顺；SHEIN 身份复杂，上市卡。</li>
 <li>作业：用"切口 / 资产 / 控制权 / 跃迁"四步，拆解为什么安克能顺利上市、SHEIN 却四地折返。</li>
 </ol>
 <p>据公开报道，安克创新已于 A 股上市、以出海消费电子品类见长，可作为本案例的对照样本。</p>
 <h2>6. 我读完后自己的一点想法</h2>
-<p>落到"守住被需要且不可替"：SHEIN 值得尊敬的是它把中国供应链卖向全球；但它被重估，也提醒我们——被需要不等于不可替代。把"效率优势"升级成"品牌与心智优势"，才扛得住估值回落。否则风一停，故事就散了。</p></div>
-
-      <div class="panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
-<p>高净值客户里做外贸、做品牌的不少，SHEIN 这个"三地折返"的资本过山车，是一个能聊出深度、又不掉价的真实样本——它讲的全是"上市地、估值、身份"这些老板们的切肤之痛。</p>
+<p>落到"守住被需要且不可替"：SHEIN 值得尊敬的是它把中国供应链卖向全球；但它被重估，也提醒我们--被需要不等于不可替代。把"效率优势"升级成"品牌与心智优势"，才扛得住估值回落。否则风一停，故事就散了。</p>
+<h2>分支 B ｜ 向外连客户（跟我的客户分享）</h2>
+<h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
+<p>高净值客户里做外贸、做品牌的不少，SHEIN 这个"三地折返"的资本过山车，是一个能聊出深度、又不掉价的真实样本--它讲的全是"上市地、估值、身份"这些老板们的切肤之痛。</p>
 <h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
-<h3>① 上市地不是想选就选——身份与监管会卡你</h3>
+<h3>(1) 上市地不是想选就选--身份与监管会卡你</h3>
 <p>纽约、伦敦、香港来回折返，本质是监管权与资本权的博弈。这点对客户极有共鸣，尤其是有出海业务的老板。</p>
-<h3>② 估值腰斩的惨烈，说明"私募估值"和"公开市场估值"是两回事</h3>
+<h3>(2) 估值腰斩的惨烈，说明"私募估值"和"公开市场估值"是两回事</h3>
 <p>1000 亿跌到 300 亿，蒸发的是"故事溢价"。帮客户理解：一级市场的高估值，到了二级市场要被利润重新称重。</p>
-<h3>③ 利润掉 40% 就估值砍七成，市场只看可持续</h3>
+<h3>(3) 利润掉 40% 就估值砍七成，市场只看可持续</h3>
 <p>增长还在、利润先掉，市场就用脚投票。这是给所有"增收不增利"企业的提醒。</p>
-<h3>④ 港股备案通过，但定价权仍在投资者手里</h3>
-<p>过了备案只是拿到门票，真正定价要看市场愿不愿意买单——这层很适合跟客户聊"什么是好资产"。</p>
+<h3>(4) 港股备案通过，但定价权仍在投资者手里</h3>
+<p>过了备案只是拿到门票，真正定价要看市场愿不愿意买单--这层很适合跟客户聊"什么是好资产"。</p>
 <h2>3. 你跟客户聊资本，可以用的一个框架</h2>
 <ol>
-<li>先聊事件：SHEIN 在美英新港四次折返，估值从 1000 亿跌到 300 亿，再重估到 600–800 亿美元。</li>
+<li>先聊事件：SHEIN 在美英新港四次折返，估值从 1000 亿跌到 300 亿，再重估到 600-800 亿美元。</li>
 <li>再聊逻辑：身份复杂 + 中美博弈 + 利润变薄，让它上不了想上的市，只能去能去的地。</li>
 <li>聊资本视角：私募高估值靠故事，公开市场靠利润；两地估值差，就是"故事溢价"的蒸发过程。</li>
 <li>聊资本与权力：上市地选择本质是监管权与资本权的博弈，公司再大也拗不过地缘与制度。</li>
@@ -196,26 +114,30 @@
 <li>事件：安克 A 股上市、品类聚焦；SHEIN 四地折返、全品类。</li>
 <li>逻辑：前者身份简单、利润清晰，后者身份复杂、利润变薄。</li>
 <li>资本视角：公开市场给"确定性"高溢价，给"故事"打折。</li>
-<li>资本与权力：监管与地缘，是再大的公司也绕不开的边界——用框架带客户看"为什么有的出海企业上市顺、有的折返"。</li>
+<li>资本与权力：监管与地缘，是再大的公司也绕不开的边界--用框架带客户看"为什么有的出海企业上市顺、有的折返"。</li>
 </ol>
 <p>据公开报道，安克创新已登陆 A 股、以出海消费电子见长，可辅助说明"干净身份"对资本路径的价值。</p>
 <h2>6. 我读完后自己的一点想法</h2>
 <p>落到"你是她对等聊世界的人"：聊 SHEIN，不是吓客户"你也可能腰斩"，而是帮他把"上市地、估值、利润"这三根弦提前调好。你能把地缘与资本的关系讲透，而不是替他焦虑，你就是她对等聊世界的人。</p>
 <hr /></div>
-    </div>
-  </div>
 
-  <div id="gate" class="gate">
-    <div class="gate-card">
-      <div class="gate-lock"></div>
-      <h2 id="gate-title">订阅会员专享</h2>
-      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-      <button id="unlock" class="gate-btn">解锁阅读</button>
-      <p id="gate-msg" class="gate-msg"></p>
-      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    <div id="gate" class="gate">
+      <div class="gate-card">
+        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
+        <h2 id="gate-title">订阅会员专享</h2>
+        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+        <button id="unlock" class="gate-btn">解锁阅读</button>
+        <p id="gate-msg" class="gate-msg"></p>
+        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+      </div>
     </div>
-  </div>
+  </article>
+
+  <footer class="foot">
+    <span>强女思维 · 金融资本库</span>
+    <span>仅限付费会员</span>
+  </footer>
 </div>
 <script src="../../assets/app.js"></script>
 </body>

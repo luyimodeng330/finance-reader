@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-11 23:53",
-  "count": 1,
+  "generated": "2026-07-13 18:33",
+  "count": 2,
   "members": [
     {
       "email": "demo@vip.com",
@@ -8,6 +8,13 @@
       "order": "XHS_2026010",
       "product": "私享会员",
       "expire": "2027-07-11"
+    },
+    {
+      "email": "13551842343@163.com",
+      "name": "Lulu",
+      "order": "",
+      "product": "私享会员",
+      "expire": "2027-07-13"
     }
   ]
 }
