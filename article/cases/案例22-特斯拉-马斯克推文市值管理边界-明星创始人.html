@@ -3,54 +3,219 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>案例22：特斯拉 马斯克推文市值管理边界（明星创始人） · 强女思维 · 金融资本库</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/styles.css">
+<title>特斯拉：一条推文引发的市值管理边界，明星创始人的权力与代价 · 强女思维 · 金融资本库</title>
+<style>
+  :root{
+    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
+    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
+    --white:#FFFFFF; --muted:#7A6B60;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
+    line-height:1.95;font-size:17px;}
+  .page{min-height:100vh;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
+    background:var(--bg);position:sticky;top:0;z-index:50;}
+  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
+  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
+    padding:6px 14px;border-radius:999px;background:var(--white);}
+  .topbar .greet{font-size:13px;color:var(--muted);}
+  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
+  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
+  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
+    border-bottom:1px solid var(--border);padding-bottom:16px;}
+  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
+  .choose b{color:var(--brand);}
+  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
+    padding-bottom:8px;border-bottom:1px solid var(--border);}
+  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
+  p{margin:12px 0;}
+  .lead{font-size:18px;}
+  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
+  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
+  ol,ul{margin:12px 0;padding-left:24px;}
+  li{margin:7px 0;}
+  .small{font-size:14px;color:var(--muted);}
+  .note{font-size:14px;color:var(--muted);font-style:italic;}
+  .divider{height:1px;background:var(--border);margin:40px 0;}
+  .yr{color:var(--muted);font-weight:700;}
+  /* 分支切换：纯 CSS，不依赖 JS（兼容微信/内置浏览器） */
+  .tab-radio{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;}
+  .switch{display:flex;gap:14px;margin:30px 0 6px;}
+  .tab{flex:1;cursor:pointer;border:1px solid var(--accent);background:var(--white);color:var(--brand);
+    font-family:inherit;font-size:16px;font-weight:700;padding:14px 10px;border-radius:10px;
+    text-align:center;letter-spacing:.5px;}
+  .tab:hover{background:var(--surface);}
+  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
+  .panel{display:none;}
+  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:30px 0 4px;}
+  #rA:checked ~ #branchA{display:block;}
+  #rB:checked ~ #branchB{display:block;}
+  #rA:checked ~ .switch label[for="rA"],
+  #rB:checked ~ .switch label[for="rB"]{background:var(--brand);color:var(--white);border-color:var(--brand);}
+  /* 门禁（内联，复用 app.js） */
+  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
+  .gate.visible{display:flex;}
+  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
+    box-shadow:0 24px 60px rgba(51,37,27,.3);}
+  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
+  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
+  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
+  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
+    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
+  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .gate-btn:hover{background:var(--brand-hover);}
+  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
+  .gate-msg.err{color:#c0392b;}
+  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
+  #article-body.locked{display:none;}
+  @media (max-width:600px){
+    .wrap{padding:36px 18px 70px;}
+    h1{font-size:22px;}
+    .switch{flex-direction:column;}
+  }
+</style>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
-  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <span class="brand-sub" id="top-greet">Reader</span>
+    <a class="back" href="../../hall-cases.html">返回案例库</a>
+    <span id="top-greet" class="greet"></span>
   </header>
 
-  <article class="reader">
-    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
-    <div class="reader-meta"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
-    <h1 class="reader-title">案例22：特斯拉 马斯克推文市值管理边界（明星创始人）</h1>
-    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-12.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-13.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-14.jpg" alt="" loading="lazy">
-<i class="blk blk--gold"></i></div>
+  <div class="wrap">
+    <div id="article-body" class="locked">
+      <input type="radio" name="branch" id="rA" class="tab-radio" checked>
+      <input type="radio" name="branch" id="rB" class="tab-radio">
 
-    <div id="lede" class="lede"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
+      <h1>特斯拉：一条推文引发的市值管理边界，明星创始人的权力与代价</h1>
+      <div class="tagline">【明星创始人】【市值管理】【SEC 诉讼】【信息披露】　难度 ★★★★☆　阅读 15 分钟　更新 2026.07</div>
 
-    <div id="article-body" class="prose locked"><p>资本认知·金融 · 案例库 · 案例库 30 例</p>
-<p>事件：马斯克多条推文引发特斯拉股价剧烈波动，"私有化资金已到位"推文招致SEC诉讼和罚单。
-资本逻辑：创始人个人言论成为市值管理工具，但越过"虚假陈述"边界即违法。
-启示：市值管理的正道是价值沟通，创始人嘴炮是红线。</p></div>
-
-    <div id="gate" class="gate">
-      <div class="gate-card">
-        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
-        <h2 id="gate-title">订阅会员专享</h2>
-        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-        <button id="unlock" class="gate-btn">解锁阅读</button>
-        <p id="gate-msg" class="gate-msg"></p>
-        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+      <div class="choose">
+        <b>▍怎么读这篇？</b><br>
+        上面是 <b>案例来龙去脉</b>（两类读者共读）。读完它，<b>按你的目标选一条</b>：<br>
+        <b>· 把我的企业做好</b> → 点左边按钮（视角向内：怎么用到自己企业）。<br>
+        <b>· 跟我的客户分享</b> → 点右边按钮（视角向外：怎么拿去跟高净值客户体面对话）。<br>
+        <span class="small">两条分支同源、各写纵深，落点完全不同：一个改自己，一个连客户。</span>
       </div>
-    </div>
-  </article>
 
-  <footer class="foot">
-    <span>强女思维 · 金融资本库</span>
-    <span>仅限付费会员</span>
-  </footer>
+      <h2>案例背景｜案例来龙去脉：一条"融资已到位"的推文，如何把CEO送上被告席、改写特斯拉治理</h2>
+<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最值得记的，是它用 4000 万美元和一把董事长交椅，给所有"爱说话的老板"划了一条红线。</p>
+<h3>1.1 来路：从 Roadster 到电动帝国（2003–2018）</h3>
+<p>特斯拉 2003 年创立，马斯克 2004 年领投 A 轮并任董事长，2008 年起任 CEO。到 2018 年，Model 3 产能爬坡、股价高波动，马斯克个人与公司的命运深度绑定——他是最大的代言人，也是最不确定的变量。</p>
+<h3>1.2 诞生分歧：创始人即股价</h3>
+<p>特斯拉没有传统 CFO 式的"低调"，马斯克用推特直接对市场和粉丝喊话。这种"创始人即媒体"的模式，既是流量红利，也是合规地雷——它让公司估值里长期含有一大块"马斯克溢价"。</p>
+<h3>1.3 一条推文：2018.8.7 的"funding secured"</h3>
+<p>2018 年 8 月 7 日，马斯克发推："正考虑以 420 美元/股将特斯拉私有化，资金已到位（funding secured）。"此言一出，股价当日跳涨约 11%，但随后被曝"资金并未真正到位"，引发投资者诉讼与监管介入。一条随手发的推文，撬动了数百亿美元的市值波动。</p>
+<h3>1.4 成长弧：从诉讼到和解（2018.9）</h3>
+<p>2018 年 9 月 29 日，SEC 以证券欺诈起诉马斯克。最终和解：马斯克辞去董事长职务（45 天内，且 3 年内不得再任董事长），马斯克与特斯拉各罚 2000 万美元（合计 4000 万）。特斯拉还需增设两名独立董事、加强披露管控。</p>
+<h3>1.5 资本弧：一条推文值 4000 万，更值"失去董事长之位"</h3>
+<p>对特斯拉而言，代价不只是罚款，而是创始人的治理权被强制削弱——市场第一次看清：明星创始人的嘴，能撬动市值，也能招来监管的铁拳。此后马斯克与 SEC 摩擦不断，但"披露边界"从此被钉死。</p>
+<h3>1.6 竞争弧：它赢在个人 IP，也困在个人 IP</h3>
+<p>特斯拉的估值里，长期含有一大块"马斯克溢价"。这让它融资便宜、关注度高，但也让公司价值随创始人一言一行剧烈波动——这是一把双刃剑，个人光环越强，系统性风险越大。</p>
+<h3>1.7 悬念：创始人权力与市场纪律，边界在哪</h3>
+<p>马斯克后来仍是特斯拉灵魂，但"董事长之位"的失去是一个信号：当创始人权力大到能单挑监管，市场与制度会出手设限。这个边界，是所有明星创始人都要面对的考题，也是每个实控人公司治理的必修课。</p>
+
+      <div class="divider"></div>
+
+      <div class="switch">
+        <label for="rA" class="tab">把我的企业做好</label>
+        <label for="rB" class="tab">跟我的客户分享</label>
+      </div>
+      <p class="hint">点上面的目标，查看对应分支的完整后半部分（案例背景已读完，下面这段是只属于你这个目标的纵深）。</p>
+
+      <div class="panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人的弯路，变成自己的捷径</h2>
+<p>做企业的人，多少都有"我就是公司代言人"的阶段。特斯拉这课血淋淋：你可以当公司的嘴，但你的嘴必须守信息披露的线，否则代价是治理权——比罚款贵得多。</p>
+<h2>2. 案例主角这一步步，对你做企业意味着什么</h2>
+<h3>① 创始人的公开言论是资产也是负债</h3>
+<p>流量红利与合规风险同源。你每发一条，都可能被市场当承诺、被监管当证据。先问自己：这句话，经得起被逐字审判吗？</p>
+<h3>② 任何"资金到位"类表述，必须真到位</h3>
+<p>否则就是欺诈。融资、并购、上市这些"确定性措辞"，只在你真的锁定的时候才能说。</p>
+<h3>③ 治理权比罚款贵</h3>
+<p>马斯克丢的是董事长之位、是 3 年掌控力。对老板来说，方向盘比钱重要——别为一张嘴，丢了方向盘。</p>
+<h3>④ 把"创始人 = 股价"的双刃剑尽早制度化</h3>
+<p>设好防火墙：谁审你的公开发言？哪些话必须走合规？别等出事才补流程。</p>
+<h2>3. 你自己的企业，可以对照这四步</h2>
+<ol>
+<li>切口：你的个人 IP 是不是公司最重要的流量入口？若是，风险同步放大，要提前想清楚。</li>
+<li>资产：你的资产是个人魅力，还是制度？特斯拉的资产一度过度绑定个人，这是隐患。</li>
+<li>控制权：你的治理设计，能否在创始人"口无遮拦"时保护公司？独立董事、披露流程是防火墙。</li>
+<li>跃迁：把"个人红利"翻译成"制度红利"，公司才不依赖某一张嘴，价值才稳。</li>
+</ol>
+<h2>4. 合上文章，想想你自己的四件事</h2>
+<ol>
+<li>我的公开言论，会不会动到公司估值？</li>
+<li>我说过的"到位"，真到位了吗？</li>
+<li>我的治理，有没有独立于我的防火墙？</li>
+<li>公司价值，是绑在我身上，还是长在制度里？</li>
+</ol>
+<h2>5. 相关映射：用框架看一个国内品牌（思维训练）</h2>
+<p>对标：苹果（乔布斯回归后也极度个人化，但治理更成熟）。同样"创始人即公司"，苹果用制度把个人光环沉淀为组织能力，恰好照出"个人化"的利弊边界。</p>
+<ol>
+<li>切口：乔布斯与马斯克都是超级代言人，流量红利相似。</li>
+<li>资产：苹果把个人魅力沉淀为产品文化与供应链，特斯拉更依赖个人。</li>
+<li>控制权：苹果有更成熟的董事会与披露机制，个人风险被制度稀释。</li>
+<li>作业：用"切口 / 资产 / 控制权 / 跃迁"四步，看"创始人个人化"的利弊边界在哪。</li>
+</ol>
+<p>据公开报道，苹果在乔布斯时代后期已建立相对成熟的董事会与披露治理，可作为对照样本。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>落到"守住被需要且不可替"：特斯拉不可否认马斯克无可替代，但"不可替"不等于"可为所欲为"。把个人魅力沉淀成制度，才是守住被需又不被反噬的答案。否则你越不可替代，公司越为你一个人承担风险。</p></div>
+
+      <div class="panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
+<p>很多客户自己就是公司里那个"说一句话能影响股价"的人，一句话能带来订单也能带来麻烦。特斯拉这条推文，是一个极好的、能让客户会心一笑又后背发凉的治理案例。</p>
+<h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
+<h3>① 创始人言论直接撼动市值</h3>
+<p>一条推文涨 11%——帮客户理解：实控人的公开表达，本身就是一种资本行为。</p>
+<h3>② "资金到位"不是随便说的，SEC 当欺诈办</h3>
+<p>这点对老板极有共鸣：你随口一句"搞定了"，可能在市场眼里就是承诺。</p>
+<h3>③ 代价是治理权：丢董事长、罚 4000 万</h3>
+<p>比钱更贵的是方向盘。用这个提醒客户：治理权比面子重要。</p>
+<h3>④ 个人 IP 与制度，必须有个边界</h3>
+<p>聊"创始人光环"的红利与风险，是实控人客户最有体感的话题。</p>
+<h2>3. 你跟客户聊资本，可以用的一个框架</h2>
+<ol>
+<li>先聊事件：2018.8.7 马斯克发推称私有化"资金已到位"，股价涨 11%，后被 SEC 以欺诈起诉。</li>
+<li>再聊逻辑：创始人把未落实的计划当确定性披露，触碰信披红线——这是所有实控人的共性风险。</li>
+<li>聊资本视角：一条推文值 4000 万罚款加失去董事长之位，市场给"个人 IP"定价，也给其风险定价。</li>
+<li>聊资本与权力：当创始人权力大到能单挑监管，制度会强制设限——权力必须有边界。</li>
+</ol>
+<h2>4. 下次跟客户聊，你可以试着抛的几个问题</h2>
+<ol>
+<li>您作为公司实控人，公开说的话会不会动到公司估值？</li>
+<li>您说"到位"的事，真到位了吗？</li>
+<li>您的公司，有没有独立于您的治理防火墙？</li>
+<li>您的价值，是绑在您身上，还是长在制度里？</li>
+</ol>
+<h2>5. 相关映射：用框架聊一个国内品牌（思维训练）</h2>
+<p>对标：国内"个人即公司"式企业（如过度依赖实控人个人信用的案例）。同样的故事反复上演——个人光环越强，治理真空越大。用四层框架帮客户看"个人化治理"的边界。</p>
+<ol>
+<li>事件：不少公司估值高度绑定实控人个人，一言一行牵动市场。</li>
+<li>逻辑：个人表达缺乏合规审查，就把公司暴露于信披风险。</li>
+<li>资本视角：市场既为个人 IP 给溢价，也为其不确定性打折。</li>
+<li>资本与权力：制度如何约束创始人权力——用框架带客户看"个人化治理"的边界在哪。</li>
+</ol>
+<p>据公开报道，过度依赖实控人个人的公司治理隐患，在多个市场均有先例，可辅助说明。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>落到"你是她对等聊世界的人"：聊特斯拉，不是吓客户"你也会被查"，而是帮他想清楚"个人 IP 与制度边界"这道每个实控人都要做的题。你能把这层讲透，而不是替他焦虑，你就是她对等聊世界的人。</p>
+<hr /></div>
+    </div>
+  </div>
+
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="gate-lock"></div>
+      <h2 id="gate-title">订阅会员专享</h2>
+      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+      <button id="unlock" class="gate-btn">解锁阅读</button>
+      <p id="gate-msg" class="gate-msg"></p>
+      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    </div>
+  </div>
 </div>
 <script src="../../assets/app.js"></script>
 </body>

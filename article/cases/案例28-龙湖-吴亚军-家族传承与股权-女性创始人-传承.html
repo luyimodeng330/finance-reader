@@ -3,54 +3,228 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>案例28：龙湖 吴亚军 家族传承与股权（女性创始人+传承） · 强女思维 · 金融资本库</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/styles.css">
+<title>龙湖吴亚军：用家族信托把"婚变"和"交班"都做成平稳样本 · 强女思维 · 金融资本库</title>
+<style>
+  :root{
+    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
+    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
+    --white:#FFFFFF; --muted:#7A6B60;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
+    line-height:1.95;font-size:17px;}
+  .page{min-height:100vh;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
+    background:var(--bg);position:sticky;top:0;z-index:50;}
+  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
+  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
+    padding:6px 14px;border-radius:999px;background:var(--white);}
+  .topbar .greet{font-size:13px;color:var(--muted);}
+  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
+  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
+  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
+    border-bottom:1px solid var(--border);padding-bottom:16px;}
+  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
+  .choose b{color:var(--brand);}
+  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
+    padding-bottom:8px;border-bottom:1px solid var(--border);}
+  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
+  p{margin:12px 0;}
+  .lead{font-size:18px;}
+  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
+  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
+  ol,ul{margin:12px 0;padding-left:24px;}
+  li{margin:7px 0;}
+  .small{font-size:14px;color:var(--muted);}
+  .note{font-size:14px;color:var(--muted);font-style:italic;}
+  .divider{height:1px;background:var(--border);margin:40px 0;}
+  .yr{color:var(--muted);font-weight:700;}
+  /* 分支切换：纯 CSS，不依赖 JS（兼容微信/内置浏览器） */
+  .tab-radio{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;}
+  .switch{display:flex;gap:14px;margin:30px 0 6px;}
+  .tab{flex:1;cursor:pointer;border:1px solid var(--accent);background:var(--white);color:var(--brand);
+    font-family:inherit;font-size:16px;font-weight:700;padding:14px 10px;border-radius:10px;
+    text-align:center;letter-spacing:.5px;}
+  .tab:hover{background:var(--surface);}
+  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
+  .panel{display:none;}
+  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:30px 0 4px;}
+  #rA:checked ~ #branchA{display:block;}
+  #rB:checked ~ #branchB{display:block;}
+  #rA:checked ~ .switch label[for="rA"],
+  #rB:checked ~ .switch label[for="rB"]{background:var(--brand);color:var(--white);border-color:var(--brand);}
+  /* 门禁（内联，复用 app.js） */
+  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
+  .gate.visible{display:flex;}
+  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
+    box-shadow:0 24px 60px rgba(51,37,27,.3);}
+  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
+  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
+  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
+  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
+    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
+  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .gate-btn:hover{background:var(--brand-hover);}
+  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
+  .gate-msg.err{color:#c0392b;}
+  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
+  #article-body.locked{display:none;}
+  @media (max-width:600px){
+    .wrap{padding:36px 18px 70px;}
+    h1{font-size:22px;}
+    .switch{flex-direction:column;}
+  }
+</style>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
-  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <span class="brand-sub" id="top-greet">Reader</span>
+    <a class="back" href="../../hall-cases.html">返回案例库</a>
+    <span id="top-greet" class="greet"></span>
   </header>
 
-  <article class="reader">
-    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
-    <div class="reader-meta"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
-    <h1 class="reader-title">案例28：龙湖 吴亚军 家族传承与股权（女性创始人+传承）</h1>
-    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-04.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-05.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-06.jpg" alt="" loading="lazy">
-<i class="blk blk--gold"></i></div>
+  <div class="wrap">
+    <div id="article-body" class="locked">
+      <input type="radio" name="branch" id="rA" class="tab-radio" checked>
+      <input type="radio" name="branch" id="rB" class="tab-radio">
 
-    <div id="lede" class="lede"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
+      <h1>龙湖吴亚军：用家族信托把"婚变"和"交班"都做成平稳样本</h1>
+      <div class="tagline">【女性掌舵者】【家族传承】【家族信托】【股权架构】【民企治理】　难度 ★★★★☆　阅读 17 分钟　更新 2026.07</div>
 
-    <div id="article-body" class="prose locked"><p>资本认知·金融 · 案例库 · 案例库 30 例</p>
-<p>事件：龙湖创始人吴亚军2022年卸任，通过家族信托持有股权，平稳交棒职业经理人，避免继承纠纷。
-资本逻辑：女性创始人用信托架构实现"控制权不分散+传承有序"。
-启示：企业主传承优先用家族信托，避免股权因继承分散。</p></div>
-
-    <div id="gate" class="gate">
-      <div class="gate-card">
-        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
-        <h2 id="gate-title">订阅会员专享</h2>
-        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-        <button id="unlock" class="gate-btn">解锁阅读</button>
-        <p id="gate-msg" class="gate-msg"></p>
-        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+      <div class="choose">
+        <b>▍怎么读这篇？</b><br>
+        上面是 <b>案例来龙去脉</b>（两类读者共读）。读完它，<b>按你的目标选一条</b>：<br>
+        <b>· 把我的企业做好</b> → 点左边按钮（视角向内：怎么用到自己企业）。<br>
+        <b>· 跟我的客户分享</b> → 点右边按钮（视角向外：怎么拿去跟高净值客户体面对话）。<br>
+        <span class="small">两条分支同源、各写纵深，落点完全不同：一个改自己，一个连客户。</span>
       </div>
-    </div>
-  </article>
 
-  <footer class="foot">
-    <span>强女思维 · 金融资本库</span>
-    <span>仅限付费会员</span>
-  </footer>
+      <h2>案例背景｜案例来龙去脉：一个用信托把"婚变"和"交班"都变成平稳样本的地产公司</h2>
+<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最有价值的，是它两次把最容易让家族企业"崩"的节点（婚变、交班），都用一套机制平稳接住了。</p>
+<h3>1.1 来路：从建材生意到千亿房企（1993–2009）</h3>
+<p>1993 年，吴亚军在重庆创办龙湖，起点是建材与装修生意。此后十余年，它从一地开发商慢慢长成全国化房企：2005 年启动全国布局（进北京、上海、西安等），2009.11.19 龙湖地产在港交所上市（00960.HK），发行价 7.07 港元、募资约 78 亿港元，是当时中国房企赴港上市的代表作之一。一个关键底色是：它从一开始走的就不是"高杠杆狂奔"的路，而是偏稳健的财务纪律——这为后面的"稳"埋了伏笔。</p>
+<h3>1.2 婚变与信托：提前隔离的"分家"（2012）</h3>
+<p>2012.11.20，吴亚军与前夫蔡奎离婚的消息公布。让市场意外的是，这场离婚没有引发股权之争、没有债务违约、上市公司股价也没有失控——原因在上市前就埋好了：两人早已将各自股权分别注入家族信托（吴氏的 Silver Sea、蔡氏的 Silverland）。离婚时点，吴氏信托持龙湖约 <strong>43%–45%</strong>（各界披露口径在 43.18% 至 45.36% 之间），蔡氏信托持约 <strong>28%–30%</strong>（口径在 28.79% 至 30.24% 之间）。因为股权锁在信托里，离婚只是两个信托受益人之间的私人安排，<strong>上市公司股权纹丝不动</strong>。对照那些"一离就把公司分垮"的家族企业，龙湖成了中国用信托隔离婚姻风险的标杆样本。</p>
+<h3>1.3 交班伏笔：把"接班人"养在体系里（2017–2021）</h3>
+<p>龙湖有一套"仕官生"管培体系。陈序平，1982 年生，清华土木硕士，2008 年以仕官生身份加入，在体系里一路历练。2021.8，吴亚军因身体原因辞任 CEO，陈序平接任 CEO，吴亚军留任董事会主席。吴亚军后来在投资者会上说，自己从 2019 年就已下决心交班，持续数年物色、观察陈序平——把"找接班人"当成一件要提前多年布局的事，而不是临退休才抓瞎。</p>
+<h3>1.4 平稳交棒：女性掌舵者退到幕后（2022.10）</h3>
+<p>2022.10.28，吴亚军因年龄及身体原因，辞任执行董事、董事会主席，由陈序平接任董事会主席兼 CEO；吴亚军转任"战略发展顾问"。至此，吴亚军、蔡奎及家族成员全部退出管理层，但通过家族信托仍掌握龙湖大部分股权——<strong>交的是运营权，不是所有权</strong>。交接当天及随后，股价一度重挫（盘中暴跌逾 44%），龙湖迅速行动：提前偿还贷款 51 亿港元，控股股东（Charm Talent，由吴氏信托控股）增持股票，用真金白银向市场释放信心。这一脚，既是治理的交接，也是信心的承接。</p>
+<h3>1.5 资本与治理弧：信托如何同时解决"婚变"和"交班"</h3>
+<p>把两件事连起来看，家族信托是底层解：① <strong>隔离婚姻风险</strong>（2012 婚变不影响公司经营）；② <strong>交班时控制权留在家族</strong>，职业经理人接运营，所有权与经营权分离；③ <strong>长期稳定的股东结构</strong>，减少了私人变故向二级市场的传导。对比许多家族企业"一代退、二代乱"或"内部争产"，龙湖用制度化的安排绕开了这些坑。它证明了一件事：企业的"稳"，可以靠机制设计，而不必靠某个人的"不出事"。</p>
+<h3>1.6 竞争弧：地产下行里她为什么还稳</h3>
+<p>行业自 2021 后深度调整，多家房企暴雷，龙湖却凭稳健财务（低杠杆、多元航道）穿越周期。2024 年其房地产开发业务合同销售 <strong>1011.2 亿元</strong>，稳居千亿阵营；同时转型"开发 + 运营 + 服务"多航道（商业天街、长租公寓、物业服务），经营性收入占比持续提升。把"家族治理"做成了"经营韧性"的一部分——治理稳，才扛得住周期。</p>
+<h3>1.7 悬念：职业经理人之后的下一程</h3>
+<p>在陈序平执掌下，龙湖继续"去家族化"、走多航道；吴亚军彻底退居顾问，信托持续持有。下一个悬念是：当开发业务退坡，"商业 + 服务"的经营性收入，能否真正撑起新的增长极？以及，这套靠信托与机制建立的"稳"，在更长的世代里能不能延续。龙湖留下的，不只是一份财报，而是一份"人走、股在、业稳"的传承范本。</p>
+
+      <div class="divider"></div>
+
+      <div class="switch">
+        <label for="rA" class="tab">把我的企业做好</label>
+        <label for="rB" class="tab">跟我的客户分享</label>
+      </div>
+      <p class="hint">点上面的目标，查看对应分支的完整后半部分（案例背景已读完，下面这段是只属于你这个目标的纵深）。</p>
+
+      <div class="panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人的"交班"，变成自己的"提前排布"</h2>
+<p>读传承案例，对你做企业的人，价值不是看热闹，是看清"什么时候该把权力交出去、用什么机制交"。</p>
+<p>龙湖最值钱的不是地，是一套让"人走、股在、业稳"的机制。很多老板卡在"不放心交"或"交了失控"。吴亚军这个案例，把"怎么交得稳"摊开了——你对照的，应该是自己的路，不是她的名气。</p>
+<h2>2. 吴亚军这一步步，对你做企业意味着什么</h2>
+<h3>① 把股权装进信托，是"先隔离、再经营"</h3>
+<p>龙湖的平稳，根子在上市前就把股权锁进信托。你公司的股权，有没有被"婚姻、继承、债务"这类私人风险绑架？今天不清，明天就是定时炸弹——而且往往在你最不想出事的时候爆。</p>
+<h3>② 接班人养在体系里，不是临退休才找</h3>
+<p>陈序平是 2008 年进来的"仕官生"，养了 14 年才接董事长。你现在的二号位，是临时找的，还是体系里长期养出来的？交班最怕"空降"和"临时"，最稳的是"自己人长出来"。</p>
+<h3>③ 交班不等于交控股权</h3>
+<p>吴亚军退了管理层，但通过信托仍持大部分股权。你想象的交班，是"人走股还在"，还是"人走连股一起走"？所有权和经营权，能不能分开设计，是传承的第一道分水岭。</p>
+<h3>④ 用机制对抗波动</h3>
+<p>交班当天股价崩，她用"提前还贷 + 控股股东增持"的组合拳稳场。你公司的抗波动能力，是靠老板个人信用硬撑，还是靠机制托底？个人信用会老、会退，机制不会。</p>
+<h2>3. 你自己的企业，可以对照这四步</h2>
+<p>同一个案例，落到"怎么做企业"上，是四个可执行的动作，不是四个抽象层级：</p>
+<ol>
+<li>切口：先把"股权架构"这道雷排了——婚姻、继承、代持，今天不清，明天就是定时炸弹。别等企业做大了才发现根子上是乱的。</li>
+<li>资产：你的"不可替代资产"是老板本人，还是可传承的组织能力？龙湖养出陈序平，本质是把"人"变成"体系"——体系才走得远。</li>
+<li>控制权：设计"所有权与经营权分离"的安排（信托 / 持股平台），让交班不交控股权。控制权留得住，传承才稳得住。</li>
+<li>跃迁：从"我管"到"机制管"——企业能不能离开你照样转，是它值不值钱、传不传得下的分界线。</li>
+</ol>
+<h2>4. 合上文章，想想你自己的四件事</h2>
+<p>这篇没有标准答案，留四个问题给你自己：</p>
+<ol>
+<li>你的股权现在干净吗？有没有代持、有没有婚姻 / 继承的潜在争议点？</li>
+<li>你的接班人计划从哪年开始的？现在的二号位，你养了几年？</li>
+<li>如果明天你交班，控制权怎么留在你 / 家族手里？</li>
+<li>你的企业离开你三个月，能正常运转吗？</li>
+</ol>
+<h2>5. 相关映射：用框架看一个国内样本（思维训练）</h2>
+<p>另一个把"职业经理人交班 + 治理"做透的，是 <strong>美的集团</strong>：何享健 2012 年把权杖交给方洪波，自己退到背后，同样是"去家族化 + 机制治理"的典范——何享健甚至在交班前把股权做了系统性安排，避免家族内耗。它和龙湖形成一组有意思的对照：一个靠家族信托、一个靠治理架构，殊途同归都是"人退、业在"。</p>
+<p>用第 3 节的"切口 / 资产 / 控制权 / 跃迁"四步，去拆解美的（或你自己的企业）：</p>
+<ol>
+<li>它的"切口"雷区在哪（股权 / 治理隔离）？和你可能的雷区，打法差在哪？</li>
+<li>它的"不可替代资产"是组织能力还是个人？和龙湖的信托安排，相同不同在哪？</li>
+<li>它的控制权 / 交班节奏，是快是慢？你更想学哪条路？</li>
+<li>如果用这四步写一段"我的企业传承诊断"，你会怎么写？最该补的是哪一步？</li>
+</ol>
+<p>这套四步不只对地产 / 制造业有效。任何"准备交班或已经在交班"的企业，都能这么拆一遍自己的底稿。训练几次，你看自己企业的传承眼光会不一样。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>写完这篇，我最触动的不是龙湖的千亿销售额，而是它反过来印证了那句老话：<strong>一个人 / 一家企业最值钱的，从来不是被看见，是被需要且不可替。</strong>但龙湖给的更深一层是——被需要且不可替的，不一定非得是某个人，可以是"一套机制"。吴亚军把"自己"做成了"可被替代的人"，却把"公司"做成了"不可替的资产"。这恰恰是最高的护城河——你做自己的企业，最该守住的，也是这句：先把"被需要且不可替"的那套机制磨出来，再谈交班。</p></div>
+
+      <div class="panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
+<p>高净值客户不缺一个"卖产品的人"，她缺一个能跟她在同一个语境里聊财富与传承的人。</p>
+<p>你的门户有一句客户证言："以前看财报像天书，现在能跟家里管钱的先生平起平坐地聊资产配置了。"这句话泄露高净值女性最深的两层心理：<strong>第一，她长期被"降维"对待——先生、banker、顾问都默认她不懂；第二，她渴望的不是被服务，是被"平视"。</strong>龙湖这个案例，我的一个感受是：它其实是一张聊"家族传承 / 财富隔离"的体面入场券——尤其对客户里的企业家、家族企业主，你能用它证明"我和你在同一认知语境里"，而不是靠推销硬闯。不是"我懂比你多"的俯视，也不是凑上去讨好，是"我也在这个财富世界里，咱们对等聊"。</p>
+<h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
+<p>把龙湖当成素材，看哪些点能让你跟客户从破冰聊到深。不是背数据，是借它的故事，露出你的认知。</p>
+<h3>① 婚变没分走公司——信托隔离婚姻风险</h3>
+<p>2012 年那场离婚，市场以为会大跌，结果上市公司股权纹丝不动。很多客户一听"离婚"就想到争产，你能接住这句话，带她看反差：因为股权早装进信托，私人风险被隔离了——你聊的是"机制"，不是"八卦"。</p>
+<h3>② 交班不交控股权——家族仍持大部分股权</h3>
+<p>2022 年吴亚军退，但信托仍持大部分股权，职业经理人接运营。客户里很多是企业家或家属，这个"所有权与经营权分离"的故事，比任何话术都能让她觉得"你懂老板的难"——她自己的企业，交班时控制权怎么留？</p>
+<h3>③ 用机制对抗波动——交班当天股价崩，用"还贷 + 增持"稳场</h3>
+<p>这个点很适合跟"企业做得不小、但越来越怕波动"的客户聊：真正的稳，靠的是机制托底，不是老板一个人硬撑。</p>
+<h3>④ 二代 / 职业经理人接班——"仕官生"养 14 年</h3>
+<p>很多客户正愁"孩子接不接得了班""老人退了企业怎么办"。龙湖把接班人养在体系里，是个能让她安心、也能引出她自己安排的好话题。</p>
+<h2>3. 你跟客户聊资本，可以用的一个框架</h2>
+<p>同一个案例，你带客户从浅到深，是四层递进，不是四个层级评判。目的是让她觉得"你带我一层层看透了"：</p>
+<ol>
+<li>先聊事件：龙湖老板离婚、退休，公司居然没事。——破冰，谁都接得上。</li>
+<li>再聊逻辑：因为股权早装进家族信托，私人风险被隔离了。——展示你懂行，不止追热点。</li>
+<li>聊资本视角：交班不交控股权，所有权经营权分离，家族仍掌大局。——展示你深，能看到老板的难。</li>
+<li>聊资本与权力：真正稳的财富，靠的是机制不是个人——你能带客户看到这一层，她就真服了。——让她觉得你看得透，聊到了别人聊不到的层。</li>
+</ol>
+<h2>4. 下次跟客户聊，你可以试着抛的几个问题</h2>
+<p>这篇没有标准话术，留几个你能自然抛出的问题：</p>
+<ol>
+<li>您自己的企业和家族资产，有没有做过"婚姻 / 继承"的风险隔离？</li>
+<li>如果今天您要交班，控制权怎么留在家族手里？</li>
+<li>您公司的抗波动能力，靠您个人信用，还是靠机制？</li>
+<li>用刚才那个"四层框架"，您给自家传承认知打到第几层？身边很多人其实停在第一层（只看谁接班）。</li>
+</ol>
+<h2>5. 相关映射：用框架聊一个国内样本（思维训练）</h2>
+<p>跟客户聊"对照样本"，<strong>新希望</strong> 是另一个有意思的家族传承范本：刘永好把权杖交到女儿刘畅手中，父女接力、家族仍控股，走的是"二代接班"路径，和龙湖的"职业经理人 + 信托"恰好形成对照——一个靠血脉、一个靠机制。同样是千亿级民企，传承打法完全不同。</p>
+<p>用第 3 节的"事件 → 逻辑 → 资本视角 → 资本与权力"框架，跟客户聊新希望：</p>
+<ol>
+<li>新希望大众现在认知在第几层？它走到"资本与权力"这层了吗？</li>
+<li>它的传承逻辑（二代接班）和龙湖（信托 + 职业经理人），差在哪、各有啥代价？</li>
+<li>它的"控制权"安排，对您自己家族的启发是什么？</li>
+<li>您用这个框架，能给新希望写一段"传承心智分析"吗？写得出，说明框架真用熟了。</li>
+</ol>
+<p>这套框架不只对地产 / 农业有效。任何"家族企业、财富传承"的样本，都能这么带客户拆。练几次，您跟客户聊传承的底气会不一样。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>写完这篇，我最触动的不是千亿销售额，而是龙湖那句没说出口的逻辑：<strong>一个人最值钱的，从来不是被看见，是被需要且不可替。</strong>而它把这种"不可替"从某个人，做成了"一套机制"。这中间的认知转折，才是龙湖真正的护城河——而你跟客户的关系，最稳的也是这句：你不是卖产品的，你是那个能跟她对等聊世界、让她觉得"被平视"的人。聊传承不是卖信托或保险，是跟她在同一层聊"怎么让财富跨过人"。</p>
+<hr /></div>
+    </div>
+  </div>
+
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="gate-lock"></div>
+      <h2 id="gate-title">订阅会员专享</h2>
+      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+      <button id="unlock" class="gate-btn">解锁阅读</button>
+      <p id="gate-msg" class="gate-msg"></p>
+      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    </div>
+  </div>
 </div>
 <script src="../../assets/app.js"></script>
 </body>

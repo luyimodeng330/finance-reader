@@ -14,6 +14,7 @@
   var TK = 'fin_theme';     // 主题偏好（持久）
 
   var MEMBERS = [];         // 会员名单（fetch 后填充）
+  var STATION_PRODUCTS = ['资本认知', '私享会员']; // 本库开放的产品（私享会员 = 全站通）
 
   function $(id) { return document.getElementById(id); }
   function setS(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
@@ -64,6 +65,13 @@
       return { ok: false, expired: true, expire: m.expire,
                msg: '你的订阅已于 ' + m.expire + ' 到期。' };
     }
+    // 「对应」：本库只放行购买了对应产品 / 私享会员的邮箱
+    var prod = (m.product || '').trim();
+    if (STATION_PRODUCTS.indexOf(prod) === -1) {
+      return { ok: false, wrong: true, product: prod,
+               msg: '该邮箱未开通本阅览室。你当前购买的是「' + (prod || '其他产品') +
+                    '」，本库仅对「资本认知 / 私享会员」开放。' };
+    }
     return { ok: true, m: m };
   }
 
@@ -106,6 +114,11 @@
           desc: '你的会员已到期，续费后可继续阅读全部内容。',
           renew: true
         });
+        else if (r.wrong) showGate({
+          title: '产品未匹配',
+          desc: r.msg,
+          renew: false
+        });
       }
     };
     var inp = $('email');
@@ -122,6 +135,8 @@
       else if (r.expired) {
         showGate({ title: '订阅已到期',
                    desc: '你的会员已到期，续费后可继续阅读全部内容。', renew: true });
+      } else if (r.wrong) {
+        showGate({ title: '产品未匹配', desc: r.msg, renew: false });
       } else {
         showGate({ title: '订阅会员专享',
                    desc: '输入你购买时登记的邮箱，解锁全文。', renew: false });

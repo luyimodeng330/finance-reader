@@ -3,54 +3,219 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>案例18：字节跳动 回购估值（民企不上市样本） · 强女思维 · 金融资本库</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/styles.css">
+<title>字节跳动：用内部回购撑起的不上市万亿样本 · 强女思维 · 金融资本库</title>
+<style>
+  :root{
+    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
+    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
+    --white:#FFFFFF; --muted:#7A6B60;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
+    line-height:1.95;font-size:17px;}
+  .page{min-height:100vh;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
+    background:var(--bg);position:sticky;top:0;z-index:50;}
+  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
+  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
+    padding:6px 14px;border-radius:999px;background:var(--white);}
+  .topbar .greet{font-size:13px;color:var(--muted);}
+  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
+  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
+  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
+    border-bottom:1px solid var(--border);padding-bottom:16px;}
+  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
+  .choose b{color:var(--brand);}
+  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
+    padding-bottom:8px;border-bottom:1px solid var(--border);}
+  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
+  p{margin:12px 0;}
+  .lead{font-size:18px;}
+  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
+  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
+  ol,ul{margin:12px 0;padding-left:24px;}
+  li{margin:7px 0;}
+  .small{font-size:14px;color:var(--muted);}
+  .note{font-size:14px;color:var(--muted);font-style:italic;}
+  .divider{height:1px;background:var(--border);margin:40px 0;}
+  .yr{color:var(--muted);font-weight:700;}
+  /* 分支切换：纯 CSS，不依赖 JS（兼容微信/内置浏览器） */
+  .tab-radio{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;}
+  .switch{display:flex;gap:14px;margin:30px 0 6px;}
+  .tab{flex:1;cursor:pointer;border:1px solid var(--accent);background:var(--white);color:var(--brand);
+    font-family:inherit;font-size:16px;font-weight:700;padding:14px 10px;border-radius:10px;
+    text-align:center;letter-spacing:.5px;}
+  .tab:hover{background:var(--surface);}
+  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
+  .panel{display:none;}
+  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:30px 0 4px;}
+  #rA:checked ~ #branchA{display:block;}
+  #rB:checked ~ #branchB{display:block;}
+  #rA:checked ~ .switch label[for="rA"],
+  #rB:checked ~ .switch label[for="rB"]{background:var(--brand);color:var(--white);border-color:var(--brand);}
+  /* 门禁（内联，复用 app.js） */
+  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
+  .gate.visible{display:flex;}
+  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
+    box-shadow:0 24px 60px rgba(51,37,27,.3);}
+  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
+  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
+  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
+  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
+    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
+  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .gate-btn:hover{background:var(--brand-hover);}
+  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
+  .gate-msg.err{color:#c0392b;}
+  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
+  #article-body.locked{display:none;}
+  @media (max-width:600px){
+    .wrap{padding:36px 18px 70px;}
+    h1{font-size:22px;}
+    .switch{flex-direction:column;}
+  }
+</style>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
-  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <span class="brand-sub" id="top-greet">Reader</span>
+    <a class="back" href="../../hall-cases.html">返回案例库</a>
+    <span id="top-greet" class="greet"></span>
   </header>
 
-  <article class="reader">
-    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
-    <div class="reader-meta"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
-    <h1 class="reader-title">案例18：字节跳动 回购估值（民企不上市样本）</h1>
-    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-08.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-09.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-10.jpg" alt="" loading="lazy">
-<i class="blk blk--gold"></i></div>
+  <div class="wrap">
+    <div id="article-body" class="locked">
+      <input type="radio" name="branch" id="rA" class="tab-radio" checked>
+      <input type="radio" name="branch" id="rB" class="tab-radio">
 
-    <div id="lede" class="lede"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
+      <h1>字节跳动：用内部回购撑起的不上市万亿样本</h1>
+      <div class="tagline">【民企治理】【员工期权】【估值管理】【一级市场】　难度 ★★★★☆　阅读 17 分钟　更新 2026.07</div>
 
-    <div id="article-body" class="prose locked"><p>资本认知·金融 · 案例库 · 案例库 30 例</p>
-<p>事件：字节跳动多次启动员工期权回购，最新估值约2000-3000亿美元，长期不IPO但通过回购维持流动性。
-资本逻辑：不上市也能通过回购维持估值和员工激励，挑战"IPO是唯一退出"叙事。
-启示：顶级民企可以选择"不上市+回购"路径，员工激励不依赖IPO。</p></div>
-
-    <div id="gate" class="gate">
-      <div class="gate-card">
-        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
-        <h2 id="gate-title">订阅会员专享</h2>
-        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-        <button id="unlock" class="gate-btn">解锁阅读</button>
-        <p id="gate-msg" class="gate-msg"></p>
-        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+      <div class="choose">
+        <b>▍怎么读这篇？</b><br>
+        上面是 <b>案例来龙去脉</b>（两类读者共读）。读完它，<b>按你的目标选一条</b>：<br>
+        <b>· 把我的企业做好</b> → 点左边按钮（视角向内：怎么用到自己企业）。<br>
+        <b>· 跟我的客户分享</b> → 点右边按钮（视角向外：怎么拿去跟高净值客户体面对话）。<br>
+        <span class="small">两条分支同源、各写纵深，落点完全不同：一个改自己，一个连客户。</span>
       </div>
-    </div>
-  </article>
 
-  <footer class="foot">
-    <span>强女思维 · 金融资本库</span>
-    <span>仅限付费会员</span>
-  </footer>
+      <h2>案例背景｜案例来龙去脉：一个把上市这颗糖始终攥手里、改用回购喂饱员工的超级样本</h2>
+<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最有意思的，是它证明了：一家万亿级公司，可以一直不敲钟，靠一次次内部回购把估值和人心一起喂饱。</p>
+<h3>1.1 来路：从今日头条到"不上市"的底气（2012–2018）</h3>
+<p>2012 年，张一鸣在北京创立字节跳动，起点是资讯 App「今日头条」；2016 抖音上线，2017 TikTok 出海。到 2018 年，字节已是广告巨头，却始终未提 IPO。与同代互联网公司拼命敲钟不同，字节从早期就靠私募融资加员工期权运转，对"控制权"极度敏感——这为后来的"不上市"埋下种子。</p>
+<h3>1.2 诞生分歧：别人敲钟，它把"不上市"做成战略</h3>
+<p>当同行把上市当成人生成就，字节选择延迟。2021 年张一鸣卸任 CEO（梁汝波接任），但仍是核心股东与关键决策人。不上市的原因很直白：业务增速太快、私募钱够用、上市要披露、要受监管、还要稀释控制权。把"敲钟"从必选项变成可选项，是它整个资本叙事的起点。</p>
+<h3>1.3 回购即定价：每一次回购都是一次"迷你 IPO"（2019–2026）</h3>
+<p>字节不上市，但大约每半年到一年启动一轮员工期权回购，用真金白银给股权标价、给员工流动性。价格一路往上走：2024 年 11 月 估值回升至约 3000 亿美元；2025 年 3 月 美国员工回购价 189.9 美元/股（对应约 3150 亿美元）；2025 年 8 月 上调至 200.41 美元/股，对应估值突破 3300 亿美元；2025 年 10 月 年内第二次回购，在职 200.41、离职 180.37 美元/股；2026 年 4 月 新一轮在职价升至 229.5 美元/股，半年涨约 14%。每一次回购，都是公司单方面给股权"定价"，员工用脚投票留下还是走。</p>
+<h3>1.4 成长弧：营收超 Meta，估值有了硬支撑</h3>
+<p>2025 年第一季度营收约 430 亿美元、超 Meta 同期 423 亿；第二季度约 480 亿美元、再超 Meta 的 475 亿，连续两季成为全球第一社交媒体营收。绝大部分收入来自中国市场。叠加 TikTok 美国不被封禁的确定性增加、AI 应用豆包月活约 1.16 亿带来的重估，增长加盈利，是高位回购不被视作"画饼"的底气。</p>
+<h3>1.5 资本弧：没有 IPO，也有一整套定价机器</h3>
+<p>字节累计融资多轮（红杉、软银、KKR、General Atlantic、老虎基金等），但近年主要靠内部回购加二级份额转让维持估值水位。2025 年 11 月 彭博报道，今日资本以约 4800 亿美元估值从中银投资手中接下大量老股（二级市场成交）。据公开报道，2024–2026 年内部回购估值大体在 3000–3300 亿美元区间浮动（任务给定 2000–3000 亿美元为较早口径），二级市场成交价视时机起落，差异明显。</p>
+<h3>1.6 竞争弧：它赢在"不依赖公开市场也能长大"</h3>
+<p>对比那些必须上市续命的公司，字节证明了：只要业务现金流与私募资本够强，不上市也能长成万亿级企业。但硬币的另一面是——员工期权的"纸面富贵"只能靠公司回购兑现，一旦增速放缓、回购价下跌，激励效应会反向。不上市的自由，也意味着没有公开市场的"兜底定价"。</p>
+<h3>1.7 悬念：回购价能撑多久，"不上市"能走多远</h3>
+<p>当回购价还在涨（229.5 美元），市场相信这个故事。可一旦增速见顶、TikTok 监管反复、AI 投入吞噬利润，回购价可能掉头。这个民企不上市的样本，最迷人也最危险的地方，是同一件事：估值由公司自己说了算。它撑多久，取决于业务还能不能一直被需要。</p>
+
+      <div class="divider"></div>
+
+      <div class="switch">
+        <label for="rA" class="tab">把我的企业做好</label>
+        <label for="rB" class="tab">跟我的客户分享</label>
+      </div>
+      <p class="hint">点上面的目标，查看对应分支的完整后半部分（案例背景已读完，下面这段是只属于你这个目标的纵深）。</p>
+
+      <div class="panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人的弯路，变成自己的捷径</h2>
+<p>字节这套"不上市、靠回购养人"的玩法，对任何一个想把控股权、又想把核心团队留住的老板，都是一面镜子。你可以不学它去敲钟，但要学它怎么把"股权"用成管理工具，而不是只当一张画饼。</p>
+<h2>2. 案例主角这一步步，对你做企业意味着什么</h2>
+<h3>① 回购即定价——把估值权攥在自己手里</h3>
+<p>不上市也能给股权标价，前提是业务真赚钱、回购价能持续兑现。你每调一次价，都是在向团队传递"公司值钱"的信号，也顺手完成一次内部融资的定价。</p>
+<h3>② 在职与离职价差——用价格区分忠诚</h3>
+<p>2025 年 10 月那轮，在职 200.41、离职 180.37 美元/股，离职即打折。这不是抠门，是用价格倒逼核心人才留下——你走，你的股份就贬值，沉没成本替你做决定。</p>
+<h3>③ 把上市当选项而非必选项</h3>
+<p>增速够、私募集得到，就不必贱卖控制权去敲钟。很多老板把"上市"当执念，反而 early 稀释了方向盘。字节的从容，来自它真的不缺钱。</p>
+<h3>④ 高位融资与回购保护股份</h3>
+<p>估值越高，同等资金稀释越少。字节在高位持续回购，既稳住团队又不随便摊薄——这是"在贵的时候少稀释"的节奏意识。</p>
+<h2>3. 你自己的企业，可以对照这四步</h2>
+<ol>
+<li>切口：你有没有一个"不靠上市也能持续赚钱"的主业现金流？这是你敢不敲钟的底气，也是回购能兑现的前提。</li>
+<li>资产：你的核心资产是人和数据，还是设备和库存？字节喂的是"人"，因为人（算法团队、内容生态）才是它真正的资产。</li>
+<li>控制权：你有没有设计"不稀释也能激励"的机制（期权、回购、跟投）？别一融资就把方向盘交出去。</li>
+<li>跃迁：当增速放缓，你的估值锚靠什么接住？是回购价，还是真利润？没有第二锚，高位就是悬崖。</li>
+</ol>
+<h2>4. 合上文章，想想你自己的四件事</h2>
+<ol>
+<li>我的核心团队，是被"上市梦"拴着，还是被"真金回购"拴着？</li>
+<li>我每一次融资，稀释了多少？有没有在高位少稀释的节奏意识？</li>
+<li>如果我不上市，我拿什么给早期员工流动性？</li>
+<li>我的估值故事，是业务撑着，还是 PPT 撑着？</li>
+</ol>
+<h2>5. 相关映射：用框架看一个国内品牌（思维训练）</h2>
+<p>对标：华为——同样是长期不上市、由员工持有的巨型公司，但华为靠"利润分红"回报员工，字节靠"回购定价"回报员工。一个是分红型不上市，一个是回购型不上市，恰好构成一组对照。</p>
+<ol>
+<li>华为的员工股靠年度分红，回报稳定、可持续；字节靠估值上涨后的回购，回报更猛却更依赖增速。</li>
+<li>两者都不稀释外部控制权，创始人/核心层长期掌舵——这是"不上市"共同的治理红利。</li>
+<li>差异在于：华为的利润厚、现金流稳，分红几乎不会断；字节的回购价一旦掉头，激励效应立刻反转。</li>
+<li>作业：用"切口 / 资产 / 控制权 / 跃迁"四步，拆解你身边一家"不上市但很大"的公司，看它靠什么替代公开市场。</li>
+</ol>
+<p>据公开报道，华为亦长期不上市、由工会持股，分红替代回购，可作为本案例的对照样本阅读。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>落到"守住被需要且不可替"：字节能不上市，是因为它真的被市场需要、且暂时无可替代。回购只是结果，不是原因。任何企业先把"被需且不可替"做扎实，才有资格谈怎么玩股权、怎么自己定价。否则，不上市不是从容，是裸奔。</p></div>
+
+      <div class="panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
+<p>高净值客户里，不少是老板、股东、拟上市公司的人。字节"不上市却撑起万亿估值"的故事，是一个能聊出层次、又不掉价的资本案例——它讲的是"控制权"与"流动性"的取舍，而这正是很多老板的切肤之痛。</p>
+<h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
+<h3>① 上市不是终点，也不是必选项</h3>
+<p>很多老板把"敲钟"当成人生成就，字节给出了另一种答案：业务够强，不上市也能万亿。这能瞬间把对话从"您啥时候上市"拉到"您要不要上市"。</p>
+<h3>② 回购价 = 公司单方面的定价权</h3>
+<p>聊聊估值到底谁说了算。公开市场由买卖双方定，字节由自己每半年定一次——这本身就是个能聊半小时的资本话题。</p>
+<h3>③ 在职与离职价差背后的人才博弈</h3>
+<p>老板怎么用股权拴人？字节用"走就打折"把忠诚标价。对家族企业、创始股东，这个点极易引发共鸣。</p>
+<h3>④ 民企治理里的"控制权重于套现"</h3>
+<p>张一鸣们宁愿不上市也要保住方向盘，这背后是一套价值观。把这点聊透，客户会看到一个不一样的资本视角。</p>
+<h2>3. 你跟客户聊资本，可以用的一个框架</h2>
+<ol>
+<li>先聊事件：字节每半年回购一次，价从 190 涨到 229 美元，估值 3000 亿+美元，至今不敲钟。</li>
+<li>再聊逻辑：为什么不上市？因为业务现金流够、私募集得到、不想稀释控制权——它真的不缺钱。</li>
+<li>聊资本视角：回购是"内部 IPO"，把定价权留在公司；员工期权由此变成可兑现资产，而不是永远的纸面富贵。</li>
+<li>聊资本与权力：当估值由公司自己定，创始人既是运动员又是裁判——这是红利，也是风险；监管与公开市场一旦介入，这套玩法就失效。</li>
+</ol>
+<h2>4. 下次跟客户聊，你可以试着抛的几个问题</h2>
+<ol>
+<li>您的公司，是想敲钟，还是想一直自己定价？</li>
+<li>如果暂时不上市，您拿什么给老员工流动性？</li>
+<li>您上一轮融资，稀释了多少？有没有在高位少稀释的节奏？</li>
+<li>您的估值故事，是利润撑着，还是预期撑着？</li>
+</ol>
+<h2>5. 相关映射：用框架聊一个国内品牌（思维训练）</h2>
+<p>对标：华为（不上市、员工持股、内部定价）。同样是不上市的样本，华为用分红、字节用回购，恰好能帮客户看清"不上市"也有多种解法。</p>
+<ol>
+<li>事件：华为由工会持股、长期不登陆公开市场，靠年度分红回报员工。</li>
+<li>逻辑：利润厚、不需要外部钱，所以不必上市稀释。</li>
+<li>资本视角：分红替代回购，回报更稳、更可持续，不依赖估值上涨。</li>
+<li>资本与权力：任正非持股约 1% 却掌控全局，是控制权的极致样本——用框架带客户拆解"少持股多掌控"怎么做到。</li>
+</ol>
+<p>据公开报道，华为长期由员工持股会持有 majority 权益，可辅助说明"不上市也能回报员工"的另一种路径。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>落到"你是她对等聊世界的人"：聊字节，不是显摆你知道它估值多少，而是帮客户看清"控制权与流动性"这道每个老板都要做的选择题。你能把这道选择题讲明白，而不是替他焦虑，你就是她对等聊世界的人。</p>
+<hr /></div>
+    </div>
+  </div>
+
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="gate-lock"></div>
+      <h2 id="gate-title">订阅会员专享</h2>
+      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+      <button id="unlock" class="gate-btn">解锁阅读</button>
+      <p id="gate-msg" class="gate-msg"></p>
+      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    </div>
+  </div>
 </div>
 <script src="../../assets/app.js"></script>
 </body>

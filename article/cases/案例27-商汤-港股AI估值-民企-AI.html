@@ -3,54 +3,227 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>案例27：商汤 港股AI估值（民企+AI） · 强女思维 · 金融资本库</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/styles.css">
+<title>商汤：港股 AI 第一股的高估值与商业化慢半拍 · 强女思维 · 金融资本库</title>
+<style>
+  :root{
+    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
+    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
+    --white:#FFFFFF; --muted:#7A6B60;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
+    line-height:1.95;font-size:17px;}
+  .page{min-height:100vh;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
+    background:var(--bg);position:sticky;top:0;z-index:50;}
+  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
+  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
+    padding:6px 14px;border-radius:999px;background:var(--white);}
+  .topbar .greet{font-size:13px;color:var(--muted);}
+  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
+  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
+  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
+    border-bottom:1px solid var(--border);padding-bottom:16px;}
+  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
+  .choose b{color:var(--brand);}
+  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
+    padding-bottom:8px;border-bottom:1px solid var(--border);}
+  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
+  p{margin:12px 0;}
+  .lead{font-size:18px;}
+  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
+  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
+  ol,ul{margin:12px 0;padding-left:24px;}
+  li{margin:7px 0;}
+  .small{font-size:14px;color:var(--muted);}
+  .note{font-size:14px;color:var(--muted);font-style:italic;}
+  .divider{height:1px;background:var(--border);margin:40px 0;}
+  .yr{color:var(--muted);font-weight:700;}
+  /* 分支切换：纯 CSS，不依赖 JS（兼容微信/内置浏览器） */
+  .tab-radio{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;}
+  .switch{display:flex;gap:14px;margin:30px 0 6px;}
+  .tab{flex:1;cursor:pointer;border:1px solid var(--accent);background:var(--white);color:var(--brand);
+    font-family:inherit;font-size:16px;font-weight:700;padding:14px 10px;border-radius:10px;
+    text-align:center;letter-spacing:.5px;}
+  .tab:hover{background:var(--surface);}
+  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
+  .panel{display:none;}
+  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:30px 0 4px;}
+  #rA:checked ~ #branchA{display:block;}
+  #rB:checked ~ #branchB{display:block;}
+  #rA:checked ~ .switch label[for="rA"],
+  #rB:checked ~ .switch label[for="rB"]{background:var(--brand);color:var(--white);border-color:var(--brand);}
+  /* 门禁（内联，复用 app.js） */
+  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
+  .gate.visible{display:flex;}
+  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
+    box-shadow:0 24px 60px rgba(51,37,27,.3);}
+  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
+  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
+  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
+  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
+    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
+  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .gate-btn:hover{background:var(--brand-hover);}
+  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
+  .gate-msg.err{color:#c0392b;}
+  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
+  #article-body.locked{display:none;}
+  @media (max-width:600px){
+    .wrap{padding:36px 18px 70px;}
+    h1{font-size:22px;}
+    .switch{flex-direction:column;}
+  }
+</style>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
-  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <span class="brand-sub" id="top-greet">Reader</span>
+    <a class="back" href="../../hall-cases.html">返回案例库</a>
+    <span id="top-greet" class="greet"></span>
   </header>
 
-  <article class="reader">
-    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
-    <div class="reader-meta"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
-    <h1 class="reader-title">案例27：商汤 港股AI估值（民企+AI）</h1>
-    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-03.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-04.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-05.jpg" alt="" loading="lazy">
-<i class="blk blk--gold"></i></div>
+  <div class="wrap">
+    <div id="article-body" class="locked">
+      <input type="radio" name="branch" id="rA" class="tab-radio" checked>
+      <input type="radio" name="branch" id="rB" class="tab-radio">
 
-    <div id="lede" class="lede"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
+      <h1>商汤：港股 AI 第一股的高估值与商业化慢半拍</h1>
+      <div class="tagline">【民企 + AI】【港股上市】【AI 叙事】【商业化】　难度 ★★★★☆　阅读 16 分钟　更新 2026.07</div>
 
-    <div id="article-body" class="prose locked"><p>资本认知·金融 · 案例库 · 案例库 30 例</p>
-<p>事件：商汤2021年港股上市，AI叙事估值高，但商业化落地慢导致股价长期承压。
-资本逻辑：AI民企的"技术估值"与"商业估值"严重脱节，故事!=收入。
-启示：AI民企看估值必须分"技术溢价"和"收入验证"两层。</p></div>
-
-    <div id="gate" class="gate">
-      <div class="gate-card">
-        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
-        <h2 id="gate-title">订阅会员专享</h2>
-        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-        <button id="unlock" class="gate-btn">解锁阅读</button>
-        <p id="gate-msg" class="gate-msg"></p>
-        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+      <div class="choose">
+        <b>▍怎么读这篇？</b><br>
+        上面是 <b>案例来龙去脉</b>（两类读者共读）。读完它，<b>按你的目标选一条</b>：<br>
+        <b>· 把我的企业做好</b> → 点左边按钮（视角向内：怎么用到自己企业）。<br>
+        <b>· 跟我的客户分享</b> → 点右边按钮（视角向外：怎么拿去跟高净值客户体面对话）。<br>
+        <span class="small">两条分支同源、各写纵深，落点完全不同：一个改自己，一个连客户。</span>
       </div>
-    </div>
-  </article>
 
-  <footer class="foot">
-    <span>强女思维 · 金融资本库</span>
-    <span>仅限付费会员</span>
-  </footer>
+      <h2>案例背景｜案例来龙去脉：一家被捧为"AI 第一股"的公司，怎么在上市首日破千亿后，被"赚钱太慢"困在原地</h2>
+<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最有价值的，恰恰是它怎么用顶尖技术换来高估值，却始终没把"技术"顺畅地变成"利润"。</p>
+<h3>1.1 来路：汤晓鸥的"实验室公司"（2014–2017）</h3>
+<p>2014.10，汤晓鸥带着香港中文大学的学术团队创立商汤，核心是从人脸识别论文（DeepID 系列）里长出来的原创算法。它是"AI 四小龙"（商汤、旷视、依图、云从）里学术底色最厚的一家——靠论文光环和技术稀缺性，早早拿下安防、金融等场景的标杆客户。起点很高，但"技术领先"和"能赚钱"之间，还隔着一条很长的路。</p>
+<h3>1.2 蜕变：多轮融资，估值冲上 120 亿美元（2017–2021）</h3>
+<p>资本对"中国原创 AI"的期待被推到顶点：阿里、软银、春华、IDG、淡马锡、苏宁等密集入局。上市前估值据公开报道已达约 <strong>120–130 亿美元</strong>，是当时中国 AI 融资最猛的一家。市场买的不是它赚了多少，是"它是中国 AI 的脸面、未来算力与算法的入口"这个叙事。</p>
+<h3>1.3 上线即爆：港股上市，首日破千亿（2021.12）</h3>
+<p>2021.8.27 通过港交所聆讯，原定 9 月招股；但 2021.12.10 美国商务部将商汤列入<strong>实体清单</strong>，上市被迫推迟。它随即"二次招股"、剔除美资基石，最终于 2021.12.30 在港股挂牌（0020.HK），发行价 <strong>3.85 港元</strong>，募资约 <strong>58 亿港元（约 7.4 亿美元）</strong>，首日涨 <strong>7.27%</strong>，市值约 <strong>1375 亿港元</strong>（盘中一度破千亿）——"AI 第一股"正式落地，却从第一天起就背着制裁的标签。</p>
+<h3>1.4 成长弧：AI 叙事高估值，但商业化慢（2022–2024）</h3>
+<p>上市后的现实是：营收在涨，亏损也在涨。它把摊子铺得很开——智慧城市、安防、手机、汽车、元宇宙——每一个都是好故事，但赚钱都慢。2022 年股价持续低迷，市场开始质疑"技术强、商业化弱"。转折在 2024：它发力生成式 AI（"日日新"大模型），生成式 AI 收入占比明显提升，重新讲出一个新故事。</p>
+<h3>1.5 资本弧：从 120 亿估值到 AI 重估（2021–2025）</h3>
+<p>资本对商汤的定价，跟着"AI 叙事"起伏：上市首日约 1375 亿港元 → 低迷期大幅回落 → 2024–2025 借生成式 AI 风口，市值据公开报道<strong>一度重回 2000 亿港元以上</strong>（AI 重估）。但波动极大：它值多少钱，几乎取决于"市场相不相信 AI 明天就来"，而不是"它今年赚了多少"。</p>
+<h3>1.6 竞争弧：它赢在"学术 + 平台"，但慢在赚钱</h3>
+<p>对"AI 四小龙"：商汤上市最早、融资最猛、原创算法最厚，但四家都卡在同一个坎——技术强、商业化弱。对大模型新势力（百度文心、阿里通义、字节）：商汤用"日日新"追赶，但算力与生态是短板。它的尴尬在于：技术叙事最漂亮，离"稳定赚钱"却最远。</p>
+<h3>1.7 悬念：生成式 AI 能不能救估值</h3>
+<p>2024 年起，商汤押注"日日新"大模型与算力基座（SenseCore），生成式 AI 收入占比提升。但烧了十年，真正的盈利拐点仍未清晰。一个问题悬在这里：被捧了十年的"AI 第一股"，到底还要多久，才能把技术变成扎实的利润？</p>
+
+      <div class="divider"></div>
+
+      <div class="switch">
+        <label for="rA" class="tab">把我的企业做好</label>
+        <label for="rB" class="tab">跟我的客户分享</label>
+      </div>
+      <p class="hint">点上面的目标，查看对应分支的完整后半部分（案例背景已读完，下面这段是只属于你这个目标的纵深）。</p>
+
+      <div class="panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人的"技术 → 商业化"落差，变成自己的变现清单</h2>
+<p>商汤最刺痛的地方在于：技术全球顶尖，却长期赚不回研发的钱。</p>
+<p>读它，对你做企业的人，价值不是"学 AI"，是"学变现"。我自己的一个感受是：很多做企业的人卡在"技术自嗨"——产品很牛，却没有人为它持续付钱。商汤这个案例把落差摊开了：估值可以靠叙事冲高，但企业活下去靠的是现金流。你对照的，应该是自己的"技术到钱"的距离，不是它的论文。</p>
+<h2>2. 商汤这一步步，对你做企业意味着什么</h2>
+<p>把商汤当成主角，看它每一步动作背后的取舍。对你最有用的，不是"它多会研发"，而是"它怎么在技术到钱的路上卡了十年"。</p>
+<h3>① 学术光环起家——技术领先不等于商业领先</h3>
+<p>它从论文长出来，技术稀缺性拉满。但很多做企业的人也这样：有核心技术就以为稳了，却没想"谁会持续付钱"。对你：你的"技术优势"离钱还有几步？有没有人愿意为它反复掏钱？</p>
+<h3>② 多轮融资撑估值——用融资买时间，但时间会到期</h3>
+<p>120 亿美元估值靠一轮轮融资堆出来，买的是"商业化还没跑通"的时间。很多做企业的人也靠融资续命，却把"买时间"过成了"永远喘息"。对你：你的融资是在买增长，还是买喘息？时间到了怎么办？</p>
+<h3>③ 上市遇制裁——外部环境是变量</h3>
+<p>临门被列实体清单，上市推迟、基石重排。很多做企业的人把"外部环境"当背景板，它却是商汤的命门。对你：你的"上市 / 出海 / 供应链"有没有被卡脖子的风险？</p>
+<h3>④ 多点布局却慢赚钱——摊子铺太大，主线模糊</h3>
+<p>智慧城市、安防、手机、汽车、元宇宙……它什么都做，反而没一个跑成利润主力。很多做企业的人也爱"铺赛道"，却模糊了主线。对你：你的业务主线清晰吗？有没有铺太开反而谁都不强？</p>
+<h2>3. 你自己的企业，可以对照这四步动作（切口 / 资产 / 控制权 / 跃迁）</h2>
+<p>同一个案例，落到"怎么做企业"上，是四个可执行的动作，不是四个抽象层级：</p>
+<ol>
+<li>切口：你有没有一个"技术强、但别人没做透"的切口（像人脸识别）？切口要能商业化，不能只是论文里的指标。</li>
+<li>资产：你的"不可替代资产"是算法、数据、还是算力？商汤贵在原创算法 + SenseCore，但资产变现慢——资产再牛，变不了现也是库存。</li>
+<li>控制权：多轮融资 + 制裁下，股权和上市地怎么安排？它用港股 + 剔除美资基石保住上市资格——控制不仅是股份，是"还能不能进场"。</li>
+<li>跃迁：从"卖技术"跳到"卖产品 / 平台"，商业化是跃迁的关键。商汤卡在跃迁——技术到钱的路太长。你有没有把"技术"变成"持续付费产品"的那一跳？</li>
+</ol>
+<h2>4. 合上文章，想想你自己的四件事</h2>
+<p>这篇没有标准答案，留四个问题给你自己：</p>
+<ol>
+<li>你的"技术 / 产品优势"离变现还有几步？有没有人愿意为它反复付钱？</li>
+<li>你的融资是在买增长，还是买喘息？时间到了怎么办？</li>
+<li>你的业务主线清晰吗？有没有铺太开、反而谁都不强？</li>
+<li>你有没有被"外部环境"（政策 / 制裁 / 合规）卡脖子的风险？</li>
+</ol>
+<h2>5. 相关映射：用框架看一个"能赚钱的 AI"样本（思维训练）</h2>
+<p>和商汤形成有趣反照的是 <strong>科大讯飞</strong>：同样做 AI，但它早早把技术落进"教育 / 办公 / 医疗"等愿意付费的场景，商业化顺得多。用第 3 节的"切口 / 资产 / 控制权 / 跃迁"四步，去拆科大讯飞（或你自己的企业）：</p>
+<ol>
+<li>它的"切口"是教育 / 办公这些付费意愿强的场景——和商汤的切口差异，给你什么启发？</li>
+<li>它的"不可替代资产"是场景数据还是算法？和商汤的原创算法，相同不同在哪？</li>
+<li>它的"控制权 / 资本化"节奏，是快是慢？你更想学哪条路？</li>
+<li>如果用这四步写一段"我的企业变现诊断"，你会怎么写？最该补的是哪一步？</li>
+</ol>
+<p>这套四步不只对 AI 有效。任何"技术强、商业化弱"的企业，都能这么拆一遍自己的变现路径。训练几次，你看技术与钱之间距离的眼光会不一样。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>写完这篇，我最触动的不是它首日破千亿，而是那句藏在背后的逻辑：<strong>一家企业最值钱的，从来不是被看见，是被需要且不可替——而"被需要"要落到"有人愿意付钱"。</strong>商汤的技术人人需要、人人佩服，却长期没人持续付够钱，于是估值只能靠叙事撑。这中间的认知转折，才是它真正的教训：你做自己的企业，最该守住的，也是这句——先把"被需要且不可替、且有人付钱"的那一点磨出来，再谈估值和故事。</p></div>
+
+      <div class="panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
+<p>高净值客户不缺一个"卖产品的人"，她缺一个能跟她在同一个资本语境里聊世界的人。</p>
+<p>你的门户有一句客户证言："以前看财报像天书，现在能跟家里管钱的先生平起平坐地聊资产配置了。"这句话泄露高净值女性最深的两层心理：<strong>第一，她长期被"降维"对待——先生、banker、顾问都默认她不懂；第二，她渴望的不是被服务，是被"平视"。</strong>商汤这个案例，我的一个感受是：它是一张体面获客的入场券——从"AI 第一股首日破千亿"到"十年还在亏"，你能带她看透"叙事与现金流的落差"，证明你和她在同一认知语境，而不是靠推销硬闯。</p>
+<h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
+<p>把商汤当成素材，看哪些点能让你跟客户从破冰聊到深。不是背数据，是借它的故事，露出你的认知。</p>
+<h3>① AI 第一股首日破千亿——叙事能撑多久</h3>
+<p>很多客户一听"AI"就觉得闭眼买。你能接住这句话，带她看反差：首日破千亿，十年还在亏。这不是泼冷水，是让她知道你看得比热搜深——你聊的是"叙事 vs 现金流"，不是"追风口"。</p>
+<h3>② 美国制裁列入实体清单——地缘是变量</h3>
+<p>客户里不少有海外资产 / 跨境业务，这个点能直接聊到她自己：她的布局，有没有"被清单"的地缘风险？比任何理财话术都让她觉得"你懂老板的难"。</p>
+<h3>③ 十年亏钱——技术公司的估值悖论</h3>
+<p>商汤的估值几乎跟着"AI 明天来不来"起伏。你能带她看：资本买的是"未来期权"，不是"今天利润"——这比任何话术都让她觉得你看得透。</p>
+<h3>④ 生成式 AI 重估——故事翻新能救估值吗</h3>
+<p>2024–2025 它靠大模型把市值拉回 2000 亿+。这点很适合跟"想追 AI 主题"的客户聊：新故事能重估旧公司吗？还是只是又一次叙事？</p>
+<h2>3. 你跟客户聊资本，可以用的四层框架（事件 → 逻辑 → 资本视角 → 资本与权力）</h2>
+<p>同一个案例，你带客户从浅到深，是四层递进，不是四个层级评判。目的是让她觉得"你带我一层层看透了"：</p>
+<ol>
+<li>事件：商汤上市首日破千亿，又被美国制裁，十年还在亏。——破冰，谁都接得上。</li>
+<li>逻辑：它贵在原创 AI 能力，但商业化慢——技术 ≠ 现金流。——展示你懂行，不止追热点。</li>
+<li>资本视角：估值从 120 亿到 AI 重估 2000 亿+，资本买的是"未来 AI 入口"的期权，不是今天的利润。——展示你深，能看到老板的难。</li>
+<li>资本与权力：当 AI 成为国家战略，商汤的"原创能力"既是资产、也是被盯的目标——这是它估值起伏的根。——让她觉得你看得透，聊到了别人聊不到的层。</li>
+</ol>
+<h2>4. 下次跟客户聊，你可以试着抛的几个问题</h2>
+<p>这篇没有标准话术，留几个你能自然抛出的问题：</p>
+<ol>
+<li>您觉得一家"技术顶尖却十年不赚"的公司，估值该看故事还是看利润？</li>
+<li>您自己的布局，有没有"被清单 / 被审查"这种地缘风险？</li>
+<li>用刚才那个"四层框架"，您给自己的资本认知打到第几层？身边很多人其实停在第一层（只看赛道热不热）。</li>
+<li>如果一项资产靠"新故事"重估，您会怎么判断它是真拐点还是旧叙事翻新？</li>
+</ol>
+<h2>5. 相关映射：用框架聊一个"能赚钱的 AI"样本（思维训练）</h2>
+<p>跟客户聊"对照样本"，<strong>科大讯飞</strong>几乎是商汤的镜像：同样做 AI，却早早把技术落进教育、办公等愿意付费的场景，商业化顺得多。用第 3 节的"事件 → 逻辑 → 资本视角 → 资本与权力"框架，跟客户聊科大讯飞：</p>
+<ol>
+<li>科大讯飞的"事件"层：它也是 AI 老将，为什么市值叙事和商汤不同？</li>
+<li>它的"逻辑"层：把技术塞进付费场景，是不是比"纯平台叙事"更抗跌？</li>
+<li>它的"资本视角"层：资本给它定价，买的是现金流还是故事？</li>
+<li>它的"资本与权力"层走到哪了？您用这个框架，能给"AI 怎么估值"写一段分析吗？写得出，说明框架真用熟了。</li>
+</ol>
+<p>这套四层框架不只对商汤有效。任何"AI / 硬科技估值"的新闻，你都能带客户这么拆。训练几次，你跟客户聊资本的深度会不一样。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>写完这篇，我最想跟客户分享的不是市值数字，而是那句：<strong>一家企业最被记住的，不是它多会讲，是它"被需要且不可替、且有人付钱"到了哪一层。</strong>商汤技术人人佩服，却长期没人持续付够钱，估值只能靠叙事撑。你带客户聊透这个，她记住的不是几个数字，是"你带我把一个 AI 估值故事看透了"。你不是卖产品的，是能和她平起平坐、聊资本世界的人——这，才是这个案例真正帮你连上的东西。</p>
+<hr /></div>
+    </div>
+  </div>
+
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="gate-lock"></div>
+      <h2 id="gate-title">订阅会员专享</h2>
+      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+      <button id="unlock" class="gate-btn">解锁阅读</button>
+      <p id="gate-msg" class="gate-msg"></p>
+      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    </div>
+  </div>
 </div>
 <script src="../../assets/app.js"></script>
 </body>

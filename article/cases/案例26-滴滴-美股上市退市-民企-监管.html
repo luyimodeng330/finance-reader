@@ -3,54 +3,227 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>案例26：滴滴 美股上市退市（民企+监管） · 强女思维 · 金融资本库</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/styles.css">
+<title>滴滴：美股闪电上市、数据安全下架与退市转港 · 强女思维 · 金融资本库</title>
+<style>
+  :root{
+    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
+    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
+    --white:#FFFFFF; --muted:#7A6B60;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
+    line-height:1.95;font-size:17px;}
+  .page{min-height:100vh;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
+    background:var(--bg);position:sticky;top:0;z-index:50;}
+  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
+  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
+    padding:6px 14px;border-radius:999px;background:var(--white);}
+  .topbar .greet{font-size:13px;color:var(--muted);}
+  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
+  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
+  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
+    border-bottom:1px solid var(--border);padding-bottom:16px;}
+  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
+  .choose b{color:var(--brand);}
+  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
+    padding-bottom:8px;border-bottom:1px solid var(--border);}
+  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
+  p{margin:12px 0;}
+  .lead{font-size:18px;}
+  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
+  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
+  ol,ul{margin:12px 0;padding-left:24px;}
+  li{margin:7px 0;}
+  .small{font-size:14px;color:var(--muted);}
+  .note{font-size:14px;color:var(--muted);font-style:italic;}
+  .divider{height:1px;background:var(--border);margin:40px 0;}
+  .yr{color:var(--muted);font-weight:700;}
+  /* 分支切换：纯 CSS，不依赖 JS（兼容微信/内置浏览器） */
+  .tab-radio{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;}
+  .switch{display:flex;gap:14px;margin:30px 0 6px;}
+  .tab{flex:1;cursor:pointer;border:1px solid var(--accent);background:var(--white);color:var(--brand);
+    font-family:inherit;font-size:16px;font-weight:700;padding:14px 10px;border-radius:10px;
+    text-align:center;letter-spacing:.5px;}
+  .tab:hover{background:var(--surface);}
+  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
+  .panel{display:none;}
+  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:30px 0 4px;}
+  #rA:checked ~ #branchA{display:block;}
+  #rB:checked ~ #branchB{display:block;}
+  #rA:checked ~ .switch label[for="rA"],
+  #rB:checked ~ .switch label[for="rB"]{background:var(--brand);color:var(--white);border-color:var(--brand);}
+  /* 门禁（内联，复用 app.js） */
+  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
+  .gate.visible{display:flex;}
+  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
+    box-shadow:0 24px 60px rgba(51,37,27,.3);}
+  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
+  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
+  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
+  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
+    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
+  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .gate-btn:hover{background:var(--brand-hover);}
+  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
+  .gate-msg.err{color:#c0392b;}
+  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
+  #article-body.locked{display:none;}
+  @media (max-width:600px){
+    .wrap{padding:36px 18px 70px;}
+    h1{font-size:22px;}
+    .switch{flex-direction:column;}
+  }
+</style>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
-  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <span class="brand-sub" id="top-greet">Reader</span>
+    <a class="back" href="../../hall-cases.html">返回案例库</a>
+    <span id="top-greet" class="greet"></span>
   </header>
 
-  <article class="reader">
-    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
-    <div class="reader-meta"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
-    <h1 class="reader-title">案例26：滴滴 美股上市退市（民企+监管）</h1>
-    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-02.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-03.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-04.jpg" alt="" loading="lazy">
-<i class="blk blk--gold"></i></div>
+  <div class="wrap">
+    <div id="article-body" class="locked">
+      <input type="radio" name="branch" id="rA" class="tab-radio" checked>
+      <input type="radio" name="branch" id="rB" class="tab-radio">
 
-    <div id="lede" class="lede"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
+      <h1>滴滴：美股闪电上市、数据安全下架与退市转港</h1>
+      <div class="tagline">【民企 + 监管】【中概股】【数据安全】【美股退市】　难度 ★★★★☆　阅读 17 分钟　更新 2026.07</div>
 
-    <div id="article-body" class="prose locked"><p>资本认知·金融 · 案例库 · 案例库 30 例</p>
-<p>事件：2021年滴滴低调美股上市，后因数据安全审查被下架，最终从美股退市转港股。
-资本逻辑：数据安全成为出行平台估值的新约束变量。
-启示：涉及数据的民企，监管变量优先于财务变量。</p></div>
-
-    <div id="gate" class="gate">
-      <div class="gate-card">
-        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
-        <h2 id="gate-title">订阅会员专享</h2>
-        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-        <button id="unlock" class="gate-btn">解锁阅读</button>
-        <p id="gate-msg" class="gate-msg"></p>
-        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+      <div class="choose">
+        <b>▍怎么读这篇？</b><br>
+        上面是 <b>案例来龙去脉</b>（两类读者共读）。读完它，<b>按你的目标选一条</b>：<br>
+        <b>· 把我的企业做好</b> → 点左边按钮（视角向内：怎么用到自己企业）。<br>
+        <b>· 跟我的客户分享</b> → 点右边按钮（视角向外：怎么拿去跟高净值客户体面对话）。<br>
+        <span class="small">两条分支同源、各写纵深，落点完全不同：一个改自己，一个连客户。</span>
       </div>
-    </div>
-  </article>
 
-  <footer class="foot">
-    <span>强女思维 · 金融资本库</span>
-    <span>仅限付费会员</span>
-  </footer>
+      <h2>案例背景｜案例来龙去脉：一家刚敲完纽交所钟的公司，怎么 5 个月后被自己最该守的"数据"拖下牌桌</h2>
+<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最有价值的，恰恰是它怎么在业务全好、市值 670 亿美元时，被一个"数据"问题在 5 个月内打到退市。</p>
+<h3>1.1 来路：程维的网约车帝国（2012–2016）</h3>
+<p>2012.6，程维创立小桔科技，2012.9"滴滴打车"上线，赶上移动支付与智能手机普及的窗口。真正的跃迁在合并与收购：2015.2 与快的合并（腾讯、阿里站台），2016.8 <strong>收购优步中国</strong>。两仗打完，滴滴的网约车市占率冲到约 <strong>90%</strong>，成为毫无争议的出行霸主——它用资本和先发，把对手一一清零。</p>
+<h3>1.2 蜕变：多轮融资，长成"巨无霸"（2016–2020）</h3>
+<p>成为霸主后，滴滴变成资本的宠儿：软银愿景基金、苹果、阿里、腾讯、招商局等密集入局，2017 软银一笔大注把估值推过 <strong>500 亿美元</strong>。靠着长年补贴，它把"打车用滴滴"养成了全民习惯。此时的滴滴，既是商业基础设施，也是手握海量出行数据的平台——后一个身份，后来成了它的命门。</p>
+<h3>1.3 上线即爆：美股"闪电上市"（2021.6）</h3>
+<p>2021.6.30，滴滴在纽交所上市（DIDI），发行价 <strong>14 美元</strong>，募资约 <strong>44 亿美元</strong>，上市时市值约 <strong>670 亿美元</strong>，是当时最大的中概股 IPO 之一。但这次上市被外界视作"抢跑"——在网络安全审查尚未完成的情况下低调敲钟，连上市仪式都格外安静。埋雷，就在这一刻。</p>
+<h3>1.4 成长弧：数据安全审查，App 全面下架（2021.7）</h3>
+<p>上市仅两天，2021.7.2 网络安全审查办公室宣布对滴滴启动<strong>网络安全审查</strong>；2021.7.4 "滴滴出行"App 被下架，随后 <strong>25 款相关 App</strong> 陆续下架，并<strong>停止新用户注册</strong>。一个刚上市的巨头，核心产品一夜之间从应用商店消失。市值从 670 亿一路蒸发——业务没变，但"还能不能正常经营"成了问号。</p>
+<h3>1.5 资本弧：5 个月退市，转港未果（2021.12–2023）</h3>
+<p>2021.12.3，滴滴宣布从纽交所退市并启动赴港上市——上市到退市仅约 5 个月。2022.5.23 股东会通过退市，2022.6 正式摘牌，市值较上市峰值<strong>蒸发超 90%</strong>（从约 670 亿跌到约 60–70 亿美元量级）。2022.7.21，网信办对滴滴处以 <strong>80.26 亿元</strong>罚款，程维、柳青各被罚 100 万元。直到 2023.1.16 恢复新用户注册、App 重新上架，整改才算完成。此后它持续推进港股上市，但截至发稿（据公开报道）仍未正式在港挂牌。</p>
+<h3>1.6 竞争弧：赢在资本碾压，却输在合规空窗</h3>
+<p>对优步中国：滴滴用收购赢下市场，干净利落。但对高德、美团、曹操、T3 等后来者：下架的空窗期，恰好给了对手抢用户、抢司机的窗口——护城河第一次出现裂缝。它的教训是：<strong>靠资本堆出的霸主地位，挡不住"合规缺口"造成的信任塌方</strong>。</p>
+<h3>1.7 悬念：整改之后，还能讲出新故事吗</h3>
+<p>恢复运营后，滴滴仍是出行大头，但"数据安全"成了长期枷锁：任何跨境、任何大资本动作，都要先过审查这一关。推进港股上市，本质是想找回一个"干净"的融资身份。一个问题悬在这里：一家背着数据安全原罪、市值大幅缩水的公司，还能不能在港股重新被资本定价？</p>
+
+      <div class="divider"></div>
+
+      <div class="switch">
+        <label for="rA" class="tab">把我的企业做好</label>
+        <label for="rB" class="tab">跟我的客户分享</label>
+      </div>
+      <p class="hint">点上面的目标，查看对应分支的完整后半部分（案例背景已读完，下面这段是只属于你这个目标的纵深）。</p>
+
+      <div class="panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人的"合规雷"，变成自己的排雷清单</h2>
+<p>滴滴最刺痛的地方在于：业务全好、市值 670 亿，却栽在一个"数据"底稿上。</p>
+<p>读它，对你做企业的人，价值不是"长见识"，是"排雷"。我自己的一个感受是：很多做企业的人把合规当"成本部门"，主业猛冲、合规让路。滴滴这个案例把代价摊开了——一次违规，市值蒸发 90% 外加 80 亿罚款。你对照的，应该是自己的"合规底稿"，不是它的规模。</p>
+<h2>2. 滴滴这一步步，对你做企业意味着什么</h2>
+<p>把滴滴当成主角，看它每一步动作背后的取舍。对你最有用的，不是"它多会打"，而是"它怎么在敲钟那一刻被看不见的雷炸了"。</p>
+<h3>① 收购优步中国成霸主——赢家通吃也要留余地</h3>
+<p>它用资本把对手清零，市占 90%。但垄断地位也意味着"被盯得最紧"。很多做企业的人追求绝对份额，却忘了份额越高、监管注意力越高。对你：你的"霸主地位"稳固吗？还是已经成了靶子？</p>
+<h3>② 闪电上市"抢跑"——窗口期 vs 合规节奏</h3>
+<p>它为了赶行情，在未过审时就敲钟。很多做企业的人也爱"卡点冲资本"——行情不等人，合规先让。对你：你冲融资 / 上市时，合规节奏跟得上吗？还是把雷压到敲钟后？</p>
+<h3>③ 数据安全审查下架——平时看不见的雷，敲钟时爆</h3>
+<p>数据跨境、用户隐私，平时不发作，一旦上市被放大镜照，就是致命伤。对你：你手里有没有"平时没事、一审查就爆"的雷（数据 / 牌照 / 用工 / 税务）？</p>
+<h3>④ 退市 + 罚款——一次违规的代价是市值蒸发 90% 加 80 亿</h3>
+<p>从 670 亿到约 60–70 亿，再加 80.26 亿罚款。很多做企业的人算不清"违规账"，觉得罚款是小数。对你：你算过一次违规的真实代价吗（市值 + 罚款 + 信用）？</p>
+<h2>3. 你自己的企业，可以对照这四步动作（切口 / 资产 / 控制权 / 跃迁）</h2>
+<p>同一个案例，落到"怎么做企业"上，是四个可执行的动作，不是四个抽象层级：</p>
+<ol>
+<li>切口：你有没有一个"看似无害、却致命"的合规盲点（像数据跨境）？很多雷平时不发作，一上市就爆。先把盲点列出来。</li>
+<li>资产：你真正控股且"干净"的资产是什么？滴滴的数据、牌照、网络本是核心资产，却因合规瑕疵被冻结——脏资产是负债，不是资产。</li>
+<li>控制权：控制权不只是股权，是"还能不能正常经营"。滴滴下架时，股份没变、话事权还在，但经营自由没了——控制 = 经营自由，不只是投票权。</li>
+<li>跃迁：从"国内霸主"跳到"国际 / 港股"，合规是门票。没合规，跃迁会变坠落。你每一次想跳台阶前，先问：门票齐了吗？</li>
+</ol>
+<h2>4. 合上文章，想想你自己的四件事</h2>
+<p>这篇没有标准答案，留四个问题给你自己：</p>
+<ol>
+<li>你的"数据 / 合规底稿"经得起第三方审查吗？有没有平时没事、一查就爆的点？</li>
+<li>你卡点冲融资 / 上市时，合规节奏跟得上吗？还是把雷压到最后？</li>
+<li>你最值钱的资产，有没有"不干净"的隐患（牌照 / 数据 / 用工 / 税务）？</li>
+<li>你算过"一次违规"的真实代价吗（市值蒸发 + 罚款 + 信用破产）？</li>
+</ol>
+<h2>5. 相关映射：用框架看一个"同期中招"的样本（思维训练）</h2>
+<p>和滴滴几乎同时被数据安全审查的，还有 <strong>满帮（运满满）/ BOSS 直聘</strong>：2021 年 7 月，几家掌握海量用户数据的平台同期被审查、下架整改。用第 3 节的"切口 / 资产 / 控制权 / 跃迁"四步，去拆它们（或你自己的企业）：</p>
+<ol>
+<li>它们的"切口"雷区都是"数据"——和你可能的雷区，打法差在哪？</li>
+<li>它们的"不可替代资产"里，数据占比多高？一旦被冻，资产变负债的速度有多快？</li>
+<li>它们的"控制权 / 经营自由"被审查切断后，怎么找回？你更想避开哪条路？</li>
+<li>如果用这四步写一段"我的企业合规诊断"，你会怎么写？最该补的是哪一步？</li>
+</ol>
+<p>这套四步不只对互联网平台有效。任何"手里握着用户数据"的企业，都能这么拆一遍自己的合规底稿。训练几次，你看风险的眼光会不一样。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>写完这篇，我最触动的不是 670 亿变 60 亿，而是那句藏在背后的逻辑：<strong>一家企业最值钱的，从来不是被看见，是被需要且不可替——但"不可替"的前提，是干净。</strong>滴滴曾是出行绕不开的节点，却因为数据原罪被打折、被下架。这中间的认知转折，才是它真正的教训：你做自己的企业，最该守住的，也是这句——先把"被需要且不可替、且经得起查"的那一点磨出来，再谈规模和敲钟。</p></div>
+
+      <div class="panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
+<p>高净值客户不缺一个"卖产品的人"，她缺一个能跟她在同一个资本语境里聊世界的人。</p>
+<p>你的门户有一句客户证言："以前看财报像天书，现在能跟家里管钱的先生平起平坐地聊资产配置了。"这句话泄露高净值女性最深的两层心理：<strong>第一，她长期被"降维"对待——先生、banker、顾问都默认她不懂；第二，她渴望的不是被服务，是被"平视"。</strong>滴滴这个案例，我的一个感受是：它是一张体面获客的入场券——从"670 亿 5 个月退市"到"80 亿罚款"，你能带她看透"监管如何重塑一家公司的价值"，证明你和她在同一认知语境，而不是靠推销硬闯。</p>
+<h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
+<p>把滴滴当成素材，看哪些点能让你跟客户从破冰聊到深。不是背数据，是借它的故事，露出你的认知。</p>
+<h3>① 670 亿到退市——巨无霸也会一夜归零</h3>
+<p>很多客户默认"大公司就稳"。你能接住这句话，带她看反差：上市 5 个月就退市，市值蒸发 90%。这不是唱衰，是让她知道你看得比热搜深——你聊的是"确定性"，不是"名气"。</p>
+<h3>② 数据安全 = 企业家的隐性负债</h3>
+<p>客户里很多是企业家或家属，这个点能直接聊到她自己：她自己的企业，有没有"数据 / 合规"这种看不见、一查就爆的负债？比任何理财话术都让她觉得"你懂老板的难"。</p>
+<h3>③ 80 亿罚款——一次违规的真实代价</h3>
+<p>从 670 亿市值到 80 亿罚款，这个数是聊"风险定价"的好素材。你能带她看：资本最怕的从来不是波动，是"不确定性"，尤其监管不确定性。</p>
+<h3>④ 转港未果——上市地选择也是战略</h3>
+<p>滴滴从纽交所退、想转港股却久未成，很适合跟"有海外架构 / 想上市"的客户聊：上市地不是随手选的，是和合规绑定的战略。</p>
+<h2>3. 你跟客户聊资本，可以用的四层框架（事件 → 逻辑 → 资本视角 → 资本与权力）</h2>
+<p>同一个案例，你带客户从浅到深，是四层递进，不是四个层级评判。目的是让她觉得"你带我一层层看透了"：</p>
+<ol>
+<li>事件：滴滴上市 5 个月就退市，App 被下架，市值蒸发 90%。——破冰，谁都接得上。</li>
+<li>逻辑：它栽在"数据跨境未过审就抢跑上市"，不是业务差——展示你懂行，不止追热点。</li>
+<li>资本视角：44 亿募资、670 亿市值，5 个月蒸发 90%——资本最怕"不确定性"，尤其监管不确定性。——展示你深，能看到老板的难。</li>
+<li>资本与权力：当数据进入国家安全范畴，企业的权力边界被重新划定——这是它坠落的根。你能带客户看到这一层，她就真服了。——让她觉得你看得透，聊到了别人聊不到的层。</li>
+</ol>
+<h2>4. 下次跟客户聊，你可以试着抛的几个问题</h2>
+<p>这篇没有标准话术，留几个你能自然抛出的问题：</p>
+<ol>
+<li>您觉得一家 670 亿的公司，最该防的敌人是竞争对手，还是自己没过的合规？</li>
+<li>您自己的企业 / 家族资产，有没有"数据或合规"这种看不见、一查就爆的负债？</li>
+<li>用刚才那个"四层框架"，您给自己的资本认知打到第几层？身边很多人其实停在第一层（只看市值大小）。</li>
+<li>如果一项资本动作（上市 / 并购）撞上监管，您会怎么给它重新定价？</li>
+</ol>
+<h2>5. 相关映射：用框架聊一个"上市前夜被叫停"的样本（思维训练）</h2>
+<p>跟客户聊"对照样本"，<strong>蚂蚁集团</strong>几乎是滴滴的镜像：2020 年原本要创纪录 IPO，却在临门一脚被监管叫停——同样是企业资本动作撞上监管。用第 3 节的"事件 → 逻辑 → 资本视角 → 资本与权力"框架，跟客户聊蚂蚁：</p>
+<ol>
+<li>蚂蚁的"事件"层：上市前夜被叫停，和滴滴"上市后被迫退市"，同是监管重定价——差别在哪？</li>
+<li>它的"逻辑"层：为什么"大而不倒"的金融生意会被重新审视？</li>
+<li>它的"资本视角"层：估值从天价回到重估，资本买的是什么确定性？</li>
+<li>它的"资本与权力"层走到哪了？您用这个框架，能给"监管如何重塑估值"写一段分析吗？写得出，说明框架真用熟了。</li>
+</ol>
+<p>这套四层框架不只对滴滴有效。任何"监管重塑估值"的新闻，你都能带客户这么拆。训练几次，你跟客户聊资本的深度会不一样。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>写完这篇，我最想跟客户分享的不是市值蒸发，而是那句：<strong>一家企业最被记住的，不是它多大，是它"被需要且不可替、且经得起查"到了哪一层。</strong>滴滴曾是出行绕不开的节点，却因为数据原罪被重新定价。你带客户聊透这个，她记住的不是几个数字，是"你带我把一个监管故事看透了"。你不是卖产品的，是能和她平起平坐、聊资本世界的人——这，才是这个案例真正帮你连上的东西。</p>
+<hr /></div>
+    </div>
+  </div>
+
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="gate-lock"></div>
+      <h2 id="gate-title">订阅会员专享</h2>
+      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+      <button id="unlock" class="gate-btn">解锁阅读</button>
+      <p id="gate-msg" class="gate-msg"></p>
+      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    </div>
+  </div>
 </div>
 <script src="../../assets/app.js"></script>
 </body>

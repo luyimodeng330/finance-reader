@@ -3,54 +3,227 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>案例23：美团 并购扩张（民企平台资本路） · 强女思维 · 金融资本库</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/styles.css">
+<title>美团：从千团大战到外卖霸主的并购扩张路 · 强女思维 · 金融资本库</title>
+<style>
+  :root{
+    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
+    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
+    --white:#FFFFFF; --muted:#7A6B60;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
+    line-height:1.95;font-size:17px;}
+  .page{min-height:100vh;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
+    background:var(--bg);position:sticky;top:0;z-index:50;}
+  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
+  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
+    padding:6px 14px;border-radius:999px;background:var(--white);}
+  .topbar .greet{font-size:13px;color:var(--muted);}
+  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
+  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
+  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
+    border-bottom:1px solid var(--border);padding-bottom:16px;}
+  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
+  .choose b{color:var(--brand);}
+  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
+    padding-bottom:8px;border-bottom:1px solid var(--border);}
+  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
+  p{margin:12px 0;}
+  .lead{font-size:18px;}
+  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
+  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
+  ol,ul{margin:12px 0;padding-left:24px;}
+  li{margin:7px 0;}
+  .small{font-size:14px;color:var(--muted);}
+  .note{font-size:14px;color:var(--muted);font-style:italic;}
+  .divider{height:1px;background:var(--border);margin:40px 0;}
+  .yr{color:var(--muted);font-weight:700;}
+  /* 分支切换：纯 CSS，不依赖 JS（兼容微信/内置浏览器） */
+  .tab-radio{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;}
+  .switch{display:flex;gap:14px;margin:30px 0 6px;}
+  .tab{flex:1;cursor:pointer;border:1px solid var(--accent);background:var(--white);color:var(--brand);
+    font-family:inherit;font-size:16px;font-weight:700;padding:14px 10px;border-radius:10px;
+    text-align:center;letter-spacing:.5px;}
+  .tab:hover{background:var(--surface);}
+  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
+  .panel{display:none;}
+  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:30px 0 4px;}
+  #rA:checked ~ #branchA{display:block;}
+  #rB:checked ~ #branchB{display:block;}
+  #rA:checked ~ .switch label[for="rA"],
+  #rB:checked ~ .switch label[for="rB"]{background:var(--brand);color:var(--white);border-color:var(--brand);}
+  /* 门禁（内联，复用 app.js） */
+  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
+  .gate.visible{display:flex;}
+  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
+    box-shadow:0 24px 60px rgba(51,37,27,.3);}
+  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
+  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
+  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
+  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
+    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
+  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .gate-btn:hover{background:var(--brand-hover);}
+  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
+  .gate-msg.err{color:#c0392b;}
+  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
+  #article-body.locked{display:none;}
+  @media (max-width:600px){
+    .wrap{padding:36px 18px 70px;}
+    h1{font-size:22px;}
+    .switch{flex-direction:column;}
+  }
+</style>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
-  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <span class="brand-sub" id="top-greet">Reader</span>
+    <a class="back" href="../../hall-cases.html">返回案例库</a>
+    <span id="top-greet" class="greet"></span>
   </header>
 
-  <article class="reader">
-    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
-    <div class="reader-meta"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
-    <h1 class="reader-title">案例23：美团 并购扩张（民企平台资本路）</h1>
-    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-13.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-14.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-01.jpg" alt="" loading="lazy">
-<i class="blk blk--gold"></i></div>
+  <div class="wrap">
+    <div id="article-body" class="locked">
+      <input type="radio" name="branch" id="rA" class="tab-radio" checked>
+      <input type="radio" name="branch" id="rB" class="tab-radio">
 
-    <div id="lede" class="lede"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
+      <h1>美团：从千团大战到外卖霸主的并购扩张路</h1>
+      <div class="tagline">【民企平台】【并购扩张】【本地生活】【资本叙事】　难度 ★★★★☆　阅读 18 分钟　更新 2026.07</div>
 
-    <div id="article-body" class="prose locked"><p>资本认知·金融 · 案例库 · 案例库 30 例</p>
-<p>事件：美团从团购到收购摩拜、加码社区团购、外卖霸主，通过并购+自营构建本地生活帝国。
-资本逻辑：平台型民企用并购补能力短板，但社区团购等烧钱战役侵蚀利润。
-启示：并购补能力可以，但烧钱战役要算清ROI。</p></div>
-
-    <div id="gate" class="gate">
-      <div class="gate-card">
-        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
-        <h2 id="gate-title">订阅会员专享</h2>
-        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-        <button id="unlock" class="gate-btn">解锁阅读</button>
-        <p id="gate-msg" class="gate-msg"></p>
-        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+      <div class="choose">
+        <b>▍怎么读这篇？</b><br>
+        上面是 <b>案例来龙去脉</b>（两类读者共读）。读完它，<b>按你的目标选一条</b>：<br>
+        <b>· 把我的企业做好</b> → 点左边按钮（视角向内：怎么用到自己企业）。<br>
+        <b>· 跟我的客户分享</b> → 点右边按钮（视角向外：怎么拿去跟高净值客户体面对话）。<br>
+        <span class="small">两条分支同源、各写纵深，落点完全不同：一个改自己，一个连客户。</span>
       </div>
-    </div>
-  </article>
 
-  <footer class="foot">
-    <span>强女思维 · 金融资本库</span>
-    <span>仅限付费会员</span>
-  </footer>
+      <h2>案例背景｜案例来龙去脉：一家"无边界"公司，怎么用并购把自己长成超级平台</h2>
+<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最有价值的，恰恰是它怎么靠一次次并购，把"团购网站"拼成了"本地生活基础设施"。</p>
+<h3>1.1 来路：团购起家，千团大战里活下来（2010–2014）</h3>
+<p>2010.3，王兴在北京创立美团，以<strong>团购</strong>切入本地生活，正值"千团大战"——拉手、窝窝、糯米等数千家玩家同时烧钱补贴。美团能活下来，靠的不是钱最多，是王兴的<strong>克制</strong>：别人疯狂投广告买规模，美团死磕"单位经济模型"和地推铁军，算的是每一单能不能赚钱。这种"先算账再扩张"的底色，是它后来敢并购、敢烧钱的底气。2013.11，美团外卖上线，从团购转向更高频的刚需。</p>
+<h3>1.2 蜕变：与大众点评合并，站上 O2O 王座（2015）</h3>
+<p>2015.10，美团与<strong>大众点评</strong>合并成"新美大"，由腾讯、阿里、红杉等多方推动。合并后到店餐饮市占率超过 <strong>85%</strong>，直接确立 O2O 绝对龙头。这一步是典型的"用合并结束战争"——不再各自烧钱，而是把对手变成自己的一部分。值得注意的是，阿里此后逐步清仓美团、转投饿了么，埋下了后来本地生活大战的伏笔。</p>
+<h3>1.3 上线即爆：外卖成第二增长曲线（2013–2017）</h3>
+<p>外卖是<strong>高频刚需</strong>，天然比团购更黏人。2015–2017，美团与饿了么、百度外卖"三国杀"。美团赢在"外卖 + 到店 + 酒旅"的协同——外卖把人拉进来，到店和酒旅把人留下来，流量在内部循环，不用每次都去买。到 2017 年，外卖已是它的核心引擎。</p>
+<h3>1.4 成长弧：从外卖到"零售 + 科技"（2018–2021）</h3>
+<p>2018 上市后，美团继续把边界往外推：2020.7 推出<strong>美团优选</strong>（社区团购）抢下沉市场；2021 战略升级为"<strong>零售 + 科技</strong>"，把服务零售和商品零售都装进盘子。市值在 2021 年初登上顶峰，据公开报道一度站上约 <strong>2.6 万亿港元（约 3300 亿美元）</strong>，跻身中国互联网"ATM"（阿里、腾讯、美团）之列。</p>
+<h3>1.5 资本弧：腾讯重仓、27 亿美元买摩拜、上市募资 42 亿</h3>
+<p>资本层面，美团是"用别人的钱补自己的飞轮"的范本。腾讯一路加仓，IPO 前持股约 <strong>20%</strong>，是稳居第一的大股东。2018.4，美团<strong>全资收购摩拜</strong>，作价 <strong>27 亿美元（约 185 亿元人民币）</strong>，王兴兼任董事长，借此切入出行场景。2018.9.20，美团在港交所上市（03690.HK），发行价 <strong>69 港元</strong>，募资净额约 <strong>325.55 亿港元（约 41.5–42 亿美元）</strong>，上市估值约 <strong>510–524 亿美元</strong>，市值一度突破 4000 亿港元。更关键的是它采用<strong>同股不同权（W 类）</strong>架构，王兴用少量股份保住了话事权。</p>
+<h3>1.6 竞争弧：它赢在"高频打低频"的生态协同</h3>
+<p>对阿里（口碑 / 饿了么）：美团用"外卖高频带低频"打穿本地生活，阿里有钱有流量却始终没打赢——因为缺的是"飞轮"不是"弹药"。对抖音（到店团购）：美团守的是履约能力与评价体系，抖音守的是内容流量，两边打法不同。2025，京东、阿里相继入局即时零售，掀起新一轮"外卖大战"，美团的护城河第一次被正面撼动。</p>
+<h3>1.7 悬念：2025 烧钱亏损，边界还能扩多远</h3>
+<p>2025 财报：全年收入 <strong>3649 亿元</strong>（同比 +8%），但"外卖大战"烧钱致全年<strong>净亏 234 亿元</strong>、经营亏损 170 亿元，其中核心本地商业板块经营亏损 69 亿元。从"躺着赚"到"贴钱守"，并购扩张的红利似乎到了拐点。与此同时它仍在出海（Keeta 进中东、香港、巴西）和押注 AI 入口。一个问题悬在这里：当巨头也要为边界买单，并购扩张的范式还成立吗？</p>
+
+      <div class="divider"></div>
+
+      <div class="switch">
+        <label for="rA" class="tab">把我的企业做好</label>
+        <label for="rB" class="tab">跟我的客户分享</label>
+      </div>
+      <p class="hint">点上面的目标，查看对应分支的完整后半部分（案例背景已读完，下面这段是只属于你这个目标的纵深）。</p>
+
+      <div class="panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人的扩张节奏，变成自己的战略清单</h2>
+<p>美团不是"靠一个产品赢"，是"靠并购把一个个高频场景拼成平台"。</p>
+<p>读它，对你做企业的人，价值不是"长见识"，是"照镜子"。我自己的一个感受是：很多做企业的人卡在"有规模没飞轮"——盘子做大，但每一块业务都在单独烧钱，互相不咬合。美团这个案例，把"并购怎么补飞轮"每一步都摊开了，你对照的，应该是自己的扩张节奏，不是它的名气。</p>
+<h2>2. 美团这一步步，对你做企业意味着什么</h2>
+<p>把美团当成主角，看它每一步动作背后的取舍。对你最有用的，不是"它多会买"，而是"它怎么让买来的东西变成自己的资产"。</p>
+<h3>① 千团大战的克制：先活下来，再谈规模</h3>
+<p>几千家团购站，活下来的没几家。美团靠"不算错账"活下来——它烧的是能收回的获客，不是虚荣的规模。对你：你烧钱买的是"单位经济模型健康的增长"，还是"看着好看的规模"？前者是资产，后者是负债。</p>
+<h3>② 合并结束战争：有时收编对手比打死对手更省</h3>
+<p>与大众点评合并，直接终结了到店领域的烧钱战。很多做企业的人迷信"必须打死对手"，但美团的答案常是"把对手并进自己的飞轮"。对你：你这个行业里，那个"该被你合并或结盟"的对手在哪？打死它要花多少，收编它省多少？</p>
+<h3>③ 27 亿美元买摩拜：并购是补能力，不是堆估值</h3>
+<p>买摩拜不是为"故事更好听"，是补"出行"这个高频场景，让外卖用户顺手骑车。但事后看，摩拜重资产、持续亏，这笔买卖协同有限、包袱不小。对你：你最近一次"买东西"（并购 / 投资），买的是真协同，还是老板的面子？</p>
+<h3>④ 高位上市 + 同股不同权：用架构保住控制权</h3>
+<p>美团上市用 W 类股，王兴用少数股份握着话事权。很多做企业的人融资时只顾估值，把投票权、一票否决一并让出去，后面要用十倍代价赎。对你：你融资条款里让出去的控制权，现在赎回成本高不高？</p>
+<h2>3. 你自己的企业，可以对照这四步动作（切口 / 资产 / 控制权 / 跃迁）</h2>
+<p>同一个案例，落到"怎么做企业"上，是四个可执行的动作，不是四个抽象层级：</p>
+<ol>
+<li>切口：你有没有一个"高频刚需"场景当入口（像外卖）？高频带低频，比单点突破稳得多。先找你的"外卖"，再想扩什么。</li>
+<li>资产：你真正控股的"飞轮资产"是什么——地推、履约、数据、品牌？别把"规模"误当成"资产"，规模不咬合就是成本。</li>
+<li>控制权：你融资时有没有用 AB 股 / 同股不同权保住话事权？估值是纸面富贵，控制是实打实的命。让出去的投票权，后面赎不回。</li>
+<li>跃迁：并购能不能让你从"一个业务"跳到"一个生态"？看的是协同，不是音量。买来的东西如果不能进飞轮，就是库存。</li>
+</ol>
+<h2>4. 合上文章，想想你自己的四件事</h2>
+<p>这篇没有标准答案，留四个问题给你自己：</p>
+<ol>
+<li>你的"高频入口"在哪？有没有把低频业务顺手挂上去、让它转起来？</li>
+<li>你手里哪些是真正控股的资产（履约 / 数据 / 品牌），哪些是借来的流量、随时会断？</li>
+<li>你融资条款里让出去的投票权 / 一票否决，今天回头看代价多大？</li>
+<li>你最近一次并购或投资，买的是协同，还是面子？</li>
+</ol>
+<h2>5. 相关映射：用框架看一个"有钱却没赢"的样本（思维训练）</h2>
+<p>和美团形成有趣反照的是<strong>阿里本地生活（饿了么 + 口碑）</strong>：阿里有钱、有流量、早早收购饿了么，却始终没在本地生活打赢美团。用第 3 节的"切口 / 资产 / 控制权 / 跃迁"四步，去拆它（或你自己的企业）：</p>
+<ol>
+<li>它的"切口"是外卖，资源和美团一样，为什么飞轮没转起来？和你可能的差距，差在哪？</li>
+<li>它的"不可替代资产"是流量还是履约？和美团的地推铁军，相同不同在哪？</li>
+<li>它的控制权 / 资源调度，是被大集团内耗拖慢了吗？你自己的扩张有没有类似内耗？</li>
+<li>如果用这四步写一段"我的企业扩张诊断"，你会怎么写？最该补的是哪一步？</li>
+</ol>
+<p>这套四步不只对平台有效。任何"想靠并购长大"的企业，都能这么拆一遍自己的每一次出手。训练几次，你看扩张的眼光会不一样。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>写完这篇，我最触动的不是它并购了多少，而是那句藏在背后的逻辑：<strong>一家企业最值钱的，从来不是被看见，是被需要且不可替。</strong>美团之所以贵，是因为商家、骑手、用户三方同时需要它、又难找到替代——它的飞轮转成了"基础设施"。这中间的认知转折，才是并购扩张真正的护城河：你做自己的企业，最该守住的，也是这句——先把"被需要且不可替"的飞轮磨出来，再谈边界和规模。</p></div>
+
+      <div class="panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
+<p>高净值客户不缺一个"卖产品的人"，她缺一个能跟她在同一个资本语境里聊世界的人。</p>
+<p>你的门户有一句客户证言："以前看财报像天书，现在能跟家里管钱的先生平起平坐地聊资产配置了。"这句话泄露高净值女性最深的两层心理：<strong>第一，她长期被"降维"对待——先生、banker、顾问都默认她不懂；第二，她渴望的不是被服务，是被"平视"。</strong>美团这个案例，我的一个感受是：它是一张体面获客的入场券——你能用它证明"我和你在同一认知语境里"，而不是靠推销硬闯。不是"我懂比你多"的俯视，也不是凑上去讨好，是"我也在这个资本世界里，咱们对等聊"。</p>
+<h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
+<p>把美团当成素材，看哪些点能让你跟客户从破冰聊到深。不是背数据，是借它的故事，露出你的认知。</p>
+<h3>① 千团大战几千家只活几家——大风口里死的更多</h3>
+<p>很多客户一听"风口"就觉得闭眼冲。你能接住这句话，带她看反差：团购是当年最大的风口，却死得最惨。这不是唱衰，是让她知道你看得比热搜深——你聊的是"单位经济模型"，不是"赛道热度"。</p>
+<h3>② 与大众点评合并结束战争——赢家不一定打死对手</h3>
+<p>这个"收编对手"的故事，很适合跟做企业的客户聊：有时整合比厮杀更划算。你这么一拆，客户立刻觉得"你懂老板的难"，不是只会卖产品。</p>
+<h3>③ 27 亿美元买摩拜 + 高位上市——资本怎么给"故事"定价</h3>
+<p>客户常困惑"为什么有的公司亏着也能上市、还值几千亿"。你能用美团解释：资本买的是"飞轮能不能转"，不是"今天赚不赚"。这比任何理财话术都更能让她觉得你看得透。</p>
+<h3>④ 2025 烧钱亏 234 亿——巨头也会为边界买单</h3>
+<p>连美团都在为扩张付亏钱的代价，护城河不是永恒的。这点很适合跟"想all in某个风口"的客户聊：规模大，不等于安全。</p>
+<h2>3. 你跟客户聊资本，可以用的四层框架（事件 → 逻辑 → 资本视角 → 资本与权力）</h2>
+<p>同一个案例，你带客户从浅到深，是四层递进，不是四个层级评判。目的是让她觉得"你带我一层层看透了"：</p>
+<ol>
+<li>事件：美团从团购做到外卖霸主，还花 27 亿美元买下摩拜。——破冰，谁都接得上。</li>
+<li>逻辑：它赢在"高频带低频"的飞轮，不是单点烧钱。——展示你懂行，不止追热点。</li>
+<li>资本视角：腾讯重仓 + 同股不同权，怎么用资本保住控制权？——展示你深，能看到老板的难。</li>
+<li>资本与权力：当平台大到"被商家、骑手、用户同时需要且难替"，它的权力来自生态而非股权——这才是它估值高的根。——让她觉得你看得透，聊到了别人聊不到的层。</li>
+</ol>
+<h2>4. 下次跟客户聊，你可以试着抛的几个问题</h2>
+<p>这篇没有标准话术，留几个你能自然抛出的问题：</p>
+<ol>
+<li>您觉得美团赢在烧钱多，还是飞轮转得顺？身边企业哪些是"有规模没飞轮"？</li>
+<li>如果您要并购，买的是协同，还是面子？有没有为面子付过代价？</li>
+<li>用刚才那个"四层框架"，您给自己的资本认知打到第几层？身边很多人其实停在第一层（只看热闹）。</li>
+<li>连美团 2025 都在亏，您觉得一家公司的护城河会过期吗？</li>
+</ol>
+<h2>5. 相关映射：用框架聊一个"后来者挑战"样本（思维训练）</h2>
+<p>跟客户聊"对照样本"，<strong>京东 2025 入局即时零售 / 外卖</strong>几乎是美团的一面镜子：同样是大平台、同样用百亿补贴打本地生活，只是身份从"扩张者"变成"挑战者"。用第 3 节的"事件 → 逻辑 → 资本视角 → 资本与 权力"框架，跟客户聊京东：</p>
+<ol>
+<li>京东的"事件"层是什么？它为什么这时入场，时机对不对？</li>
+<li>它的"逻辑"层成立吗——有流量和供应链，就能打赢美团的履约飞轮吗？</li>
+<li>它的"资本视角"层：烧钱的底气来自哪，账能算平吗？</li>
+<li>它的"资本与权力"层走到哪了？您用这个框架，能给京东写一段"资本心智分析"吗？写得出，说明框架真用熟了。</li>
+</ol>
+<p>这套四层框架不只对美团有效。任何"平台打仗"的新闻，你都能带客户这么拆。训练几次，你跟客户聊资本的深度会不一样。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>写完这篇，我最想跟客户分享的不是美团的估值，而是那句：<strong>一个人 / 一家企业最被记住的，不是它多大，是它"被需要且不可替"到了哪一层。</strong>美团从团购长成基础设施，靠的是一层层把别人绕不开的需求接住。你带客户聊透这个，她记住的不是几个数字，是"你带我把一个平台看透了"。你不是卖产品的，是能和她平起平坐、聊资本世界的人——这，才是这个案例真正帮你连上的东西。</p>
+<hr /></div>
+    </div>
+  </div>
+
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="gate-lock"></div>
+      <h2 id="gate-title">订阅会员专享</h2>
+      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+      <button id="unlock" class="gate-btn">解锁阅读</button>
+      <p id="gate-msg" class="gate-msg"></p>
+      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    </div>
+  </div>
 </div>
 <script src="../../assets/app.js"></script>
 </body>

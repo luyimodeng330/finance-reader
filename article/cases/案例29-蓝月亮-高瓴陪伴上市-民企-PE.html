@@ -3,54 +3,228 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>案例29：蓝月亮 高瓴陪伴上市（民企+PE） · 强女思维 · 金融资本库</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/styles.css">
+<title>蓝月亮：高瓴"陪跑"十年的洗衣液，怎么从一瓶洗手液长成上市公司 · 强女思维 · 金融资本库</title>
+<style>
+  :root{
+    --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
+    --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
+    --white:#FFFFFF; --muted:#7A6B60;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Songti SC","Noto Serif SC",Georgia,serif;
+    line-height:1.95;font-size:17px;}
+  .page{min-height:100vh;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);
+    background:var(--bg);position:sticky;top:0;z-index:50;}
+  .topbar .brand{color:var(--brand);text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.5px;}
+  .topbar .back{margin-left:auto;color:var(--brand);text-decoration:none;font-size:14px;border:1px solid var(--border);
+    padding:6px 14px;border-radius:999px;background:var(--white);}
+  .topbar .greet{font-size:13px;color:var(--muted);}
+  .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
+  h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
+  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
+    border-bottom:1px solid var(--border);padding-bottom:16px;}
+  .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:14px 18px;margin:20px 0 30px;font-size:15px;}
+  .choose b{color:var(--brand);}
+  h2{font-size:21px;font-weight:700;color:var(--text);margin:46px 0 12px;
+    padding-bottom:8px;border-bottom:1px solid var(--border);}
+  h3{font-size:18px;font-weight:700;color:var(--brand);margin:26px 0 8px;}
+  p{margin:12px 0;}
+  .lead{font-size:18px;}
+  blockquote{margin:16px 0;padding:6px 0 6px 20px;border-left:3px solid var(--accent);color:var(--text);}
+  blockquote .lab{color:var(--muted);font-weight:700;margin-right:6px;}
+  ol,ul{margin:12px 0;padding-left:24px;}
+  li{margin:7px 0;}
+  .small{font-size:14px;color:var(--muted);}
+  .note{font-size:14px;color:var(--muted);font-style:italic;}
+  .divider{height:1px;background:var(--border);margin:40px 0;}
+  .yr{color:var(--muted);font-weight:700;}
+  /* 分支切换：纯 CSS，不依赖 JS（兼容微信/内置浏览器） */
+  .tab-radio{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;}
+  .switch{display:flex;gap:14px;margin:30px 0 6px;}
+  .tab{flex:1;cursor:pointer;border:1px solid var(--accent);background:var(--white);color:var(--brand);
+    font-family:inherit;font-size:16px;font-weight:700;padding:14px 10px;border-radius:10px;
+    text-align:center;letter-spacing:.5px;}
+  .tab:hover{background:var(--surface);}
+  .hint{font-size:13px;color:var(--muted);margin:0 0 18px;}
+  .panel{display:none;}
+  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:30px 0 4px;}
+  #rA:checked ~ #branchA{display:block;}
+  #rB:checked ~ #branchB{display:block;}
+  #rA:checked ~ .switch label[for="rA"],
+  #rB:checked ~ .switch label[for="rB"]{background:var(--brand);color:var(--white);border-color:var(--brand);}
+  /* 门禁（内联，复用 app.js） */
+  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+    background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
+  .gate.visible{display:flex;}
+  .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
+    box-shadow:0 24px 60px rgba(51,37,27,.3);}
+  .gate-lock{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;background:var(--surface);}
+  .gate-card h2{font-size:20px;margin:10px 0 8px;color:var(--brand);border:none;padding:0;}
+  .gate-card p{font-size:14px;color:var(--muted);margin:0 0 16px;}
+  .gate-input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:15px;
+    font-family:inherit;margin-bottom:12px;box-sizing:border-box;background:var(--bg);}
+  .gate-btn{width:100%;padding:13px;background:var(--brand);color:var(--white);border:none;border-radius:10px;
+    font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .gate-btn:hover{background:var(--brand-hover);}
+  .gate-msg{font-size:13px;min-height:18px;margin:10px 0 0;color:var(--muted);}
+  .gate-msg.err{color:#c0392b;}
+  .gate-renew{display:inline-block;margin-top:8px;color:var(--brand);font-size:13px;text-decoration:none;}
+  #article-body.locked{display:none;}
+  @media (max-width:600px){
+    .wrap{padding:36px 18px 70px;}
+    h1{font-size:22px;}
+    .switch{flex-direction:column;}
+  }
+</style>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色 / 浅色视图"><span class="tt-icon"></span></button>
 <div class="page">
-  <div class="brandrule"></div>
   <header class="topbar">
     <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
-    <span class="brand-sub" id="top-greet">Reader</span>
+    <a class="back" href="../../hall-cases.html">返回案例库</a>
+    <span id="top-greet" class="greet"></span>
   </header>
 
-  <article class="reader">
-    <div class="crumb"><a href="../../index.html">金融资本库</a> · 资本案例</div>
-    <div class="reader-meta"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
-    <h1 class="reader-title">案例29：蓝月亮 高瓴陪伴上市（民企+PE）</h1>
-    <div class="hero mosaic mosaic--strip"><img src="../../assets/img/tile-05.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-06.jpg" alt="" loading="lazy">
-<img src="../../assets/img/tile-07.jpg" alt="" loading="lazy">
-<i class="blk blk--gold"></i></div>
+  <div class="wrap">
+    <div id="article-body" class="locked">
+      <input type="radio" name="branch" id="rA" class="tab-radio" checked>
+      <input type="radio" name="branch" id="rB" class="tab-radio">
 
-    <div id="lede" class="lede"> 资本认知·金融 · 案例库 · 案例库 30 例</div>
+      <h1>蓝月亮：高瓴"陪跑"十年的洗衣液，怎么从一瓶洗手液长成上市公司</h1>
+      <div class="tagline">【民企】【PE 陪伴】【长期主义】【消费品牌】【港股上市】　难度 ★★★★☆　阅读 18 分钟　更新 2026.07</div>
 
-    <div id="article-body" class="prose locked"><p>资本认知·金融 · 案例库 · 案例库 30 例</p>
-<p>事件：高瓴从早期投资到陪伴蓝月亮从外资转内资、渠道转型、最终港股上市，全程重仓。
-资本逻辑：深度重仓+长期陪跑式PE，与赛道分散式VC相反。
-启示：选PE看其"陪跑深度"，不是看名气。</p></div>
-
-    <div id="gate" class="gate">
-      <div class="gate-card">
-        <div class="gate-lock"><span class="lock-body"></span><span class="lock-shackle"></span></div>
-        <h2 id="gate-title">订阅会员专享</h2>
-        <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
-        <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
-        <button id="unlock" class="gate-btn">解锁阅读</button>
-        <p id="gate-msg" class="gate-msg"></p>
-        <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+      <div class="choose">
+        <b>▍怎么读这篇？</b><br>
+        上面是 <b>案例来龙去脉</b>（两类读者共读）。读完它，<b>按你的目标选一条</b>：<br>
+        <b>· 把我的企业做好</b> → 点左边按钮（视角向内：怎么用到自己企业）。<br>
+        <b>· 跟我的客户分享</b> → 点右边按钮（视角向外：怎么拿去跟高净值客户体面对话）。<br>
+        <span class="small">两条分支同源、各写纵深，落点完全不同：一个改自己，一个连客户。</span>
       </div>
-    </div>
-  </article>
 
-  <footer class="foot">
-    <span>强女思维 · 金融资本库</span>
-    <span>仅限付费会员</span>
-  </footer>
+      <h2>案例背景｜案例来龙去脉：高瓴"陪跑"十年的洗衣液，怎么从一瓶洗手液长成上市公司</h2>
+<p class="lead">先把这个故事的骨血讲透。没有它，后面的"视角"都是空中楼阁——而这个故事最迷人的，是一个投资人怎么用十年耐心，把一家卖洗手液的小厂，推成了"洗衣液一哥"和上市公司。</p>
+<h3>1.1 来路：从洗手液到"被看见"（1988–2008）</h3>
+<p>蓝月亮由罗秋平、潘东夫妇创立（潘东是化学博士），早期做"道明"牌清洁产品，靠洗手液起家。2003 年非典期间，蓝月亮凭借洗手液一"液"成名——这是它第一次被大众看见。但彼时的蓝月亮，还是个"洗手液公司"，和后来的"洗衣液帝国"之间，差着一个品类的想象力。</p>
+<h3>1.2 遇见张磊：一个改变品类的建议（2006–2008）</h3>
+<p>2006 年，张磊（高瓴资本）第一次见到罗秋平夫妇，当时他们还在卖洗手液。张磊判断：当时中国洗衣液市场几乎被洗衣粉、肥皂覆盖，是片蓝海，建议蓝月亮做洗衣液。罗秋平听进了这个判断，2008 年推出洗衣液，借北京奥运会的东风，斥资约 <strong>2 亿元</strong>请郭晶晶等体育明星代言，一举打开市场。一句话的建议，改写了这家公司的品类命运。</p>
+<h3>1.3 高瓴下注：不止给钱，给方向（2010–2011）</h3>
+<p>2010.11，高瓴向蓝月亮注资 <strong>4500 万美元</strong>；2011 年又追加 103 万美元，通过旗下 HCM 基金持有约 <strong>10%</strong> 股权。更关键的是张磊的深度参与：推动品类转型、帮蓝月亮建立线上渠道（在京东等平台铺货）。这不是"投了钱等退出"的财务投资人，而是"重仓 + 陪伴 + 赋能"的战略合伙人——高瓴的耐心，从第一天就不是一年的耐心。</p>
+<h3>1.4 上市：十年陪跑敲钟（2020）</h3>
+<p>上市前半年，2020.6 蓝月亮向股东派发特别中期股息 <strong>23 亿港元</strong>，高瓴作为股东先于 IPO 拿到了现金回报。同年 2020.12.16，蓝月亮在港交所上市（06993.HK），发行价 <strong>13.16 港元</strong>，募资净额约 <strong>95.76 亿港元</strong>；上市首日高开 16.41%、收 14.88 港元、涨 13.07%，总市值约 <strong>855 亿港元</strong>。罗秋平、潘东夫妇合计持股约 <strong>77%</strong>（一说 88.92%），身家约 <strong>784 亿港元</strong>。高瓴这笔投资，十年回报约 <strong>20–30 倍</strong>。</p>
+<h3>1.5 资本弧：PE 怎么"熬"出一家上市公司</h3>
+<p>把高瓴的角色拆开看，是一套完整动作：看准品类 → 下重注 → 帮转型 → 陪十年 → 上市兑现。这跟"投了就等下一轮退出"的短线 PE 正相反，是"长期主义 + 深度赋能"的样本。它证明：好的资本不是企业的过客，而是和企业一起把蛋糕做大的共建者——前提是，企业家愿意把方向盘交给"既给钱又给方向"的人。</p>
+<h3>1.6 竞争弧：洗衣液一哥的护城河</h3>
+<p>蓝月亮长期稳居洗衣液市占率第一（上市前约 <strong>24.4%</strong>，连续 11 年位居第一），主要产品毛利率均超 <strong>60%</strong>。它的护城河是"品类冠军心智 + 高毛利供应链"。但隐忧也明显：品类单一、依赖单一品牌，一旦赛道价格战或消费下行，增长曲线就会承压。</p>
+<h3>1.7 悬念：上市后为何由盈转亏（2024–）</h3>
+<p>上市后的故事并不全是甜蜜。2024 年蓝月亮营收约 <strong>85.56 亿港元</strong>，却出现了"上市首亏"，全年亏损约 <strong>7.49 亿港元</strong>，销售及分销开支超 <strong>47 亿港元</strong>，两年累亏超 10 亿港元，股价较上市高点大幅回落。悬念由此而来：品类单一 + 价格战 + 消费下行，连高瓴的"长期主义"也要面对盈利拐点的拷问。十年陪跑能送它敲钟，却送不过行业周期的硬仗。</p>
+
+      <div class="divider"></div>
+
+      <div class="switch">
+        <label for="rA" class="tab">把我的企业做好</label>
+        <label for="rB" class="tab">跟我的客户分享</label>
+      </div>
+      <p class="hint">点上面的目标，查看对应分支的完整后半部分（案例背景已读完，下面这段是只属于你这个目标的纵深）。</p>
+
+      <div class="panel" id="branchA"><div class="panel-tag">▼ 分支 A · 向内做企业（视角向内）</div><h2>0. 你为什么读这个：把别人的"十年陪跑"，变成自己的"融资节奏"</h2>
+<p>对做企业的人，蓝月亮最该读的，是高瓴怎么用"重仓 + 长情"把一家小厂推成上市公司——以及反过来，你该怎么挑、怎么用这样的资本。</p>
+<p>很多老板怕 PE"进来就把公司改坏""急着退出套现"。蓝月亮给的是另一种可能：对的资本，是陪你跑十年、还先帮你转型的人。你对照的，应该是自己引进资本的方式，不是高瓴的名气。</p>
+<h2>2. 高瓴这一步步，对你做企业意味着什么</h2>
+<h3>① 选对品类比埋头干重要</h3>
+<p>张磊一句话把蓝月亮从洗手液推向洗衣液蓝海。你现在的赛道，是红海硬扛，还是像当年的洗衣液那样有个"被忽略的蓝海品类"？很多时候卡住企业的不是执行力，是赛道选错了。</p>
+<h3>② 资本不止给钱给方向</h3>
+<p>高瓴帮建渠道、定战略、推转型。你引进的投资人，是只给钱的"钱袋子"，还是能给产业资源的"合伙人"？前者买你股权，后者和你一起把蛋糕做大。</p>
+<h3>③ 高位融资稀释少</h3>
+<p>高瓴持股约 10%，十年没被过度稀释。你融资的节奏，是"急着拿钱、在最便宜时稀释最多"，还是"把证据做硬了再谈、用估值保护股份"？条款里让出去的控制权，后面要用十倍代价赎。</p>
+<h3>④ 上市前先分红</h3>
+<p>2020 年派 23 亿特别股息，股东先于 IPO 兑现。你设计资本路径时，有没有"阶段性回报"的安排？让早期伙伴看到回款，比只画上市大饼更稳人心。</p>
+<h2>3. 你自己的企业，可以对照这四步</h2>
+<p>同一个案例，落到"怎么做企业"上，是四个可执行的动作，不是四个抽象层级：</p>
+<ol>
+<li>切口：重新看你的赛道，有没有一个"被忽略的蓝海品类"像洗衣液之于当年？大市场里的小空白，往往最肥。</li>
+<li>资产：你最该绑定的，是"只给钱"还是"给产业能力"的资本？能帮你建渠道、定战略的投资人，才是资产。</li>
+<li>控制权：像高瓴那样"重仓但不夺权"，你的投资人条款，让出去的控制权赎回成本多高？估值高却失去公司，是比拿不到钱更贵的代价。</li>
+<li>跃迁：从"赚钱的小厂"到"上市的品类冠军"，靠的是战略 + 资本 + 十年的耐心——你愿不愿意为长期主义等十年？</li>
+</ol>
+<h2>4. 合上文章，想想你自己的四件事</h2>
+<p>这篇没有标准答案，留四个问题给你自己：</p>
+<ol>
+<li>你的赛道里，有没有一个"洗衣液式"的蓝海品类还没动？</li>
+<li>你引进资本时，最看重的到底是钱，还是产业赋能？</li>
+<li>你历次融资让出去的控制权，赎回成本高不高？</li>
+<li>如果十年后上市，你希望你的资本伙伴是"陪跑型"还是"退出型"？</li>
+</ol>
+<h2>5. 相关映射：用框架看一个国内样本（思维训练）</h2>
+<p>另一个把"PE 重仓陪伴"做到极致的，是 <strong>百丽国际 / 滔搏</strong>：高瓴控股百丽后推动数字化转型，再分拆滔搏（运动鞋服零售）独立上市，把"旧鞋王"做成了"新上市资产"。它和蓝月亮形成一组有意思的对照——同一个高瓴，一个是从零陪跑消费品牌，一个是控股改造再分拆，两种"重仓陪伴"打法。</p>
+<p>用第 3 节的"切口 / 资产 / 控制权 / 跃迁"四步，去拆解百丽 / 滔搏（或你自己的企业）：</p>
+<ol>
+<li>它的"切口"雷区在哪（老品牌数字化）？和你可能的切口，打法差在哪？</li>
+<li>它的"不可替代资产"是渠道还是品牌？和蓝月亮的品类心智，相同不同在哪？</li>
+<li>它的控制权 / 资本节奏，是控股改造还是财务投资？你更想学哪条路？</li>
+<li>如果用这四步写一段"我的资本诊断"，你会怎么写？最该补的是哪一步？</li>
+</ol>
+<p>这套四步不只对日化 / 消费有效。任何"准备引入资本或上市"的企业，都能这么拆一遍自己的融资节奏。训练几次，你看自己企业的资本眼光会不一样。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>写完这篇，我最触动的不是 20 倍回报，而是它反过来印证了那句老话：<strong>一个人 / 一家企业最值钱的，从来不是被看见，是被需要且不可替。</strong>蓝月亮最该守住的，是"洗衣液一哥"这个被市场需要的品类心智，而不是靠烧钱促销续命。资本能陪你十年，但替不了你"被市场需要"的那一点——你做企业，最该磨的也是这个：先让自己被需要且不可替，资本才会来陪你跑。</p></div>
+
+      <div class="panel" id="branchB"><div class="panel-tag">▼ 分支 B · 向外连客户（视角向外）</div><h2>0. 你为什么读这个：用一个好案例，跟客户聊到一起去</h2>
+<p>高净值客户不缺一个"卖产品的人"，她缺一个能跟她在同一个语境里聊投资与长期主义的人。</p>
+<p>你的门户有一句客户证言："以前看财报像天书，现在能跟家里管钱的先生平起平坐地聊资产配置了。"这句话泄露高净值女性最深的两层心理：<strong>第一，她长期被"降维"对待——先生、banker、顾问都默认她不懂；第二，她渴望的不是被服务，是被"平视"。</strong>蓝月亮这个案例，我的一个感受是：它其实是一张聊"PE / 长期价值投资"的体面入场券——尤其对客户里认同"价值投资"的人，你能用它证明"我和你在同一认知语境里"，而不是靠推销硬闯。不是"我懂比你多"的俯视，也不是凑上去讨好，是"我也在这个资本世界里，咱们对等聊"。</p>
+<h2>2. 这个案例里，有哪些点能让你跟客户聊出深度</h2>
+<p>把蓝月亮当成素材，看哪些点能让你跟客户从破冰聊到深。不是背数据，是借它的故事，露出你的认知。</p>
+<h3>① 高瓴十年 20–30 倍回报——不是炒短线，是陪跑</h3>
+<p>很多客户一听"PE 赚钱"就想到割韭菜。你能接住这句话，带她看反差：张磊"重仓中国消费"、陪跑十年，买的是"时间"不是"价差"——你聊的是"长期主义"，不是"快进快出"。</p>
+<h3>② 不只给钱给方向——资本"赋能"长什么样</h3>
+<p>高瓴帮蓝月亮从洗手液转洗衣液、建线上渠道。客户里很多是企业家或家属，这个"资本不止给钱"的故事，比任何理财话术都能让她觉得"你懂老板的难"——她自己的企业，找的是钱还是合伙人？</p>
+<h3>③ 上市前先派 23 亿特别股息——资本设计的巧思</h3>
+<p>股东先于 IPO 兑现，这个点很适合跟"想做点什么、但总在等时机"的客户聊：好的资本安排，能让早期伙伴在上市前就看到回款，不只能画大饼。</p>
+<h3>④ 上市后由盈转亏——长期主义也扛不过周期</h3>
+<p>2024 年亏损、营销费超 47 亿。这能带客户看另一面：再长的耐心资本，也要面对行业周期的硬仗——风险和耐心是并存的两面，不是只有甜蜜。</p>
+<h2>3. 你跟客户聊资本，可以用的一个框架</h2>
+<p>同一个案例，你带客户从浅到深，是四层递进，不是四个层级评判。目的是让她觉得"你带我一层层看透了"：</p>
+<ol>
+<li>先聊事件：一瓶洗衣液公司上市了，高瓴赚几十倍。——破冰，谁都接得上。</li>
+<li>再聊逻辑：为什么值？张磊早看见洗衣液蓝海 + 帮转型。——展示你懂行，不止追热点。</li>
+<li>聊资本视角：PE 怎么"重仓 + 陪伴"十年不退出？——展示你深，能看到老板的难。</li>
+<li>聊资本与权力：资本不只是钱，是定义品类、重塑公司的权力——你能带客户看到这一层，她就真服了。——让她觉得你看得透，聊到了别人聊不到的层。</li>
+</ol>
+<h2>4. 下次跟客户聊，你可以试着抛的几个问题</h2>
+<p>这篇没有标准话术，留几个你能自然抛出的问题：</p>
+<ol>
+<li>您认同"长期主义"投资吗？蓝月亮高瓴陪跑十年，您怎么看这种耐心资本？</li>
+<li>您觉得一个 PE"只给钱"和"给产业方向"，差在哪？</li>
+<li>如果一家公司在您面前路演，您会看它"被需要的品类心智"，还是只看增速？</li>
+<li>用刚才那个"四层框架"，您给自己的投资认知打到第几层？身边很多人其实停在第一层（只看回报倍数）。</li>
+</ol>
+<h2>5. 相关映射：用框架聊一个国内样本（思维训练）</h2>
+<p>跟客户聊"对照样本"，<strong>农夫山泉</strong> 几乎是蓝月亮的镜像：同样是"长期主义 + 消费品类冠军 + 上市"的样本，钟睒睒却走的是"创始人自控、不依赖 PE"的另一条路——它自己慢慢长、自己敲钟，没有高瓴这样的外部陪跑者。同样是千亿级消费巨头，资本在两家公司里的角色完全不同。</p>
+<p>用第 3 节的"事件 → 逻辑 → 资本视角 → 资本与权力"框架，跟客户聊农夫山泉：</p>
+<ol>
+<li>农夫山泉大众现在认知在第几层？它走到"资本与权力"这层了吗？</li>
+<li>它的资本逻辑（创始人自控）和蓝月亮（PE 陪跑），差在哪、各有啥代价？</li>
+<li>它的"控制权"安排，对您自己投资的启发是什么？</li>
+<li>您用这个框架，能给农夫山泉写一段"资本心智分析"吗？写得出，说明框架真用熟了。</li>
+</ol>
+<p>这套框架不只对日化 / 饮料有效。任何"消费品牌 + 资本"的样本，都能这么带客户拆。练几次，您跟客户聊投资的底气会不一样。</p>
+<h2>6. 我读完后自己的一点想法</h2>
+<p>写完这篇，我最触动的不是 20 倍回报，而是蓝月亮那句没说出口的逻辑：<strong>一家企业最值钱的，从来不是被看见，是被需要且不可替。</strong>高瓴能陪它十年，根子还是它"被市场需要"。这中间的认知转折，才是蓝月亮真正的护城河——而你跟客户的关系，最稳的也是这句：你不是卖产品的，你是那个能跟她对等聊世界、让她觉得"被平视"的人。聊 PE 不是背回报倍数，是跟她在同一层聊"钱怎么变成改变行业的力量"。</p>
+<hr /></div>
+    </div>
+  </div>
+
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="gate-lock"></div>
+      <h2 id="gate-title">订阅会员专享</h2>
+      <p id="gate-desc">输入你购买时登记的邮箱，解锁全文。</p>
+      <input id="email" class="gate-input" type="email" placeholder="购买时登记的邮箱" autocomplete="email">
+      <button id="unlock" class="gate-btn">解锁阅读</button>
+      <p id="gate-msg" class="gate-msg"></p>
+      <a class="gate-renew" id="renew" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener" style="display:none">去小红书续费 / 购买</a>
+    </div>
+  </div>
 </div>
 <script src="../../assets/app.js"></script>
 </body>
