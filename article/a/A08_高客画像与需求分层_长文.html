@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A08 高净值客户画像与需求分层</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A08</div>
+  <h1>高净值客户画像与需求分层：她们到底要什么</h1>
+  <div class="tagrow">
+    <span class="tag">KYC</span><span class="tag">Client Profile</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+高净值人群从来不是一个"有钱"的标签，而是一群需求天差地别的人。同样持有 1000 万，有人只想守住不缩水，有人想翻倍，有人想稳稳传给孩子，有人只想把日子过得更讲究。如果用一个"标准方案"去套所有人，结果往往是——收益率看起来漂亮，客户却半夜睡不着。KYC（Know Your Customer，了解你的客户）分层，就是把模糊的"有钱"二字，冲洗成一张清晰的需求肖像：她到底要什么。
+</div>
+
+<div class="framework">
+<b>高净值配置 = 财富来源 × 风险偏好 × 需求层级</b><br>
+三个乘数，任何一个没摸清，方案再漂亮也是错配。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先搞清 KYC 在分什么层——不是分"谁更有钱"，是分"谁要什么"</p>
+
+<div class="card">
+<p><span class="key">KYC（Know Your Customer，了解你的客户）</span>：大白话就是——"先弄明白这个人到底想干嘛、能扛多大风险，再谈怎么配资产"。就像医生先问诊再开药，不能看人进诊所就直接挂水。KYC 的本质，是把"有钱"这张模糊照片，还原成"钱要替她完成什么"的清晰图像。</p>
+<p><span class="key">财富来源分层</span>：钱是"自己闯出来的""继承来的"还是"靠专业本事赚的"。来源不同，这个人对风险的态度天差地别——这不是性格问题，是"钱怎么来的"刻在骨子里的记忆。</p>
+<p><span class="key">风险偏好分层</span>：愿意为更高收益承担多大波动。是"亏 5% 就睡不着"，还是"短期浮亏 20% 也当没看见"。注意，这跟"有没有钱"没关系，跟"怕不怕"有关系。</p>
+</div>
+
+<div class="block">
+<p><span class="key">财富来源三层，各有本能反应</span></p>
+<ul>
+<li><span class="key">创富一代</span>：白手起家——办企业、早期创业、踩中时代红利。钱是"打出来的"，见过风浪，对波动耐受高；但正因为主业已经够冒险，闲钱反而偏保守，要的是"稳稳守住"。</li>
+<li><span class="key">承袭二代</span>：财富是"接过来的"。财富安全感高、风险痛感低，但缺乏"赚钱的切肤之痛"，容易要么照搬别人方案、要么在体验型消费上激进；诉求更偏传承与体验。</li>
+<li><span class="key">专业新富</span>：高管、金领、专业人士、互联网新贵，靠工资、期权、专业变现。有财务认知、风险中性，最在意流动性与税务效率——钱要"随时能调度"。</li>
+</ul>
+</div>
+
+<p class="guide">需求层级——一笔钱要替你完成的四件事</p>
+<div class="chips">
+  <label class="chip" for="c-need">需求层级金字塔</label>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>闭上眼想一想：你（或你服务的人）手里的钱，主要来自"自己打拼""上一辈""专业变现"哪一种？这个答案，会悄悄决定你对波动的容忍度。模块一最该带走的认知：<strong>财富来源决定了风险本能，需求层级决定了配置方向——KYC 不是查户口，是给配置找起点</strong>。</p>
+</div>
+
+<h2 id="sec2">二、KYC 工具深水区</h2>
+<p class="guide">KYC 不是"喝杯咖啡聊聊天"，背后有监管框架和标准化工具</p>
+
+<div class="card">
+<p><span class="key">监管出处 · 适当性管理</span>：《证券期货投资者适当性管理办法》（证监会令第 130 号，2017 年 7 月施行）开宗明义——经营机构必须"了解客户、了解产品、将适当的产品销售给适当的投资者"。这就是 KYC 的法定身份：它不是机构的客套，是硬约束。违反"适当性"，轻则被责令改正，重则要对客户损失承担赔偿责任。商业银行理财同理，《商业银行理财业务监督管理办法》（银保监会令 2018 年第 6 号）同样要求风险测评、双录、匹配留痕。</p>
+</div>
+
+<div class="block">
+<p><span class="key">风险等级 R1–R5</span>：客户测评落在哪一档，能买的产品就被锁死在哪一档。</p>
+<ul>
+<li><span class="key">R1 保守型</span>：存款、国债、货币基金，几乎不亏本金；</li>
+<li><span class="key">R2 稳健型</span>：上述 + 高等级债基、大额存单；</li>
+<li><span class="key">R3 平衡型</span>：固收 +、部分混合基金，可能有 5%–10% 波动；</li>
+<li><span class="key">R4 进取型</span>：股票基金、私募证券，波动可能 20%+；</li>
+<li><span class="key">R5 激进型</span>：衍生品、未上市股权，可能大幅亏损甚至归零。</li>
+</ul>
+<p>规则：R2 客户不能买 R4 产品，否则叫"不当销售"。KYC 测评的结论，直接决定你能上车哪一档。</p>
+</div>
+
+<p class="guide">KYC 的三张底稿——怎么操作</p>
+<div class="card">
+<p><span class="key">财务画像</span>：资产规模、负债、现金流、收入稳定性。操作动作——拉一张"净资产表 + 未来 3 年现金支出表"，先看清"能动的钱"和"不能动的钱"各多少。</p>
+<p><span class="key">行为画像</span>：过往投资经历、止损习惯、对浮亏的真实反应。操作动作——问自己一个场景题："账户一周跌了 8%，你是加仓、不动、还是割肉？"答案比任何问卷都真实。</p>
+<p><span class="key">目标画像</span>：这笔钱要完成什么——买房、教育、传承、还是纯粹增值。操作动作——给每个目标排优先级，因为四层需求会互相挤占同一笔钱（见模块一弹窗）。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果今天让你做一份 R1–R5 风险测评，你会落在哪一档？更关键的是——你"自认为"的档位，和你"真跌 8% 时"的反应，是不是同一档？很多人自评 R4，真跌了才发现是 R2。模块二带走的就是：<strong>KYC 的尺子，测评的是"真实承受力"，不是"想象中的胆量"</strong>。</p>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">财富来源、风险偏好、需求层级三条线，常常不是合力，而是互相打架</p>
+
+<div class="card">
+<p><span class="key">创富一代的悖论——最敢冒险的人，反而只要"保值"</span></p>
+<p>她白手起家，主业已经是一场高风险博弈，闲钱的功能是"后方根据地"，不是"第二战场"。于是出现矛盾：风险承受力高（真跌 20% 也扛得住），主观偏好却保守（不想再赌）。用 R5 的产品配她，她嫌激进；用 R1 的产品配她，收益又跑不赢她主业的机会成本。两条线背道而驰。</p>
+</div>
+
+<div class="block">
+<p><span class="key">承袭二代的悖论——安全感最高的人，却被推去扛家族风险</span></p>
+<p>钱是接过来的，没有"赚它有多难"的痛感，风险痛感天然低。但家族往往把"保值增值"的重担压在她肩上——主观上想轻松（体验、享受），客观上被要求专业（传承、增值）。结果：要么完全甩手交给别人、照搬方案；要么在缺乏痛感的地方激进下注。安全感与责任感，在身上打架。</p>
+</div>
+
+<div class="card">
+<p><span class="key">需求四层的挤占——保值 / 增值 / 传承 / 体验，抢的是同一笔钱</span></p>
+<p>一笔 1000 万，多配 300 万到信托做传承，能用于增值的弹药就少了 300 万；多划 150 万到体验账户（艺术、旅行、私人订制），流动性就被锁死一块。四层不是叠加关系，是此消彼长的分配关系。客户常说"我都要"，但钱只有一份——KYC 要做的，是帮她把"都要"翻译成"先要哪个"。</p>
+</div>
+
+<div class="block">
+<p><span class="key">错配死结——客观承受力 vs 主观偏好的背离</span></p>
+<p>把上面三条线拧在一起，就出现高端财富里最隐蔽的死结：一个人"能扛"的风险（客观承受力）和她"想扛"的风险（主观偏好）不一致，而她的需求优先级又和资金来源拧着。于是——配保守了，她觉得没效率；配激进了，她半夜睡不着；照搬别人的，更不对。这不是谁笨，是分层没做透时必然出现的错配。</p>
+</div>
+
+<div class="card">
+<p><span class="key">三条线在"配置"这个动作上交汇</span></p>
+<p>所以模块三的核心：财富来源决定本能、风险偏好决定胆量、需求层级决定方向，三者必须对齐到同一个配置方案里。对齐了，客户睡得着、方案跑得动；对齐不了，就是"收益不错、人却焦虑"的典型错配。下一模块，把这套逻辑装进三个真实处境走一遍。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例</h2>
+<p class="guide">三类客户，各持 1000 万，诉求不同，配置天差地别</p>
+
+<div class="card">
+<p><span class="key">背景</span>：三位高净值客户，资产规模相同（各 1000 万可投资金），但财富来源、风险偏好、主诉求完全不同。我们不做"统一方案"，而是按 KYC 分层逐一推演她们各自的配置逻辑，最后用一张对比表看清差距。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">客户 A｜创富一代</span>：45 岁，主业经营企业，闲钱来自企业分红与房产处置。风险中性偏保守。主诉求：保值 + 传承（孩子还小）。3 年内无大额现金需求，但底线是"不能大亏"。</li>
+<li><span class="key">客户 B｜承袭二代</span>：32 岁，继承家族金融资产。风险偏好低。主诉求：保值 + 体验（艺术收藏、旅行、私人订制）。流动性中等，偶尔有大额体验支出。</li>
+<li><span class="key">客户 C｜专业新富</span>：38 岁，科技公司高管，期权 + 薪资变现。风险偏好中高。主诉求：增值 + 流动性（可能创业、可能换房），随时可能动用 200 万以上。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么诉求不一样</p>
+<div class="block">
+<ul>
+<li><span class="key">A 的底层逻辑</span>：主业已高风险，闲钱要当"安全垫"，且下一代年幼，传承优先级高。所以她要的是"低回撤 + 传承锁仓"，而非高收益。</li>
+<li><span class="key">B 的底层逻辑</span>：钱是接来的，没有赚钱痛感，但要守得住家底，同时真实想要"生活质感"。所以她要的是"稳 + 能花钱的体验账户"。</li>
+<li><span class="key">C 的底层逻辑</span>：年轻、有持续收入、懂财务，钱要"生钱"且随时能调动去抓机会。所以她要的是"较高收益 + 高流动性"。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 配置结构设计（数字推导）</p>
+<div class="card">
+<p><span class="key">客户 A 方案（保值 + 传承）</span></p>
+<ul>
+<li>保险金信托 / 家族信托 300 万：年化约 3.0%，极低流动，功能 = 传承；</li>
+<li>大额存单 + 国债 400 万：年化约 3.5%，高流动，功能 = 保值；</li>
+<li>稳健债基 200 万：年化约 4.5%，中流动，功能 = 保值增值；</li>
+<li>权益 / 私募 100 万：预期年化约 8%，高波动，功能 = 增值。</li>
+</ul>
+<p class="muted">加权预期收益 = 300×3% + 400×3.5% + 200×4.5% + 100×8% = 9 + 14 + 9 + 8 = 40 万 → 年化约 <span class="num">4.0%</span>。最大回撤 ≈ 债基 −3%×200/1000 + 权益 −20%×100/1000 = −0.6% −2.0% = −2.6% ≈ <span class="num">3%</span>。高流动性占比 ≈ 700 万 / 1000 万 = <span class="num">70%</span>。</p>
+</div>
+<div class="card">
+<p><span class="key">客户 B 方案（保值 + 体验）</span></p>
+<ul>
+<li>大额存单 + 国债 500 万：3.0%，高流动，保值；</li>
+<li>固收 + 200 万：3.5%；</li>
+<li>艺术收藏 / 体验账户 150 万：非流动，收益不定（温和估算 2%，且锁死流动性）；</li>
+<li>稳健权益 150 万：6%，波动。</li>
+</ul>
+<p class="muted">加权预期收益 = 500×3 + 200×3.5 + 150×2 + 150×6 = 15 + 7 + 3 + 9 = 34 万 → 年化约 <span class="num">3.4%</span>。最大回撤 ≈ 权益 −15%×150/1000 = −2.25% ≈ <span class="num">3%</span>（收藏不计入回撤但锁死流动）。高流动性 ≈ 650 万 / 1000 万 = <span class="num">65%</span>，但其中 150 万体验账户长期占用。</p>
+</div>
+<div class="card">
+<p><span class="key">客户 C 方案（增值 + 流动）</span></p>
+<ul>
+<li>权益基金 / 股票 400 万：预期 8%，波动 −20%；</li>
+<li>私募 / 股权 150 万：预期 10%，波动 −25%；</li>
+<li>固收 + 250 万：3.5%；</li>
+<li>货基 / 现金 200 万：2%，高流动。</li>
+</ul>
+<p class="muted">加权预期收益 = 400×8 + 150×10 + 250×3.5 + 200×2 = 32 + 15 + 8.75 + 4 = 59.75 万 → 年化约 <span class="num">6.0%</span>。最大回撤 ≈ −20%×400/1000 + −25%×150/1000 = −8% −3.75% = −11.75% ≈ <span class="num">12%</span>。高流动性 ≈ 450 万 / 1000 万 = <span class="num">45%</span>。</p>
+</div>
+
+<p class="step">第四步 · 执行路径</p>
+<div class="block">
+<ul>
+<li><b>A</b>：先设立保险金信托（传承锁仓 300 万）→ 配置大额存单与国债（400 万）→ 债基与少量权益补足收益；节奏上"先锁传承、再配保值、最后加增值"。</li>
+<li><b>B</b>：先布保值底盘（存款 + 国债 500 万）→ 固收 + 与稳健权益（350 万）→ 留出 150 万体验账户用于艺术与旅行，不与投资账户混同。</li>
+<li><b>C</b>：先留 200 万货基作机动（创业 / 换房备用）→ 固收 + 打底（250 万）→ 权益与私募追求增值（550 万），并保持季度再平衡。</li>
+</ul>
+</div>
+
+<p class="step">第五步 · 前后对比数字表</p>
+<table>
+<tr><th>维度</th><th>A · 创富一代</th><th>B · 承袭二代</th><th>C · 专业新富</th></tr>
+<tr><td>财富来源</td><td>自主创业</td><td>家族继承</td><td>专业变现</td></tr>
+<tr><td>主诉求</td><td>保值 + 传承</td><td>保值 + 体验</td><td>增值 + 流动</td></tr>
+<tr><td>预期年化</td><td>≈ 4.0%</td><td>≈ 3.4%</td><td>≈ 6.0%</td></tr>
+<tr><td>最大回撤</td><td>≈ 3%</td><td>≈ 3%</td><td>≈ 12%</td></tr>
+<tr><td>高流动性占比</td><td>70%</td><td>65%</td><td>45%</td></tr>
+<tr><td>传承锁仓</td><td>300 万信托</td><td>中</td><td>低</td></tr>
+<tr><td>体验占用</td><td>低</td><td>150 万</td><td>低</td></tr>
+</table>
+<p class="muted">同一笔 1000 万，从"70% 流动资产、3% 回撤、4% 收益"一路走到"45% 流动、12% 回撤、6% 收益"。把 C 的方案套给 B，B 会因 12% 回撤失眠；把 A 的方案套给 C，C 会觉得跑不赢通胀且钱锁死动不了。KYC 分层，就是为了避免这种错配。</p>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-blind">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　遇到一个高净值客户，先问三句话：钱从哪来？能扛多大波动？最想让这笔钱完成什么？记住：来源决定本能、偏好决定胆量、需求决定方向，三者必须对齐。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　画出"财富来源 × 风险偏好 × 需求层级"三层框架；用模块四三人案例理解错配；找一位真实客户套框架做一份 KYC 分层草图。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　①拉净资产表 + 3 年现金支出表，分清"能动的钱"与"不能动的钱"；②做一次真实场景止损测试（跌 8% 你怎么动）；③给四层需求排优先级；④据 R1–R5 结论匹配产品，杜绝"不当销售"。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>给你自己或一位客户画三层画像：财富来源 / 风险偏好 / 需求层级，各写一句话结论。</li>
+<li>用模块四的对比表，挑一个你熟悉的方案，判断它更适合 A、B、C 中的哪一类，为什么。</li>
+<li>做一次"跌 8%"场景测试，写下你的真实第一反应，再对照自评风险档位。</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">KYC 在分什么层——来源 / 偏好 / 需求</div>
+  <div class="q"><b>核心问题：</b>你手里的钱，主要来自"自己打拼""上一辈"还是"专业变现"？这决定了你对波动的本能。</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">KYC 工具深水区</div>
+  <div class="pos">适当性管理办法 + R1–R5 + 三张底稿</div>
+  <div class="q"><b>核心问题：</b>你自测的风险档位，和你真跌 8% 时的反应，是同一档吗？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">来源 / 偏好 / 需求三条线互相打架</div>
+  <div class="q"><b>核心问题：</b>你的"能扛"和"想扛"一致吗？四层需求，你先要哪一层？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">三类客户各持 1000 万的配置推演</div>
+  <div class="q"><b>核心问题：</b>同样 1000 万，A/B/C 的配置从 4% 走到 6%、回撤从 3% 走到 12%——你更像谁？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你此刻最该补哪一面？看懂了联动，却看不见盲区吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A01–A04《资产配置框架 / 再平衡 / 生命周期 / 全球配置》；后续 A09《私人银行与家族办公室》（下接服务边界）、A10《高客资产配置偏好》（境内外真实选择）。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A08 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-need" class="toggle">
+<div class="modal"><label class="backdrop" for="c-need"></label><div class="modal-box">
+<label class="close" for="c-need">&times;</label>
+<h3>需求层级金字塔</h3>
+<ul>
+<li><span class="key">保值层（最底层）</span>：本金不缩水、跑赢通胀（3%–4% 即达标）。所有人都有，是配置的底座。</li>
+<li><span class="key">增值层</span>：在保值之上追求超额（6%–8%+），代价是承担波动。</li>
+<li><span class="key">传承层</span>：把钱按意愿传下去，工具是信托、保险、遗嘱，核心是"控制权"与"税务效率"。</li>
+<li><span class="key">体验层</span>：钱服务于生活方式——艺术、旅行、教育、私人订制。最易被忽略，却是最真实的诉求。</li>
+</ul>
+<p>四层不是叠加，是互相挤占：同一笔钱，多配传承就少配增值，多划体验就牺牲流动性。KYC 要做的，是让客户自己排优先级，而不是说"我都要"。</p>
+<div class="link">相关：<a href="#sec1">财富来源三层（见模块一）</a> · <a href="#sec5">风险盲区（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：KYC 分层不是孤立的"填张表"，它上接配置框架、下接私行家办，是整条服务链的真正起点。</p>
+
+<p class="key">上接配置框架 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>KYC 的结论（来源 / 偏好 / 需求）直接决定 A01–A04 的配置落点：创富一代接"生命周期配置"的守成型，专业新富接"全球配置"的流动型。操作上：</p>
+<ul>
+<li>先出 KYC 分层结论，再打开 A01 战略配置表，按风险档位选资产比例，避免"先选产品再找人"的本末倒置；</li>
+<li>需求里的"传承层"直接对接 A16–A23 信托与保险篇，KYC 是传承规划的入口，不是终点。</li>
+</ul>
+</div>
+
+<p class="key">下接私行家办 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>私行和家办卖的不是产品，是"按画像定制的服务"。没有 KYC，它们给你的只是一份产品清单。操作：</p>
+<ul>
+<li>把 KYC 三层画像（模块一）作为对接私行 / 家办的第一份材料，明确"我能扛什么、我最想要哪层"；</li>
+<li>让机构围绕你的需求层级出方案，而不是让你从它的大类资产菜单里挑——主角和配角要对调。</li>
+</ul>
+</div>
+
+<p>上接配置、下接私行家办，KYC 是中间那个"转接头"：画像不清，上游配置和下游服务都会拧巴。这就是"联动疆界 → 风险盲区 → 资本运作视角"三线相扣的起点。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec1">基础认知盘（见模块一）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-blind" class="toggle">
+<div class="modal"><label class="backdrop" for="c-blind"></label><div class="modal-box">
+<label class="close" for="c-blind">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。KYC 分层这件事，最贵的错往往不在明面，在三个盲区。</p>
+
+<p class="key">盲区一 · 用收益率代替风险适配</p>
+<div class="block">
+<ul>
+<li>看到别人账户 8% 就也要 8%，忽略对方的回撤容忍可能是 15%，而你是 3%；</li>
+<li>把"短期浮盈"误当成"风险承受力"——牛市里人人觉得自己能扛，熊市一来现原形；</li>
+<li>指标错位：KYC 该匹配的是"波动率"，不是"预期收益"。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 照搬他人方案</p>
+<div class="block">
+<p>朋友的配置照抄，却忽略你们来源不同（她是继承、你是创业）、偏好不同（她 R2、你 R4）、流动性不同（她不用钱、你要创业）。模块四的 A/B/C 已经证明：同样 1000 万，错配一套方案就是"收益不错、人却焦虑"。</p>
+</div>
+
+<p class="key">盲区三 · 把"能扛"当"想扛"</p>
+<div class="block">
+<ul>
+<li>客观承受力高（真跌 20% 也扛得住）≠ 主观愿意扛（半夜睡不着）；</li>
+<li>配置要落在"两者交集"，不是落在"较高那档"；</li>
+<li>错把承受力当偏好，是高端财富里最常见的自我误判。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>KYC 匹配的是"真实适配"，不是"想象中的胆量或别人的收益"</strong>。你能事后补救的，只是错配里的一小部分。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec1">需求层级金字塔（见模块一）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把 KYC 从"客户问卷"重新看成"资本运作的第一道工序"，你会发现——懂自己需求，是配置真正的起点。</p>
+
+<p class="key">配置不是"买什么"，是"先定义钱要替我完成什么"</p>
+<div class="block">
+<p>回过头看模块四：A 要传承、B 要体验、C 要增值，同样 1000 万走向完全不同的组合。高手做配置，第一步不是挑资产，是写清楚"这笔钱三年内会不会动、最怕什么、最想要什么"。需求定义清楚了，资产只是填空。</p>
+</div>
+
+<p class="key">KYC 节省的是"试错成本"</p>
+<div class="block">
+<ul>
+<li>错配一次，亏掉的可能不是收益，是睡眠、信任和下一次合作机会；</li>
+<li>一份清晰的三层画像，能让你在行情最恐慌时也"知道自己为什么这么配"，不被情绪带着跑；</li>
+<li>对服务方而言，KYC 越透，方案迭代越快，沟通成本越低。</li>
+</ul>
+</div>
+
+<p class="key">起点是自我诊断</p>
+<div class="block">
+<p>我的钱来自哪一层？我能扛多大波动？我最想要四层需求里的哪一层？这三个问题答清楚，配置的骨架就立起来了。所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（定得起起点）。三者合一，才是"高客画像与需求分层"这件事的完整认知。</p>
+</div>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+</body>
+</html>

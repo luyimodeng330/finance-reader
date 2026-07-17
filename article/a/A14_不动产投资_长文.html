@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A14 不动产投资：住宅/商业/REITs的再思考</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A14</div>
+  <h1>不动产投资：住宅/商业/REITs的再思考</h1>
+  <div class="tagrow">
+    <span class="tag">Real Estate</span><span class="tag">Allocation</span><span class="tag">REITs</span><span class="tag">Liquidity</span>
+  </div>
+</div>
+
+<p class="lead">很多人把"买房"等同于"投资"，把"名下几套"等同于"财富安全"。但住宅、商业地产、REITs 是三种完全不同的资产：一个流动性差却能用杠杆，一个靠租金却怕空置，一个像股票一样流动却要接受价格波动。重新思考不动产在组合里的角色，先别问"该不该买"，先问"它替你解决什么、又锁住什么"。</p>
+
+<div class="framework">
+<b>不动产回报 = 租金/分红 × 流动性 × 杠杆 × 税负结构</b><br>
+四个乘数，任何一个失衡，重资产都会从"压舱石"变成"流动性黑洞"。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先搞清你手里拿的到底是哪一类不动产——它们不是同一种东西</p>
+
+<div class="card">
+<p><span class="key">住宅</span>：自己住或出租的房子。最大特点是<span class="key">流动性差</span>——想卖要挂几个月，中间还有税费、中介、看房折腾；但它能用<span class="key">杠杆</span>，首付三成就能撬动整套房的涨跌。一句话：住宅是"慢资产 + 可借钱"。</p>
+<p><span class="key">商业地产</span>：写字楼、商铺、公寓、物流仓储。它不靠住，靠<span class="key">收租</span>赚钱，衡量指标叫"租售比"（年租金 ÷ 房价）。但商业地产最怕<span class="key">空置</span>——租不出去就没有现金流，物业费、房产税、维修费却照交不误。</p>
+<p><span class="key">REITs</span>：把一篮子不动产"切"成股票，你在交易所买份额。像买股票一样买不动产的收益。它把不动产<span class="key">证券化</span>了：流动性好（T+1 随时卖）、强制<span class="key">高分红</span>（监管要求把大部分收益分给投资人），但价格随市场波动，还有管理费，底层资产你碰不到也管不了。</p>
+</div>
+
+<div class="block">
+<p><span class="key">一个最容易混的点：自住不是投资</span></p>
+<ul>
+<li>自住房不产生现金流，反而持续消耗（物业、折旧、资金占用），它是"消费 + 安全感"，不是"生息资产"；</li>
+<li>投资房才谈租售比，但很多人把自住房也算进"身家"，账面上很有钱，口袋里很紧；</li>
+<li>REITs 和住宅、商业地产的区别，本质是把"房子本身"和"房子的收益"拆开了——你想要收益和流动性，不必真的囤一套房。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你名下那套"投资房"，去年真实<span class="strong">净租金回报</span>（扣掉空置、物业、维修、税之后）到底是多少？如果只有 1% 出头，它是在帮你生钱，还是在占用你 100% 的流动性？模块一最该带走的认知：<strong>不动产分三种，别用"买房"两个字把它们全概括了</strong>。</p>
+</div>
+
+<p class="guide">杠杆是把双刃剑，先算清楚再加</p>
+<div class="chips">
+  <label class="chip" for="c-leverage">杠杆双刃剑</label>
+</div>
+
+<h2 id="sec2">二、政策深水区</h2>
+<p class="guide">买房卖房和买 REITs，进出两端的税天差地别，规则都有明文出处</p>
+
+<div class="card">
+<p><span class="key">个人住房交易的税</span>（买卖两端）：</p>
+<ul>
+<li><span class="key">契税</span>：《契税法》2021 年 9 月 1 日施行，法定税率 3%–5%，各地优惠后首套通常 1%–1.5%——这是"买入即交"的成本；</li>
+<li><span class="key">增值税</span>：财税〔2016〕36 号，普通住房"满 2 年"对外销售免征；北上广深非普通住房按差额 5% 征收——这是"卖出"的门槛；</li>
+<li><span class="key">个税</span>："满五唯一"（满五年且家庭唯一住房）免征；否则按差额 20% 或核定 1%——这是"卖出"的另一道。</li>
+</ul>
+<p>三道税叠加，一套房从买到卖的摩擦成本轻松超过 5%，而且时间卡得很死（不满 2 年、不满 5 年税负陡增）。</p>
+</div>
+
+<div class="block">
+<p><span class="key">商业地产的持有税更重</span></p>
+<ul>
+<li><span class="key">房产税</span>：从租计征按租金 12%，从价计征按原值减除后 1.2%——持有期间年年交；</li>
+<li><span class="key">土地增值税</span>：转让旧房及建筑物，按增值额四级超率累进，税率 30%–60%——卖出时的"重锤"；</li>
+<li>所以商业地产的净回报，要在"租金"里先扣掉房产税、维修、空置，再扣掉未来卖出的土增税，才算到你口袋。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">REITs 的规则框架</span>：</p>
+<ul>
+<li>基础设施公募 REITs 试点依据发改投资〔2020〕586 号，配套证监会《公开募集基础设施证券投资基金指引（试行）》（证监会公告〔2020〕54 号）；</li>
+<li>核心硬约束：<span class="key">收益分配比例不低于年度可供分配金额的 90%</span>——强制把大部分收益分给投资人，这是它"类债券现金流"的底气；</li>
+<li>税收上：个人投资者持有份额的分红，参照上市公司股息红利差别化政策（财税〔2015〕101 号），持股满 1 年免征个税；二级市场卖出份额的价差，比照境内上市公司股票，个人暂免征收个税。</li>
+</ul>
+<p class="muted">注意：REITs 分红免税、价差暂免，是"持有和交易环节"的优惠；底层资产（如基础设施项目）本身的运营税留在项目公司层面，不穿透到个人份额持有人。买 REITs 的税，远比买卖实体房产干净。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>同样一笔 1000 万，买房要交契税（买入）、未来卖出还可能撞上增值税和个税（时间不对就多缴），REITs 买入基本零税、分红免税、价差暂免——你以前算过这笔"进出税差"吗？模块二最该带走的认知：<strong>不动产的税负不在收益率里，在"什么时候买、什么时候卖、用谁的名字持有"里</strong>。</p>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">杠杆与流动性、满租与空置、分红与波动——两股力量相反，还会互相打架</p>
+
+<div class="card">
+<p><span class="key">通道一：杠杆放大 ↔ 通道二：流动性枯竭</span></p>
+<p>住宅的魅力是杠杆：30% 首付，100 万现金撬动 333 万资产，房价涨 10% 你赚 33 万（本金回报 33%）。但杠杆的另一面是——房子一旦买入，退出要 6–12 个月，还叠加契税、中介、增值税的时间门槛。你想要杠杆收益，就必须接受流动性被冻结。两股力量方向相反：一个让你"小钱办大事"，一个让你"急用钱时办不了事"。</p>
+</div>
+
+<div class="block">
+<p><span class="key">商业地产：满租的账 ↔ 空置的现实</span></p>
+<p>算账时按"满租 4% 租售比"很诱人，现实里却有空置期、欠租、招商空窗、大面积维修。一套写字楼空置半年，当年净回报直接腰斩，还要照交房产税和物业费。预期和现实之间，差的就是"空置率"这三个字。</p>
+</div>
+
+<div class="card">
+<p><span class="key">REITs：高流动性 + 强制分红 ↔ 价格波动 + 管理费</span></p>
+<p>证券化把流动性还给投资人（T+1 随时卖），还强制把 90% 以上收益分红，像"随时能卖的收租资产"。代价是：价格随市场波动，底层资产你管不了，每年还要被收一层管理费。你用"价格波动权"换来了"流动性权"。</p>
+</div>
+
+<div class="panel">
+<p><span class="key">两条通道都想要，就是流动性错配死结</span></p>
+<p>很多人想靠房产"收租像债券"获得稳定现金流，但房产流动性差、必须长期锁定；当真正需要流动性（急用钱、再配置、人生换轨）时，卖房又慢又贵、还舍不得割。把"投资品"和"应急金"混进同一套房子，就是最典型的流动性错配死结。REITs 用证券化解开了这个结：既要租金现金流（分红），又要流动性（随时卖）——不必在"收租"和"能变现"之间二选一。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：1000 万买房收租 vs 买 REITs 组合</h2>
+<p class="guide">把前面所有规则，装进一笔真实可感的配置抉择里走一遍</p>
+
+<div class="card">
+<p><span class="key">背景</span>：一位可投资金 1000 万的持有人，5 年内无刚性大额支出，但希望保留一定流动性以应对职业或家庭的变数。面临两难：方案 A 全款买一套千万级住宅收租；方案 B 把 1000 万买入基础设施 REITs + 部分商业 REITs 组合。下面用统一假设推演，所有数字均为示意推导。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">资金属性</span>：1000 万，要求"能生息"且"别全锁死"。</li>
+<li><span class="key">方案 A 牌面</span>：千万住宅，净租售比约 1.5%，但卖出摩擦大、周期长。</li>
+<li><span class="key">方案 B 牌面</span>：REITs 组合，分红率约 4.5%，T+1 流动，分红免税。</li>
+<li><span class="key">共同约束</span>：两边都受房价/净值波动影响，但波动的"可退出性"完全不同。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么纠结</p>
+<div class="block">
+<ul>
+<li><span class="key">方案 A 的卡点</span>：回报靠"房价会涨"的假设，净租售比仅 1.5%；更致命的是流动性——急用钱时卖房 6–12 个月且税费摩擦，钱锁死了。</li>
+<li><span class="key">方案 B 的卡点</span>：流动性好、分红免税，但价格随市场波动，没有"房子在手"的心理安全感，且管理费持续侵蚀。</li>
+<li>两难的本质：要"收租现金流"还是要"随时能变现"，传统房产逼你二选一。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 配置结构设计（不二选一，做分层）</p>
+<div class="card">
+<p>不把 1000 万全押在一类资产上，而是用"杠杆 + 证券化"分层：</p>
+<ul>
+<li><span class="key">房产层</span>：300 万首付撬动一套 1000 万住宅（杠杆率约 3.3 倍），保留房产的增值敞口与杠杆收益；</li>
+<li><span class="key">证券化层</span>：剩余 700 万买入 REITs 组合（分红 4.5%、T+1 流动），提供高流动性现金流；</li>
+<li><span class="key">关键判断</span>：杠杆买房收租时，若租售比（1.5%）低于房贷利率（约 4%），房产本身持有期现金流为负，要靠 REITs 分红去覆盖——这正是分层的意义。</li>
+</ul>
+</div>
+
+<p class="step">第四步 · 执行路径（12 个月）</p>
+<div class="block">
+<ul>
+<li><b>第 0–1 月</b>：选定"满五唯一"房源以省个税，办 30% 按揭，锁定杠杆；</li>
+<li><b>第 1–2 月</b>：证券账户建仓 REITs 组合，分散 3–5 只基础设施 REITs，避免单只底层资产风险；</li>
+<li><b>第 3–12 月</b>：设"不动产占比上限"（如组合 20%–30%），每半年复盘租售比与分红率，触发上限就再平衡；</li>
+<li><b>持续</b>：保留 700 万 REITs 的随时变现权，作为家庭应急流动性的"第一道防线"。</li>
+</ul>
+</div>
+
+<p class="step">第五步 · 流动性 / 年化回报 / 税负 数字推导表</p>
+<table>
+<tr><th>维度（统一假设 5 年）</th><th>方案 A · 1000 万全款住宅</th><th>方案 B · 1000 万 REITs 组合</th></tr>
+<tr><td>买入即投入</td><td>房价 1000 + 契税 1.5%(15) + 中介 1%(10) ≈ 1025 万</td><td>1000 万 + 佣金≈0 ≈ 1000 万</td></tr>
+<tr><td>年现金流</td><td>毛租 18 − 空置物业 3 ≈ 净 15 万（净租售比 1.5%）</td><td>分红 4.5% = 45 万（个人满 1 年免个税）</td></tr>
+<tr><td>5 年净值/房价</td><td>假设 +30% → 1300 万</td><td>价格 +3% 年化 → 1159 万</td></tr>
+<tr><td>卖出税负</td><td>满五唯一免个税、满 2 免增值税；中介 1% ≈ 13 万</td><td>价差暂免个税；管理费年化 0.3% ≈ 15 万</td></tr>
+<tr><td>5 年净回收</td><td>租金 15×5=75 + 卖出 1287 ≈ 1362 万</td><td>分红 45×5=225 + 卖出 1159 ≈ 1384 万</td></tr>
+<tr><td><b>年化回报</b></td><td><b>≈ 5.9%</b></td><td><b>≈ 6.7%</b></td></tr>
+<tr><td>流动性</td><td>卖房 6–12 月，急用钱锁死</td><td>T+1 随时变现，零摩擦</td></tr>
+<tr><td>退出摩擦成本</td><td>契税 + 中介 + 时间 ≈ 3%+ </td><td>≈ 0</td></tr>
+</table>
+<p class="muted">推导结论：在"房价 +30%、REITs 净值 +3% 年化"的假设下，两方案年化回报接近（5.9% vs 6.7%），但 REITs 胜在流动性与税更干净；方案 A 的回报高度依赖房价上涨假设，一旦房价走平，净租售比 1.5% 单独不足以支撑。真正的解法在第三步——用 300 万首付撬房产、700 万买 REITs 的分层，既留杠杆敞口，又保住 700 万流动性。所有数字均为示意，实际以个盘与产品为准。</p>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　先把自住房从"投资"里摘出去；记住住宅=慢资产+杠杆，商业=收租+怕空置，REITs=证券化+流动+强制分红。不动产不是一种资产，是三种。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　画出"租金/分红 × 流动性 × 杠杆 × 税负"四乘数框架；用案例算一遍买卖房的进出税差；给自家不动产排个租售比和流动性体检。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　①设不动产占比上限并半年再平衡 ②买前查"满五唯一/满2"以省税 ③用"租售比 vs 房贷利率"判断该不该加杠杆 ④把应急金放在 REITs 等流动资产，不锁进房产 ⑤商业地产先算空置率再算回报。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>给你名下每套不动产算真实净租售比（扣空置、物业、税），排序后问：哪套在生钱、哪套在占坑？</li>
+<li>用"租金/分红 × 流动性 × 杠杆 × 税负"四乘数，给一笔 1000 万配置做一句话诊断。</li>
+<li>打开台账：你的应急金，是不是正躺在一套"卖不掉也不舍得卖"的房子里？</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">住宅 / 商业 / REITs 是三种不同资产</div>
+  <div class="q"><b>核心问题：</b>你名下的"投资房"，真实净租售比是多少？它在生钱，还是在占流动性？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">政策深水区</div>
+  <div class="pos">买卖房三道税 vs REITs 进出干净</div>
+  <div class="q"><b>核心问题：</b>同样 1000 万，买房和买 REITs 的"进出税差"你算过吗？满五唯一、满 2 你踩中没？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">杠杆 vs 流动性，两股力量相反</div>
+  <div class="q"><b>核心问题：</b>你想要收租现金流，又想要随时变现——传统房产逼你二选一，死结在哪？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">1000 万买房 vs 买 REITs 五步推演</div>
+  <div class="q"><b>核心问题：</b>如果是你，1000 万会全款买房、全买 REITs，还是 300 万首付撬房 + 700 万 REITs 分层？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你此刻最该补哪一面？看得懂收益，却看不见流动性错配吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A03《生命周期配置》、A06《高净值税收筹划全景》、A13《债券与固定收益》；后续 A08《高客画像与需求分层》、A10《高客资产配置偏好》。REITs 分红与价差税可回看 A07《股东减持与个税》的差别化政策逻辑。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A14 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-leverage" class="toggle">
+<div class="modal"><label class="backdrop" for="c-leverage"></label><div class="modal-box">
+<label class="close" for="c-leverage">&times;</label>
+<h3>杠杆双刃剑</h3>
+<p>住宅能用杠杆，这是它区别于 REITs 的最大特征，但杠杆放大两端：</p>
+<ul>
+<li><span class="key">放大收益</span>：30% 首付，100 万现金撬 333 万资产；房价 +10%，你赚 33 万，本金回报 +33%。</li>
+<li><span class="key">放大风险</span>：房价 −10%，你亏 33 万，本金 −33%；若叠加急用钱卖不出，亏损被锁定。</li>
+<li><span class="key">现金流陷阱</span>：杠杆买房收租时，若净租售比（如 1.5%）低于房贷利率（如 4%），持有期房产现金流为负，靠房价上涨补窟窿。</li>
+</ul>
+<p class="step">怎么操作</p>
+<div class="block">
+<ul>
+<li>用一把标尺判断该不该加杠杆：<span class="key">净租售比 &gt; 房贷利率</span> 才值得借钱买房收租，否则全款或低杠杆更优；</li>
+<li>买房前先算"持有期现金流"：租金 − 利息 − 物业 − 空置，别只看涨幅；</li>
+<li>把杠杆额度当作"风险预算"，设上限，不把家庭流动性全押进月供。</li>
+</ul>
+</div>
+<div class="link">相关：<a href="#sec1">基础认知盘（见模块一）</a> · <a href="#sec3">机制联动（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：不动产配置不是孤立的"买不买房"，它上接生命周期、下接税收，横接整个组合。三条线怎么连、落到操作上怎么做，逐一拆开。</p>
+
+<p class="key">上接生命周期 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>不同年龄阶段，不动产的角色不同，不能用一把尺量一生：</p>
+<ul>
+<li>30–40 岁：自住 + 适度杠杆积累，用房贷把"住"和"资产"一起解决；</li>
+<li>50–60 岁：逐步去杠杆，把"账面房产"转成"可调度现金流"，避免退休后还背着月供；</li>
+<li>退休期：要的是流动性和稳定分红，不是又一套卖不掉的房——此时 REITs 比实体房产更匹配。</li>
+<li>操作：按人生阶段设"不动产目标占比"，换轨时再平衡，不一套房扛到老。</li>
+</ul>
+</div>
+
+<p class="key">下接税收 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>买卖时点直接决定税负：满 2 免增值税、满五唯一免个税，差一两年可能多缴几个点；</li>
+<li>持有主体也影响税：个人直持 vs 公司持有，未来出售的增值税、土增税、企税天差地别；</li>
+<li>REITs 把"分红免税 + 价差暂免"写进规则，持有和交易两端都比实体房产干净——这是证券化在税上的天然优势。</li>
+</ul>
+</div>
+
+<p>上接生命周期（不同岁数不同角色）、下接税收（时点与主体决定税负）、横接组合（和股债怎么配比），三条线在"不动产"这个动作上交汇：年轻加杠杆（上）、卖前查免税门槛（下）、和 REITs/债券配比控波动（横）。这就是"联动疆界 → 风险盲区 → 资本运作视角"三线相扣的起点。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec2">政策深水区（见模块二）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。不动产这件事，最贵的代价往往不在明面，在三个盲区。</p>
+
+<p class="key">盲区一 · 把自住当投资</p>
+<div class="block">
+<ul>
+<li>自住房不产生现金流，还持续消耗（物业、折旧、资金占用），它是消费不是投资；</li>
+<li>很多人把自住房算进"身家"，账面上千万，口袋里紧巴巴；</li>
+<li>真正的投资房要单独算净租售比，自住归自住，别混为一谈。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 流动性错配</p>
+<div class="block">
+<p>把应急金、短期要用的钱投进房产，急用钱时卖不掉、也舍不得卖。房产是长期锁定的资产，不能用短期资金去买。正确做法：应急金放在 REITs、货币基金等随时能变现的地方，不动产只承载"长期 + 生息 + 通胀对冲"的角色。</p>
+</div>
+
+<p class="key">盲区三 · 只看租售比不看空置与杠杆成本</p>
+<div class="block">
+<ul>
+<li>满租假设的 4% 租售比，遇到空置半年直接腰斩；</li>
+<li>杠杆买房时，净租售比若低于房贷利率，持有期现金流为负，回报全押在房价上涨；</li>
+<li>商业地产还要先扣房产税、维修、土增税，账面租售比不等于到你口袋的回报。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>不动产最贵的不是买贵了，是"买错了角色、锁死了流动性、算漏了空置与税"</strong>。你能事后补救的，往往只是一小部分。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec1">基础认知盘（见模块一）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把"买房"从"囤资产"重新看成"组合里的一个工具"，你会发现不动产是被"配置"的，不是被用来"囤"的。</p>
+
+<p class="key">不动产是资产形态之一，不是越多越好</p>
+<div class="block">
+<p>不动产在组合里的正当角色只有两个：<span class="key">通胀对冲</span>（房子、基础设施跟着物价走）和<span class="key">稳定现金流</span>（租金、REITs 分红）。它不该承担"短期机动""应急"的角色——那是流动资产的活。明确角色，才不会多买。</p>
+</div>
+
+<p class="key">用 REITs 把"收益"和"房子"分离</p>
+<div class="block">
+<ul>
+<li>想要不动产的收益和流动性，不必真的囤一套房——买 REITs 份额就能拿到分红 + T+1 变现；</li>
+<li>想要房产的杠杆与增值敞口，用 30% 首付撬动，余钱留在流动资产，不把流动性全锁进砖头；</li>
+<li>证券化让"收益权"和"实物"解耦，这是现代配置比父辈"买房致富"高明的地方。</li>
+</ul>
+</div>
+
+<p class="key">配置纪律替代"买了就囤"</p>
+<div class="block">
+<p>设不动产占比上限（如组合 20%–30%），超配就卖、不超配就持有，用再平衡纪律替代情绪化囤积。高手看不动产，看的是"它在组合里该占多少"，不是"我还能不能再买一套"。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（配得克制）。三者合一，才是"不动产投资"这件事的完整认知。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+</body>
+</html>

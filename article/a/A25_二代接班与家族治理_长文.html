@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A25 二代接班与家族治理</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A25</div>
+  <h1>二代接班与家族治理</h1>
+  <div class="tagrow">
+    <span class="tag">Family Governance</span><span class="tag">Succession</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+一家经营了三十年的家族企业，创始一代决定把位子交下去。表面看，这不过是"谁坐那张椅子"的事——但真实世界里，交棒之后，老臣离心、手足争产、主业失血、新业务无人敢闯的案例比比皆是。问题常常不在"接的人不行"，而在<b>交接之前，这家根本没有一套让权力平稳流动的治理机制</b>。
+</div>
+
+<div class="framework">
+<b>家族传承 = 财富交接 × 治理机制 × 能力准备 × 角色认同</b><br>
+四个乘数，任何一个为零或为负，交棒都会把一家好企业拖进内耗。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先搞清"接班"和"治理"到底指什么——它们不是你想的"把位子交出去"</p>
+
+<div class="card">
+<p><span class="key">接班能力模型</span>（专业 / 视野 / 威信）：接班的不是一张椅子，是一套能力组合。专业＝懂这家企业怎么赚钱、行业门道在哪；视野＝看得懂周期、看得到门外的新机会；威信＝家族长辈与老臣愿意听你的、跟你干。三者缺一个，交棒即晃。</p>
+<p><span class="key">家族委员会</span>：家族内部一个"议事会"，定期把大事摆上桌谈——分红怎么分、谁接什么班、矛盾怎么调——而不是饭桌上随口定、事后翻脸。它是家族治理的起点。</p>
+<p><span class="key">家族宪法</span>：一家人白纸黑字写下的"家规契约"，约定谁有表决权、怎么分钱、怎么接班、闹矛盾走什么流程。它不是国家法，但对家族的约束力往往比合同还强，因为违反它要付出"被家族除名"的代价。</p>
+</div>
+
+<div class="block">
+<p><span class="key">冲突解决机制</span>：预先约定"吵架的规矩"。有了机制，矛盾走流程、不走动手；没有机制，一点分歧就会升级成股权争夺战。</p>
+<p><span class="key">下一代角色定位</span>（守业者 / 革新者 / 连接器）：接班不等于所有人都去当一把手。守业者守住主业基本盘；革新者推动转型与新业务；连接器对外连接资本、资源与外部关系。一个家族里的下一代，完全可以按特长分工。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你熟悉的某家家族企业——或者你自己的家族——<strong>有没有一个能坐下来谈大事的"议事会"，有没有一份写下来的"家规"</strong>？如果两样都没有，那么无论下一代多优秀，"交棒"这件事其实还没有开始准备。模块一最该带走的认知：<strong>接班考的不是某个人，是一套治理机制</strong>。</p>
+</div>
+
+<h2 id="sec2">二、治理机制深水区</h2>
+<p class="guide">真正能托住交棒的三件治理工具，不是感情，是机制</p>
+
+<div class="card">
+<p><span class="key">家族委员会怎么搭</span></p>
+<ul>
+<li><span class="key">成员</span>：一代、下一代代表、配偶代表，再加一两位外部顾问（如家族律师、资深家办顾问），外部人能打破"自己人护短"。</li>
+<li><span class="key">频率</span>：季度或半年例会，重大事项随时临时会，议题提前书面发。</li>
+<li><span class="key">职权</span>：重大分配、接班节奏、矛盾初审——它不做日常经营，只管"家族层面"的顶层设计。</li>
+</ul>
+</div>
+
+<div class="block">
+<p><span class="key">家族宪法写什么</span></p>
+<ul>
+<li>使命与价值观：这家家族企业"为什么存在、守什么规矩"；</li>
+<li>成员行为准则：婚变、负债、刑事风险等情形的股权处置；</li>
+<li>接班规则：谁有资格、考核什么、过渡期多长；</li>
+<li>分配规则：分红、薪酬、家族内部借款的边界；</li>
+<li>争议解决：矛盾升级时走哪一层。</li>
+</ul>
+<p>它的硬法底座是《民法典》继承编（法定继承顺序、遗嘱自由——第一千一百二十三条明确"有遗嘱的按遗嘱继承"），宪法是"软法"补充：硬法管"谁有权"，软法管"怎么用权"。</p>
+</div>
+
+<div class="card">
+<p><span class="key">冲突解决机制三层</span></p>
+<ul>
+<li>第一层：家族委员会内部调解，多数决或长老裁决；</li>
+<li>第二层：聘请外部家族顾问 / 调解人，把矛盾从"家里"搬到"专业桌"；</li>
+<li>第三层：预先约定提交仲裁或家事调解机构，并写入"冷静期条款"——谁也不能在情绪头上直接撕破脸上法院。</li>
+</ul>
+<p>《信托法》下的家族信托，还能把"分配权"与"经营权"分离，让争产有契约兜底，而非争人。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果今天家族里两位下一代对"要不要卖掉一块老业务"吵起来，<strong>你们有现成的规矩决定"听谁的、怎么定"吗</strong>？还是只能靠一代拍板、或靠谁嗓门大？没有规矩的"和和气气"，一旦涉及真金白银，就会暴露成真刀真枪。模块二最该带走的：<strong>委员会、宪法、冲突机制，是交棒前的三道保险</strong>。</p>
+</div>
+
+<p class="guide">把家族宪法拆开，看它到底管哪几件事</p>
+<div class="chips">
+  <label class="chip" for="c-constitution">家族宪法核心条款</label>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">接班这件事，上有传承顶层、下有企业经营，两股力量会"打架"</p>
+
+<div class="card">
+<p><span class="key">上接传承顶层</span></p>
+<p>财富往往已经用信托、股权架构做了顶层安排（见 A17 家族信托、A19 企业主财富传承）。接班是"治理权"的交接，不是"所有权"的搬运——信托受益权按契约走，企业控制权按治理走，两条线必须咬合，否则财富在信托里、权力在家族里，各说各话。</p>
+</div>
+
+<div class="block">
+<p><span class="key">下接企业传承</span></p>
+<p>企业的战略、团队、客户、供应链，是接班人要接的"活资产"。如果上面治理定了"谁接班"，下面企业没准备好"接得住"，那就是空降——名义上是掌门人，实际指挥不动任何人。</p>
+</div>
+
+<div class="card">
+<p><span class="key">两股力量打架</span></p>
+<ul>
+<li>顶层按血缘 / 契约定"该谁接"，治理要求"能者接"——当血缘与能力错位，冲突爆发；</li>
+<li>企业急需革新，家族宪法却写死"守业优先"，把转型锁死；</li>
+<li>连接器在外接了资源，守业者在家守住地盘，两者对"钱该投哪"产生分歧，无机制则内斗。</li>
+</ul>
+</div>
+
+<div class="block">
+<p><span class="key">死结：三处不连</span></p>
+<p>没有治理机制兜底，上接的顶层和下接的企业，在"人"这个环节断裂——财富在信托里、权力在家族里、能力在个人里。一代想交交不出、下一代想接接不住，企业卡在中间慢慢失血。这正是高端财富里最隐蔽、却最致命的传承塌方。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：两种交棒路径的对照推演</h2>
+<p class="guide">把前面所有机制，装进两个同等处境的家族里对照走一遍</p>
+
+<div class="card">
+<p><span class="key">背景</span>：甲、乙两家同为年营收约 20 亿的家族制造企业，创始一代均 65 岁，下一代均为 3 名成员，企业由创始家族控股。甲家族：<b>无治理机制</b>，一代突发健康事件后直接交棒。乙家族：<b>提前 5 年搭建家族委员会 + 家族宪法过渡</b>。我们沿五步走一遍。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">甲</span>：治理＝空白；下一代＝1 人海外归来 2 年、无一线历练；股权＝全部在创始个人名下；冲突预案＝无。</li>
+<li><span class="key">乙</span>：治理＝家族委员会（5 人，含 2 名外部顾问）＋宪法（已运行 3 年）；下一代＝3 人分工（守业 / 革新 / 连接）；股权＝已部分装入家族信托；冲突预案＝三层机制就位。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么卡</p>
+<div class="block">
+<ul>
+<li><span class="key">甲卡在"仓促 + 缺位"</span>：一代突然交棒，老臣不服、下一代缺威信，手足对分红与战略分歧无规则可依据→内斗，核心团队开始出走。</li>
+<li><span class="key">乙被机制托底</span>：分歧走委员会调解、再走外部顾问，矛盾不伤感情；接班按宪法考核推进，不靠谁嗓门大。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 结构设计（乙家族）</p>
+<div class="card">
+<p>不急着交，先搭"机制"，让交棒有章可循：</p>
+<ul>
+<li><span class="key">组织层</span>：家族委员会定大事，外部顾问打破护短；</li>
+<li><span class="key">规则层</span>：家族宪法写清接班资格、考核项、过渡期（3 年）、分配与争议解决；</li>
+<li><span class="key">角色层</span>：下一代分工——守业者管主业、革新者管新业务、连接器管资本与外部关系；</li>
+<li><span class="key">资产层</span>：部分股权装入家族信托，分离"受益权"与"经营权"。</li>
+</ul>
+</div>
+
+<p class="step">第四步 · 执行路径（乙家族，5 年节奏）</p>
+<div class="block">
+<ul>
+<li><b>第 0–1 年</b>：搭委员会、聘外部顾问，盘点股权与信托现状；</li>
+<li><b>第 1–3 年</b>：起草并试运行宪法，下一代按分工进入一线、接受考核；</li>
+<li><b>第 3–5 年</b>：一代转任荣誉主席，下一代按分工正式上岗，权力分批移交；</li>
+<li><b>甲对照</b>：无计划、事件驱动，一代倒下即仓促交棒，全靠临时救火。</li>
+</ul>
+</div>
+
+<p class="step">第五步 · 接班平稳度前后对比</p>
+<table>
+<tr><th>指标</th><th>甲（无治理直接交棒）</th><th>乙（委员会 + 宪法过渡）</th></tr>
+<tr><td>达平稳交接期</td><td>约 36 个月且仍动荡</td><td>60 个月计划内平稳</td></tr>
+<tr><td>交接期内冲突事件数</td><td>12 起</td><td>2 起</td></tr>
+<tr><td>核心高管流失率</td><td>40%</td><td>8%</td></tr>
+<tr><td>家族企业价值（5 年相对变动）</td><td>−25%</td><td>+15%</td></tr>
+<tr><td>下一代威信认可度（家族投票）</td><td>45%</td><td>82%</td></tr>
+</table>
+<p class="muted">同样一个创始家族、同等规模企业，治理机制把"冲突事件数"从 12 降到 2、把价值损耗从 −25% 转为 +15%。差异不在人，在机制——这正是模块四要证明的：交棒平稳度是可设计的。</p>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　遇到一家家族企业，先问：有没有委员会？有没有写下来的宪法？下一代是"接得住"还是"被空降"？记住：接班考的不是人，是机制。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　画出"四重乘数"框架图（财富 × 治理 × 能力 × 认同）；用甲 / 乙案例做对照，理解治理机制如何把冲突事件数压下来。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　①盘点治理结构（有 / 无委员会与宪法）②起草接班规则（资格 / 考核 / 过渡期）③设冲突三层机制（调解→外部顾问→仲裁＋冷静期）④下一代角色分工（守业 / 革新 / 连接）⑤同步顶层（信托 / 股权分离受益权与经营权）。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>给你熟悉的某家家族企业画一张"治理体检表"：委员会、宪法、冲突机制，三样各有还是全无？</li>
+<li>用"财富 × 治理 × 能力 × 认同"四重乘数，给一家企业的接班准备度做一句话诊断。</li>
+<li>打开自家的安排：下一代的角色是"守业 / 革新 / 连接"里的哪一种？有没有白纸黑字写下来？</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">接班考的不是某个人，是一套治理机制</div>
+  <div class="q"><b>核心问题：</b>你熟悉的家族，有"议事会"和写下来的"家规"吗？两样都没有，交棒其实还没开始。</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">治理机制深水区</div>
+  <div class="pos">委员会 + 宪法 + 冲突机制，三道保险</div>
+  <div class="q"><b>核心问题：</b>两代人对"卖不卖老业务"吵起来，你们有现成规矩决定听谁的吗？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">上接传承顶层，下接企业传承，两股力量打架</div>
+  <div class="q"><b>核心问题：</b>财富在信托里、权力在家族里、能力在个人里——三处连得上吗？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">无治理交棒 vs 委员会 + 宪法过渡的对照</div>
+  <div class="q"><b>核心问题：</b>如果是你，面对同等处境，先搭委员会、写宪法，还是等事件倒逼？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你此刻最该补哪一面？看得见联动，却看不见盲区吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A19《企业主财富传承：股权传承与接班》、A17《家族信托税务筹划》；平行新增传承篇《家族财富传承顶层设计》；后续 A16《遗产税与赠与税》（传承篇深讲代际税务安排）、A06《高净值税收筹划全景》。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A25 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-constitution" class="toggle">
+<div class="modal"><label class="backdrop" for="c-constitution"></label><div class="modal-box">
+<label class="close" for="c-constitution">&times;</label>
+<h3>家族宪法核心条款</h3>
+<p>家族宪法不是国家法，是家族内部的"软法契约"。一份能托住接班的宪法，至少写清以下五块：</p>
+<ul>
+<li><span class="key">使命与价值观</span>：这家家族企业为什么存在、守什么底线——它是所有条款的"总纲"。</li>
+<li><span class="key">成员行为准则</span>：婚变、个人负债、刑事风险等情形下，股权如何处置、是否停牌表决权。</li>
+<li><span class="key">接班规则</span>：谁有资格接班、考核什么能力、过渡期多长、一代何时转任荣誉角色。</li>
+<li><span class="key">分配规则</span>：分红比例、家族薪酬、内部借款的边界，防"分光家底"或"借而不还"。</li>
+<li><span class="key">争议解决</span>：矛盾升级时走哪一层（调解→外部顾问→仲裁），并附冷静期条款。</li>
+</ul>
+<p class="step">怎么操作</p>
+<div class="block">
+<ul>
+<li>先由家族委员会起草，聘请家族律师与外部顾问把关，避免"家规"与《民法典》继承编、《信托法》冲突；</li>
+<li>关键条款（接班、分配、争议）必须全体成年成员签署确认，才有"软约束力"；</li>
+<li>每 3–5 年修订一次，随企业阶段与下一代成长更新，不可写一次管一辈子。</li>
+</ul>
+</div>
+<p>硬法管"谁有权"（继承编、信托法），软法管"怎么用权"（宪法）。两者咬合，接班才有底座。</p>
+<div class="link">相关：<a href="#sec2">治理机制深水区（见模块二）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：接班不是孤立的"交椅子"，它上接财富传承的顶层设计、下接企业的经营传承，两条线怎么连、落到操作上怎么做，逐一拆开。</p>
+
+<p class="key">上接传承顶层 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>财富已用信托、股权架构做了顶层安排（A17 / A19），接班是"治理权"交接而非"所有权"搬运。操作上：</p>
+<ul>
+<li>把"受益权"与"经营权"在信托契约里分离——谁分钱、谁管事，两件事分开定；</li>
+<li>接班人的治理权来源写进宪法，而非仅靠一代口头授权，避免"名正言不顺"；</li>
+<li>顶层已定的受益人顺序，与下一代角色分工对齐，不出现"信托里的人是甲、企业里掌权的是乙"的错位。</li>
+</ul>
+</div>
+
+<p class="key">下接企业传承 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>企业的战略、团队、客户是"活资产"，接班人要接得住。操作：</p>
+<ul>
+<li>下一代先进入一线历练（守业 / 革新 / 连接分工），用 3 年考核积累专业与威信；</li>
+<li>老臣的安排写进宪法（顾问、荣誉、退出补偿），让"让位"有体面、不离心；</li>
+<li>交接期一代转任荣誉主席，分批移交权力，而非一夜之间全盘交出。</li>
+</ul>
+</div>
+
+<p class="key">上下咬合 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>顶层定"谁有权"（信托 / 股权），治理定"怎么用权"（宪法 / 委员会），企业定"接得住吗"（能力 / 威信）；</li>
+<li>三处任一断裂，交棒即塌——这正是模块三"死结"的根源；</li>
+<li>定期用委员会例会校准三处咬合度，是高端家族治理的"年度体检"。</li>
+</ul>
+</div>
+
+<p>上接顶层、下接企业，两条线在"接班"这个动作上交汇：财富在信托、权力在治理、能力在个人——三处连得上，交棒才平稳。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec3">机制联动（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。接班这件事，最贵的代价往往不在明面，在三个盲区。</p>
+
+<p class="key">盲区一 · 仓促交棒</p>
+<div class="block">
+<ul>
+<li>一代突发健康或意外事件，没有预案直接交棒，下一代瞬间被推上高位却无威信、无准备；</li>
+<li>案例甲：达平稳耗时 36 个月且仍动荡，根子就是"没准备就交"；</li>
+<li>操作上，提前 5 年启动过渡、把"什么时候交、交之前考什么"写进宪法，把偶然变必然。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 能力错配</p>
+<div class="block">
+<p>顶层按血缘定"该谁接"，治理要求"能者接"。当血缘与能力错位——被安排接班的人既不懂行业也无威信，而真正有能力的下一代被晾在一边——冲突必然爆发。操作上，宪法把"接班资格 + 考核"写死，让能力与位置对齐，而非只看出生顺序。</p>
+</div>
+
+<p class="key">盲区三 · 治理缺位引发内斗</p>
+<div class="block">
+<ul>
+<li>没有委员会、没有宪法、没有冲突机制，一点分红或战略分歧就升级成股权争夺；</li>
+<li>案例甲：交接期冲突事件 12 起、核心高管流失 40%、企业价值 −25%；</li>
+<li>操作上，三层冲突机制（调解→外部顾问→仲裁＋冷静期）是"防内斗"的底线工程，必须事前约定、不能事后补。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>接班的代价，在"交棒之前"就定了大半</strong>。你能事后补救的，只是其中一小部分。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把接班从"权力移交"重新看成"治理能力的代际传承"，你会发现它是一项可设计、可管理的资本工程。</p>
+
+<p class="key">接班是治理传承，不是权力移交</p>
+<div class="block">
+<p>很多人把交棒理解成"把签字权交出去"。资本视角下，交的是"让财富与企业持续增值的治理能力"——包括议事规则、分配纪律、冲突刹车。权力一天就能交，治理能力要 5 年养。高手看接班，看的是"下一代能不能让这台机器自己转"，不是"谁坐那张椅子"。</p>
+</div>
+
+<p class="key">顶层架构是接班的"资本底盘"</p>
+<div class="block">
+<ul>
+<li>信托把"受益权"与"经营权"分离，让争产有契约兜底，接班人不被股权纠纷缠住；</li>
+<li>股权架构提前理顺（控股平台、一致行动安排），避免交棒时控制权散架；</li>
+<li>这些"底盘"在交棒前 5 年就要搭好，是资本运作里最便宜、也最被低估的一步。</li>
+</ul>
+</div>
+
+<p class="key">平稳度是可量化的资本指标</p>
+<div class="block">
+<p>用冲突事件数、交接期时长、高管流失率、企业价值变动、威信认可度五个指标，就能给一次交棒"定价"。案例乙把冲突从 12 降到 2、价值从 −25% 转为 +15%——这中间的 40 个点差额，就是治理机制创造的"隐性资本回报"。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（接得住治理）。三者合一，才是"接班与家族治理"这件事的完整认知。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+</body>
+</html>

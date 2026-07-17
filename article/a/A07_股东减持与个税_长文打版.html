@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A07 上市公司股东减持与个税处理</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A07</div>
+  <h1>上市公司股东减持与个税处理</h1>
+  <div class="tagrow">
+    <span class="tag">Asset &amp; Tax</span><span class="tag">Compliance</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+一家市值数百亿的上市公司，控股股东账面身家几十亿，却可能一时调不出一笔大额现金去付一笔私人开销。这听起来荒谬，却是资本圈常态——他手里的不是"随时能花的钱"，而是"带着税基、绑着监管、缺流动性、税负结构未定"的股权。
+</div>
+
+<div class="framework">
+<b>大股东财富 = 股权 × 流动性 × 税基 × 税负结构</b><br>
+四个乘数，任何一个没设计好，账面数字都变不成可支配的财富。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先搞清你手里拿的到底是什么——它不像你以为的"随时能卖的股票"</p>
+
+<div class="card">
+<p><span class="key">限售股</span>：公司上市前发行的股份（创始人、早期股东拿的），解禁前不能卖。控股股东家族手里绝大多数是这类——不是不想卖，是规则不让。</p>
+<p><span class="key">减持</span>：大股东、实控人、董监高把股份卖掉变现。注意，这三类人卖股票，规矩比普通散户严十倍。</p>
+<p><span class="key">税基（原值）</span>：你当初买入的成本。它决定"赚了多少"——成本越高，赚得越少，税越少。一张发黄的入账单，可能值几百万税。</p>
+</div>
+
+<div class="block">
+<p><span class="key">同样一笔股份，税务命运天差地别</span></p>
+<ul>
+<li>个人转让限售股：缴 20% 个税（财税〔2009〕167号），公式 =（卖价 − 原值 − 合理税费）× 20%。</li>
+<li>原值说不清：凭证丢了，一律按卖价的 15% 核定征税——老股成本可能才几毛，却按 15% 缴，隐性多缴几十倍。</li>
+<li>流通股（二级市场买的）：转让暂免个税；个人转让免增值税；印花税仅 0.05%。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你（或你关注的这家公司）的控股股东，当年拿股份的<strong>成本单还在吗</strong>？如果丢了，未来减持时税基会被"核定"成一个远高于真实成本的数字——你以为的"收益"，一半要拿去补税。模块一最该带走的认知：<strong>股权不是股票，是带着税基的受限资产</strong>。</p>
+</div>
+
+<p class="guide">持股主体如何改写整笔税负</p>
+<div class="chips">
+  <label class="chip" for="c-subject">持股主体税负差异</label>
+</div>
+
+<h2 id="sec2">二、政策深水区</h2>
+<p class="guide">2024 年新规之后，大股东卖股票不再是"想卖就卖"</p>
+
+<div class="card">
+<p><span class="key">最严减持新规</span>（证监会令第224号，2024.5.24）给控股股东、实控人套上"三道红线"：</p>
+<ul>
+<li><span class="key">破发</span>：股价跌破发行价 → 不能减；</li>
+<li><span class="key">破净</span>：股价低于每股净资产 → 不能减；</li>
+<li><span class="key">分红不达标</span>：最近三年现金分红不到年均净利润 30% → 不能减。</li>
+</ul>
+<p>三条任一触发，集中竞价和大宗交易两条路直接关闭。还封堵了"绕道"：离婚分割、转融通、融券、质押违约处置，全纳入监管。要减？提前 15 个交易日预披露（北交所超 1% 需 30 日）。</p>
+</div>
+
+<div class="block">
+<p><span class="key">四种减持方式，规矩各不同</span></p>
+<table>
+<tr><th>方式</th><th>比例限制</th><th>价格 / 锁定期</th><th>适用</th></tr>
+<tr><td>集中竞价</td><td>90日 ≤ 1%</td><td>市价</td><td>小步慢跑</td></tr>
+<tr><td>大宗交易</td><td>90日 ≤ 2%（受让6月锁）</td><td>市价</td><td>中等体量</td></tr>
+<tr><td>询价转让</td><td>单次 ≥ 1%</td><td>≥前20日均价70%；折价约84%</td><td>快速大量</td></tr>
+<tr><td>协议转让</td><td>单受让方 ≥ 5%</td><td>≥前1日收盘价70%；受让6月锁</td><td>控制权转移</td></tr>
+</table>
+<p class="muted">董高额外约束：任职期年转让 ≤ 25%（≤1000股豁免）；年报前 15 日、季报前 5 日为窗口期禁买卖。违规代价：责令购回、上缴价差、市场禁入。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>假设你关注的公司，去年股价破净、三年分红没达标——这意味着控股股东<strong>现在一个字都减不了</strong>。那么你判断这家公司的"大股东减持压力""股权质押风险"时，是不是得先查它踩了哪条红线？新规把"能不能卖"变成了第一道筛子。</p>
+</div>
+
+<p class="guide">税收奖励是合规筹划空间</p>
+<div class="chips">
+  <label class="chip" for="c-reward">税收奖励机制</label>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">分红和减持，是同一笔钱进股东口袋的两条通道，规则相反、还会互相打架</p>
+
+<div class="card">
+<p><span class="key">分红通道：持股越久越便宜</span></p>
+<p>股东从公司拿分红，要交个税，但税率看你"拿了股票多久"。按财税〔2015〕101号：持股不到 1 个月，分红的 20% 交税；1 个月到 1 年，交 10%；超过 1 年，免税。</p>
+<p>举例：某股东年底分红到账 100 万。如果买入才 20 天就赶上分红，要缴 20 万，到手 80 万；如果持有超过 1 年，100 万全到手，一分不缴。政策意图很清楚——鼓励长期拿住，不鼓励炒短线。</p>
+</div>
+
+<div class="block">
+<p><span class="key">减持通道：不管拿多久，都是 20%</span></p>
+<p>减持是把股票卖掉变现，和分红是两码事。通过二级市场卖出赚的差价，按"财产转让所得"缴 20% 个税——这里不看你拿了多久，哪怕持有十年，卖掉照样交 20%。</p>
+<p>于是出现矛盾：长期股东靠分红"免费"拿钱，短期交易员分红被征 20%、卖掉再征 20%，两头受压。</p>
+</div>
+
+<div class="card">
+<p><span class="key">但分红不是想分就能分</span></p>
+<p>既然长期持有能免税分红，那"一直拿着吃分红"不就行了？不行，分红有三道硬约束：① 公司得先有利润，亏损不能分；② 分红比例受章程限制（比如每年分净利润的 30%，不能把家底分光）；③ 要董事会、股东大会决议，不是老板一句话。</p>
+<p>很多公司利润表好看但现金流紧，或处在扩张期不愿分，股东"账面富贵"却拿不到现金。</p>
+</div>
+
+<div class="block">
+<p><span class="key">减持又被三道红线锁死</span></p>
+<p>另一边想卖股票变现？控股股东、实控人遇上"破净、破发、分红不达标"三道红线，集中竞价和大宗交易两条路直接关闭。前面案例里市值百亿、可动用不足千万，根子就在这。</p>
+</div>
+
+<div class="card">
+<p><span class="key">两条通道都堵，就是流动性死结</span></p>
+<p>于是出现一个荒诞又真实的局面：长期股东靠分红免税，但分红本身不够花；想减持套现，又被三道红线卡死。一句话——"想减不能减、分红不够花"。这不是某个人操作笨，是制度设计上的两难，也是高端财富里最容易被忽略、却最要命的底层约束。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：一笔减持的完整推演</h2>
+<p class="guide">把前面所有规则，装进一个真实处境里走一遍</p>
+
+<div class="card">
+<p><span class="key">背景</span>：某高端制造上市公司，实控人家族通过一家有限责任公司（家族控股平台）持有 30% 股份，其中 IPO 前限售股已解禁。当年股价破净（市净率 0.9）、前三年现金分红未达年均净利润 30%。实控人需要约 2 亿元现金，用于一处产业并购尾款与家族安排。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">持股主体</span>：走"有限责任公司"持有。未来减持，收益先在公司层缴 25% 企业所得税，分到个人再缴 20% 个税，卖出环节还有 6% 增值税——复合税负最重。</li>
+<li><span class="key">税基清晰</span>：IPO 前成本 1 元/股，现价 20 元，原值凭证完整，不存在 15% 核定的麻烦。</li>
+<li><span class="key">股份性质</span>：限售股已解禁，但来源是 IPO 前，减持按 20% 个税，而非流通股免税。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么减不动</p>
+<div class="block">
+<ul>
+<li><span class="key">三道红线双锁</span>：破净 + 分红不达标，控股股东、实控人不得通过集中竞价、大宗交易减持。两条通道同时关闭。</li>
+<li><span class="key">持股主体反噬</span>：即便能减，有限责任公司结构也让税负比自然人直持多出企业税与增值税两道。</li>
+<li>账面身家数十亿，今天能动用的，只有早年少量免税流通股的小额变现——典型"账面富贵、现金枯竭"。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 交易结构设计</p>
+<div class="card">
+<p>不急着卖，先改"结构"，让减持合法、税负可控：</p>
+<ul>
+<li><span class="key">主体层</span>：将部分持股从有限责任公司平移至自然人直持 + 有限合伙（创投单一核算可降至 20%），砍掉 25% 企税与 6% 增值税两道。</li>
+<li><span class="key">地域层</span>：将证券开户地迁至对限售股个税地方留成（40%）给予高比例奖励的区域，合规降低实际税负。</li>
+<li><span class="key">节奏层</span>：长期持有拿免税分红（持股 &gt;1 年免个税），用分红现金流替代部分减持需求，缓解流动性。</li>
+</ul>
+</div>
+
+<p class="step">第四步 · 减持执行路径（12 个月）</p>
+<div class="block">
+<ul>
+<li><b>第 0–3 月</b>：推动董事会通过提高分红方案，使次年满足"三年分红达标"，解除一条红线。</li>
+<li><b>第 4–6 月</b>：待股价回升、市净率修复至 1 以上，解除破净红线；同步完成持股主体平移与开户地迁移。</li>
+<li><b>第 7 月</b>：双红线解除后，启动大宗交易（90 日 ≤ 2%），向长期机构分批转让，受让方锁定 6 个月。</li>
+<li><b>第 10 月</b>：剩余份额用集中竞价（90 日 ≤ 1%）小步慢跑；每次提前 15 个交易日预披露。</li>
+<li><b>董高约束</b>：若实控人兼任董高，年转让 ≤ 25%、避开年报前 15 日 / 季报前 5 日窗口期。</li>
+</ul>
+</div>
+
+<p class="step">第五步 · 税务筹划前后对比</p>
+<table>
+<tr><th>项目</th><th>原结构（公司持有）</th><th>新结构（自然人 + 奖励地）</th></tr>
+<tr><td>减持 1000 万股，价差 19 元</td><td>所得 1.9 亿</td><td>所得 1.9 亿</td></tr>
+<tr><td>企业所得税 25%</td><td>约 4750 万</td><td>0（自然人直持）</td></tr>
+<tr><td>个人所得税 20%</td><td>约 2850 万</td><td>3800 万</td></tr>
+<tr><td>增值税 6%</td><td>约 1140 万</td><td>0</td></tr>
+<tr><td>地方奖励（40% × 90%）</td><td>—</td><td>退约 1368 万</td></tr>
+<tr><td><b>实际税负</b></td><td><b>约 8740 万（46%）</b></td><td><b>约 2432 万（12.8%）</b></td></tr>
+</table>
+<p class="muted">同样一笔 1.9 亿所得，结构设计 + 开户地奖励后，实际税负从约 46% 降到约 12.8%，省下约 6300 万。节省来自"主体选对"与"地方公开奖励政策"，非任何偷逃。</p>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　遇到一家上市公司，先问：破发没？破净没？分红达标没？记住：继承免税但减持征税，股权带税基传代。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　画出"四重约束"框架图；用案例理解税收奖励；找一家真实公司套框架做减持可行性判断。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　①核查原值凭证（丢按15%核定）②排减持窗口（避年报前15日/季报前5日）③确认持股主体税负 ④大额提前15日预披露+评估开户地奖励。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>查一家你熟悉的公司：它踩了三道红线里的哪几条？控股股东现在能减吗？</li>
+<li>用"股权 × 流动性 × 税基 × 税负结构"四重约束，给一家公司做一句话诊断。</li>
+<li>打开自家或客户的台账：当年拿股份的原始成本凭证，还在吗？</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">你手里的是"股份"还是"带着税基的受限资产"？</div>
+  <div class="q"><b>核心问题：</b>控股股东当年拿股的成本单还在吗？丢了，未来税基会被核定成多少？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">政策深水区</div>
+  <div class="pos">三道红线 + 四种方式 + 董高约束</div>
+  <div class="q"><b>核心问题：</b>你关注的公司踩了哪条红线？控股股东此刻到底"能减"还是"被锁死"？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">分红免税 vs 减持征税，两条路都堵</div>
+  <div class="q"><b>核心问题：</b>长期持有吃免税分红却不够花，想减又被锁——你的现金到底从哪来？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">一笔减持的五步完整推演</div>
+  <div class="q"><b>核心问题：</b>如果是你，面对 2 亿缺口，先动哪一步——改主体、换开户地、还是等红线解除？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你此刻最该补哪一面？看懂了联动，却看不见盲区吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A06《高净值税收筹划全景》；后续 A08《高客资产配置偏好》、A16《遗产税与赠与税》（传承篇深讲股权代际安排）。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A07 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-subject" class="toggle">
+<div class="modal"><label class="backdrop" for="c-subject"></label><div class="modal-box">
+<label class="close" for="c-subject">&times;</label>
+<h3>持股主体税负差异</h3>
+<ul>
+<li><span class="key">自然人直接持有</span>：仅 20% 个税；免增值税、免企业所得税。最轻。</li>
+<li><span class="key">有限责任公司持有</span>：20% 个税 + 25% 企业所得税 + 6% 增值税，复合结构最重。</li>
+<li><span class="key">合伙企业持有</span>：6% 增值税 + 自然人合伙人 5%~35% 五级累进（创投单一核算可降至 20%）。</li>
+</ul>
+<p>持股主体选个人 / 公司 / 合伙，是顶层设计，不可事后补。这一步在"拿股份那天"就决定了大半税负。</p>
+<div class="link">相关：<a href="#sec2">税收奖励机制（见模块二）</a> · <a href="#sec5">资本运作视角（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-reward" class="toggle">
+<div class="modal"><label class="backdrop" for="c-reward"></label><div class="modal-box">
+<label class="close" for="c-reward">&times;</label>
+<h3>税收奖励机制</h3>
+<p>限售股个税 <span class="num">60%</span> 归中央、<span class="num">40%</span> 留地方；地方常对留成部分给股东奖励。</p>
+<p>个税由证券机构所在地征收，故<span class="key">个人可变更开户地选有奖励区域纳税</span>——透明合规筹划。</p>
+<p class="step">怎么操作</p>
+<div class="block">
+<ul>
+<li>减持前，把证券账户开户地迁至有"财政返还"政策的区域（如部分中西部、沿海地区园区）；</li>
+<li>奖励比例公开、按地方留成（40%）的一定折扣返还，非私下协议；</li>
+<li>案例B：20 万税，A 地无奖励实缴 20 万，B 地奖励地方留成 90% → 退 7.2 万，实缴 12.8 万。</li>
+</ul>
+</div>
+<div class="link">相关：<a href="#sec1">持股主体税负差异（见模块一）</a> · <a href="#sec4">案例（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：股东的减持决策不是孤立的"卖不卖股票"，它上接全球配置、下接家族信托、横接市场信号。三条线怎么连、落到操作上怎么做，逐一拆开。</p>
+
+<p class="key">上接全球配置 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>境内减持被三道红线 + 额度卡死，大额流动性出不来，但真实支出（子女教育、海外置业、跨周期配置）是刚性的。操作上：</p>
+<ul>
+<li>通道关闭时，家族把新增可投资金切到港股通、美股账户、新加坡 / 香港家办，用"境外赚、境外花"绕开境内流动性约束；</li>
+<li>这不是逃税，是合规的跨市场再平衡——同一笔财富在约束松的市场保持流动。很多家族海外布点，表面"国际化"，底层往往是境内减持被锁后的流动性自救。</li>
+</ul>
+</div>
+
+<p class="key">下接家族信托 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>信托不是"免减持税"的（20% 照样交），是"脱钩节奏 + 平滑代际"的工具。操作：</p>
+<ul>
+<li>股价低位时，把股票装入家族信托（税基低，未来增值在信托内累积，不触发立即缴税）；</li>
+<li>股价高位需变现时，由信托层面减持，节奏与实控人个人额度、三道红线脱钩；</li>
+<li>受益人（子女）按信托契约分期领取，避免一次性给到二代造成挥霍或治理风险。</li>
+<li>关键认知：信托是"蓄水池"——让"什么时候卖、卖给谁、钱给谁"三件事分开决策，不是免税通道。</li>
+</ul>
+</div>
+
+<p class="key">横接市场信号 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>竞价 90 日 ≤1%、大宗 ≤2% 是"常规减持"，市场视为正常，股价通常不反应；</li>
+<li>一旦出现"清仓式"（协议转让 ≥5%、或连续大额折价），才是真信号，预示股东不看好或急需离场；</li>
+<li>实操中盯"预披露公告"：控股股东只减 1%，多半是流动性需求；突然溢价接盘方出现，可能是控制权转移前奏。用这个比例尺，你能反向判断一家公司的资本意图。</li>
+</ul>
+</div>
+
+<p>上接配置、下接信托、横接信号，三条线在"减持"这个动作上交汇：通道被锁 → 转海外（上）；低位装信托高位变现（下）；看比例读意图（横）。这就是"联动疆界 → 风险盲区 → 资本运作视角"三线相扣的起点。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。减持这件事，最贵的税往往不在明面，在三个盲区。</p>
+
+<p class="key">盲区一 · 继承免税 ≠ 无税，且税基断层</p>
+<div class="block">
+<ul>
+<li>继承股权免个税，但未来继承人减持仍按 20% 缴；</li>
+<li>更隐蔽的是"税基断层"：继承人取得股权的计税成本，常按"原值"而非市价，未来转让时增值部分全要征税；</li>
+<li>若原值凭证在代际传递中丢失，直接按 15% 核定——税基断层 + 核定，双重暴击。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 原值凭证丢失</p>
+<div class="block">
+<p>老股成本可能才几毛钱，入账单早丢了。减持时无法证明成本，一律按转让收入 15% 核定征税——比真实成本低几十倍，隐性多缴数十倍税。一张纸，值几百万。</p>
+</div>
+
+<p class="key">盲区三 · 持股主体选错</p>
+<div class="block">
+<ul>
+<li>个人直持：仅 20% 个税，最轻；</li>
+<li>公司持有：20% 个税 + 25% 企税 + 6% 增值税，复合最重；</li>
+<li>合伙持有：6% 增值税 + 5%~35% 五级累进；</li>
+<li>主体一旦选定，事后无法"补选"——这是顶层设计，错在源头。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>减持的税，在"拿股份那天"就定了大半</strong>。你能事后筹划的，只是其中一小部分。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec1">持股主体税负差异（见模块一）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把减持从"套现走人"重新看成"资本循环的一环"，你会发现税负是可以被"管理"的。</p>
+
+<p class="key">减持是资本循环的一环</p>
+<div class="block">
+<p>回笼的资金，下一步通常是：投新赛道、补一级市场、布海外、做并购。减持不是终点，是"资产形态转换"——从"纸面股权"变成"可调度资本"。高手看减持，看的是"下一笔钱去哪"，不是"这一笔落袋多少"。</p>
+</div>
+
+<p class="key">税负被"管理"，而非"免除"</p>
+<div class="block">
+<ul>
+<li>低价减持到信托或低税主体、高价再变现，把 20% 税基在"时间"和"主体"之间腾挪；</li>
+<li>地域上，变更证券开户地享受地方留成奖励（案例B），把中央 60% 之外的 40% 地方部分合规拿回；</li>
+<li>节奏上，用分红免税（&gt;1年）替代部分减持，降低对减持通道的依赖。</li>
+</ul>
+</div>
+
+<p class="key">五重约束决定"精密性"</p>
+<div class="block">
+<p>三道红线 + 90日1%/2% 额度 + 董高25% + 窗口期 + 预披露——五重约束叠加，让减持成为"戴着枷锁跳舞"的精密工程。能在枷锁里跳出节奏的，才是资本运作能力。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（管得住税）。三者合一，才是"股东减持"这件事的完整认知。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">案例（见模块四）</a></div>
+</div></div>
+
+</body>
+</html>

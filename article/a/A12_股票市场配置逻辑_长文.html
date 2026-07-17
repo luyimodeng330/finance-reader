@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A12 股票市场配置逻辑：A股/港股/美股怎么选</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A12</div>
+  <h1>股票市场配置逻辑：A股/港股/美股怎么选</h1>
+  <div class="tagrow">
+    <span class="tag">Equity</span><span class="tag">Cross-market</span><span class="tag">Allocation</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+同一家公司，A股比H股贵出三成以上——是A股贵了，还是H股便宜了？一只美股一年涨了20%，换成人民币却只赚12%，中间差的那8%去哪了？选市场，从来不是"谁涨得多买谁"。三地市场的制度、估值、流动性、汇率，四件事叠在一起，才决定你真正能落袋多少。
+</div>
+
+<div class="framework">
+<b>三地配置 = 制度适配 × 估值水位 × 流动性便利 × 汇率对冲</b><br>
+四个乘数，任何一个没算清，你看到的"涨幅"都只是账面幻觉。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先搞清三个市场到底哪里不一样——不是换个交易所那么简单</p>
+
+<div class="card">
+<p><span class="key">AH溢价</span>：同一家公司，在内地发的叫A股、在香港发的叫H股，价格经常不一样。大白话——左手一瓶水卖10块，右手同一瓶水在隔壁只卖7块，这多出来的3块就是"溢价"。长期看A股比H股贵，平均贵三成左右。</p>
+<p><span class="key">做空机制</span>：能不能"先借股票卖掉、等跌了再买回来还"来赚钱。A股融券门槛高、标的少，基本做不了；港股、美股可以做空，烂公司会被市场"用脚投票"压下来。</p>
+<p><span class="key">T+0 与 T+1</span>：当天买的能不能当天卖。A股今天买、明天才能卖（T+1）；港股、美股当天买当天就能卖（T+0），灵活，但也更容易追涨杀跌。</p>
+<p><span class="key">投资者结构</span>：A股散户多（追涨杀跌、情绪重）；港股、美股机构主导（养老金、对冲基金，定价更冷静）。"谁在玩"，决定股价怎么动。</p>
+<p><span class="key">汇率暴露</span>：买港股用港币计价、买美股用美元计价，赚的钱最后要换回人民币。中间汇率一波动，收益就被吃了——这叫"汇率裸敞口"。</p>
+</div>
+
+<div class="block">
+<p><span class="key">把这五个词串成一句话</span></p>
+<ul>
+<li>AH溢价告诉你"哪里便宜"；做空与T+0告诉你"游戏规则松紧"；</li>
+<li>投资者结构告诉你"价格由谁定"；汇率暴露告诉你"到手会不会打折"；</li>
+<li>四件事叠加，才是选市场的完整坐标系，缺一不可。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你买过港股或美股吗？如果买过，你算过"涨幅减去汇率"后的<strong>真实到手收益</strong>吗？很多人盯着标的涨了15%，却没发现港币贬了6%，到手只剩9%。模块一最该带走的认知：<strong>选市场，先选制度，再选标的——涨幅只是结果，制度才是原因</strong>。</p>
+</div>
+
+<p class="guide">AH溢价是看懂三地配置的第一把钥匙</p>
+<div class="chips">
+  <label class="chip" for="c-ah">AH溢价是怎么来的</label>
+</div>
+
+<h2 id="sec2">二、政策深水区</h2>
+<p class="guide">制度不是背景板，是硬约束——这些规则直接决定你能不能买、怎么买、买多少</p>
+
+<div class="card">
+<p><span class="key">T+1 与 T+0</span>：A股自1995年起实行T+1，当天买入不能当天卖出，初衷是抑制投机；港股、美股实行T+0（回转交易），当天可多次买卖。规则一松一紧，决定了你"踩错节奏"时的纠错速度。</p>
+<p><span class="key">做空制度</span>：A股2010年启动融资融券试点，融券标的范围窄、券源少，实质做空很难；港股、美股做空机制成熟，可借券沽空。能不能"做空"，直接影响烂公司会不会被市场淘汰。</p>
+<p><span class="key">互联互通（港股通）</span>：内地投资者买港股走"港股通"，受每日额度与标的名单约束。依据《内地与香港股票市场交易互联互通机制若干规定》（证监会令第180号，2016），沪港通、深港通分别设有每日额度，额度用尽当日即不能再买。</p>
+<p><span class="key">QDII 通道</span>：买美股等境外股票，可走合格境内机构投资者（QDII）通道，《合格境内机构投资者境外证券投资管理试行办法》（证监会令第46号，2007）规范额度与投向；直开境外账户则受每人每年购汇额度约束。</p>
+</div>
+
+<div class="block">
+<p><span class="key">三地制度速查表</span></p>
+<table>
+<tr><th>维度</th><th>A股</th><th>港股</th><th>美股</th></tr>
+<tr><td>交易制度</td><td>T+1</td><td>T+0</td><td>T+0</td></tr>
+<tr><td>做空</td><td>融券受限</td><td>成熟可做空</td><td>成熟可做空</td></tr>
+<tr><td>投资者结构</td><td>散户主导</td><td>机构主导</td><td>机构主导</td></tr>
+<tr><td>计价货币</td><td>人民币</td><td>港币</td><td>美元</td></tr>
+<tr><td>主要通道</td><td>直接开户</td><td>港股通</td><td>QDII / 直开</td></tr>
+<tr><td>汇率暴露</td><td>无</td><td>港币→人民币</td><td>美元→人民币</td></tr>
+</table>
+<p class="muted">投资者结构数据：A股散户交易占比长期偏高；港股、美股机构成交占主导，定价更有效率。制度差异，最终都会折算进"你买的价格"和"你卖的自由度"。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>假设你准备买一家同时在A、H上市的公司。今天港股通额度用完了，你只能买A股——但A股比H股贵35%。这时"<strong>能买</strong>"和"<strong>该买</strong>"是不是两件事？政策把"能不能买"设了第一道门槛，溢价把"该不该买"设了第二道。配置之前，先查通道、再比溢价，顺序不能反。</p>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">AH溢价、做空、流动性、汇率，四股力量互相打架，才形成"看不懂的死结"</p>
+
+<div class="card">
+<p><span class="key">溢价为何不收敛</span></p>
+<p>理论上A股贵、H股便宜，应该有人卖A买H套利，把价差抹平。但资本不能自由跨境换汇（外汇管制 + 港股通额度），套利通道不通畅，溢价长期在30%上下晃，就是不收敛。便宜的便宜得有道理——因为"搬不过去"。</p>
+</div>
+
+<div class="block">
+<p><span class="key">流动性与估值的矛盾</span></p>
+<p>A股散户多 → 成交活跃 → 流动性溢价 → 估值偏高；港股、美股机构多 → 定价冷静但流动性分化（大盘有人理、小票没人理）。流动性好不等于该买，可能只是"人多哄抬"。</p>
+</div>
+
+<div class="card">
+<p><span class="key">做空缺失的副作用</span></p>
+<p>A股难做空 → 烂公司也能被炒上天 → 估值失真；美股能做空 → 造假或平庸的公司会被打压 → 估值更"实"，但波动也更无情。同一种"便宜"，在两地的含金量完全不同。</p>
+</div>
+
+<div class="block">
+<p><span class="key">汇率与收益的拔河</span></p>
+<p>美股涨20%，若美元同期贬8%，人民币投资者到手只剩约12%。汇率是"隐形的第三只手"——它不参与你的选股，却在结账那天分走一杯羹。</p>
+</div>
+
+<div class="card">
+<p><span class="key">四条线拧成死结</span></p>
+<p>想买便宜的H股（吃溢价），却被港股通额度 + 换汇节奏卡住；想躲汇率风险买A股，又得多付溢价；想用美股做全球分散，却背着汇率裸敞口。制度红利与制度成本是一体两面——你看中的"便宜"，正是别人不敢搬的"麻烦"。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：一笔配置的完整推演</h2>
+<p class="guide">把前面所有规则，装进一个真实处境里走一遍</p>
+
+<div class="card">
+<p><span class="key">背景</span>：某制造业龙头"C公司"同时在A股与H股上市。一个家庭组合可投资金 <span class="num">3000万人民币</span>，风险中性偏稳健。当前C公司A股 <span class="num">49元/股</span>、H股 <span class="num">40港元/股</span>（汇率0.90，H股折合人民币 <span class="num">36元</span>），AH溢价约 <span class="num">36%</span>。目标：在溢价与汇率之间，定出A/H的合理权重。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">资金</span>：3000万人民币，单笔不算小，但跨市场搬仓受通道约束。</li>
+<li><span class="key">溢价</span>：A股比H股贵36%，同股同权下H股"便宜"——纯看估值应多配H股。</li>
+<li><span class="key">通道</span>：港股通每日额度充足但受名单 + 额度约束，无法一次性大额搬仓；直接换汇买H股受年度购汇额度限制。</li>
+<li><span class="key">汇率</span>：港币挂钩美元，若美元走弱，H股人民币收益会被吞。</li>
+<li><span class="key">偏好</span>：稳健，不能承受单市场大波动，需要本币底仓压舱。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么卡住</p>
+<div class="block">
+<ul>
+<li><span class="key">便宜不敢全买</span>：H股估值低，但有汇率裸敞口——港币贬5%就吃掉大部分溢价收益。</li>
+<li><span class="key">贵的不愿全买</span>：A股无汇率风险，但溢价高，全配A股等于白付36%的溢价成本。</li>
+<li><span class="key">通道卡节奏</span>：港股通额度限制单日大额买入，想"一口气搬仓吃溢价"做不到。</li>
+<li>死结一句话：便宜的有汇率坑，贵的付溢价税，中间还隔着一道额度墙。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 配置结构设计（核心-卫星）</p>
+<div class="card">
+<p>不赌单边，用"核心-卫星"把溢价与汇率都装进框架：</p>
+<ul>
+<li><span class="key">核心仓（60%，1800万）</span>：A股底仓，本币计价无汇率风险，提供流动性与确定性，压住组合波动。</li>
+<li><span class="key">卫星仓（40%，1200万）</span>：H股，吃溢价 + 估值修复，但限仓控制汇率敞口，不让"便宜"变成"风险源"。</li>
+<li><span class="key">汇率管理</span>：对H股敞口做50%对冲（如远期锁汇或不换汇分批建仓），剩余50%承受可控波动。</li>
+</ul>
+</div>
+
+<p class="step">第四步 · 执行路径（6个月）</p>
+<div class="block">
+<ul>
+<li><b>第0–1月</b>：开通港股通 + 确认额度，先建A股核心仓1800万，落袋本币确定性。</li>
+<li><b>第2–3月</b>：分3批经港股通建H股1200万，避开单日额度高峰，平滑建仓成本。</li>
+<li><b>第4月</b>：对H股敞口50%做汇率对冲锁定，把汇率波动从"裸奔"变"半遮"。</li>
+<li><b>第5–6月</b>：监控AH溢价，若溢价收敛至15%以内，触发再平衡（减H补A）。</li>
+<li><b>全程</b>：记录"涨幅 − 汇率"双账，不再只看单一涨幅数字。</li>
+</ul>
+</div>
+
+<p class="step">第五步 · 配置前后对比数字推导</p>
+<table>
+<tr><th>项目</th><th>方案A 全A股</th><th>方案B 全H股·汇率不变</th><th>方案B 全H股·港币贬5%</th><th>方案C 核心-卫星 + 半对冲</th></tr>
+<tr><td>初始投入</td><td>3000万</td><td>3000万</td><td>3000万</td><td>3000万</td></tr>
+<tr><td>含溢价成本</td><td>高·多付36%</td><td>低·吃溢价</td><td>低·吃溢价</td><td>中·部分吃溢价</td></tr>
+<tr><td>股价本身涨幅</td><td>+10%</td><td>+10%</td><td>+10%</td><td>A股+10% / H股+10%</td></tr>
+<tr><td>汇率侵蚀</td><td>0</td><td>0</td><td>−165万</td><td>−33万</td></tr>
+<tr><td><b>净收益</b></td><td><b>+300万</b></td><td><b>+300万</b></td><td><b>+135万</b></td><td><b>+267万</b></td></tr>
+<tr><td><b>净收益率</b></td><td><b>10.0%</b></td><td><b>10.0%</b></td><td><b>4.5%</b></td><td><b>8.9%</b></td></tr>
+<tr><td>风险特征</td><td>无汇率风险</td><td>汇率裸敞口</td><td>汇率裸敞口</td><td>半对冲·可控</td></tr>
+</table>
+<p class="muted">推导口径：方案B（港币贬5%）净收益 = 股价+10%收益被汇率−5%部分抵消，3000万净剩约135万（4.5%）；方案C以1800万A股底仓（无汇率）+1200万H股（半对冲）组合，保住约267万（8.9%）。同样3000万，权重分配 + 汇率管理，把"账面便宜"变成了"落袋可控"。差异来自配置结构，非任何投机。</p>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　遇到一只股票，先问：它在哪个市场上市？T+0还是T+1？能不能做空？计价货币是什么？记住：涨幅是结果，制度才是原因，汇率会在结账日分一杯羹。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　画出"三地四维"框架图（制度 / 估值 / 流动性 / 汇率）；用本篇C公司案例做一遍权重推导；把AH溢价当估值温度计长期跟踪。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　①查目标公司AH溢价率与港股通标的名单 ②排港股通额度与换汇节奏，避免单日搬仓失败 ③做汇率敞口测算，确定对冲比例 ④设溢价收敛再平衡触发阈值。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>挑一家A+H公司：它当前的AH溢价率是多少？如果溢价超过35%，你会优先看H股吗？</li>
+<li>用"制度 × 估值 × 流动性 × 汇率"四维，给一个你持有的三地标的做一句话诊断。</li>
+<li>打开自己的跨境持仓台账：去年你的美股/港股"涨幅"减去汇率后，真实到手收益是多少？</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">AH溢价 / 做空 / T+0·T+1 / 投资者结构 / 汇率暴露</div>
+  <div class="q"><b>核心问题：</b>你能分清A股、港股、美股各自的"制度基因"差异吗？还是只看谁涨得多？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">政策深水区</div>
+  <div class="pos">T+1/T+0 · 做空 · 港股通额度 · QDII通道</div>
+  <div class="q"><b>核心问题：</b>港股通额度、换汇约束、做空门槛——哪一条会卡住你"想买的那个"？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">溢价不收敛 · 流动性矛盾 · 汇率拔河</div>
+  <div class="q"><b>核心问题：</b>AH溢价为什么不收敛？汇率这只"第三只手"怎么悄悄吃掉你的收益？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">同一家公司A/H，3000万怎么分权重</div>
+  <div class="q"><b>核心问题：</b>如果是你，面对36%溢价与汇率裸敞口，核心-卫星的60/40怎么定？对冲做几成？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你此刻最该补哪一面？看懂了联动，却看不见汇率盲区吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A04《全球配置：跨地域跨币种的分散逻辑》、A10《高客资产配置偏好》；后续 A13《债券与固定收益》、A15《黄金与另类资产》（在同一配置框架内继续补全大类资产）。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A12 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-ah" class="toggle">
+<div class="modal"><label class="backdrop" for="c-ah"></label><div class="modal-box">
+<label class="close" for="c-ah">&times;</label>
+<h3>AH溢价是怎么来的</h3>
+<p>AH溢价指同一家公司A股价格相对H股价格的偏离。恒生AH股溢价指数是最常用的温度计，长期在100以上运行，意味着A股系统性贵于H股。</p>
+<p class="key">为什么A股更贵</p>
+<div class="block">
+<ul>
+<li><span class="key">投资者结构</span>：A股散户多、情绪重，愿意为"故事"付溢价；</li>
+<li><span class="key">流动性溢价</span>：A股成交活跃，流动性本身被定价；</li>
+<li><span class="key">资本管制</span>：套利资金不能自由跨境换汇搬价差，溢价无法被抹平；</li>
+<li><span class="key">制度红利</span>：A股打新、壳价值等本土溢价，H股享受不到。</li>
+</ul>
+</div>
+<p class="step">怎么操作</p>
+<div class="block">
+<ul>
+<li>把溢价当"估值温度计"：溢价高时，优先在同一家公司里看H股；溢价极端（&gt;40%）时警惕A股过热；</li>
+<li>用恒生AH溢价指数监控整体水位，不盯单只；</li>
+<li>溢价收敛至低位时，反向思考——是H股补涨还是A股杀估值，决定搬仓方向。</li>
+</ul>
+</div>
+<div class="link">相关：<a href="#sec2">三地制度速查（见模块二）</a> · <a href="#sec4">配置案例（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：选三地市场不是孤立的"买哪边"，它上接大类资产配置框架、下接全球配置、横接溢价收敛信号。三条线怎么连、落到操作上怎么做，逐一拆开。</p>
+
+<p class="key">上接配置框架 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>三地选择，是"战略权重"的落地工具，不是拍脑袋选市场。操作上：</p>
+<ul>
+<li>先有大类资产配置框架（股、债、另类、现金各占多少），再把"股票"这一层拆解到A/H/美三地；</li>
+<li>框架定战略权重，三地工具落实战术——框架是"该配多少股票"，三地选择是"股票里怎么分"；</li>
+<li>顺序不能反：没有框架就冲进去挑市场，容易变成追涨杀跌。</li>
+</ul>
+</div>
+
+<p class="key">下接全球配置 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>美股是全球资产定价的"锚"，组合里承担"全球增长"角色，但背着美元汇率敞口；</li>
+<li>港股是"离岸人民币资产"，兼顾中国资产与相对便宜的估值，是A股的天然补充；</li>
+<li>操作上用三地角色分工：A股压舱（本币、流动性）、港股吃溢价（估值修复）、美股做全球分散——各司其职，而非互相替代。</li>
+</ul>
+</div>
+
+<p class="key">横接溢价收敛 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>AH溢价从高位收敛，是"减H补A"或"加H减A"的再平衡信号；</li>
+<li>美股与A股的相关性变化，提示全球风险偏好的风向；</li>
+<li>实操中把溢价收敛阈值写进再平衡纪律，不让情绪替你做决策。</li>
+</ul>
+</div>
+
+<p>上接框架、下接全球、横接信号，三条线在"选市场"这个动作上交汇：框架定战略（上）、角色分工落实（下）、溢价阈值触发再平衡（横）。这就是"联动疆界 → 风险盲区 → 资本运作视角"三线相扣的起点。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。跨市场配置最贵的成本，往往不在明面，在三个盲区。</p>
+
+<p class="key">盲区一 · 只看涨幅不看制度风险</p>
+<div class="block">
+<ul>
+<li>T+1让你踩错节奏时"当天跑不掉"，被动扛跌；</li>
+<li>做空缺失让烂公司也能被炒高，你以为的"低估"可能是"没人做空"的假象；</li>
+<li>制度不是背景板，是定价的一部分——选市场前先把制度成本算进目标价。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 汇率裸敞口</p>
+<div class="block">
+<p>很多人算"标的涨了15%"，却没算"港币贬了6%"，到手只剩9%。汇率是隐形的第三只手：它不参与选股，却在结账日分走收益。港股、美股持仓若不管理汇率，等于默认押注本币升值——这是最常见的"无意识赌注"。</p>
+</div>
+
+<p class="key">盲区三 · 流动性幻觉</p>
+<div class="block">
+<ul>
+<li>A股成交大，但小票港股流动性枯竭，想卖时找不到对手盘；</li>
+<li>"成交活跃"不等于"安全"，可能只是"人多哄抬"；</li>
+<li>跨市场搬仓还受额度约束，理论上的便宜未必能实际买到。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>跨市场配置的真正风险，藏在制度与汇率里，不在K线里</strong>。你能主动管理的，正是这些"看不见的成本"。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec1">基础认知盘（见模块一）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把"选哪个市场"从被动跟随，重新看成主动管理——跨市场选择，是被动作还是主动管理，差距在落袋收益里。</p>
+
+<p class="key">被动 vs 主动</p>
+<div class="block">
+<p>被动做法：哪个涨买哪个，溢价来了也不敢搬，汇率跌了才后知后觉。主动做法：把溢价、额度、汇率都变成可管理的变量——AH溢价收敛时搬仓、港股通额度分批管理、汇率主动对冲。</p>
+</div>
+
+<p class="key">主动管理三件套</p>
+<div class="block">
+<ul>
+<li><span class="key">溢价阈值</span>：设AH溢价高/低阈值，到线就触发再平衡，不让情绪替你决策；</li>
+<li><span class="key">额度节奏</span>：港股通、换汇都有节奏约束，提前排程分批建仓，避免单日搬仓失败；</li>
+<li><span class="key">汇率对冲</span>：对跨境敞口做部分锁汇，把"裸敞口"变"半遮"，收益可预测性大幅提升（本篇案例C即此逻辑）。</li>
+</ul>
+</div>
+
+<p class="key">五重约束决定"精密性"</p>
+<div class="block">
+<p>制度（T+0/T+1）× 做空 × 额度 × 汇率 × 投资者结构——五重约束叠加，让跨市场配置成为"戴着枷锁跳舞"的精密工程。能在枷锁里跳出节奏的，才是配置能力。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（管得住变量）。三者合一，才是"股票三地配置"这件事的完整认知。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">配置案例（见模块四）</a></div>
+</div></div>
+
+</body>
+</html>

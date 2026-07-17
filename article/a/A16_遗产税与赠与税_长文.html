@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A16 遗产税与赠与税：国际比较与中国预判</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A16</div>
+  <h1>遗产税与赠与税：国际比较与中国预判</h1>
+  <div class="tagrow">
+    <span class="tag">Inheritance Tax</span><span class="tag">Gift Tax</span><span class="tag">China Outlook</span>
+  </div>
+</div>
+
+<p class="lead">很多人一听到"遗产税"，脑子里立刻出现一个画面：人走了，留给家人的钱要先被政府抽走一大块。这个画面在不少国家是真实的，但在中国大陆，它目前还只是一个"未落地的讨论"。本篇要做三件事：把遗产税与赠与税这对"孪生税"讲成大白话；把美国、日本、台湾等已征税地区的制度摆成可对照的事实；最后，基于公开讨论，理性预判中国大陆"会不会征、什么时候征"，同时把今天就能动手的筹划空间讲清楚。</p>
+
+<div class="framework">
+<b>可传承财富 = 总资产 − 遗产税缺口（免税额外 × 边际税率） − 非税过户成本 + 工具对冲价值</b><br>
+前两项是损耗，最后一项决定你能为下一代留住多少。今天中国大陆的"遗产税缺口"是零，但"非税过户成本"和"未来转让个税"从来不是零。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先把这对孪生税说成大白话——它俩是配套出厂的，不是二选一</p>
+
+<div class="card">
+<p><span class="key">遗产税</span>：一个人去世时，名下财产要传给继承人，政府对"超过免税额度"的那部分按阶梯征税。大白话——你走后留给孩子的钱，超过一定额度，政府要先抽一层再给孩子。</p>
+<p><span class="key">赠与税</span>：一个人在世时把财产"无偿送"给别人，政府也要征税。它存在的唯一理由，就是防止你靠"活着就把钱转给子女"来逃避遗产税。大白话——你不能靠"提前送光"来躲死后的税，生前送同样要交。</p>
+<p><span class="key">孪生税</span>：遗产税管"死后"，赠与税管"生前"，两者几乎总是配套出现。国际上分两种：①"总遗产税制"——先对死者全部遗产征一道，再分给继承人（如美国）；②"分遗产税制"——遗产先分，再对每位继承人取得的份额征税（如日本继承税）。无论哪种，核心都是对"无偿跨代转移"征税。</p>
+</div>
+
+<div class="block">
+<p><span class="key">一个最关键的事实必须说在前面</span></p>
+<p>中国大陆（内地）目前<b>未开征</b>遗产税，也<b>未开征</b>赠与税。这不是猜测，是现行税制的状态。民间每隔几年就有人传"遗产税要来了"，但截至目前，没有任何生效的法律、行政法规开征此税。本篇所有关于中国的"预判"，都建立在"公开讨论、立法程序、国际经验"之上，<b>不是确定性结论</b>——把预测当政策，恰恰是后面风险盲区要重点讲的坑。</p>
+</div>
+
+<div class="card">
+<p><span class="key">那中国家庭"传家产"真的不交税吗？</span>不完全。无遗产税 ≠ 无成本。房产过户有契税、公证费；股权继承有工商变更与治理成本；受赠或继承来的资产未来再出售，可能触发 20% 个税。这些"非税损耗"会在模块二、模块四具体算给你看。先记住一句话：<b>遗产税是"有没有"的问题，传承成本却是"多少"的问题——后者今天就在发生。</b></p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>把你的资产拆开看：一套房、一些股权、一笔现金。如果今天按"无偿传给下一代"处理，法律意义上这些财产的<b>所有权变更要不要走程序、要不要花钱</b>？遗产税讨论的前提是"所有权跨代无偿转移"，中国大陆这一步现在不征税，但"过户手续费、契税、未来转让个税"一分不会少。模块一最该带走的认知：<strong>别把"无遗产税"误读成"传承零成本"</strong>。</p>
+</div>
+
+<p class="guide">赠与不是"避税魔法"，它是一件有额度、有规则的金融工具</p>
+<div class="chips">
+  <label class="chip" for="c-gift">赠与额度与工具属性</label>
+</div>
+
+<h2 id="sec2">二、政策深水区</h2>
+<p class="guide">先看别人家怎么征——美国、日本、台湾的遗产税与赠与税是成文事实</p>
+
+<div class="card">
+<p><span class="key">美国（联邦）</span>：遗产税与赠与税共用"统一终身抵免额"（unified credit，税法 IRC § 2010 / § 2505）。2024 年每人终身免税额约 <span class="num">1361 万美元</span>（夫妻可叠加），超出部分最高边际税率 <span class="num">40%</span>。生前赠与从这张"终身额度"里扣，死后遗产再扣剩下的——所以生前送、死后留，共用一个池子，堵死"送光避税"。配偶间转移有无限免税额（marital deduction），但仅限公民配偶；非公民配偶需走 QDOT 信托。注意：非居民外国人（NRA）在美国的房产、美股等资产也要征遗产税，免税额仅约 <span class="num">6 万美元</span>，这是跨境家庭极易踩的坑。</p>
+</div>
+
+<div class="block">
+<p><span class="key">日本（继承税，相続税）</span>：全球最重之一。基础控除额 = <span class="num">3000 万日元</span> + <span class="num">600 万日元 × 法定继承人数</span>；超出部分超额累进，最高边际税率 <span class="num">55%</span>（超过 6 亿日元部分）。一个三口之家，遗产超过约 4200 万日元就开始进阶梯，超过数亿日元部分半数以上归政府。这解释了为何日本高净值家庭普遍用寿险、信托、生前赠与节奏来对冲。</p>
+</div>
+
+<div class="card">
+<p><span class="key">台湾（地区）遗产及赠与税法</span>：遗产税免税额 <span class="num">1333 万台币</span>，赠与税每年免税额 <span class="num">244 万台币</span>（历年累计，即一生赠与总额共享额度）。税率超额累进，最高边际税率 <span class="num">20%</span>（超过 1 亿台币部分）。赠与"每年 244 万"是经典工具——父母每年各给子女 244 万、夫妻再叠加，长期滚动能把大额资产零税移出遗产。</p>
+</div>
+
+<div class="block">
+<p><span class="key">其他法域速览（成文事实）</span></p>
+<ul>
+<li><span class="key">英国</span>：遗产税标准税率 40%，起征点 32.5 万英镑；配偶、慈善遗赠免税；另有"生前 7 年规则"（PETs）——去世前 7 年内赠与仍可能计入。</li>
+<li><span class="key">已废除</span>：香港（2006 年）、新加坡（2019 年）先后取消遗产税，主打"低税枢纽"吸引家族办公室。</li>
+<li><span class="key">无遗产税但替代</span>：加拿大、澳大利亚无遗产税，但身故时视同"资产处置"（deemed disposition），对增值部分征资本利得税——换了个名目，税还在。</li>
+</ul>
+</div>
+
+<p class="guide">中国大陆：无遗产税，但"非税传承路径"清清楚楚有成本</p>
+
+<div class="card">
+<p><span class="key">房产过户三条路，成本各不同</span></p>
+<ul>
+<li><span class="key">继承</span>：法定继承人（配偶、子女、父母等）继承房屋权属，<b>免征契税</b>（契税法口径）；但需继承公证或凭遗嘱/判决办理，公证费约 0.5%–1%。</li>
+<li><span class="key">赠与（给子女）</span>：子女属法定继承人，同样免征契税；但若子女日后出售该房，个税按差额 20% 征收（满五唯一可免）——"免契税"换来了"未来卖房的高个税"。</li>
+<li><span class="key">买卖</span>：有时反而最省——若子女名下无房且满五唯一，可能全免；这是很多人没想到的第三条路。</li>
+</ul>
+</div>
+
+<div class="block">
+<p><span class="key">股权继承</span>：自然人股东死亡，合法继承人可依法继承股东资格（公司法继承条款）；股权继承本身<b>不征个税</b>（参照继承限售股免个税的财税〔2009〕167号口径）。但现实约束在"治理"：有限公司其他股东有优先购买权、章程可另行约定；工商变更要材料、可能要评估。更重要——继承人未来<b>转让</b>该股权，仍按"财产转让所得"缴 20% 个税，税基在"继承时"已锁定为原值。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>同样是"传 1 亿资产"，在征收遗产税的法域，1 亿里有多大比例先被政府拿走？在中国大陆，1 亿资产传承的"损耗"又长在哪儿——是过户杂费，还是"未来转让 20% 个税"的时间价值？两种损耗<b>性质完全不同</b>：一个即时代际征收，一个递延到出售才兑现。模块二最该带走的：<strong>别只盯着"有没有遗产税"，要算"传承总成本"这道账</strong>。</p>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">遗产税管死后、赠与税管生前——它俩怎么"相反又互补"，把人逼进死结</p>
+
+<div class="card">
+<p><span class="key">机制一：生前赠与是"对冲遗产税"的天然工具</span></p>
+<p>既然遗产税只对"死后留下的"征，那我生前慢慢把资产送出去，不就移出遗产池了？逻辑成立。台湾的"每年 244 万"、美国的"终身 1361 万统一额度"、英国的"7 年规则"，本质上都是给"生前转移"留的合法口子。用得好，能把大额资产零税或低税移交给下一代。</p>
+</div>
+
+<div class="block">
+<p><span class="key">机制二：赠与税 + 年度额度，又把口子扎紧了</span></p>
+<p>如果生前送完全免税，没人会留遗产，遗产税就征不到。所以赠与税必须配套：大额赠与照样交（美国从终身额度扣、台湾超 244 万部分交）；而且"赠出去的资产若增值"，受赠人取得成本是赠与人原值（税基带血）——未来受赠人卖掉，资本利得照交。于是出现矛盾：你想靠赠与避税 → 大额赠与要交赠与税 → 小额分年送又受年度额度限制 → 真要移出大额，时间窗口拉得很长。</p>
+</div>
+
+<div class="card">
+<p><span class="key">机制三：保险 / 信托的"隔离" vs 税务居民身份</span></p>
+<p>很多法域里，人寿保险身故赔付不计入应税遗产，信托能把"所有权"与"受益权"分开，都是对冲遗产税的主流工具。但身份一变，规则全翻：比如美国，外国人买美国寿险，身故赔付免联邦遗产税；可一旦你成了美国税务居民，全球资产都被纳入遗产税网。跨境家庭的"隔离工具"，常常被"身份切换"反向击穿。</p>
+</div>
+
+<div class="block">
+<p><span class="key">机制四：中国的"反向死结"</span></p>
+<p>中国大陆无遗产税，看似"无税自由"，但另一头卡在：房产赠与免契税却埋下未来 20% 卖房个税；股权无偿划转给子女，受赠方按公允价值缴 20% 个税（这是实打实的坑）；现金虽免，但大额跨境继承涉外汇登记。所以中国家庭的死结不是"税太重"，而是"<b>无遗产税幻觉</b>下，误用赠与工具反而多缴税，或该做的传承结构迟迟不做"。</p>
+</div>
+
+<div class="card">
+<p><span class="key">两条线交汇成死结</span></p>
+<p>一句话收口：在征税法域，死结是"生前送要交赠与税、死后留要交遗产税，横竖得交"；在中国，死结是"无税但工具用错反而多缴、结构不做未来必付转让税"。无论哪边，"无偿跨代转移"从来不是免费的——区别只在税站在明处还是暗处。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你身边有没有这样的家庭：听说"遗产税要来"，赶紧把股权、房产无偿转给子女，结果受赠方反而背上了 20% 个税？模块三最该带走的认知：<strong>"生前赠与"不是避税的万能键，它和遗产税是孪生、互相扎紧的</strong>。在征税法域，横竖得交；在中国，用错工具反而多缴。机制看懂了，才不会在恐慌里做错决定。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：同 1 亿资产，两种法域的传承损耗推演</h2>
+<p class="guide">把前面所有规则，装进同一个 1 亿资产池里走一遍</p>
+
+<div class="card">
+<p><span class="key">背景（脱敏）</span>：某家庭持有可传承资产等值 1 亿元人民币，构成如下——自住房产及投资房产 4000 万、持有的非上市/上市股权 3000 万、现金及存款 3000 万。我们做两种情形对照：<b>情形 A</b> 资产位于"征收遗产税法域"（取一个代表性参数：免税额约 600 万、超出部分边际税率 40%，接近台湾/部分欧洲水平，便于演示）；<b>情形 B</b> 资产位于中国大陆（无遗产税，但走非税过户与未来转让）。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">房产 4000 万</span>：情形 A 计入应税遗产；情形 B 法定继承免征契税，但未来出售可能触发 20% 个税。</li>
+<li><span class="key">股权 3000 万</span>：情形 A 计入应税遗产；情形 B 可继承、不征个税，但未来转让按 20% 缴，税基锁定原值。</li>
+<li><span class="key">现金 3000 万</span>：情形 A 计入应税遗产；情形 B 继承免费，大额跨境涉外汇登记。</li>
+<li><span class="key">共同前提</span>：两情形资产规模、构成完全一致，唯一变量是"法域的税制"。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么卡</p>
+<div class="block">
+<ul>
+<li><span class="key">情形 A 卡在"即时代际税率"</span>：1 亿远超 600 万免税额，超出 9400 万进入 40% 税率阶梯；另加遗产认证、律师、资产清算等处置费用约 2%。</li>
+<li><span class="key">情形 B 卡在"非税成本 + 未来转让税"</span>：无遗产税，但房产继承公证、股权工商变更要花钱；更隐蔽的是——若家族为"规避未来 20% 转让个税"而改用"生前赠与"，房产赠与虽免契税，但股权无偿划转会让受赠方按公允价值缴 20% 个税，反而多缴。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 交易 / 配置结构设计</p>
+<div class="card">
+<p>两个情形，结构打法截然不同：</p>
+<ul>
+<li><span class="key">情形 A（征税法域）</span>：用终身寿险做"遗产税对冲"——身故赔付不计入应税遗产或形成现金池缴税；同时用"年度赠与额度"把部分资产提前零税移出遗产池；股权装入不可撤销信托，做所有权隔离。</li>
+<li><span class="key">情形 B（中国大陆）</span>：无遗产税，重点不在"避税"而在"省非税成本 + 防踩坑"——房产优先走"继承"而非"赠与"（免契税、且未来若满五唯一卖房免个税）；股权传承提前在章程与信托层设计；现金用保险做代际平滑；绝不为了"躲未来 20%"而盲目无偿划转股权。</li>
+</ul>
+</div>
+
+<p class="step">第四步 · 执行路径（两种法域各自的节奏）</p>
+<div class="block">
+<ul>
+<li><b>情形 A</b>：第 0–2 年投保大额终身寿险（保额覆盖预估税负的现金需求）；第 1 年起每年用赠与免税额滚动转出金融资产；第 3 年设立不可撤销信托装入股权，移除遗产池。</li>
+<li><b>情形 B</b>：第 0 年梳理房产权属与满五唯一状态，确定"继承优先"；第 1 年把股权传承写进公司章程与家族协议，避免其他股东优先购买权纠纷；第 2 年配置年金/终身寿险做代际现金流，而非做"无偿划转"动作。</li>
+</ul>
+</div>
+
+<p class="step">第五步 · 前后对比数字表</p>
+<table>
+<tr><th>项目</th><th>情形 A（征遗产税法域）</th><th>情形 B（中国大陆）</th></tr>
+<tr><td>总资产</td><td>1 亿</td><td>1 亿</td></tr>
+<tr><td>免税额 / 非税免征</td><td>600 万（免税）</td><td>继承免征契税 / 个税</td></tr>
+<tr><td>遗产税 / 赠与税</td><td>9400 万 × 40% ≈ 3760 万</td><td>0（无此税）</td></tr>
+<tr><td>遗产处置费 / 过户杂费</td><td>约 2% ≈ 200 万</td><td>公证+工商变更 ≈ 47 万</td></tr>
+<tr><td>未来转让个税（递延）</td><td>已并入遗产税，无额外</td><td>股权/房产出售时 20%（时间价值）</td></tr>
+<tr><td><b>继承人即时实得</b></td><td><b>约 6040 万（损耗 39.6%）</b></td><td><b>约 9953 万（即时损耗 0.5%）</b></td></tr>
+</table>
+<p class="muted">同一池 1 亿资产，征税法域即时拿走约 3960 万（近四成）；中国大陆即时仅约 47 万（不足 0.5%）。但注意：情形 B 的"未来转让 20% 个税"是<b>递延成本</b>而非即时损耗，它不改变"今天无遗产税"的事实，却决定了"下一代真要变现时"的实际到手。数字推导的结论：<strong>无税国的损耗在"时间"里，征税法域的损耗在"时点"上——前者可规划，后者几乎刚性</strong>。</p>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>看这张对比表，你更怕哪一边？是征税法域"即刻被拿走近四成"的刚性，还是中国"今天几乎全留、但未来变现时要付 20%"的递延？模块四最该带走的：<strong>损耗不在"有没有遗产税"，而在"它出现在时间点还是时间轴"</strong>。同一池资产，结构不同，下一代到手差出几千万——这不是税率高低，是规划与否。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>三棱镜给了你三面镜子：联动疆界让你"连得出去"、风险盲区让你"看得见坑"、资本运作视角让你"管得住成本"。此刻问自己：<strong>三面里你最缺哪一面</strong>？是看得懂国际税制却看不见"把预测当确定"的盲区，还是知道工具却排不出赠与节奏？模块五收口——遗产税认知的完整度，取决于这三面是否同时亮着。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　先钉死一个事实：中国大陆目前未开征遗产税与赠与税。再看清"无税 ≠ 零成本"——房产继承免契税但未来卖房有 20% 个税，股权继承不征个税但未来转让照缴，现金免费但跨境有登记。遗产税与赠与税是孪生，征税法域用"终身额度 + 年度免税额"对冲。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　画出"税 + 非税成本"双柱框架；把美/日/台税率与免税额做成对照表；列出你家庭现有可做的工具——终身寿险、家族信托、年度赠与节奏、房产继承优先。用模块四的 1 亿推演，套自家资产算一遍损耗。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　①核查资产构成与权属凭证（房产证、股权证、入账单）；②评估房产"继承 vs 赠与 vs 买卖"哪条最省；③配置终身寿险做潜在遗产税/流动性对冲；④股权传承提前写进章程与家族协议；⑤不做不可逆的"避税"动作——尤其别为躲未来 20% 而盲目无偿划转股权。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>用模块四的"1 亿推演表"，把你家资产按房产/股权/现金拆开，算一遍"若在中国大陆传承"的即时损耗与未来递延成本。</li>
+<li>查一下你持有房产的"满五唯一"状态——若走继承，未来出售的 20% 个税能不能免？写一句结论。</li>
+<li>假设中国未来开征遗产税（纯假设），以你理解的"免税额 + 边际税率"逻辑，画一张你家的"对冲工具清单"（保险/信托/赠与节奏各占多少）。</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">遗产税管死后、赠与税管生前，孪生配套</div>
+  <div class="q"><b>核心问题：</b>中国大陆现在到底征不征遗产税？"无税"是否等于"传承零成本"？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">政策深水区</div>
+  <div class="pos">美/日/台税率与免税额，中国非税传承成本</div>
+  <div class="q"><b>核心问题：</b>同样传 1 亿，征税法域拿走多少？中国的损耗长在房产契税还是未来 20% 转让个税？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">生前赠与对冲 vs 赠与税扎紧，两条线死结</div>
+  <div class="q"><b>核心问题：</b>想靠生前赠与避税，为什么大额照样交、小额又受年度额度限制？中国的"反向死结"是什么？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">1 亿资产在征税法域 vs 无税法域的损耗推演</div>
+  <div class="q"><b>核心问题：</b>同一池 1 亿，两种法域继承人实得差多少？递延成本与即时代际税率，你更怕哪一个？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你此刻最该补哪一面？看得懂联动，却看不见"把预测当确定"的坑吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你卡在哪一阶？今天能落地的第一步（查权属？评房产？配保险？）是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A06《高净值税收筹划全景》、A07《股东减持与个税》（股权税基传承）；后续 A17《家族信托税务筹划》、A18《跨境传承与身份规划》、A20《人寿保险与财富管理》（保险对冲遗产税）。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A16 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-gift" class="toggle">
+<div class="modal"><label class="backdrop" for="c-gift"></label><div class="modal-box">
+<label class="close" for="c-gift">&times;</label>
+<h3>赠与额度与工具属性</h3>
+<p>赠与不是"避税魔法"，是一件<b>有额度、有规则、有税基后果</b>的金融工具。用对，它是把资产零税/低税移出遗产池的合法通道；用错，反而多缴。</p>
+
+<p class="key">额度逻辑（成文事实对照）</p>
+<div class="block">
+<ul>
+<li><span class="key">台湾</span>：赠与税每年免税额 244 万台币（历年累计），夫妻各自独立——经典"年度滚动赠与"工具。</li>
+<li><span class="key">美国</span>：赠与从"终身统一抵免额"（2024 约 1361 万美元）中扣，生前用掉，死后遗产可扣的额度就少。</li>
+<li><span class="key">英国</span>：生前 7 年内赠与，去世时仍可能按"递减规则"计入遗产（PETs）。</li>
+</ul>
+</div>
+
+<p class="key">工具属性 · 怎么操作</p>
+<div class="block">
+<ul>
+<li><span class="key">节奏型</span>：用"年度免税额"长期滚动，把大额资产零税移出遗产池——适合年轻家庭早期启动。</li>
+<li><span class="key">代价型</span>：大额赠与超免税额，要交赠与税；且受赠人取得成本=赠与人原值（税基带血），未来卖照交资本利得/个税。</li>
+<li><span class="key">中国的坑</span>：股权"无偿划转"给子女，受赠方按公允价值缴 20% 个税；房产赠与虽免契税，但未来出售个税 20%（满五唯一可免）。所以中国家庭用赠与"避税"，常是反效果。</li>
+</ul>
+</div>
+<p class="step">落到动作</p>
+<div class="block">
+<p>先问自己：这笔资产，我是"现在送"还是"以后留"？若为规避未来转让税而盲目无偿划转股权，等于主动把 20% 个税送到受赠人头上。赠与是工具，不是目的——<strong>节奏比金额更重要，税基比免税更隐蔽</strong>。</p>
+</div>
+<div class="link">相关：<a href="#sec2">政策深水区（见模块二）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：遗产税/赠与税的筹划，不是孤立的"交不交税"，它上接税收筹划、下接信托与保险、横接身份与跨境。三条线怎么连、落到操作上怎么做，逐一拆开。</p>
+
+<p class="key">上接税收筹划 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>遗产税是"代际"层面的税，必须放进 A06 的"个人税到家族税统筹"框架里看。操作上：</p>
+<ul>
+<li>把"终身额度/年度免税额"当成预算——每年滚动用掉，是对冲遗产税最直接的合法动作；</li>
+<li>跨境家庭先定"税务居民身份"，因为身份决定适用哪国税网（美国全球征税 vs 非居民仅境内资产）；</li>
+<li>这不是逃税，是合规的"代际税务时序管理"——同一笔财富，在约束松的时点/法域完成转移。</li>
+</ul>
+</div>
+
+<p class="key">下接信托与保险 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li><span class="key">保险</span>：多数法域人寿身故赔付不计入应税遗产，等于用保费换"免税现金池"缴税或给后代；中国大陆无遗产税，保险的价值在"代际现金流平滑 + 潜在对冲"。</li>
+<li><span class="key">信托</span>：不可撤销信托把资产移出遗产池（所有权隔离），同时按契约分期给受益人，防一次性给到造成挥霍或治理风险；</li>
+<li>关键认知：信托/保险是"蓄水池"——让"什么时候传、传给谁、钱怎么给"三件事分开决策，不是免税通道本身。</li>
+</ul>
+</div>
+
+<p class="key">横接身份与跨境 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>非居民外国人（NRA）在美国的房产、美股，遗产税免税额仅约 6 万美元——跨境置业的隐性税网；</li>
+<li>身份一变（如取得绿卡/入籍），全球资产被纳入遗产税网，原有"外国人买美险免税"的优势反转；</li>
+<li>实操中，家族先画"资产–身份–法域"三列表，才能判断哪笔资产该装信托、哪笔该配保险、哪笔该用赠与节奏。</li>
+</ul>
+</div>
+
+<p>上接筹划、下接信托保险、横接身份，三条线在"传承"这个动作上交汇：时序管理（上）；保险信托隔离（下）；身份法域匹配（横）。这就是联动疆界 → 风险盲区 → 资本运作视角三线相扣的起点。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。遗产税这件事，最贵的代价往往不在税本身，在三个盲区。</p>
+
+<p class="key">盲区一 · 误判开征时点</p>
+<div class="block">
+<ul>
+<li>民间每隔几年就传"遗产税要来了"，但中国大陆至今未开征，立法需经全国人大，不是部门文件能定；</li>
+<li>把"公开讨论/学者建议"当"即将落地政策"，会驱动家庭做<b>不可逆</b>的激进结构——比如慌乱中低价转让资产、移民避税，反而损失更大；</li>
+<li>正确姿态：跟踪立法程序与公开讨论，但所有动作保持"可逆、合规、低成本"。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 用赠与避税踩坑</p>
+<div class="block">
+<p>以为"无遗产税就随便赠"，结果：①股权无偿划转给子女，受赠方按公允价值缴 20% 个税——比留着未来转让还多；②房产赠与虽免契税，但子女日后出售按差额 20% 缴（满五唯一可免）；③频繁大额赠与若未来真开征赠与税，还可能被追溯。赠是工具，用错就是主动加税。</p>
+</div>
+
+<p class="key">盲区三 · 把预测当确定</p>
+<div class="block">
+<ul>
+<li>现在无税 ≠ 永远无税，也不代表非税成本不高——"未来转让 20% 个税"是确定的现制，只是递延；</li>
+<li>过早做"为躲遗产税"的不可逆结构（如匆忙移民、大额裸转），一旦预判落空，沉没成本巨大；</li>
+<li>高手的做法：用"时间维度"管理不确定性——保险锁定、信托预备、赠与节奏，把"会不会征"变成"何时征、征多少"的可规划变量。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>遗产税的最大风险不是"税来了"，而是"你为想象中的税，做错了真实的决定"</strong>。能筹划的，是结构与节奏；不能赌的，是时点。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec1">基础认知盘（见模块一）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把遗产税/赠与税从"恐慌税"重新看成"资本跨代配置的一环"，你会发现传承成本是可以被"管理"的。</p>
+
+<p class="key">传承税是"时间问题"不是"有无问题"</p>
+<div class="block">
+<p>今天中国大陆无遗产税，但"未来转让 20% 个税""房产未来出售个税"是现制下的确定性递延成本；征税法域则是时点上刚性征收。无论哪种，传承都有成本——区别只在它出现在"时间点"还是"时间轴"。用时间维度管理，就能把不确定性变成可规划变量。</p>
+</div>
+
+<p class="key">成本被"管理"，而非"免除"</p>
+<div class="block">
+<ul>
+<li><span class="key">时序</span>：用年度赠与免税额长期滚动，把资产零税移出遗产池（台湾 244 万/年、美国终身 1361 万）；</li>
+<li><span class="key">工具</span>：终身寿险形成免税现金池对冲潜在税负与流动性缺口；不可撤销信托做所有权隔离与分期给付；</li>
+<li><span class="key">法域</span>：跨境家庭先定身份与资产归属，避开 NRA 仅 6 万美元免税额等隐性税网。</li>
+</ul>
+</div>
+
+<p class="key">五重约束决定"精密性"</p>
+<div class="block">
+<p>免税额 + 边际税率阶梯 + 年度赠与额度 + 身份法域 + 未来转让税——五重约束叠加，让传承成为"戴着枷锁做代际配置"的精密工程。能在枷锁里排出节奏的，才是资本运作能力。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（管得住成本）。三者合一，才是"遗产税与赠与税"这件事的完整认知。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+</body>
+</html>

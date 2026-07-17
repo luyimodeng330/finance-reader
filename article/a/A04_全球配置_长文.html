@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A04 全球配置：跨地域跨币种的分散逻辑</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A04</div>
+  <h1>全球配置：跨地域跨币种的分散逻辑</h1>
+  <div class="tagrow">
+    <span class="tag">Global Allocation</span><span class="tag">Currency Risk</span><span class="tag">Diversification</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+一个家庭，账上可投资资产 1000 万，全在人民币里——A 股指数基金、银行理财、一套投资性房产。某一年，A 股跌了、人民币也贬了，两件事同时发生，资产像被两头夹。这不是假设，是很多家庭在汇率波动年份的真实体感：你以为自己持有了\"资产\"，其实持有的是\"同一个国家、同一种货币、同一类风险\"的重复暴露。
+</div>
+
+<div class="framework">
+<b>家庭财富韧性 = 国别风险分散 × 币种对冲 × 资产类别多元 × 税务属地优化</b><br>
+四个乘数，任何一个塌成零（资产全在一个国家、一种货币、一类品种、一个税务属地），整体的抗风险能力就掉一截。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先把五个核心概念说人话：它们不是\"高级玩法\"，是你财富的抗震结构</p>
+
+<div class="card">
+<p><span class="key">国别风险分散</span>：大白话就是\"别把所有鸡蛋放同一个国家的篮子\"。一个国家政策变了、地缘出事、股市崩了，你如果资产全在那，三件事一起挨。举例：某新兴市场一年股市腰斩、本币又贬 30%，本地家庭的财富直接腰斩再打折。把资产拆到美、欧、亚不同司法辖区，等于把\"国运\"这个你控制不了的变量拆开，不让它一次性全压到你头上。</p>
+<p><span class="key">汇率对冲</span>：不是让你去炒外汇赌涨跌，而是用\"不同货币计价的资产\"天然形成对冲。简单说：你一部分钱是人民币、一部分是美元、一部分是黄金，当人民币贬，美元和黄金（以美元计）相对升值，把你整体回撤削平一点。它像给房子装减震器——不是让房子不晃，是晃的时候少掉灰。</p>
+<p><span class="key">时区套利</span>：全球市场不同时区开盘，纽约收了伦敦开、伦敦收了东京开，24 小时都有流动性。对家庭而言，它的真正价值是\"配置窗口不断档\"——你不只在 A 股交易时间能操作，美股开盘、港股开盘你都能调仓。更深一层：不同市场的估值节奏有时差，你能在一个市场便宜时买、贵时卖，跨市场搬运便宜。</p>
+<p><span class="key">法律与税务属地差异</span>：同样的钱，放在新加坡、香港、美国，受的法律保护和税务待遇天差地别。举例：某些离岸属地对资本利得免税，香港不征资本利得税，美国则有全球征税传统（针对税务居民）。选对属地，等于给资产选了一层\"保护壳 + 税衣\"。</p>
+<p><span class="key">美元资产角色</span>：美元是全球储备货币，约 60% 的国际储备是美元。美元资产（美债、美股）在全球恐慌时往往走强，扮演\"压舱石\"。它不是收益最高的，却是最被需要的——危机来时大家抢美元。所以全球配置里，美元资产通常不是\"博收益\"，是\"兜底\"。</p>
+</div>
+
+<div class="block">
+<p><span class="key">五个概念串成一句话</span></p>
+<p>全球配置，就是把财富从\"单一国家的人民币篮子\"，升级成\"跨司法辖区、跨币种、跨资产类别\"的组合。前面四个概念（国别、币种、时区、属地）是工具，第五个（美元角色）是这套工具里最常用、也最被误解的那块基石。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你家的可投资资产，现在有多少比例是以人民币计价、且集中在中国境内的？如果答案是\"几乎全部\"——那过去一年人民币的每一次波动、A 股的每一次回撤，你都是\"满仓承受\"。模块一最该记住的一句话：<strong>分散不是保守，是给不可预测的\"国运变量\"买一份保险</strong>。</p>
+</div>
+
+<p class="guide">汇率对冲是分散的核心工具</p>
+<div class="chips">
+  <label class="chip" for="c-hedge">汇率对冲机制</label>
+</div>
+
+<h2 id="sec2">二、政策深水区</h2>
+<p class="guide">通道、额度、合规边界——全球配置不是想配就配，每一条路都有规矩</p>
+
+<div class="card">
+<p><span class="key">把人民币变成海外资产，主要有四条合规通道</span></p>
+<ul>
+<li><span class="key">QDII 基金 / QDII 额度</span>：境内公募基金拿外管局批的额度去投海外，个人买这类基金，就能间接持有美股、美债、黄金。门槛低、合规清晰。约束：额度有时紧缺、申购会暂停；费率高于普通基金。</li>
+<li><span class="key">港股通</span>：用 A 股账户直接买港股，不用换汇出境（人民币交收），是配置港股的合规主通道。约束：标的范围限定在港股通名单，买不了美股。</li>
+<li><span class="key">境外券商 / 账户</span>：直接开美股账户，自己买美股 ETF、美债。约束：个人每年 5 万美元便利化购汇额度只用于\"经常项目\"（留学、旅游等），资本项下的个人境外证券投资须走 QDII 等合规渠道，不能用便利化额度\"炒美股\"——这是红线。</li>
+<li><span class="key">家族办公室 / 离岸信托 / 境外保险</span>：高净值家庭常用，在境外司法辖区持有资产，兼顾传承与配置。约束：设立与维护成本高，且 CRS 下信息透明。</li>
+</ul>
+</div>
+
+<div class="block">
+<p><span class="key">四条通道横向对比</span></p>
+<table>
+<tr><th>通道</th><th>能买什么</th><th>额度与约束</th><th>适合谁</th></tr>
+<tr><td>QDII 基金</td><td>美股指数、美债、黄金、环球股债</td><td>受外管局批的额度限制，紧缺时停申购</td><td>想低门槛合规出海的家庭</td></tr>
+<tr><td>港股通</td><td>港股通名单内港股</td><td>人民币交收，不占便利化额度；标的受限</td><td>主配港股者</td></tr>
+<tr><td>境外券商账户</td><td>美股、美债、全球 ETF</td><td>资金出境须合规；便利化额度不可用于炒美股</td><td>有真实境外身份/大额者</td></tr>
+<tr><td>家办 / 离岸信托 / 境外保险</td><td>全品类 + 传承架构</td><td>设立维护成本高；CRS 信息交换</td><td>高净值、跨代安排家庭</td></tr>
+</table>
+<p class="muted">合规边界要点：个人每年便利化结售汇 5 万美元（中国人民银行令〔2006〕第 3 号《个人外汇管理办法》），用于经常项目；资本项下境外证券投资须走 QDII 等渠道。\"分拆\"多人头购汇被外管局明确打击。CRS（共同申报准则）下，境外金融账户信息会自动交换回居民国税务当局——全球配置是\"分散\"不是\"隐匿\"。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果你今天想换 100 万人民币去美股，靠 5 万美元便利化额度得 20 个人头——这叫\"分拆购汇\"，是外管局明确打击的违规行为。所以真正能合规做大额海外配置的，只有 QDII、港股通、以及有真实境外身份的家族架构。<strong>先看清楚通道，再谈配置比例</strong>——通道选错，比例算得再漂亮也是空中楼阁。</p>
+</div>
+
+<p class="guide">美元资产：全球配置里的压舱石</p>
+<div class="chips">
+  <label class="chip" for="c-dollar">美元资产角色</label>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">集中 vs 分散，两条路规则相反、还会互相打架，最后拧成一个死结</p>
+
+<div class="card">
+<p><span class="key">通道一 · 本币集中</span></p>
+<p>钱全在人民币、全在境内。好处是收益口径确定、没有汇率摩擦、你最熟悉。坏处是裸奔式暴露：承担国别风险 + 汇率单边风险，贬值年份里\"股价跌、货币也贬\"，双杀无缓冲。这是一条\"省心但脆弱\"的路。</p>
+</div>
+
+<div class="block">
+<p><span class="key">通道二 · 全球分散</span></p>
+<p>切一部分去美元债、美股、黄金、境外属地。好处是降风险、有压舱石、危机年能对冲。坏处是要跨过三道门槛：购汇额度、CRS 申报、海外信息不对称，摩擦成本不低。这是一条\"安全但要交学费\"的路。</p>
+</div>
+
+<div class="card">
+<p><span class="key">两条路如何互相打架（一）：时机错配</span></p>
+<p>你想\"分散\"的动机，恰恰来自本币贬值压力；可贬值压力越大时，你越想换汇，购汇越敏感、额度越紧，而美元资产的价格可能已经被恐慌买盘推高——等你配好，贬值可能已经走完一大半。想分散的冲动，和最慢的分散能力，撞在同一个时点。</p>
+</div>
+
+<div class="block">
+<p><span class="key">两条路如何互相打架（二）：安全与收益的拉扯</span></p>
+<p>汇率对冲降了风险，但海外信息盲区 + 税务复杂度会吃掉一部分收益；你为了\"安全\"付出的认知成本和税务成本，可能让海外部分长期跑不赢本币核心。于是出现悖论：分散让你\"睡得着\"，却可能让你\"赚得少\"。</p>
+</div>
+
+<div class="card">
+<p><span class="key">死结：风险来临时，你最想分散，却最慢分散</span></p>
+<p>把上面两股力量拧到一起：本币贬值 → 你想出海 → 但出海门槛与摩擦最高 → 等你配好贬值已大半；而即便配好了，海外部分又有你看不懂的成本。一句话——\"想分散时最慢分散、分散了又要承担看不懂的成本\"。这不是某人操作笨，是制度与认知叠加的底层矛盾，也是全球配置里最容易被忽略、却最要命的真实约束。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：一个家庭的两种组合</h2>
+<p class="guide">把前面所有概念，装进一个家庭的两种组合里，把数字算一遍</p>
+
+<div class="card">
+<p><span class="key">背景</span>：某家庭可投资资产 1000 万人民币，原本全部境内——600 万 A 股指数基金 + 400 万人民币固收理财。100% 人民币计价、100% 境内持有，属于典型的\"单一国家、单一货币\"结构。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">组合 A（纯人民币）</span>：1000 万 = 600 万 A 股基金 + 400 万 人民币理财。全部人民币计价、全部境内。</li>
+<li><span class="key">组合 B（全球分散）</span>：1000 万 = 600 万 人民币核心（同 A 结构）+ 200 万 美元资产（美股指数 + 美元债，经 QDII / 境外账户）+ 100 万 黄金（美元计价 ETF）+ 100 万 美元现金。即 60% 人民币 / 20% 美元股债 / 10% 黄金 / 10% 美元现金。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么卡</p>
+<div class="block">
+<ul>
+<li><span class="key">单一暴露</span>：组合 A 的国别风险与汇率风险 100% 裸奔，没有任何外部变量来对冲。</li>
+<li><span class="key">双杀无缓冲</span>：一旦\"人民币贬值\"与\"A 股熊市\"同时发生，组合 A 两头挨，没有一块资产能站出来托底。</li>
+<li>这正是模块三那个体感：想分散时最慢分散——通道、额度、认知三件事同时卡住。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 配置结构设计</p>
+<div class="card">
+<p>不急着一次性换汇，先做\"核心—卫星\"骨架：</p>
+<ul>
+<li><span class="key">核心（60%）</span>：保留人民币核心（A 股 + 理财），这是你最熟悉、摩擦最低的部分。</li>
+<li><span class="key">卫星（40%）</span>：切出 40% 出海——美元股债 20%（票息 + 成长 + 汇率）、黄金 10%（非信用货币保险）、美元现金 10%（机动弹药）。</li>
+<li>设计意图：用卫星部分的\"被动升值\"，在贬值年份削平核心部分的回撤，而不是追求卫星跑赢核心。</li>
+</ul>
+</div>
+
+<p class="step">第四步 · 执行路径（12 个月）</p>
+<div class="block">
+<ul>
+<li><b>第 0–3 月</b>：通过 QDII 基金建仓美股指数 + 美元债（不占用 5 万美元便利化额度），先落 20% 美元股债。</li>
+<li><b>第 4–6 月</b>：经港股通 / 境外账户配置黄金 ETF（美元计价），落 10% 黄金；同步留 10% 美元现金。</li>
+<li><b>第 7–12 月</b>：分月、分批建仓，避免一次性择时；每月复盘汇率与美股估值，动态微调比例在 40% 上下。</li>
+<li><b>合规底线</b>：全程走 QDII / 港股通等合规渠道，不触碰便利化额度炒美股，CRS 下如实申报境外账户。</li>
+</ul>
+</div>
+
+<p class="step">第五步 · 汇率波动年，回撤数字推导</p>
+<div class="block">
+<p><span class="key">假设\"汇率波动年\"</span>：① 人民币对美元贬值 <span class="num">8%</span>；② 人民币核心资产本币计价收益 <span class="num">-3%</span>（熊市，理财略托底）；③ 美元股债以美元计 <span class="num">+4%</span>；④ 黄金以美元计 <span class="num">+8%</span>；⑤ 美元现金 <span class="num">0%</span>（仅享汇率升值）。</p>
+<p><span class="key">组合 A 推导</span>：1000 万全在人民币核心，1000 × (1 − 3%) = <span class="num">970 万</span>，回撤 <span class="num">30 万</span>（−3%）。</p>
+<p><span class="key">组合 B 推导</span>：人民币核心 600 × 0.97 = 582 万；美元股债 200 × 1.04 × 1.08 = <span class="num">224.64 万</span>；黄金 100 × 1.08 × 1.08 = <span class="num">116.64 万</span>；美元现金 100 × 1.08 = <span class="num">108 万</span>；合计 <span class="num">1031.28 万</span>（+3.13%）。</p>
+</div>
+
+<table>
+<tr><th>资产板块</th><th>组合 A 配置</th><th>组合 A 年末</th><th>组合 B 配置</th><th>组合 B 年末</th></tr>
+<tr><td>人民币核心（A股+理财）</td><td>1000 万</td><td>970 万</td><td>600 万</td><td>582 万</td></tr>
+<tr><td>美元股债（美股指数+美元债）</td><td>0</td><td>0</td><td>200 万</td><td>224.64 万</td></tr>
+<tr><td>黄金（美元计价 ETF）</td><td>0</td><td>0</td><td>100 万</td><td>116.64 万</td></tr>
+<tr><td>美元现金</td><td>0</td><td>0</td><td>100 万</td><td>108 万</td></tr>
+<tr><td><b>合计</b></td><td><b>1000 万</b></td><td><b>970 万（−3%）</b></td><td><b>1000 万</b></td><td><b>1031.28 万（+3.13%）</b></td></tr>
+</table>
+<p class="muted">同是 1000 万起点，贬值年里组合 B 比组合 A 多守住约 <span class="num">61 万</span>（约 6 个百分点）。B 的保护来自美元与黄金在贬值年的\"被动升值\"——这就是汇率对冲最直观的样子：不是让资产涨，而是让回撤少一截。</p>
+
+<div class="block">
+<p><span class="key">诚实的反例 · 平稳年（人民币不贬）</span>：假设人民币 0% 变动、人民币核心 +5%（小牛）、美元股债 +4%、黄金 +2%、美元现金 0%。组合 A = 1000 × 1.05 = <span class="num">1050 万</span>（+5%）；组合 B = 600×1.05 + 200×1.04 + 100×1.02 + 100 = 630 + 208 + 102 + 100 = <span class="num">1040 万</span>（+4%）。</p>
+<p class="muted">平稳年组合 B 反而略输 A 约 1 个百分点——因为没有汇率顺风，黄金还略拖后腿。这正说明全球配置不是\"年年赢\"，而是<strong>用平稳年的小代价，买贬值年的大保护</strong>。它的真实约束是：牺牲一点上限，换下限不崩。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　先问自家：多少比例人民币计价、多少在境内？记住：分散不是保守，是给国运变量买保险；美元资产是压舱石，不是收益引擎；全球配置是\"分散\"不是\"隐匿\"。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　画出\"核心—卫星\"框架图（核心人民币 + 卫星海外股/债/金）；用案例理解 QDII / 港股通 / 境外账户三条通道；挑一个市场套框架，做一张贬值年压力测试表。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　① 核算家庭外汇暴露比例 ② 评估合规通道（QDII 额度、港股通）③ 先小比例（10%–20%）试水 1–2 个海外板块 ④ 做\"人民币再贬 10%、A 股再跌 20%\"的压力测试 ⑤ CRS 申报合规自查。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>算一笔：你家可投资资产里，人民币计价比例多少？若人民币贬 8%、A 股跌，回撤几何？</li>
+<li>用\"核心—卫星\"，给你家画一张全球配置骨架图，标出核心与卫星各占多少。</li>
+<li>打开外管局规则：5 万美元便利化额度能干什么、不能干什么？你家的出海通道合规吗？</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">国别分散 / 汇率对冲 / 时区套利 / 属地差异 / 美元角色</div>
+  <div class="q"><b>核心问题：</b>你家资产有多少比例是以人民币计价、且集中在境内？满仓承受过哪些波动？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">政策深水区</div>
+  <div class="pos">QDII / 港股通 / 境外账户 / 家办，额度与合规边界</div>
+  <div class="q"><b>核心问题：</b>想换 100 万去美股，5 万美元额度够吗？合规通道到底有哪几条？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">集中 vs 分散，两条路打架成死结</div>
+  <div class="q"><b>核心问题：</b>风险来临时你最想分散，却最慢分散——卡在哪一环？安全与收益的拉扯你怎么选？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">一个家庭的两种组合，贬值年回撤推导</div>
+  <div class="q"><b>核心问题：</b>同样 1000 万，贬值年里 B 比 A 多守住多少？你愿用平稳年的小代价换它吗？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你此刻最该补哪一面？看懂了联动，却看不见盲区吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A05《CRS 与全球税务透明》（全球配置的申报约束）；后续 A12《股票市场配置逻辑》、A15《黄金与另类资产》、A16《遗产税与赠与税》（跨代安排中的海外资产）。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A04 ｜ Swiss-style product build<br>
+模块一~六统一拉至\"通俗 + 操作化 + 思维引导\"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-hedge" class="toggle">
+<div class="modal"><label class="backdrop" for="c-hedge"></label><div class="modal-box">
+<label class="close" for="c-hedge">&times;</label>
+<h3>汇率对冲机制</h3>
+<p>大白话：汇率对冲不是预测人民币涨跌，而是\"不管涨跌，都少受点伤\"。两种做法——</p>
+<ul>
+<li><span class="key">自然对冲</span>：持有不同货币计价的资产（美元债、黄金），本币贬值时它们升值，自动抵消一部分回撤。这是家庭最常用、也最省心的方式。</li>
+<li><span class="key">主动对冲</span>：用远期、期权锁定未来汇率。成本高、专业性强，家庭很少单独用，多已隐含在美元债、境外资产里。</li>
+</ul>
+<p class="step">怎么操作</p>
+<div class="block">
+<ul>
+<li>自然对冲：通过 QDII 买美元债基金、美股指数，本身就持有了美元敞口，不用自己盯盘；</li>
+<li>比例匹配：未来有大额美元支出（留学、海外置业），就多配美元资产，让\"资产币种 = 支出币种\"；</li>
+<li>黄金是特殊的\"非信用货币\"对冲，危机年常与美元同涨，作为保险而非收益。</li>
+</ul>
+</div>
+<div class="link">相关：<a href="#sec3">机制联动（见模块三）</a> · <a href="#sec4">案例推导（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-dollar" class="toggle">
+<div class="modal"><label class="backdrop" for="c-dollar"></label><div class="modal-box">
+<label class="close" for="c-dollar">&times;</label>
+<h3>美元资产角色</h3>
+<p>美元是全球储备货币（约 60% 的国际储备是美元）。美元资产分三类：<span class="key">美债</span>（安全、有票息）、<span class="key">美股</span>（成长）、<span class="key">美元现金</span>（流动性）。它的角色是\"压舱石\"——全球恐慌时美元往往走强，提供兜底而非高收益。</p>
+<p class="step">怎么操作</p>
+<div class="block">
+<ul>
+<li>用 QDII 配置美股指数（如标普 500）+ 美元债，不占用 5 万美元便利化额度；</li>
+<li>留 10%–15% 美元现金做机动，应对本币急贬时的调仓弹药；</li>
+<li>提醒：美元资产不等于\"无风险\"，美股有波动、美债有利率风险，比例要匹配你的承受力。</li>
+</ul>
+</div>
+<div class="link">相关：<a href="#sec2">通道与额度（见模块二）</a> · <a href="#sec5">资本运作视角（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：全球配置不是孤立的\"买点美股\"，它上接全球税务透明、下接具体市场选择。三条线怎么连、落到操作上怎么做，逐一拆开。</p>
+
+<p class="key">上接 CRS · 怎么联动、怎么操作</p>
+<div class="block">
+<p>全球配置在 CRS（共同申报准则）下不是\"藏钱\"，境外金融账户信息会自动交换回居民国税务当局。操作上：</p>
+<ul>
+<li>把\"配置\"和\"税务居民身份规划\"一起做，选对账户地、申报合规；</li>
+<li>分散的目的是降风险，不是规避应尽的申报义务——把分散做成违规，反而引入更大的法律盲区。</li>
+</ul>
+</div>
+
+<p class="key">下接具体市场 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>美元债提供票息 + 汇率双收，美股提供成长，黄金提供保险。操作：</p>
+<ul>
+<li>用\"核心—卫星\"：60% 人民币核心 + 40% 海外卫星，卫星里再分股 / 债 / 金；</li>
+<li>贬值压力大的年份，卫星的被动升值正是模块四里那 61 万保护的来源；</li>
+<li>具体落地走 QDII / 港股通 / 合规境外账户，避开便利化额度炒美股的红线。</li>
+</ul>
+</div>
+
+<p class="key">横接传承 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>海外资产可经家族信托 / 境外保险做代际安排，让\"持有地\"与\"受益人\"分开决策；</li>
+<li>关键认知：联动不是堆叠，是让配置、税务、传承三件事在同一张骨架上协同，而非各做各的。</li>
+</ul>
+</div>
+
+<p>上接税务透明、下接具体市场、横接传承，三条线在\"全球配置\"这个动作上交汇：申报合规（上）；核心—卫星选市场（下）；跨境传承安排（横）。这就是\"联动疆界 → 风险盲区 → 资本运作视角\"三线相扣的起点。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲\"连得出去\"，风险盲区讲\"看不见的坑\"。全球配置最贵的成本，往往不在明面的手续费，在三个盲区。</p>
+
+<p class="key">盲区一 · 汇率单边反向风险</p>
+<div class="block">
+<ul>
+<li>你以为分散了，但海外资产仍以美元计，而你未来的大额支出是人民币（子女国内教育、国内消费）；</li>
+<li>美元升值对你只是\"纸面富贵\"，真要换回人民币花时，反而要承担反向汇率风险；</li>
+<li>分散必须匹配\"未来现金流币种\"，否则对冲的是别人的风险，不是你的。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 海外资产信息不对称</p>
+<div class="block">
+<ul>
+<li>英文财报看不懂、时差导致无法及时调仓；</li>
+<li>境外托管行 / 券商的破产或冻结风险、当地税务申报复杂（如美国资产的遗产税风险、FBAR 申报）；</li>
+<li>你看不见的地方，正是风险藏身地——海外不是\"更安全\"，是\"你要补的认知成本更高\"。</li>
+</ul>
+</div>
+
+<p class="key">盲区三 · 渠道合规风险</p>
+<div class="block">
+<p>走灰色通道把资金弄出境，看似绕开了额度，却可能触发外管局处罚或资金被冻。模块二已明：合规通道只有 QDII、港股通、有真实境外身份的家族架构。</p>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>全球配置省下的是\"国别 + 汇率\"的显性风险，但转移成了\"认知 + 合规\"的隐性成本</strong>。你能事后修补的，只是其中一小部分——结构在源头就定了大半。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec1">汇率对冲机制（见模块一）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把全球配置从\"买点海外资产\"重新看成\"风险管理的一种主权级思维\"，你会发现它管的是\"生存概率\"。</p>
+
+<p class="key">全球配置 = 主权级风险管理</p>
+<div class="block">
+<p>各国央行都做外汇储备多元化（美元、欧元、黄金、日元），不把储备压在一种货币。家庭也该把自己当成一个\"小主权\"，做资产负债的币种匹配——不是博收益，是管理在任一货币、任一国家的极端情形下\"都有活下来的资产\"。</p>
+</div>
+
+<p class="key">它管理的是\"生存概率\"，不是\"收益率\"</p>
+<div class="block">
+<ul>
+<li>美元债 / 黄金在贬值年的被动升值，保护的是下限，不是上限；</li>
+<li>模块四的对比已证明：平稳年 B 略输 A，贬值年 B 守住 61 万——这就是用上限换下限的交易；</li>
+<li>高手看全球配置，看的是\"最坏情形我能不能活\"，不是\"今年多赚几个点\"。</li>
+</ul>
+</div>
+
+<p class="key">怎么操作：做压力测试</p>
+<div class="block">
+<p>假设\"人民币再贬 10%、A 股再跌 20%\"，你的组合回撤多少？如果回撤 intolerable（超出承受），就该加配美元债 / 黄金，把下限抬到你能睡着的水平。这一步，把\"资本运作视角\"落成了可执行的动作。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（管得住生存概率）。三者合一，才是\"全球配置\"这件事的完整认知。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">案例（见模块四）</a></div>
+</div></div>
+
+</body>
+</html>

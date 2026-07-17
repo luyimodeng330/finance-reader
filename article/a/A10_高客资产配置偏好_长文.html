@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A10 高客资产配置偏好：境内外的真实选择</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A10</div>
+  <h1>高客资产配置偏好：境内外的真实选择</h1>
+  <div class="tagrow">
+    <span class="tag">Global Allocation</span><span class="tag">Cross-border</span><span class="tag">Compliance</span>
+  </div>
+</div>
+
+<div class="lead">
+一个可投资金融资产上亿的家庭，账面上几乎全是红——A股、境内房产、人民币理财，一个人民币刻度都没有留在境外。当本币一年内对美元走弱一成，以美元衡量的购买力悄无声息地蒸发了上千万。而另一个体量相近的家庭，只是悄悄把三成切到了离岸美元债与美股，汇率一动，那三成反而相对本币升值。这不是谁更会选股，而是一个更早的决定：全配境内，还是境内外组合。
+</div>
+
+<div class="framework">
+<b>真实配置力 = 底层资产 × 币种敞口 × 属地合规 × 信息差</b><br>
+四个乘数，任何一个没设计好，账面数字都变不成"可调度、可传承、可合规"的财富。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先搞清"出海"到底配的是什么——它不像你以为的"买点美股那么简单"</p>
+
+<div class="card">
+<p><span class="key">美元资产</span>：以美元计价的资产（美元存款、美债、美股、离岸美元债）。大白话——不是"把人民币换成美元现金揣着"，而是"让一部分财富用美元这个刻度来计量"。它的作用是给纯人民币敞口做一个对冲，本币弱了，美元部分相对就强。</p>
+<p><span class="key">港股 / 美股</span>：港股多通过港股通（沪港通、深港通）买，门槛低、用人民币账户就能参与；美股多半要开境外券商账户直买。举例：同样 100 万，A股赚的是人民币，美股赚的是"股价 + 汇率"两笔，汇率动一下，两边的落袋数字就全变了。</p>
+<p><span class="key">离岸信托</span>：在开曼、新加坡、香港等地设立的家族信托。大白话——不是"把钱藏起来不让看"，而是把资产的"所有权、控制权、受益权"三权分开，做隔离与代际安排。它是一套法律架构，不是保密黑箱。</p>
+<p><span class="key">境内外信息差</span>：同一只资产，境内能看到的消息、估值、合规要求，和境外并不一样。你以为境外那边的"高收益"，在另一套税与规则下，可能恰恰是一笔"隐性成本"。</p>
+</div>
+
+<div class="block">
+<p><span class="key">同样一笔钱，境内外的税务命运不同</span></p>
+<ul>
+<li>境内 A 股：个人买卖差价暂免个税（财税〔2014〕81号等），股息红利按持股时间 0 / 10 / 20%；</li>
+<li>港股通：买卖差价暂免个税（财税〔2014〕81号、〔2016〕127号），H 股股息预提 10%、红筹股息 20%；</li>
+<li>美股：中国税务居民理论上就全球所得申报；美股资本利得美方预提为 0（中美无资本利得协定），股息预提 10%（中美协定，否则 30%）；但境外账户若没申报，就形成一笔"隐性税基暴露"；</li>
+<li>离岸美元债：在境外持有债券，票息收益属境外所得，居民需主动申报。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你的家庭可投资资产，人民币刻度是不是 100%？如果明天本币对美元弱一成，你账面的"美元购买力"会蒸发多少？模块一最该带走的认知：配置不是"买什么标的"，而是"用哪国货币刻度计量你的财富"。先想清楚刻度，再谈选股。</p>
+</div>
+
+<p class="guide">离岸信托不是"看不见"——CRS 下也要亮身份，点开看清真相</p>
+<div class="chips">
+  <label class="chip" for="c-crs">CRS 与跨境合规</label>
+</div>
+
+<h2 id="sec2">二、政策深水区</h2>
+<p class="guide">想出海，先过三道"看不见的闸门"：外汇、额度、信息交换</p>
+
+<div class="card">
+<p><span class="key">第一道 · 外汇闸门</span>：个人每年便利化结售汇额度 5 万美元（《个人外汇管理办法》汇发〔2006〕3号及实施细则）。个人不得未经核准直接向境外投资项目；37号文规范的是"境内居民境外投融资及返程投资"，7号文是"境内个人参与境外上市公司股权激励"——它们都不等于"随便出海买房买股"。大额资金出境，有合规边界。</p>
+<p><span class="key">第二道 · 额度闸门</span>：想借道出海，QDII（合格境内机构投资者）与港股通受外管局额度与标的范围约束；想大额配美股，要么买 QDII 产品（别人替你配），要么开境外账户（但资金出境受监管）。主动出海与被动产品化，是两回事。</p>
+<p><span class="key">第三道 · 信息闸门（CRS）</span>：中国 2018 年起参与 CRS（共同申报准则，金融账户涉税信息自动交换），并发布《非居民金融账户涉税信息尽职调查管理办法》（国家税务总局等六部门 2017 年第 14 号公告）实施尽调。100 多个辖区互相交换非居民账户信息——你在哪开户，账户信息可能自动回到你的税务居民国。</p>
+</div>
+
+<div class="block">
+<p><span class="key">出海四种主流通道，规矩各不同</span></p>
+<table>
+<tr><th>通道</th><th>额度 / 门槛</th><th>标的范围</th><th>税务要点</th></tr>
+<tr><td>港股通</td><td>无个人额度，受总额度与标的</td><td>港股通标的</td><td>差价免个税，H 股息 10%</td></tr>
+<tr><td>QDII 产品</td><td>产品额度（外管局批）</td><td>境外股债基金</td><td>产品层代扣，被动配置</td></tr>
+<tr><td>境外券商直开</td><td>资金出境受监管</td><td>美股 / 全球</td><td>居民全球申报义务</td></tr>
+<tr><td>离岸信托 / 架构</td><td>设立地合规 + 专业费</td><td>多类资产</td><td>CRS 申报控制人</td></tr>
+</table>
+<p class="muted">美国走的是 FATCA（不是 CRS）体系，美账户信息不自动交换回中国——这正是很多人"把资产往美国放"的底层动机，但也换来美国本土税务（遗产税、州税）与法律诉讼暴露。分散了汇率，却可能集中了属地风险。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>假设你有 1000 万想配美股，5 万美元便利化额度显然不够，QDII 产品额度有限、且是"别人替你配"。那么你真正的"出海通道"其实是：要么接受产品化（被动），要么走境外账户（主动但资金出境合规成本上升）。先问自己：你是"想要美股那点收益"，还是"想要美元刻度下的资产主权"？两者路径完全不同，别把手段当目的。</p>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">在岸安全感 与 币种分散，是同一笔钱的两个相反拉力，会互相打架、形成死结</p>
+
+<div class="card">
+<p><span class="key">拉力一 · 在岸安全感（倾向全配境内）</span></p>
+<p>人民币资产看得见、摸得着、没有申报摩擦；境内监管便利，哪怕波动也"在自己地盘"。但代价是：100% 人民币刻度，一旦本币走弱，整池财富的美元购买力单边下滑，没有任何对冲垫。</p>
+</div>
+
+<div class="block">
+<p><span class="key">拉力二 · 币种分散（倾向出海）</span></p>
+<p>美元资产提供跨周期对冲：本币贬，美元部分相对升值，组合整体购买力更稳。但代价是：出海触发外汇闸门、CRS 透明、境外税务申报、以及属地法律与遗产税暴露。分散了汇率，却引入了另一套规则。</p>
+</div>
+
+<div class="card">
+<p><span class="key">但出海的"分散红利"被三件事抵消</span></p>
+<ul>
+<li>① 外汇闸门把大额出海卡在"产品化被动配置"，主动出海的资金出境合规成本陡增；</li>
+<li>② CRS 让离岸账户亮身份，所谓"看不见"是误区，隐性暴露变成显性义务；</li>
+<li>③ 美国账户虽不进 CRS（走 FATCA），却换来美国本土税务与法律暴露——分散了汇率，却集中了属地风险。</li>
+</ul>
+</div>
+
+<div class="block">
+<p><span class="key">两力打架 = 配置死结</span></p>
+<p>于是出现一个真实又纠结的局面：全配境内 → 汇率单边敞口、贬值即缩水；想出海 → 闸门卡、CRS 亮、属地险。一句话——"想分散出不去、出去了又怕暴露"。这不是某个人判断错了，是制度设计上的两难，也是高端配置里最容易被忽略、却最要命的底层约束。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：同一家庭的两种选择</h2>
+<p class="guide">把前面所有规则，装进同一个家庭的两种思路里走一遍</p>
+
+<div class="card">
+<p><span class="key">背景</span>：某实业家族，可投资金融资产 1 亿元人民币等值（不含自住房与实业股权）。家庭财务官有两种思路——方案 A 全配境内；方案 B 境内 70% + 离岸 30%。初始汇率 7.0（1 美元 = 7 人民币），即 1 亿 = 1428.57 万美元。情景假设：一年内人民币对美元贬值 10% 至 7.7。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">方案 A 牌面</span>：A 股 4000 万 + 投资房产 3000 万 + 银行理财 / 人民币债 3000 万；100% 人民币刻度；无境外申报义务；但零对冲。</li>
+<li><span class="key">方案 B 牌面</span>：境内 7000 万（A 股 2800 + 投资房 2100 + 理财债 2100）+ 境外 3000 万等值（离岸美元债 2000 万等值 + 美股 1000 万等值，约 428.57 万美元）；30% 美元刻度；产生境外所得申报义务。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么"全配境内"会卡</p>
+<div class="block">
+<ul>
+<li><span class="key">单一司法辖区 + 100% 人民币敞口</span>：本币走弱时，整池财富的美元购买力单边下滑，无处对冲；</li>
+<li><span class="key">投资房产流动性差</span>：3000 万房产同样受本币刻度牵制，急用钱时难以变现；</li>
+<li><span class="key">刚性美元支出撞闸门</span>：家庭有子女境外教育、海外医疗预留等美元开销，纯人民币资产需临时换汇，既撞 5 万美元额度闸门、又常逢汇率低点——"账面有钱、用时缺汇"。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 配置结构设计</p>
+<div class="card">
+<p>不急着"全出海"，先改"结构"，让分散合法、税基可控：</p>
+<ul>
+<li><span class="key">币种层</span>：把总财富 30% 切到美元刻度（离岸美元债 + 美股），保留 70% 在岸，做"七三开"而非"全出海"；</li>
+<li><span class="key">通道层</span>：美元债与美股通过境外合规账户持有，避免资金违规出境；大额走 QDII / 专业家办架构，小额走合规境外账户；</li>
+<li><span class="key">税基层</span>：境外所得（债息、股息、资本利得）主动申报，把"隐性税基暴露"转为"显性合规成本"；</li>
+<li><span class="key">隔离层</span>：部分境外资产可置入离岸信托，做控制人 / 受益权分离（但 CRS 下控制人信息仍需交换）。</li>
+</ul>
+</div>
+
+<p class="step">第四步 · 执行路径（12 个月）</p>
+<div class="block">
+<ul>
+<li><b>第 0–2 月</b>：梳理家庭美元刚性支出时间表，锁定 30% 出海比例，避免情绪化追涨；</li>
+<li><b>第 3–5 月</b>：开立 / 迁移合规境外账户，分两批建仓（美元债先配锁定票息，美股逢低分批）；</li>
+<li><b>第 6–8 月</b>：境外首年收益（债息 + 股息 + 资本利得）做居民申报预演，确认税基；</li>
+<li><b>第 9–11 月</b>：境内部分再平衡（减持高估 A 股、增配人民币债），维持七三比例；</li>
+<li><b>第 12 月</b>：年度复盘汇率敞口，若本币继续走弱则动态上调美元刻度至上限（如 35%）。</li>
+</ul>
+</div>
+
+<p class="step">第五步 · 汇率与税基暴露对比（数字推导）</p>
+<table>
+<tr><th>项目</th><th>方案 A 境内全配</th><th>方案 B 境内 70% + 离岸 30%</th></tr>
+<tr><td>总财富（人民币等值）</td><td>1 亿</td><td>1 亿</td></tr>
+<tr><td>美元刻度敞口</td><td>0%</td><td>30%</td></tr>
+<tr><td>贬值 10% 后美元购买力</td><td>1298.70 万$（损失 129.87 万$）</td><td>1337.66 万$（损失 90.91 万$）</td></tr>
+<tr><td>购买力保值差额</td><td>—</td><td>+38.96 万$ ≈ +300 万 RMB</td></tr>
+<tr><td>年收益假设（8%）</td><td>境内约 800 万 RMB</td><td>境内 560 万 + 境外 240 万 = 800 万 RMB</td></tr>
+<tr><td>境外所得申报（20%）</td><td>0</td><td>约 48 万 RMB（显性合规）</td></tr>
+<tr><td>CRS / 属地暴露</td><td>全境内透明</td><td>离岸账户交换（非美）+ 美账户 FATCA</td></tr>
+<tr><td>合规成本</td><td>低</td><td>中（账户 / 申报 / 架构费）</td></tr>
+</table>
+<p class="muted">推导：1 亿 ÷ 7.0 = 1428.57 万$；贬值后方案 A 为 1 亿 ÷ 7.7 = 1298.70 万$（损失 129.87 万$）；方案 B 境内 7000 万 ÷ 7.7 = 909.09 万$、境外 428.57 万$ 不变，合计 1337.66 万$（损失 90.91 万$），比方案 A 多守 38.96 万$（≈ 300 万 RMB）。同样 1 亿、同样 8% 收益，方案 B 用"约 300 万购买力保值 + 显性 48 万申报 + 中合规成本"，换掉方案 A 的"零对冲单边敞口"。省下的是购买力蒸发的风险，付出的是透明度成本——非任何偷逃，是资产主权的主动选择。</p>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　先问自己家庭人民币刻度几成？记牢：出海不是"买美股"，是"换美元刻度"；CRS 下离岸不隐身；美国账户避 CRS 却引入本土税务。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　画出"四乘子"框架（资产 × 币种 × 属地 × 信息差）；用案例理解七三开；找一家真实家庭套框架做敞口诊断。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　①测家庭美元刚性支出时间表 ②排出海通道（港股通 / QDII / 合规账户）③确认境外所得申报义务 ④动态设美元刻度上限，避免赌单边。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>算一笔：你家庭可投资资产，人民币刻度百分比是多少？若本币贬 10%，美元购买力蒸发多少？</li>
+<li>用"资产 × 币种 × 属地 × 信息差"四乘子，给自己家做一句话配置诊断。</li>
+<li>打开台账：家庭有无境外账户 / 资产？若有，CRS 下它会被交换吗？境外所得申报过吗？</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">你配的是"标的"还是"货币刻度"？</div>
+  <div class="q"><b>核心问题：</b>家庭人民币刻度 100% 吗？本币贬 10%，美元购买力蒸发多少？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">政策深水区</div>
+  <div class="pos">外汇 / 额度 / CRS 三道闸门</div>
+  <div class="q"><b>核心问题：</b>你想出海，卡在哪一闸——额度、通道、还是信息交换？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">在岸安全感 vs 币种分散，两力打架</div>
+  <div class="q"><b>核心问题：</b>全配境内怕贬值、出海怕暴露——你的配置死结卡在哪？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">同一家庭两种选择的数字推演</div>
+  <div class="q"><b>核心问题：</b>若是你，七三开还是全配境内？先动币种层还是通道层？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你此刻最该补哪一面？看懂了联动，却看不见盲区吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A09《私人银行与家族办公室》、A07《上市公司股东减持与个税》；后续 A11《高客服务合规与隐私》、A12《股票市场配置逻辑：A股/港股/美股怎么选》、A22《离岸信托架构：开曼/新加坡/香港怎么选》。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A10 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-crs" class="toggle">
+<div class="modal"><label class="backdrop" for="c-crs"></label><div class="modal-box">
+<label class="close" for="c-crs">&times;</label>
+<h3>CRS 与跨境合规</h3>
+<p>CRS（共同申报准则）是金融账户涉税信息自动交换的全球标准，100 多个辖区互相交换"非居民"账户信息。中国 2018 年首次交换，依据《非居民金融账户涉税信息尽职调查管理办法》（2017 年第 14 号公告）实施尽调。</p>
+<p class="key">关键认知一 · 美国走 FATCA 不走 CRS</p>
+<div class="block">
+<ul>
+<li>美国用本国的 FATCA 与他国交换，美账户信息不自动交换回中国——这正是很多人"把资产往美国放"以避开 CRS 的底层动机；</li>
+<li>但代价是美国本土税务暴露：非居民境外资产超免税额部分遗产税可达 40%，还有州税、法律诉讼风险——分散了汇率，却集中了属地风险。</li>
+</ul>
+</div>
+<p class="key">关键认知二 · 离岸信托不隐身</p>
+<div class="block">
+<p>信托的控制人（实际控制人）信息同样要申报交换，"看不见"是误区。信托是隔离与传承工具，不是保密黑箱。</p>
+</div>
+<p class="key">怎么操作</p>
+<div class="block">
+<ul>
+<li>出海前先核家庭税务居民身份——居民就全球所得申报，别把"没被查到"当"不用报"；</li>
+<li>选 CRS 参与辖区的账户，预期信息会被交换，主动合规而非规避；</li>
+<li>用"主动申报"把隐性税基暴露转为显性成本，架构层持有让"资产在哪"与"税在哪"解耦。</li>
+</ul>
+</div>
+<div class="link">相关：<a href="#sec5">联动疆界（见模块五）</a> · <a href="#sec5">风险盲区（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：跨境配置决策不是孤立的"买不买美股"，它上接全球配置、下接 CRS、横接家族治理。三条线怎么连、落到操作上怎么做，逐一拆开。</p>
+
+<p class="key">上接全球配置 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>本币贬值预期下，大额流动性出不来、但刚性美元支出（教育、医疗、跨周期配置）是刚性的。操作上：</p>
+<ul>
+<li>把新增可投资金切到美元刻度（港股通、美股、新加坡 / 香港家办），用"境外赚、境外花"对冲本币敞口；</li>
+<li>这是合规的跨市场再平衡——同一笔财富在约束松的市场保持流动，不是逃税，是资产主权的主动再平衡。</li>
+</ul>
+</div>
+
+<p class="key">下接 CRS · 怎么联动、怎么操作</p>
+<div class="block">
+<p>离岸账户 / 信托在 CRS 下亮身份，控制人信息交换回居民国。操作：</p>
+<ul>
+<li>出海的同时，税务身份要重新设计（居民 / 非居民、架构层持有），让"资产在哪"与"税在哪"解耦；</li>
+<li>用主动申报把隐性暴露转为显性成本，而非赌"没被交换"；</li>
+<li>美国账户虽不进 CRS，但要单独评估 FATCA 下的本土税务，别因避 CRS 而撞上遗产税。</li>
+</ul>
+</div>
+
+<p class="key">横接家族治理 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>币种分散往往伴随代际安排（子女境外身份、教育币种选择），配置决策与传承决策必须一起做；</li>
+<li>先定"家庭美元刚性支出时间表"，再倒推出海比例，避免情绪化追涨；</li>
+<li>用"七三开"把两力打架变成两力互补，而非全在岸或全出海的极端。</li>
+</ul>
+</div>
+
+<p>上接配置、下接 CRS、横接治理，三条线在"出海"这个动作上交汇：本币弱转美元（上）；亮身份则重设税务身份（下）；代际与支出绑定币种（横）。这就是"联动疆界 → 风险盲区 → 资本运作视角"三线相扣的起点。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec4">案例（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。跨境配置最贵的成本往往不在明面，在四个盲区。</p>
+
+<p class="key">盲区一 · 盲目出海只看收益</p>
+<div class="block">
+<ul>
+<li>追美股涨幅，忽略资金出境合规、境外税务申报、时差与信息不对称；</li>
+<li>结果"赚了股价、赔了合规"——隐性税基暴露未来一次性显形，代价远超那点收益。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 只看收益不看属地风险</p>
+<div class="block">
+<p>往美国放资产避 CRS，却撞美国遗产税（非居民境外资产超免税额征 40%）、州税、法律诉讼暴露；分散了汇率，却集中了属地风险——这是最常见的"拆东墙补西墙"。</p>
+</div>
+
+<p class="key">盲区三 · 误以为离岸信托隐身</p>
+<div class="block">
+<ul>
+<li>CRS 下控制人信息要交换，"看不见"是幻觉；</li>
+<li>信托是隔离 / 传承工具，不是保密通道；把信托当黑箱，反而放松了申报，留下更大隐患。</li>
+</ul>
+</div>
+
+<p class="key">盲区四 · 汇率对冲变投机</p>
+<div class="block">
+<p>把"币种分散"做成"赌本币单边"，出海比例失控（如一把切到 70% 美元），反而放大波动、背离配置的初心。分散是工程，不是下注。</p>
+</div>
+
+<p>四个盲区共同指向一句话：<strong>出海的账，要算到"属地 + 税基 + 信息"三本上，不能只算收益一本</strong>。你能事后补救的，只是其中一小部分。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec2">CRS 与跨境合规（见模块二 / 弹窗）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把跨境配置从"买不买美股"重新看成"资产主权选择"，你会发现敞口是可以被"管理"的。</p>
+
+<p class="key">跨境配置是资产主权选择</p>
+<div class="block">
+<p>不是"要不要出海"，而是"我的财富用哪国货币刻度计量、受哪套法律管辖"的主权决策。高手看配置，看的是"下一笔钱在哪套规则下更安全"，不是"这一笔落袋多少收益"。</p>
+</div>
+
+<p class="key">四乘子被"管理"，而非"回避"</p>
+<div class="block">
+<ul>
+<li>币种敞口主动设上限（如七三开、动态上调至 35%），不赌单边；</li>
+<li>属地合规主动申报，把隐性税基暴露转显性成本；</li>
+<li>信息差靠专业尽调填平——同一资产境内外估值与规则差异，用专业能力而非运气消化。</li>
+</ul>
+</div>
+
+<p class="key">七三开是平衡术</p>
+<div class="block">
+<p>100% 在岸 = 单边敞口、贬值即缩水；100% 出海 = 属地 / 合规集中、暴露翻倍。七三开让"在岸安全感"与"币种分散"两力打架变成两力互补——这才是资本运作能力：在枷锁里跳出节奏。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（管得住主权）。三者合一，才是"境内外真实选择"这件事的完整认知。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">案例（见模块四）</a></div>
+</div></div>
+
+</body>
+</html>

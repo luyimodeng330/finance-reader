@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A19 企业主财富传承：股权传承与接班</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A19</div>
+  <h1>企业主财富传承：股权传承与接班</h1>
+  <div class="tagrow">
+    <span class="tag">Equity Succession</span><span class="tag">Control</span><span class="tag">Family Platform</span>
+  </div>
+</div>
+
+<div class="lead">
+一家估值数十亿的企业，创始人把它做成了，却未必能把"控制权"传下去。他手里最值钱的，往往不是房产、不是现金，而是那张代表控制权的股权——可这张纸一旦进入代际，问题常常不是"传给谁"，而是"传完还在不在"。很多家族企业在第一代手里欣欣向荣，到了交班那一刻，控制权像被揉碎的纸，再也拼不回原样。
+</div>
+
+<div class="framework">
+<b>企业主传承 = 股权 × 控制权 × 税负结构 × 接班能力</b><br>
+四个乘数，任何一个在代际断裂，企业就可能在下一代手里失控、被稀释、甚至易主。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先搞清传承里你真正要传的到底是什么——不是钱，是控制权</p>
+
+<div class="card">
+<p><span class="key">股权继承</span>：创始人离世后，名下股权按法定继承由配偶、子女等取得。现行中国没有遗产税，继承环节本身"免税"——但免税不等于没代价，真正的代价在"控制权"上。</p>
+<p><span class="key">表决权委托</span>：股东把投票权交给别人代行，自己仍拿分红。常用于让一位家族核心统一发声，避免几个人各投各的，把公司重大事项拖死。</p>
+<p><span class="key">家族控股平台（SPV / 有限合伙）</span>：把分散的股权装进一家控股公司或有限合伙企业，家族成员当股东或有限合伙人，由核心人物掌握表决权。它是"控制权的容器"。</p>
+<p><span class="key">ESOP 员工激励</span>：给核心员工股权或期权，把"打工的"变成"合伙人"。传承期最怕人才随控制权变动而流失，ESOP 是把人留住、把利益对齐的工具。</p>
+<p><span class="key">代际控制权安排</span>：用一致行动、表决权委托、有限合伙 GP、AB 股等工具，让控制权跨代集中在一个人或一套机制手里，而不是散在血缘里。</p>
+</div>
+
+<div class="block">
+<p><span class="key">五个概念，串成一条逻辑线</span></p>
+<ul>
+<li>股权继承解决"给谁"；</li>
+<li>表决权委托与家族平台解决"谁说了算"；</li>
+<li>ESOP 解决"外人跟不跟"；</li>
+<li>代际控制权安排解决"下一代还听不听话"。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你（或你长期服务的企业主）手里的核心公司股权，<strong>公司章程里有没有写"股东死亡后，继承人能不能直接当股东"</strong>？如果没写，法律默认是可以的——意味着一旦离世，股权可能按法定顺序散到好几个人手里。模块一最该带走的认知：<strong>传承的第一件事不是分钱，是确认"控制权传不传得过去"</strong>。</p>
+</div>
+
+<p class="guide">平台是控制权的容器</p>
+<div class="chips">
+  <label class="chip" for="c-spv">家族控股平台怎么搭</label>
+</div>
+
+<h2 id="sec2">二、政策深水区</h2>
+<p class="guide">代际传承的每一道动作，背后都有法条和税负在给它定价</p>
+
+<div class="card">
+<p><span class="key">股权继承</span>：《公司法》〔2023修订，2024年7月1日施行〕第90条写明，自然人股东死亡后，其合法继承人可以继承股东资格；但是，公司章程另有规定的除外。一句话：章程不拦，就能继承进股东会；章程拦，股权就进不了治理层。</p>
+<p><span class="key">表决权委托</span>：《公司法》允许股东委托代理人出席股东会并行使表决权。这是低成本归集声音的合法工具，不用动股权结构。</p>
+<p><span class="key">有限合伙</span>：《合伙企业法》规定，普通合伙人 GP 执行合伙事务、掌握控制权；有限合伙人 LP 出钱不干活、以出资为限担责。这是"少数人掌权、多数人分钱"的天然结构。</p>
+<p><span class="key">ESOP</span>：上市公司适用《上市公司股权激励管理办法》〔证监会令第148号，2018修正〕；非上市公司可走合伙企业持股平台，把激励股权装进一个小池子。</p>
+<p><span class="key">AB 股 / 特殊表决权</span>：科创板、创业板允许上市前设置特别表决权股份，同股不同权，让创始人一股顶多股投票权，是上市前就锁住控制权的利器。</p>
+</div>
+
+<div class="block">
+<p><span class="key">装入平台的两道税务开关</span></p>
+<ul>
+<li>非货币性资产投资：实控人把股权装进有限合伙，视为"非货币性资产投资"，按财税〔2015〕41号可 5 年分期缴个税，缓解即时现金流压力；</li>
+<li>创投单一核算：有限合伙若备案为创投企业、按单一投资基金核算，自然人合伙人转让所得按 20%〔财税〔2019〕8号〕，比有限公司平台的 25% 企业所得税 + 20% 个税轻得多。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果今天就要把股权装进平台，你名下股权的<strong>原值凭证还齐吗</strong>？装入环节按评估增值缴个税，原值说不清，税基就被抬高，未来多缴。再问一句：<strong>你家公司章程第几条写了"继承"</strong>？这条不先改，后面全白搭——结构搭得再漂亮，章程一道"继承人自动进股东会"就能把控制权打散。</p>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">自然继承和生前架构调整，是同一笔股权传代的两条通道，方向相反、还会互相打架</p>
+
+<div class="card">
+<p><span class="key">通道一 · 自然继承：免税、零操作、但控制权碎片化</span></p>
+<p>股权按法定继承散到配偶、多名子女，每人持一小块。继承本身 0 税（现行无遗产税），操作上"什么都不用做"。代价是：无人能单独拍板，重大事项要多方一致，公司最容易在此时被管理层、外部股东或敌意方乘虚而入。</p>
+</div>
+
+<div class="block">
+<p><span class="key">通道二 · 生前装入平台：保控制权、统一表决权、但要动手 + 税务成本</span></p>
+<p>在世时把股权装进有限合伙，GP 掌握 100% 表决权，控制权集中。但要设计架构、说服家族，且装入环节可能触发个税——可用 5 年分期或递延，把现金流压力摊薄。这不是"分家产"，是"先建控制权的容器"。</p>
+</div>
+
+<div class="card">
+<p><span class="key">可"集中"本身，又冒出两股反向力</span></p>
+<ul>
+<li>力一：想省税、图省事 → 不装、走自然继承 → 控制权被稀释；</li>
+<li>力二：想保控制权 → 生前装平台 → 要缴税或递延、要家族共识、要 GP 治理规则。</li>
+</ul>
+</div>
+
+<div class="block">
+<p><span class="key">两股力打架，形成传承死结</span></p>
+<p>越想"省事免税"，越稀释控制权；越想"保控制权"，越要生前动手、付出税务与协调成本。最危险的不是选错，是"拖"——实控人突然离世，股权法定分散，控制权一夜碎裂，再难回头。这不是某人操作笨，是制度设计上的两难，也是企业主传承里最容易被忽略、却最要命的底层约束。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：一笔控制权传承的推演</h2>
+<p class="guide">把前面所有规则，装进一个真实处境里走一遍</p>
+
+<div class="card">
+<p><span class="key">背景</span>：某高端制造集团，实控人家族持有目标公司 60% 股权。实控人早年出资成本 1 亿元，当前估值 6 亿元（公司整体 10 亿 × 60%）。实控人 55 岁，配偶与三名子女，公司章程对继承未设限制。他纠结：股权直接留给家人各自持有，还是先装进家族有限合伙、统一表决权？</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">股权性质</span>：有限公司股权，章程未限制继承，继承无障碍；</li>
+<li><span class="key">计税基础</span>：原值 1 亿，凭证完整，装入环节税基不会被抬高；</li>
+<li><span class="key">家族结构</span>：配偶 + 三子女，若直接继承，60% 股权大概率拆成数块；</li>
+<li><span class="key">核心目标</span>：既要控制权不碎，又别在代际多缴一道冤枉税。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么直接继承会"碎"</p>
+<div class="block">
+<ul>
+<li><span class="key">法定拆分</span>：配偶、子女均为第一顺位，60% 股权大概率拆成 4 份左右，单一最大持股约 20%，无人形成相对控股；</li>
+<li><span class="key">控制权后果</span>：重大事项需多方一致，易被管理层、外部股东、敌意方乘虚而入；</li>
+<li><span class="key">再集中成本</span>：若日后想把股权重新集中到一位接班人，内部转让又触发一次 20% 财产转让个税——白缴一道。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 交易 / 配置结构设计</p>
+<div class="card">
+<p>不急着分，先建"容器"，让控制权集中、税负可控：</p>
+<ul>
+<li><span class="key">主体层</span>：实控人在世时将 60% 股权装入家族有限合伙，自己或指定人任 GP 掌 100% 表决权，家人任 LP 分收益；</li>
+<li><span class="key">税务层</span>：装入按非货币性资产投资，个税 5 年分期〔财税〔2015〕41号〕；平台备案创投单一核算，未来转让按 20%〔财税〔2019〕8号〕；</li>
+<li><span class="key">治理层</span>：签一致行动协议 + 表决权委托，把 LP 的表决权统一归集到 GP。</li>
+</ul>
+</div>
+
+<p class="step">第四步 · 执行路径（24 个月）</p>
+<div class="block">
+<ul>
+<li><b>第 0–3 月</b>：修订公司章程，明确"继承不自动取得股东资格、需经 GP 同意"，堵住散落风险；</li>
+<li><b>第 4–6 月</b>：设立家族有限合伙，完成股权置入，办理工商变更；</li>
+<li><b>第 7–12 月</b>：GP 与 LP 签一致行动 + 表决权委托，完成控制权归集；</li>
+<li><b>第 13–18 月</b>：备案创投单一核算，锁定未来减持税率；</li>
+<li><b>第 19–24 月</b>：设 ESOP 持股平台绑定核心高管，防止人才随控制权变动流失。</li>
+</ul>
+</div>
+
+<p class="step">第五步 · 前后对比数字表</p>
+<table>
+<tr><th>项目</th><th>方案 A · 直接继承分散</th><th>方案 B · 装入家族有限合伙</th></tr>
+<tr><td>家族持股集中度</td><td>拆 4 份，最大单一约 20%</td><td>平台统一 60%，GP 掌 100% 表决权</td></tr>
+<tr><td>控制权状态</td><td>相对控股丧失，重大事项需一致行动</td><td>控制权集中，GP 一人决</td></tr>
+<tr><td>继承环节税</td><td>0（现行无遗产税）</td><td>0（生前已装入，去世前完成）</td></tr>
+<tr><td>装入 / 集中环节税</td><td>若日后内部集中再转一次 20% ≈ 2.2 亿（重复纳税）</td><td>非货币性投资 5 年分期，当期递延</td></tr>
+<tr><td>未来转让（增值 11 亿）税负</td><td>自然人直持 20% ≈ 2.2 亿</td><td>创投单一核算 20% ≈ 2.2 亿</td></tr>
+<tr><td>若误选有限公司平台</td><td>—</td><td>公司 25% + 个人 20% 复合 ≈ 4.4 亿</td></tr>
+<tr><td>接班治理</td><td>多子女争权、决策分裂</td><td>GP 指定接班人，收益 LP 分、平滑代际</td></tr>
+</table>
+<p class="muted">数字推导：家族持股 60%，原值 1 亿，假设代际后估值翻倍至 20 亿、60% 股权值 12 亿，增值 = 12 − 1 = 11 亿。自然人直持与有限合伙创投核算均按 20%，约 2.2 亿；但若用有限公司做平台，复合税负近 40%，约 4.4 亿，多缴一倍。更关键的是控制权：方案 A 控制权一夜碎裂，若再集中还要多缴约 2.2 亿；方案 B 生前装入，控制权稳、税可递延。差异不在"分多少"，在"谁说了算"。</p>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　记住：股权继承免税但稀释控制权；平台统一表决权；接班是控制权安排、不是分家产。遇到家族企业，先问章程对继承怎么写。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　画出"股权 × 控制权 × 税负 × 接班"框架；对照自家公司章程找漏洞；用案例理解有限合伙 GP 掌权的逻辑。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　①核查公司章程是否限制继承 ②设计有限合伙、GP 掌权 ③签一致行动 / 表决权委托 ④评估装入环节税负（5 年分期 / 递延）⑤对接 ESOP 留人才 ⑥上接减持税务、下接家族信托做代际平滑。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>查一家公司：它的章程对"股东死亡后继承"怎么写？如果今天实控人离世，控制权会碎吗？</li>
+<li>用"股权 × 控制权 × 税负 × 接班"四乘数，给一家家族企业做一句话诊断。</li>
+<li>打开台账：当年拿核心公司股权的原值凭证，还在吗？装入平台前税基会不会被抬高？</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">你真正要传的是钱，还是控制权？</div>
+  <div class="q"><b>核心问题：</b>你核心公司的章程，写没写"继承人能不能直接当股东"？没写，控制权会散吗？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">政策深水区</div>
+  <div class="pos">继承 / 委托 / 有限合伙 / ESOP / AB股</div>
+  <div class="q"><b>核心问题：</b>装入平台要缴的税，能用 5 年分期和创投核算压到多少？章程先改哪条？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">自然继承免税但稀释 vs 生前装入保控制权</div>
+  <div class="q"><b>核心问题：</b>越想省事越稀释，越想保权越要动手——你卡在这道死结的哪一头？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">直接分散 vs 装入平台，控制权与税负对比</div>
+  <div class="q"><b>核心问题：</b>如果是你，面对 60% 股权，先改章程、建平台、还是拖到继承？差出多少控制权？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你此刻最该补哪一面？看懂了联动，却看不见均分稀释的坑吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A07《上市公司股东减持与个税》（上接减持税务）；后续 A17《家族信托税务筹划》（下接家族信托）、A16《遗产税与赠与税》（代际税基与继承免税）。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A19 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-spv" class="toggle">
+<div class="modal"><label class="backdrop" for="c-spv"></label><div class="modal-box">
+<label class="close" for="c-spv">&times;</label>
+<h3>家族控股平台怎么搭</h3>
+<p>把分散股权装进一个"容器"，让表决权集中、收益按约定分配。两种主流容器：</p>
+<ul>
+<li><span class="key">有限责任公司平台</span>：家族成员持股，按出资比例表决——但表决仍按比例，难做到"一人说了算"，且未来减持复合税负重（25% 企税 + 20% 个税）；</li>
+<li><span class="key">有限合伙平台</span>：GP 执行事务、掌 100% 表决权；LP 只分收益。天然"少数人掌权、多数人分钱"，是家族控制权归集的首选。</li>
+</ul>
+<p class="step">怎么操作（搭建要点）</p>
+<div class="block">
+<ul>
+<li>实控人或指定核心任 GP——哪怕只持 1% 份额，也掌全部表决权；家人任 LP；</li>
+<li>装入环节按非货币性资产投资，个税可 5 年分期〔财税〔2015〕41号〕，缓解现金流；</li>
+<li>平台备案创投企业并按单一投资基金核算，未来转让所得自然人合伙人按 20%〔财税〔2019〕8号〕；</li>
+<li>同步签一致行动协议 + 表决权委托，把 LP 表决权归集到 GP。</li>
+</ul>
+</div>
+<p>关键认知：平台不是"免税通道"，是"控制权容器"——它解决的是"谁说了算"，税负只是顺带优化。</p>
+<div class="link">相关：<a href="#sec2">政策深水区（见模块二）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：传承架构不是孤立的"股权给谁"，它上接减持税务、下接家族信托、横接公司治理。三条线怎么连，落到操作上怎么做。</p>
+
+<p class="key">上接减持税务 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>装入有限合伙后，未来减持税率由平台性质决定（创投单一核算 20% vs 有限公司复合 40%）。传承设计要和减持筹划打通——平台选错，下一代减持多缴一倍。操作：传承架构定稿前，先算清未来减持的税负曲线，别让今天的容器变成明天的税坑。</p>
+</div>
+
+<p class="key">下接家族信托 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>平台上层可再设家族信托，把 GP 份额或 LP 收益装入信托，实现"控制权留在 GP、收益进信托、代际平滑领取"。信托不是免减持税（20% 照样交），是脱钩节奏 + 平滑代际。操作：先建平台归集控制权，再上层设信托做代际分配，避免一次性给到下一代造成挥霍或治理风险。</p>
+</div>
+
+<p class="key">横接公司治理 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>章程对继承的约定，决定股权会不会法定散落；</li>
+<li>一致行动协议，决定多方声音能不能归一成拍板；</li>
+<li>ESOP 绑定高管，决定人才随控制权变动流不流失。</li>
+<li>三件"小事"没写清，控制权传一代就碎一次。</li>
+</ul>
+</div>
+
+<p>上接减持、下接信托、横接治理，三条线在"控制权"这个节点交汇：平台定税率（上）；信托做代际（下）；章程与 ESOP 守门（横）。这就是"联动疆界 → 风险盲区 → 资本运作视角"三线相扣的起点。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。企业主传承最贵的代价往往不在明面税，在三个盲区。</p>
+
+<p class="key">盲区一 · 股权均分导致控制权稀释</p>
+<div class="block">
+<p>把股权"平均分"给子女，看似公平，实则把相对控股拆碎。无人持股过 30%，重大决策卡壳，易被管理层或外部方架空。公平不等于安全——均分是控制权最大的隐性杀手。</p>
+</div>
+
+<p class="key">盲区二 · 接班能力错位</p>
+<div class="block">
+<p>把企业交给"血缘最近"而非"能力最强"的人，控制权集中反而加速失控。接班人若不懂经营、不善治理，集中控制权是灾难。操作：用 GP 指定 + 过渡期共治，先验证能力再交权，别让血缘替能力背书。</p>
+</div>
+
+<p class="key">盲区三 · 章程与协议陷阱</p>
+<div class="block">
+<ul>
+<li>章程未限制继承 → 股权法定散落；</li>
+<li>一致行动协议未公证、无违约条款 → 关键时刻失效；</li>
+<li>装入平台未备案创投核算 → 减持按 5%~35% 累进而非 20%。</li>
+<li>三个坑都埋在"生前没写清"。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>传承的雷，埋在"生前没动手"</strong>。你能事后补救的，只是其中一小部分。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec1">基础认知盘（见模块一）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把传承从"分家产"重新看成"控制权安排"，你会发现它不是终点，是资本循环的起点。</p>
+
+<p class="key">传承是控制权安排，不是分家产</p>
+<div class="block">
+<p>股权是控制权的载体，不是分钱的凭证。高手看传承，看的是"下一代谁掌表决权、收益怎么分、外人怎么绑"，不是"每人拿多少股"。分得多均匀，不如控制权稳得住。</p>
+</div>
+
+<p class="key">税负被"管理"，而非"免除"</p>
+<div class="block">
+<ul>
+<li>装入平台用 5 年分期 / 递延，平滑现金流；</li>
+<li>选有限合伙创投核算，锁 20%；</li>
+<li>未来减持与减持筹划打通，把中央 60% 之外的 40% 地方留成合规拿回。</li>
+<li>税不是减到零，是调到可控。</li>
+</ul>
+</div>
+
+<p class="key">代际是资本循环的一环</p>
+<div class="block">
+<p>控制权稳，才能持续融资、并购、接班；控制权碎，估值打折、融资受阻。传承设计的好坏，直接写进公司下一轮估值里——它是一笔看不见的资本成本或资本红利。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（管得住控制权）。三者合一，才是企业主传承的完整认知。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">案例（见模块四）</a></div>
+</div></div>
+
+</body>
+</html>

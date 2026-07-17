@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A06 高净值人群税收筹划全景：从个人税到家族税统筹</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A06</div>
+  <h1>高净值人群税收筹划全景：从个人税到家族税统筹</h1>
+  <div class="tagrow">
+    <span class="tag">Tax Planning</span><span class="tag">Family Office</span><span class="tag">Compliance</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+一个把企业做起来的家庭，账面上利润年年增长，可真正能从容调度、安心传代的钱，往往远没有报表上好看。原因常常不是赚得少，而是<strong>钱从公司走到家庭、再从这一代走到下一代的每一个环节，都被不同的税种重新"剪"了一遍</strong>。这一篇不聊怎么避税，聊的是：高净值家庭的税到底长在哪些节点上，以及为什么"提前把架构搭好、用足地方公开奖励政策"，比事后到处找漏洞重要得多。
+</div>
+
+<div class="framework">
+<b>家庭净可支配 = (工资 + 经营 + 投资分红) − 三层税负 − 代际与跨境损耗</b><br>
+三层税负自下而上：个人层（综合 / 经营 / 股息 / 资本利得个税）→ 家庭层（房产、赠与、夫妻财产）→ 家族层（信托、代际传承）。任何一层没设计好，账面财富就折损一层。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先用大白话把高净值家庭要面对的税种拆开，别被名词吓住</p>
+
+<div class="card">
+<p><span class="key">综合所得个税</span>：把你的工资薪金、劳务报酬、稿酬、特许权使用费，年底合并成一笔"年总收入"来算税，按 3% 到 45% 的七级超额累进税率（见《个人所得税法》及其实施条例）。大白话：你给别人打工、出去讲课、写稿赚的钱，到年底汇总，赚得越多，边际那一档税率越高，最高能到 45%。</p>
+<p><span class="key">经营所得个税</span>：个体工商户、个人独资企业、合伙企业的自然人合伙人，自己当老板赚的"利润"，按 5% 到 35% 的五级超额累进税率（依据《个体工商户个人所得税计税办法》及财税〔2018〕98号等）。大白话：你自己开的厂、店、工作室，扣掉成本后的净利润，走这条税率线，最高 35%。</p>
+<p><span class="key">股息红利税</span>：公司赚了钱分给股东，这笔"分红"单独按 20% 缴个税。但有个关键优惠——财税〔2015〕101号规定，你持有股票（或股权）的时间越长越便宜：持股不到 1 个月分到的红缴 20%，1 个月到 1 年缴 10%，超过 1 年直接免税。</p>
+</div>
+
+<div class="block">
+<p><span class="key">资本利得（财产转让所得）</span>：卖股票、卖房、卖股权赚到的差价，通常按 20% 的"财产转让所得"缴个税（《个人所得税法》）。其中限售股转让适用财税〔2009〕167号，一律 20%，原值凭证说不清的，还按转让收入的 15% 核定征税。</p>
+<p><span class="key">家族信托税务属性</span>：这是很多人最大的误解——信托<strong>不是免税壳</strong>。装入信托、信托内增值、向受益人分配，各有各自的税务时点；它的核心价值是"资产隔离 + 有序分配 + 跨代治理"，而不是"不交税"。把信托当避税工具，是踩坑的开始。</p>
+<p><span class="key">跨境税</span>：按《个人所得税法》第一条，中国税收居民就<strong>全球所得</strong>纳税；再加上 CRS（共同申报准则）金融账户涉税信息交换，境外账户早已不再是"看不见"的角落。跨境不是法外，是另一套合规逻辑。</p>
+</div>
+
+<div class="block">
+<p><span class="key">同样一笔钱，从哪条通道出来，税率天差地别</span></p>
+<ul>
+<li>公司利润 100 万，直接分红给个人：公司先缴 25% 企业所得税剩 75 万，个人再缴 20% 分红个税，到手约 60 万——综合约 40% 被拿走。</li>
+<li>同样 100 万以"工资"形式发：落进综合所得，边际税率最高可到 45%。</li>
+<li>同样 100 万以"经营所得"发（个独、合伙，且确有真实业务支撑）：走 5%–35% 线，空间更大，但<strong>没有真实业务就是风险</strong>，后面风险盲区会讲。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你或你关注的这个家庭，每年从公司"落袋"的钱，主要走的是哪条通道——分红、工资、还是经营所得？三条通道的税率上限分别是 20%、45%、35%，差出来的那 10%–25%，一年在千万级利润上就是百万到千万级的差距。模块一最该带走的认知：<strong>税不是一笔钱，而是一条条"通道"，通道选错，钱还没到手就先瘦一圈</strong>。</p>
+</div>
+
+<p class="guide">统筹是三层逻辑，不是单点算账（核心杠杆见下方弹窗）</p>
+<div class="chips">
+  <label class="chip" for="c-reward">地方公开奖励政策</label>
+</div>
+
+<h2 id="sec2">二、政策深水区</h2>
+<p class="guide">筹划不是乱来，每一条都有文号出处，先把这些规则摸透</p>
+
+<div class="card">
+<p><span class="key">两个个税税率表，别搞混</span></p>
+<ul>
+<li><span class="key">综合所得（3%–45%）</span>：含工资薪金、劳务报酬等，按年汇算清缴，多退少补（《个人所得税法》及个税汇算清缴公告）。</li>
+<li><span class="key">经营所得（5%–35%）</span>：个体工商户、个人独资、合伙企业自然人合伙人适用（财税〔2000〕91号奠定了独资合伙个税计征框架，后经多轮修订）。</li>
+</ul>
+<p>关键区别：综合所得是"你出卖劳动换的钱"，经营所得是"你当老板、承担风险赚的利润"。很多人图省事把本该是工资的钱塞进经营所得，本质是把"公私"混在一起——这正是后面风险盲区的致命点。</p>
+</div>
+
+<div class="block">
+<p><span class="key">股息红利差别化政策（财税〔2015〕101号）</span></p>
+<table>
+<tr><th>持股期限</th><th>分红个税</th><th>含义</th></tr>
+<tr><td>不足 1 个月</td><td>20%</td><td>短线炒作者，红利全额缴</td></tr>
+<tr><td>1 个月至 1 年</td><td>10%</td><td>过渡档</td></tr>
+<tr><td>超过 1 年</td><td>0（免税）</td><td>长期持有，红利全到手</td></tr>
+</table>
+<p class="muted">政策意图很清楚：鼓励长期资本留下，不鼓励快进快出。对高净值家庭而言，"持股超 1 年"是一个几乎零成本的筹划动作。</p>
+</div>
+
+<div class="card">
+<p><span class="key">资本利得与限售股（财税〔2009〕167号）</span></p>
+<p>卖股权、卖股票赚的差价，按"财产转让所得"20% 缴个税。若是 IPO 前的限售股，公式 =（卖价 − 原值 − 合理税费）× 20%；原值凭证丢了，一律按转让收入 15% 核定——一张发黄的入账单，可能值几百万税。这一条与 A07 股东减持篇完全打通。</p>
+</div>
+
+<div class="block">
+<p><span class="key">亲属间赠与（财税〔2009〕78号）</span></p>
+<p>近亲属（配偶、父母、子女、祖父母等）之间无偿受赠房屋等，不征个人所得税——这是家庭内部做资产调配的合规通道。但要注意：受赠的"计税成本"通常按原值结转，未来出售时增值部分仍要缴，不是"一赠永逸"。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你家的股权、房产、现金，是"裸持"在个人名下，还是经过了任何主体或地域的安排？财税〔2015〕101号告诉你"拿久一点就免税"，财税〔2009〕167号告诉你"成本单丢了就多缴几十倍"——这些规则都是写在明处的。问题是：<strong>你的家庭，有没有把明处的规则，提前用进架构里</strong>？还是等钱要落袋了才临时抓瞎？</p>
+</div>
+
+<p class="guide">地方公开奖励政策，是合规筹划最稳的一块空间</p>
+<div class="chips">
+  <label class="chip" for="c-reward">地方公开奖励政策</label>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">个人税、家庭税、家族传承税，三层是传导的，不是三个孤立的账本</p>
+
+<div class="card">
+<p><span class="key">第一层 · 个人税</span></p>
+<p>前面模块一拆的税种，都落在"个人"这一层：工资、经营、分红、资本利得。主体怎么选，直接决定大半税负——自然人直持最轻（仅 20% 个税），有限责任公司持有最重（20% 个税 + 25% 企税 + 6% 增值税的复合结构），合伙企业居中（6% 增值税 + 5%–35% 累进，创投单一核算可降至 20%，财税〔2019〕8号）。这一步在"拿资产那天"就定了，事后补不了。</p>
+</div>
+
+<div class="block">
+<p><span class="key">第二层 · 家庭税</span></p>
+<ul>
+<li><span class="key">夫妻财产</span>：婚内取得的经营收益、投资收益原则上属共同财产，但税务上"谁的名、谁纳税"，登记在哪方名下影响未来的税基与处置。</li>
+<li><span class="key">房产三通道</span>：买卖、赠与、继承，契税与个税各不相同；近亲属赠与免个税（财税〔2009〕78号），但未来出售税基断层。</li>
+<li><span class="key">未成年子女</span>：以子女名义持有资产，涉及监护人代管与未来成年后的权属过渡，提前布局能平滑代际，但绝不能是"为避税而挂名"的假安排。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">第三层 · 家族传承税</span></p>
+<p>到了代际，问题变成：股权怎么交到下一代手里，既不触发当下重税，又能防止"一次性给太多"的治理风险。继承股权本身免个税，但继承人未来减持仍按 20% 缴，且存在"税基断层"——取得成本常按原值而非市价，未来转让时整段增值都要征税。家族信托在这里的角色是"蓄水池"：让"什么时候卖、卖给谁、钱给谁"三件事分开决策，而不是免税通道（与 A07 一致）。</p>
+</div>
+
+<div class="block">
+<p><span class="key">三层互相打架，形成统筹死结</span></p>
+<p>不统筹时，三层是互相矛盾的：公司想把利润留在账上（只缴 25% 企税），家庭层要现金就得分红（再缴 20%），家族层要传代又怕一次性给太多或触发减持约束（A07 的三道红线）。结果就是——<strong>公司留利，个人没钱花；全部分红，40% 综合税负；直接卖股权，20% 且被减持规则卡死</strong>。这不是哪个人操作笨，是制度设计上的三难。</p>
+</div>
+
+<div class="card">
+<p><span class="key">统筹的解法：主体 + 通道 + 节奏 + 地域，四件套</span></p>
+<p>把三层打通，靠的不是"找漏洞"，而是四个公开可调的旋钮：① 主体（自然人 / 公司 / 合伙怎么搭）；② 通道（分红、工资、经营、资本利得怎么配比）；③ 节奏（持股超 1 年免股息税、分年提取避免综合所得跳档）；④ 地域（把纳税地落在有公开奖励政策的区域）。这四个旋钮，全部合规。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>假设你家现在"公司留着利润、个人缺现金、子女即将成年"，三层矛盾同时发作——你会先动哪个旋钮？是改主体、调通道配比，还是等子女成年再一次性传？模块三想让你建立的直觉是：<strong>高净值家庭的税，从来不是"算一笔账"，而是"设计一条链"</strong>。链没设计，每一环都在漏。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：一个企业主家庭的取钱路径推演</h2>
+<p class="guide">把前面所有规则，装进一个真实处境里走一遍</p>
+
+<div class="card">
+<p><span class="key">背景（已脱敏）</span>：某制造业企业主家庭，公司年税前利润约 2000 万，业主兼任法定代表人与实际控制人。家庭结构为夫妻二人及一名未成年子女。现在业主需从公司拿出 <strong>1000 万</strong> 用于家庭资产配置与子女教育规划。公司企业所得税 25% 已作为三路径的共同前提（经营必须缴），下表比较的是"税后利润分配 / 支取"这一层的差异。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">主体现状</span>：公司股权由业主自然人直接持有，无持股平台、无地方奖励备案——支取只能走"分红"或"工资"两条最被动的通道。</li>
+<li><span class="key">家庭结构</span>：配偶可参与部分经营，子女未成年，具备做家庭成员间合规收入分配与未来信托受益安排的空间。</li>
+<li><span class="key">凭证完整</span>：历次出资、成本单齐全，不存在核定征税风险（对比 A07 的 15% 核定陷阱）。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么"直接拿"最亏</p>
+<div class="block">
+<ul>
+<li><span class="key">路径A 分红</span>：1000 万 × 20% = 200 万个税，到手 800 万。</li>
+<li><span class="key">路径B 工资薪金</span>：1000 万作为工资，落进综合所得最高 45% 档（减除后约 950 万应纳税所得额，税率 45% 减速算扣除），个税约 423 万，到手约 577 万。</li>
+<li><span class="key">路径C 经营 / 架构 + 地方奖励</span>：若仅以"经营所得"名义支取却无真实业务，属于风险动作（见模块五盲区）；若通过真实持股平台 + 地方公开奖励，则另算（见第五步）。</li>
+<li>结论：同样是 1000 万，工资通道比分红多缴两百多万，纯属通道选错。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 交易 / 配置结构设计</p>
+<div class="card">
+<p>不急着"拿钱"，先改"结构"，让支取合法、税负可控：</p>
+<ul>
+<li><span class="key">主体层</span>：将部分公司股权平移至有限合伙持股平台（自然人合伙人），未来分红按"利息股息红利所得"20% 缴纳，砍掉有限责任公司持有才会叠加的企业税与增值税两道；若属创投性质，还可适用单一投资基金核算（财税〔2019〕8号）降至 20%。</li>
+<li><span class="key">地域层</span>：将证券 / 纳税开户地迁至对个税地方留成（40%）给予高比例公开奖励的区域，合规拿回一部分已缴税款。</li>
+<li><span class="key">节奏层</span>：持股超过 1 年享受股息免税（财税〔2015〕101号）；分年、分账户提取，避免单一年度综合所得跳档至 45%。</li>
+<li><span class="key">家庭层</span>：在有真实业务支撑前提下，将部分收入在配偶间合规分布；为子女预设未来信托受益安排，平滑代际。</li>
+</ul>
+</div>
+
+<p class="step">第四步 · 执行路径（18 个月）</p>
+<div class="block">
+<ul>
+<li><b>第 0–3 月</b>：梳理真实业务链条，设立必要的持股平台与（若有）符合实质的经营主体，确保业务真实、票据完整。</li>
+<li><b>第 4–6 月</b>：完成纳税地迁移与园区公开奖励政策备案，取得政策依据文件。</li>
+<li><b>第 7–12 月</b>：按"分红 + 工资"组合、分批次提取，控制单年综合所得不跳档；持股满 1 年部分优先走免税分红。</li>
+<li><b>第 13–18 月</b>：搭建家族信托框架，将未来传承与分配节奏契约化，与减持、跨境配置打通（呼应 A07、A16）。</li>
+</ul>
+</div>
+
+<p class="step">第五步 · 三种路径税负数字推导表</p>
+<table>
+<tr><th>项目</th><th>路径A · 直接分红</th><th>路径B · 工资薪金</th><th>路径C · 架构 + 地方奖励</th></tr>
+<tr><td>从税后利润提取</td><td>1000 万</td><td>1000 万</td><td>1000 万</td></tr>
+<tr><td>适用税率层</td><td>股息红利 20%</td><td>综合所得 45% 档</td><td>股息 20% + 地方奖励</td></tr>
+<tr><td>个税（估算）</td><td>200 万</td><td>约 423 万</td><td>200 万</td></tr>
+<tr><td>地方留成奖励（40%×90%）</td><td>—</td><td>—</td><td>退约 72 万</td></tr>
+<tr><td><b>实际个税</b></td><td><b>200 万</b></td><td><b>约 423 万</b></td><td><b>约 128 万</b></td></tr>
+<tr><td><b>到手现金</b></td><td><b>800 万</b></td><td><b>约 577 万</b></td><td><b>约 872 万</b></td></tr>
+<tr><td><b>支取层损耗率</b></td><td><b>20%</b></td><td><b>约 42%</b></td><td><b>约 12.8%</b></td></tr>
+</table>
+<p class="muted">同样的 1000 万，路径C 比路径A 多到手约 72 万、比路径B 多到手约 295 万。节省全部来自"主体选对（合伙平台）+ 地方公开奖励政策（40% 留成返还 90%）"，而非任何偷逃。路径B 的高损耗，纯粹是"用工资通道发本可分红的钱"的通道错配。注：公司 25% 企税为三路径共同前提，不在表中重复扣减。</p>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>路径C 比路径B 多到手近 300 万，差出来的不是"运气"，是"通道选对 + 地域用足"。但请注意：路径C 的前提是<strong>真实持股平台 + 公开奖励备案</strong>，不是凭空挂个壳。模块四想让你带走的数字直觉是——<strong>同样的钱，架构不同，落袋差出一个量级；而所有优化，都长在"真实、合规、提前"这六个字上</strong>。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>三棱镜里，联动疆界讲"连得出去"，风险盲区讲"看得见坑"，资本运作视角讲"管得住税"。对自己诚实一点：你家现在的筹划，是不是"联动想得挺美、盲区一个没防、税当成惩罚而非成本"？模块五的收尾是——<strong>三面镜子要一起照，偏任何一面，都是半成品</strong>。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　遇到一个家庭财富问题，先问：钱现在卡在个人层、家庭层、还是家族层？记住三条铁律——持股超 1 年免股息税；信托不是免税壳；跨境已是明处合规。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　画出"个人→家庭→家族"三层传导图；用本篇案例理解"主体 + 通道 + 节奏 + 地域"四件套；找一户真实家庭套框架，判断它卡在哪一环。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　①核对出资 / 成本凭证（丢按 15% 核定）②排家庭成员收入分布与房产通道 ③确认持股主体税负 ④大额支取前完成纳税地奖励备案与分年节奏安排 ⑤提前布局信托与代际契约。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>三层进阶里，你卡在哪一阶？大多数人停留在"第一阶看懂"就以为自己会了，真正拉开差距的是"第三阶落到实处"——核对凭证、排收入分布、做奖励备案，都是麻烦事，但麻烦恰恰是不可替代的护城河。今天回家能落地的第一步，哪怕只是把历年出资单找出来归档，也是有效的开端。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>打开自家企业或客户台账：从公司拿走的钱，主要走分红、工资还是经营？三种通道的损耗率各是多少？</li>
+<li>用"个人→家庭→家族"三层传导，给一个家庭做一句话诊断：它现在卡在哪一环？</li>
+<li>查一项你所在区域或熟悉园区对个税地方留成的公开奖励政策，写出返还比例与适用条件。</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">个人税的几条通道：综合 / 经营 / 股息 / 资本利得</div>
+  <div class="q"><b>核心问题：</b>你家落袋的钱，主要走哪条通道？三条通道的税率上限差出多少？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">政策深水区</div>
+  <div class="pos">文号出处 + 差别化政策 + 地方公开奖励</div>
+  <div class="q"><b>核心问题：</b>财税〔2015〕101号、〔2009〕167号，你家用上了哪一条？还是全都没用？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">个人层 → 家庭层 → 家族层，三层传导</div>
+  <div class="q"><b>核心问题：</b>公司留利、个人缺钱、子女成年——三层矛盾同时发作，你先动哪个旋钮？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">一个企业主家庭的三种取钱路径推演</div>
+  <div class="q"><b>核心问题：</b>同样 1000 万，路径C 比路径B 多到手近 300 万，差在哪一步？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你此刻最该补哪一面？看懂了联动，却看不见公私混同的坑吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A05《企业主家庭资产隔离与权属梳理》；本篇与 A07《股东减持与个税》（资本利得 / 限售股）、A16《遗产税与赠与税》（家族传承税务）三篇互锁，构成"个人税 → 减持税 → 传承税"全链条。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A06 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-reward" class="toggle">
+<div class="modal"><label class="backdrop" for="c-reward"></label><div class="modal-box">
+<label class="close" for="c-reward">&times;</label>
+<h3>地方公开奖励政策</h3>
+<p>个税 <span class="num">60%</span> 归中央、<span class="num">40%</span> 留地方；地方常对留成部分给予股东 / 投资人公开奖励——这是合规筹划最稳的空间，绝不是偷逃。</p>
+<p>个税由纳税行为发生地（如证券机构所在地、经营主体注册地）征收，故个人可<strong>通过合法迁移开户地 / 注册地，选择有公开奖励政策的区域纳税</strong>。</p>
+<p class="step">怎么操作</p>
+<div class="block">
+<ul>
+<li>支取 / 减持前，将证券账户开户地或经营主体注册地，迁至有"财政返还"公开政策的园区（如部分中西部、沿海地区）；</li>
+<li>奖励比例公开、按地方留成（40%）的一定折扣返还，有政策文件依据，非私下协议；</li>
+<li>案例：分红个税 200 万，A 地无奖励实缴 200 万，B 地奖励地方留成 90% → 退 200×40%×90% = 72 万，实缴 128 万。</li>
+</ul>
+</div>
+<p class="muted">注意：享受奖励的前提是业务真实、纳税合规。把"壳"当避税工具、虚构交易，是风险盲区，与筹划无关。</p>
+<div class="link">相关：<a href="#sec1">统筹三层级（见模块一）</a> · <a href="#sec4">案例数字推导（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：高净值家庭的税收筹划不是孤立的"怎么少交税"，它上接股东减持、下接家族信托传承、横接跨境配置。三条线怎么连、落到操作上怎么做，逐一拆开。</p>
+
+<p class="key">上接股东减持 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>本篇讲的个人 / 家庭层税负，到了"减持"动作上完全打通（见 A07）：限售股转让 20%（财税〔2009〕167号）、原值不清按 15% 核定、三道红线锁死流动性。操作上：</p>
+<ul>
+<li>把"持股主体 + 开户地"与减持筹划一并设计，避免临时平移被监管穿透；</li>
+<li>用持股超 1 年的免税分红（财税〔2015〕101号）替代部分减持需求，缓解流动性；</li>
+<li>减持前完成地方公开奖励备案，与本文路径C 同源。</li>
+</ul>
+</div>
+
+<p class="key">下接家族信托传承 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>信托不是"免减持税 / 免个税"的（20% 照样交），是"脱钩节奏 + 平滑代际"的工具（呼应 A16）。操作：</p>
+<ul>
+<li>股价 / 资产低位时装入家族信托，税基低，未来增值在信托内累积，不触发立即缴税；</li>
+<li>高位需变现时由信托层面执行，节奏与实控人个人额度、减持红线脱钩；</li>
+<li>受益人（子女）按契约分期领取，避免一次性给到二代造成挥霍或治理风险。</li>
+</ul>
+</div>
+
+<p class="key">横接跨境配置 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>中国税收居民就全球所得纳税（个税法第一条），CRS 让境外账户透明，跨境是另一套合规逻辑而非法外；</li>
+<li>操作上：境内被锁的流动性，可通过合规的港股通、美股账户、新加坡 / 香港家办做跨市场再平衡，而非"藏"；</li>
+<li>家族出海前，先把境内主体、持股、纳税地设计干净，否则境外也救不了境内遗留的坑。</li>
+</ul>
+</div>
+
+<p>上接减持、下接信托、横接跨境，三条线在"财富形态转换"这个动作上交汇。这就是"联动疆界 → 风险盲区 → 资本运作视角"三线相扣的起点。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec4">案例（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。高净值家庭最贵的代价，往往不在明面税率，在三个致命盲区。</p>
+
+<p class="key">盲区一 · 公私账户混同、用个人卡收公司款</p>
+<div class="block">
+<ul>
+<li>用个人银行卡收公司营收、把公司钱当自家钱花，是最常见也最致命的动作；</li>
+<li>后果：轻则被认定为"公私不分"，公司有限责任被刺破、个人连带；重则被按"隐匿收入"定性，触发偷逃税认定与滞纳金、罚款，甚至刑事责任；</li>
+<li>这是"筹划"与"违法"的分界线——本文所有优化都基于"业务真实、账户分离、纳税合规"。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 主体选错与"壳"式经营所得</p>
+<div class="block">
+<p>把工资硬塞进"个独 / 合伙经营所得"省税，却没有真实业务、无对应成本票据，就是虚列。一旦被穿透，不仅补税，还丧失信用。经营所得的空间，只属于"真有经营"的主体。</p>
+</div>
+
+<p class="key">盲区三 · 成本凭证丢失与税基断层</p>
+<div class="block">
+<ul>
+<li>老股成本可能才几毛，入账单早丢了，减持时按转让收入 15% 核定——比真实成本低几十倍，隐性多缴数十倍（财税〔2009〕167号）；</li>
+<li>代际传承中，继承人取得股权的计税成本常按原值而非市价，未来整段增值都要缴，叠加凭证丢失 = 双重暴击。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>筹划的前提是"干净"，不是"聪明"</strong>。账户分不清、业务不真实、凭证保不住，再多架构都是空中楼阁。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec1">统筹三层级（见模块一）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把税从"被收割的痛"重新看成"可调度的资本成本"，你会发现税负是可以被"管理"的，而非一次性掠夺。</p>
+
+<p class="key">税是资本成本，不是惩罚</p>
+<div class="block">
+<p>一笔利润从公司到家族，途中的 20% 分红税、45% 工资税、12.8% 的架构 + 奖励后实际税负，本质上和"资金成本、中介费"并列，是财富跨形态转换的摩擦成本。高手的账，不是"能不能不交"，而是"交在哪一层、交在哪个时点、用哪里的政策交"。</p>
+</div>
+
+<p class="key">统筹即管理成本</p>
+<div class="block">
+<ul>
+<li>主体上，用有限合伙平台把公司持有的复合税负（企税 + 个税 + 增值税）砍到单一 20%；</li>
+<li>地域上，通过公开奖励政策把中央 60% 之外的 40% 地方留成合规拿回（路径C 退 72 万）；</li>
+<li>节奏上，持股超 1 年免股息税、分年提取避免综合所得跳档，把 45% 压回 20% 甚至 0。</li>
+</ul>
+</div>
+
+<p class="key">管理成本花在"提前"，不在"事后"</p>
+<div class="block">
+<p>架构、开户地、信托、代际契约，全部要在"拿资产那天""子女成年前"就布好。事后临时平移、突击分红，不仅空间小，还易被监管穿透。能在规则里把摩擦成本压到最低，才是资本运作能力。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（管得住税）。三者合一，才是"高净值税收筹划"这件事的完整认知。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">案例数字推导（见模块四）</a></div>
+</div></div>
+
+</body>
+</html>

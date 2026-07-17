@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A03 生命周期配置：20岁到70岁的资产地图</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A03</div>
+  <h1>生命周期配置：20岁到70岁的资产地图</h1>
+  <div class="tagrow">
+    <span class="tag">Asset Allocation</span><span class="tag">Lifecycle</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+一个三十岁的人，把大部分钱放进股票基金，身边人劝她"太冒险"；一个五十岁的人，把所有积蓄锁进存款，子女说她"太保守"。两个人都"没错"，因为<strong>配置没有标准答案，只有"与年龄匹配"的答案</strong>。财富管理里最隐蔽的错误，不是买错了某只产品，而是——在三十岁过早保守，在五十岁过度激进。本篇把人的一生拆成四段，画出一张随年龄平移的资产地图。
+</div>
+
+<div class="framework">
+<b>生命周期配置 = 风险承受力 × 配置重心 × 时间跨度</b><br>
+三个乘数，随年龄此消彼长。任何一段错位，都会让你"该冲时缩、该守时莽"。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先搞清三个词——它决定你这辈子该把钱压在哪</p>
+
+<div class="card">
+<p><span class="key">风险承受力</span>：说白了就是"亏了这笔钱，你的生活会不会崩"。它分两层——<span class="key">能力</span>（客观上赔不赔得起）和<span class="key">意愿</span>（主观上晚上睡不睡得着）。二十多岁，钱少、但时间多、能翻身，所以"能力弱、意愿可高"；五十多岁，钱够了、但离用钱的日子近了、输不起，所以"能力强、意愿低"。注意：承受力不是性格，是年龄、收入、负担一起算出来的数字。</p>
+<p><span class="key">配置重心</span>：你手里的钱，按什么比例分给不同"资产类别"——权益（股票、股票基金，涨得多也跌得狠）、固收（债券、存款，稳但慢）、房产、现金、保险。重心往哪偏，决定你这阶段是"搏增长"还是"保成果"。</p>
+<p><span class="key">资产地图</span>：把上面两者，按你从二十到七十岁的现金流画成一张随时间平移的图——年轻时重心偏权益、年长后偏固收，像一条缓缓下移的曲线。</p>
+</div>
+
+<div class="block">
+<p><span class="key">复利：这辈子最该早点懂的一件事</span></p>
+<p>大白话：你赚的钱不取出来，第二年连本带利一起再赚——"利滚利"。举例：每年投 10 万、年化 7%，投 20 年，本金 200 万，期末约 410 万（后面案例会算）；如果让它再滚 20 年不追加，会变成约 1580 万。前 20 年你"只"赚 210 万，后 20 年凭空又多赚 1170 万——<strong>复利的魔法是"时间"，不是"金额"</strong>。这也是为什么三十岁比五十岁更有资格冒险：你借得起时间。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>把你自己套进去：你现在的年龄，落在地图的哪一段？你手里的钱，重心是偏权益还是偏固收？如果三十岁出头却把八成钱放存款，你正在用"保守"悄悄 sacrifice 掉未来二十年最便宜的复利——而那笔钱，五十岁再怎么补都补不回。模块一最该带走的认知：<strong>配置不是性格问题，是年龄函数</strong>。</p>
+</div>
+
+<h2 id="sec2">二、政策深水区</h2>
+<p class="guide">四段人生，四套工具箱——每段该压什么、被什么约束卡着</p>
+
+<div class="card">
+<p><span class="key">20–30 积累期 · 高权益低固收</span></p>
+<p>大白话：这时候你最穷、但最"耗得起"。工具以权益类为主——宽基指数基金、股票型产品，固收只占小头（留点应急）。约束：本金少、现金流紧，但时间最长，波动可以被二三十年的复利"熨平"。<span class="key">怎么操作</span>：定投权益基金，每月工资先划一笔，别等"有钱了再投"——你等的那几年，正是复利最便宜的年份。</p>
+</div>
+
+<div class="block">
+<p><span class="key">30–45 家庭形成期 · 权益 + 房产 + 保险</span></p>
+<p>这个阶段收入爬坡、但责任最重：房贷、育儿、父母老去。配置重心从"纯权益"转向"三角"——权益继续攒增长、房产锁定居住与杠杆、保险先保"人"再保"钱"。<span class="key">怎么操作</span>：先把重疾、定期寿险买够（保额覆盖房贷+子女教育年限），再考虑房产；权益比例可略降，但不是清仓，因为距离退休还有二三十年。</p>
+</div>
+
+<div class="card">
+<p><span class="key">45–60 鼎盛期 · 全球配置 + 传承铺垫</span></p>
+<p>收入与积累到达峰值，但风险承受力开始往下走——你输不起了，因为离用钱只剩十几年。重心转向"分散"与"铺垫"：跨地域（港股通、境外账户、多币种）、跨资产；同时把传承架构先搭起来（信托、保险金信托、遗嘱）。<span class="key">怎么操作</span>：用三年把新增可投资金切一部分到非境内单一市场；在财富高峰、人还健康时把传承"架构"定稿，别等到七十岁手忙脚乱。</p>
+</div>
+
+<div class="block">
+<p><span class="key">60–70 退休期 · 固收 + 流动性 + 传承落地</span></p>
+<p>工资收入断崖式停止，靠被动收入过活。重心彻底转向固收与"能随时取用的钱"，传承架构从"铺垫"进入"落地执行"。约束最硬：①流动性必须覆盖 3–5 年开销（避免熊市里被迫割肉）；②固收占比抬升，但不能全部——通胀会慢慢啃掉购买力；③传承工具（信托分配、保险年金领取）按契约执行。<span class="key">怎么操作</span>：建"水桶"——第一桶现金/货基管 1 年、第二桶短债管 2–4 年、第三桶权益与房产管长期；传承文件在此阶段正式签字生效。</p>
+</div>
+
+<table>
+<tr><th>阶段</th><th>年龄</th><th>配置重心</th><th>核心约束</th><th>首要动作</th></tr>
+<tr><td>积累期</td><td>20–30</td><td>高权益 / 低固收</td><td>本金少、时间最长</td><td>定投权益、先起步</td></tr>
+<tr><td>家庭形成期</td><td>30–45</td><td>权益 + 房产 + 保险</td><td>责任最重、现金流紧</td><td>先保人、再买房</td></tr>
+<tr><td>鼎盛期</td><td>45–60</td><td>全球配置 + 传承铺垫</td><td>承受力降、积累峰值</td><td>跨市场分散、搭架构</td></tr>
+<tr><td>退休期</td><td>60–70</td><td>固收 + 流动性 + 传承落地</td><td>收入断崖、需防割肉</td><td>建水桶、签传承</td></tr>
+</table>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你现在处在四段里的哪一段？对照上表，你的"首要动作"做对了吗？很多人卡在 30–45 段，把全部现金流锁进房产和育儿，权益定投停了——这没错，但要确认：你有没有同步把"保险"这条腿装上？家庭形成期最贵的盲区，是"人"没保住就先去保"资产"。</p>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">三条力量相反、还会互相打架——错配就形成死结</p>
+
+<div class="card">
+<p><span class="key">力量一 · 收入曲线（人力资本）先升后降</span></p>
+<p>大白话：你靠工作赚钱的能力，三十到五十五岁是高峰，之后随退休慢慢归零。这笔"未来工资"在金融上叫<strong>人力资本</strong>——它和你的金融资本（已攒下的钱）是一对跷跷板。</p>
+</div>
+
+<div class="block">
+<p><span class="key">力量二 · 风险承受力随年龄下降</span></p>
+<p>年轻时赔得起（反正还要赚几十年），年长后赔不起（剩余赚钱时间少）。这本该让你"越老越保守"。</p>
+<p>但问题来了：<strong>力量一和力量二在 30–45 岁严重错配</strong>——收入高峰来了，你却同时要扛房贷育儿，风险"意愿"被生活压低；可你的"能力"其实最强（还有二三十年翻盘）。结果很多人在这个本该加权益的窗口，反而把重心挪去存款和房产杠杆，把增长机会让了出去。</p>
+</div>
+
+<div class="card">
+<p><span class="key">力量三 · 复利要时间，人却过早保守</span></p>
+<p>模块一讲过，复利的魔法是时间。可现实中，大量人在 35–40 岁就"转型稳健"，把权益砍到很低——等于在复利最肥的后半程提前下车。另一边，也有人在 60 岁还重仓权益搏收益，因为"钱不够花"，结果熊市一来，离用钱只剩几年，再也回不来。</p>
+</div>
+
+<div class="block">
+<p><span class="key">三条线打架，就是生命周期的死结</span></p>
+<p>年轻：有时间、没本金、敢冒险 → 但本金少，复利基数小；中年：有本金、有收入、但负担重、承受力被压低 → 想冲又不敢；老年：有本金、没时间、没承受力 → 想赚却只能守。如果配置重心不随这三段平移，就会出现最拧巴的局面：<strong>该冲时保守（三十岁存死钱）、该守时激进（六十岁搏股票）</strong>。生命周期配置，本质是把这条错配曲线，重新摆正。</p>
+</div>
+
+<table>
+<tr><th>阶段</th><th>人力资本（收入）</th><th>风险承受力</th><th>典型错配</th></tr>
+<tr><td>20–30</td><td>低、在上升</td><td>能力弱 / 意愿可高</td><td>过早保守，浪费时间红利</td></tr>
+<tr><td>30–45</td><td>高峰</td><td>被家庭责任压低</td><td>收入强却不敢加权益</td></tr>
+<tr><td>45–60</td><td>仍高、将降</td><td>明显下降</td><td>忘了在高峰铺传承</td></tr>
+<tr><td>60–70</td><td>断崖→零</td><td>低</td><td>为补缺口过度激进</td></tr>
+</table>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>把你自己的"收入曲线"和"风险承受力"画两条线，看它们在哪段错配了。如果今天你四十岁、收入正高，却因为"怕波动"把权益砍光——你其实正站在错配的坑里。模块三给的认知：<strong>配置重心要逆着"生活压力"摆，而不是顺着它</strong>。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：同一个人，30岁与50岁两套方案</h2>
+<p class="guide">把前面所有规则，装进"同一个她"的两种人生里走一遍</p>
+
+<div class="card">
+<p><span class="key">背景</span>：一位专业人士，年可支配收入稳定。我们对比她两种选择——<strong>方案甲：30 岁起步</strong>，每年投 10 万；<strong>方案乙：50 岁起步</strong>，每年投 30 万。两人都投 20 年，都看到 70 岁。差别只在"出发的年纪"和"当时的配置重心"。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">方案甲（30 岁）</span>：本金少（年 10 万），但离用钱还有 40 年。配置重心可"高权益"——年化目标 7%，对应波动约 16%–18%。时间足够把波动熨平。</li>
+<li><span class="key">方案乙（50 岁）</span>：本金多（年 30 万），但离退休只用 20 年。配置重心必须"固收+平衡"——年化目标 5%，波动压到约 7%–9%。再高波动，时间不够恢复。</li>
+<li>两人投入期都是 20 年，但甲的总持有期 40 年、乙只有 20 年——<strong>差的就是这 20 年复利</strong>。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么重心不同（约束决定）</p>
+<div class="block">
+<ul>
+<li><span class="key">甲能冒 7%</span>：30 岁亏损了还有三四十年涨回来；即便第 10 年遇熊市账面 -30%，离用钱还远，无碍。</li>
+<li><span class="key">乙只能要 5%</span>：50 岁若遇同样熊市，只剩 15–20 年，伤口来不及愈合；她输不起，所以主动降低收益预期换安稳。</li>
+<li>这不是"谁更聪明"，是生命周期的硬约束——年纪本身改写了可承受的波动。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 配置结构设计（重心随龄平移）</p>
+<div class="card">
+<p>甲（30 岁）：权益 75% / 固收 20% / 现金 5%，用指数基金定投执行，全年不择时；乙（50 岁）：固收 55% / 权益 35% / 现金 10%，固收用短债+存款水桶，权益只留稳健宽基。结构差异，直接决定年化 7% 与 5% 的差距。</p>
+</div>
+
+<p class="step">第四步 · 数字推演（年金终值公式）</p>
+<div class="block">
+<p>年金终值公式：<span class="num">FV = PMT × [((1+r)^n − 1) / r]</span>，PMT 为年投入、r 为年化、n 为投入年数。</p>
+<ul>
+<li><span class="key">方案甲</span>：PMT=10万，r=7%，n=20。((1.07)^20−1)/0.07 ≈ (3.8697−1)/0.07 ≈ 41.0 → 终值 ≈ <span class="num">410 万</span>（本金 200 万）。</li>
+<li>甲继续复利 20 年（50→70，不再投入）：410 万 × (1.07)^20 ≈ 410 万 × 3.8697 ≈ <span class="num">1586 万</span>。</li>
+<li><span class="key">方案乙</span>：PMT=30万，r=5%，n=20。((1.05)^20−1)/0.05 ≈ (2.6533−1)/0.05 ≈ 33.07 → 终值 ≈ <span class="num">992 万</span>（本金 600 万）。</li>
+</ul>
+</div>
+
+<p class="step">第五步 · 两套方案前后对比</p>
+<table>
+<tr><th>项目</th><th>方案甲（30 岁起步·高权益）</th><th>方案乙（50 岁起步·固收平衡）</th></tr>
+<tr><td>起始年龄</td><td>30 岁</td><td>50 岁</td></tr>
+<tr><td>年投入</td><td>10 万</td><td>30 万</td></tr>
+<tr><td>投入年限</td><td>20 年</td><td>20 年</td></tr>
+<tr><td>累计本金</td><td>200 万</td><td>600 万（甲的 3 倍）</td></tr>
+<tr><td>组合年化 / 波动</td><td>7% / 约 17%</td><td>5% / 约 8%</td></tr>
+<tr><td>70 岁终值（推算）</td><td><b>约 1586 万</b></td><td><b>约 992 万</b></td></tr>
+<tr><td>净赚</td><td><b>约 1386 万</b></td><td><b>约 392 万</b></td></tr>
+</table>
+<p class="muted">同一人、同样努力 20 年：甲用 1/3 的本金，净赚竟是乙的 3.5 倍。差距不在"投多少"，在"早出发 20 年"——那 20 年不是多赚一点，是把 410 万又滚成了 1586 万。方案乙多投的 400 万本金，远远填不上晚出发丢失的复利。这就是生命周期配置最锋利的一课：<strong>时间比金额贵</strong>。</p>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果你已经过了 30 岁，案例是不是让你有点慌？别慌——结论是"尽早开始"而非"回到过去"。真正的动作是：今天就开始，并把重心调到"与当下年龄匹配"的位置。如果你正 30 出头，案例就是给你的：别等"钱多了再投"，现在那笔小额，四十年后会是你最大的那块。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>点开上面三面镜子之前，先问自己：你现在最该补的是哪一面？大多数人卡在"看得见联动、却看不见年龄错配的盲区"——明明重心早该下移，却还停在十年前的激进里。三棱镜不是知识点，是让你照见自己错配处的镜子。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　先记住一句话：配置是年龄函数，不是性格。遇到任何"该不该买"的问题，先问——我处在四段里的哪段？我的重心偏了没？</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　画出自己的"收入曲线 × 风险承受力"两条线，标出错配段；按四阶段表给自己的资产做一张重心分布草图；用案例的年金公式，算一遍"现在开始 vs 十年后开始"的差。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　① 按年龄定权益比例（30 岁可 70%+，50 岁降至 35% 左右）；② 30–45 段先把重疾/寿险买够；③ 45 岁起把新增资金切一部分做跨市场分散；④ 60 岁前建好"现金/短债/长期"三层水桶，并让传承文件正式生效。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>用年金公式算一笔：你若现在每年投 X 万、年化 6%、投 20 年，70 岁能到多少？再算"晚十年开始"少多少。</li>
+<li>画自己的四阶段重心图：20–30 / 30–45 / 45–60 / 60–70，每段标出你该偏权益还是偏固收。</li>
+<li>检查家庭形成期的"保险腿"：你的保额覆盖房贷+子女教育年限了吗？没覆盖，先补这条。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>六层走完，回到最朴素的一句：配置是年龄函数。你今天能落地的第一步，不必宏大——要么现在就开始那笔定投，要么把家庭形成期的保险腿装上，要么在 45 岁前把传承架构画个草图。选离你当前阶段最近的那一阶，做掉它，比读完十篇更有用。</p>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">风险承受力 · 配置重心 · 资产地图</div>
+  <div class="q"><b>核心问题：</b>配置是你的性格，还是你年龄算出来的数字？复利最便宜的年份，你正在用它吗？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">政策深水区</div>
+  <div class="pos">四阶段工具箱与硬约束</div>
+  <div class="q"><b>核心问题：</b>你现在落在四段哪一段？该压权益还是固收、首要动作做对了吗？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">收入曲线 × 承受力 错配死结</div>
+  <div class="q"><b>核心问题：</b>你的收入高峰与风险承受力，在哪段错配了？是不是该冲时缩、该守时莽？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">同一人 30 岁 vs 50 岁两方案</div>
+  <div class="q"><b>核心问题：</b>同一个人、同样努力 20 年，为什么早出发 20 年净赚是晚出发的 3.5 倍？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你最该补哪一面？看懂了联动，却看不见年龄错配的盲区吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A01《资产配置框架》、A02《再平衡的艺术》；后续 A04《全球配置》、A14《不动产投资》、A17《家族信托税务筹划》（传承铺垫与落地深讲）。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A03 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：生命周期配置不是孤立的"买什么"，它上接你的职业现金流（人力资本），下接退休与代际传承。三条线怎么连、落到操作上怎么做，逐一拆开。</p>
+
+<p class="key">上接职业现金流 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>你的"人力资本"——未来工资折现——是年轻时最大的资产。操作上：</p>
+<ul>
+<li>30 岁前人力资本占比极高，金融资本极少，所以敢用高权益——你本质上在用"未来工资"当安全垫；</li>
+<li>45 岁后人力资本见顶回落，金融资本必须接棒，所以要在这之前把权益积累做厚、把固收水位抬起来；</li>
+<li>50 岁后人力资本快速归零，金融资本是唯一依靠——此时任何配置失误都没有"再赚一笔"来救，所以联动的终点是"金融资本独立支撑余生"。</li>
+</ul>
+</div>
+
+<p class="key">下接传承 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>生命周期的末端不是"花完"，是"交棒"。操作：</p>
+<ul>
+<li>45–60 鼎盛期就把信托、保险金信托、遗嘱的"架构"搭好（人在、钱在、健康在，最容易谈妥）；</li>
+<li>60–70 退休期让架构"落地执行"——分配节奏、领取条件按契约走，避免一次性给到下一代造成挥霍或治理风险；</li>
+<li>关键认知：传承不是临终才做的事，是生命周期配置在最后一段的"交付动作"，越早铺垫摩擦越小。</li>
+</ul>
+</div>
+
+<p class="key">横接再平衡 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>配置重心每年随年龄下移一档，不是大跌才动（见 A02 再平衡）；</li>
+<li>用"年龄法则"粗调：权益比例 ≈ 100 − 年龄（如 30 岁约 70%、60 岁约 40%），再按负担微调；</li>
+<li>联动的本质：上接收入、下接传承、横接再平衡，三线在"年龄"这个变量上交汇。</li>
+</ul>
+</div>
+
+<p>上接现金流、下接传承、横接再平衡，三条线在"年龄"上交汇：年轻借人力本钱冲、中年用金融资本接棒、老年把成果交付。这就是"联动疆界 → 风险盲区 → 资本运作视角"三线相扣的起点。</p>
+<div class="link">相关：<a href="#sec3">机制联动（见模块三）</a> · <a href="#sec4">脱敏案例（见模块四）</a> · <a href="#sec6">三层进阶（见模块六）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。生命周期配置最贵的错，往往不在明面，在三个盲区。</p>
+
+<p class="key">盲区一 · 年龄错配（重心与年纪拧着）</p>
+<div class="block">
+<ul>
+<li>三十岁过早保守：把八成钱放存款，白白浪费最便宜的 20 年复利（案例甲 vs 乙已证）；</li>
+<li>六十岁过度激进：为补"钱不够"的缺口重仓权益，熊市一来离用钱只剩几年，再也回不来；</li>
+<li>错配的代价不是"少赚"，是"在该守的年纪被迫割肉、在该冲的年纪原地踏步"双重损失。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 过早保守，错失复利</p>
+<div class="block">
+<p>很多人 35–40 岁就"转型稳健"，把权益砍到很低——等于在复利最肥的后半程提前下车。误区在于把"波动"当成"风险"，却忘了年轻人真正的风险是"通胀 + 时间流逝"，而不是账户短期红绿。把波动当敌人，反而放过了时间这个朋友。</p>
+</div>
+
+<p class="key">盲区三 · 晚年流动性断档</p>
+<div class="block">
+<ul>
+<li>退休前没建"三层水桶"，熊市里被迫卖权益取生活费——低位割肉；</li>
+<li>房产占比过高但无现金流，纸面富裕、月月紧巴，典型的"资产富人、现金穷人"；</li>
+<li>传承文件拖到七十岁才立，人身健康或家庭变故一来，架构来不及定，摩擦与税负陡增。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>生命周期配置的坑，几乎都出在"重心没随年龄平移"</strong>。你能纠的，只是其中一小部分——所以越早画地图、越好改。</p>
+<div class="link">相关：<a href="#sec2">政策深水区（见模块二）</a> · <a href="#sec4">脱敏案例（见模块四）</a> · <a href="#sec5">资本运作视角（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把生命周期配置从"个人存钱"重新看成"资本在时间上的安排"，你会发现——配置不是选产品，是排时间表。</p>
+
+<p class="key">生命周期即资本时间安排</p>
+<div class="block">
+<p>年轻时用"人力资本"置换"金融资本"（工资变定投），中年让金融资本自我繁殖（复利），老年让金融资本反哺生活与代际。高手看配置，看的是"<strong>这笔钱什么时候该在哪种形态</strong>"，不是"这只产品好不好"。时间，是唯一的不可再生资源。</p>
+</div>
+
+<p class="key">重心平移是"被管理"的，不是"被情绪驱动"的</p>
+<div class="block">
+<ul>
+<li>用"100 − 年龄"法则把权益比例写在纸上，每年下修一档，避免熊市恐慌砍仓、牛市贪婪加仓；</li>
+<li>在 45–60 财富高峰把跨市场分散与传承架构"前置"完成，把最贵的决策放在最从容的时点；</li>
+<li>把再平衡当作纪律（见 A02），而不是感觉——情绪是生命周期配置最大的敌人。</li>
+</ul>
+</div>
+
+<p class="key">四段即四个资本账户</p>
+<div class="block">
+<p>积累期是"播种账户"、家庭形成期是"加固账户"、鼎盛期是"分散与铺垫账户"、退休期是"交付账户"。能在每段把账户角色演好、并平滑交接的，才是资本运作能力——不是某笔交易多赚几个点，而是五十年不走错大节奏。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（排得准时间）。三者合一，才是"生命周期配置"这件事的完整认知。</p>
+<div class="link">相关：<a href="#sec1">基础认知盘（见模块一）</a> · <a href="#sec3">机制联动（见模块三）</a> · <a href="#sec5">联动疆界 · 风险盲区（见模块五）</a></div>
+</div></div>
+
+</body>
+</html>

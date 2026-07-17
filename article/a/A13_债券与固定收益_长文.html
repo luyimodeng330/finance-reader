@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A13 债券与固定收益：利率周期下的配置</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A13</div>
+  <h1>债券与固定收益：利率周期下的配置</h1>
+  <div class="tagrow">
+    <span class="tag">Fixed Income</span><span class="tag">Rate Cycle</span><span class="tag">Duration</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+一艘船能不能在风浪里稳住，不靠甲板上的彩旗，靠水线以下那块压舱石。一个投资组合也一样——股票、股权、另类资产是帆，负责乘风破浪；债券与固定收益是压舱石，负责在风暴里不翻船。很多人把固收当成"无聊的存款替代"，却没意识到：它什么时候该重、什么时候该轻、久期该长还是该短，直接决定一轮利率周期里你是被颠吐，还是稳稳穿越。
+</div>
+
+<div class="framework">
+<b>组合稳健 = 固收压舱石 × 利率周期判断 × 久期管理 × 信用分层</b><br>
+四个因子，任何一个失控，组合在波动里都会摇晃；四个都设计好，才是真正的"进可攻、退可守"。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先把"债券"想成一张带利息的借条，再谈配置</p>
+
+<div class="card">
+<p><span class="key">债券三要素</span>：面值（借多少钱）、票息（每年付多少利息）、到期日（哪天还本金）。你买一张债，本质是借钱给发行人——国家、银行、企业，然后按约收利息、到期拿回本金。</p>
+<p><span class="key">它怎么帮你赚钱</span>：两条路。一是<strong>票息</strong>，按时收的利息，旱涝保收（只要不违约）；二是<strong>价格波动</strong>，市场利率变了，旧债的价格会跟着涨落，低价买高价卖赚差价（资本利得）。固收的"固定"，指的是票息和到期还本相对确定；"收益"二字，恰恰来自这两条路的组合。</p>
+</div>
+
+<div class="block">
+<p><span class="key">利率周期：经济冷热下的加息与降息大循环</span></p>
+<p>经济过热、物价上涨，央行就<strong>加息</strong>给经济降温；经济冷清、怕通缩，央行就<strong>降息</strong>刺激。这一紧一松，几年一轮回，就是利率周期。它像潮水——涨潮时所有债的价格都被压低，退潮时又被托起。你配置的久长，决定你是被潮水拍在沙滩上，还是随潮水浮起来。</p>
+</div>
+
+<div class="card">
+<p><span class="key">久期：债券价格对利率变动的"放大镜"</span></p>
+<p>大白话：久期就是"这张债的价格，对利率变动有多敏感"。久期越长，利率每动一点，价格就动得越狠。比如久期 2 年的债，利率升 1%，价格大约跌 2%；久期 8 年的债，同样升 1%，价格大约跌 8%。久期是把双刃剑——利率朝你有利的方向走，长久期赚得最多；朝你不利的方向走，长久期也亏得最惨。</p>
+</div>
+
+<div class="block">
+<p><span class="key">利率债 vs 信用债：一个看"国家信用"，一个看"企业脸色"</span></p>
+<ul>
+<li><span class="key">利率债</span>：国债、政策性金融债（国开行、进出口银行、农发行发的债）。背后是国家或准国家信用，几乎不用担心"还不上"，风险主要来自利率波动，而非违约。</li>
+<li><span class="key">信用债</span>：公司债、企业债、中期票据等，借钱的是企业。除了利率风险，还要担"发行人跑路、违约"的信用风险——票息比利率债高，高出来的那部分，就是对你承担信用风险的补偿。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">信用利差：信用债多付的那笔"风险保险费"</span></p>
+<p>同一期限下，信用债的收益率减去同期限利率债的收益率，差额就是<strong>信用利差</strong>。它衡量市场有多担心这家企业还钱。经济好、大家有信心，利差收窄（信用债涨、收益降）；经济差、怕违约，利差走阔（信用债跌、收益升）。利差，是观察信用风险的体温计。</p>
+</div>
+
+<p class="guide">久期是固收配置里最该先搞懂的那把尺</p>
+<div class="chips">
+  <label class="chip" for="c-dur">久期：你的债券对利率有多敏感</label>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你手里那些被统称为"稳健理财"的产品，底层到底是<strong>利率债还是信用债</strong>？它们的平均久期大概多长？如果未来一年利率往反方向走，你那笔"稳健"的钱，是会微微波动，还是会让你吓一跳？模块一最该带走的认知：<strong>没有"无风险"的固收，只有"风险来源不同"的固收</strong>。</p>
+</div>
+
+<h2 id="sec2">二、政策深水区</h2>
+<p class="guide">哪些债"国家背书"，哪些债"看企业脸色"，规则天差地别</p>
+
+<div class="card">
+<p><span class="key">国债</span>：由财政部代表中央政府发行，以国家税收和信用作担保，是境内信用等级最高的债券，几乎无违约风险。它的收益率（国债收益率）是整个固定收益市场的"定价锚"——其他所有债的定价，都绕不开它。</p>
+<p><span class="key">政策性金融债</span>：由国家开发银行、中国进出口银行、中国农业发展银行三家政策性银行发行，虽不叫"国债"，但有准主权信用，市场也视为近似无风险。它们和国债一起，构成"利率债"的主体，是机构压舱石里的压舱石。</p>
+</div>
+
+<div class="block">
+<p><span class="key">信用债的分类与监管出处</span></p>
+<table>
+<tr><th>品种</th><th>发行人</th><th>监管 / 规则出处</th><th>风险特征</th></tr>
+<tr><td>公司债</td><td>上市公司及非上市公众公司</td><td>《公司债券发行与交易管理办法》（证监会令第222号，2021修订），交易所市场</td><td>信用风险为主</td></tr>
+<tr><td>债务融资工具（中票、短融）</td><td>非金融企业</td><td>《银行间债券市场非金融企业债务融资工具管理办法》（人民银行令〔2008〕第1号），交易商协会注册</td><td>信用风险为主</td></tr>
+<tr><td>企业债</td><td>企业（含城投类）</td><td>原发改委审批，现发行审核统一划转移交证监会</td><td>信用风险 + 估值波动</td></tr>
+<tr><td>利率债（国债 / 政金债）</td><td>财政部 / 政策性银行</td><td>《国债法》框架、央行公开市场操作引导</td><td>近乎无违约，仅有利率风险</td></tr>
+</table>
+<p class="muted">同一只企业债，评级从 AAA 到 AA、再到 A，票息逐级抬高，对应的就是逐级升高的违约可能。评级不是装饰，是风险定价的坐标。</p>
+</div>
+
+<div class="card">
+<p><span class="key">期限、评级、流动性三件套</span></p>
+<p>买债不能只看收益，还要看三件事：①<strong>期限</strong>——越长越怕利率变，久期越大；②<strong>评级</strong>——AAA 与 AA 之间，隔着一道违约概率的鸿沟；③<strong>流动性</strong>——国债随时能卖，冷门低评级债真要变现时可能半天无人接盘。高收益往往是用"更长的期限 + 更低的评级 + 更差的流动性"换来的，这笔账要算清。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>假设你买的一款"稳健"产品，说明书里写着"主要配置高等级信用债"。那么请追问一句：<strong>它有没有为了多那几十个 bp 的收益，悄悄下沉到了低评级</strong>？利率债和信用债，表面都叫"债"，一旦发行人出问题，一个是虚惊一场，一个是本金打折。分清你买的是哪一边的风险，是固收配置的第一道筛子。</p>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">利率周期与久期，是同一枚硬币的两面，方向相反、互相打架</p>
+
+<div class="card">
+<p><span class="key">第一股力：利率周期（潮水方向）</span></p>
+<p>加息周期里，新发债券的票息更高，旧债就显得"不划算"，价格被压低；降息周期里，旧债票息显得"稀缺"，价格被抬高。所以：<strong>加息利空所有债的价格，降息利好所有债的价格</strong>——这是潮水，谁都躲不开。</p>
+</div>
+
+<div class="block">
+<p><span class="key">第二股力：久期（放大镜倍数）</span></p>
+<p>久期决定你在潮水里被晃得多狠。同样加息 1%：短久期（D≈2）只跌约 2%，长久期（D≈8）要跌约 8%。潮水一样，但放大镜倍数不同，结果天差地别。</p>
+</div>
+
+<div class="card">
+<p><span class="key">两股力打架，形成配置的核心矛盾</span></p>
+<p>加息周期：价格普跌，但<strong>短久期跌得少、还能更快把资金滚去吃更高的新票息</strong>——短久期占优。降息周期：价格普涨，<strong>长久期涨得猛、资本利得赚得满</strong>——长久期占优。矛盾在于：你事先并不知道下一轮是加息还是降息。赌错方向，一年回报能差出五到十五个百分点；赌对方向，固收也能打出漂亮的进攻。</p>
+</div>
+
+<div class="block">
+<p><span class="key">票息是"底"，价格是"弹性"</span></p>
+<p>别忘了固收还有一条腿——票息。无论加息降息，只要不违约，票息照收。所以真实世界里，固收的总回报 = 票息（稳的底） + 价格变动（随周期的弹性）。加息时价格亏、但票息高；降息时价格赚、但票息低。两股力一个托底、一个舞动，组合出不同的胜负手。这正是模块四要拿数字推演的死结。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果让你押注未来一年：你更相信经济过热要加息，还是经济走弱要降息？你的判断，直接决定你该把固收的久期<strong>缩短还是拉长</strong>。但更重要的是——<strong>如果你判断错了呢</strong>？模块三最该带走的认知：固收配置不是"猜对方向"，而是"用结构扛住两种可能"。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：双桶对照的五步推演</h2>
+<p class="guide">把前面所有规则，装进一个真实处境里走一遍</p>
+
+<div class="card">
+<p><span class="key">背景</span>：某家庭可投资资产 5000 万，其中划出 2000 万作为"压舱石"配置固收。当前市场分歧极大——一半观点认为通胀未消、央行将加息，另一半认为增长承压、央行将降息。家庭既不想空仓错过票息，又怕押错久期方向一年白干。于是做一场"短久期桶 vs 长久期桶"的对照实验，各投 1000 万。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">短久期桶</span>：平均久期约 2 年，以利率债 + 高等级短融为主，票息约 3.0%。特点是抗跌、流动性好、能快速再配置。</li>
+<li><span class="key">长久期桶</span>：平均久期约 8 年，以利率债 + 高等级信用债为主，票息约 3.5%。特点是利率有利时弹性大、不利时跌得狠。</li>
+<li><span class="key">环境</span>：两桶同时建仓，唯独利率方向不明——这是整道题的变量。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么卡在"选方向"</p>
+<div class="block">
+<ul>
+<li><span class="key">单押风险</span>：若全配短久期，降息兑现时眼睁睁少赚五六个点；若全配长久期，加息兑现时一年浮亏近 5%。</li>
+<li><span class="key">空仓也不行</span>：空仓躲开价格风险，但也丢了 3% 出头的票息，且一旦降息踏空，机会成本更高。</li>
+<li>卡点本质：不是"买不买债"，而是"久期该长该短"——一个事先无人能 100% 确定的选择题。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 配置结构设计</p>
+<div class="card">
+<p>不押单边，做"双桶 + 阶梯"结构，让两种可能都被接住：</p>
+<ul>
+<li><span class="key">双桶并存</span>：短久期桶保底流动性与票息，长久期桶博降息弹性，先把"方向风险"摊平。</li>
+<li><span class="key">阶梯到期</span>：把每桶再按到期日铺成阶梯（如 1、3、5、8 年错开），让资金每月 / 每季都有到期回笼，便于随周期再判断、再调久期。</li>
+<li><span class="key">信用打底</span>：以利率债为压舱核心，仅用少量高等级信用债增厚利差，不碰低评级下沉。</li>
+</ul>
+</div>
+
+<p class="step">第四步 · 执行路径（按周期动态调）</p>
+<div class="block">
+<ul>
+<li><b>若加息兑现</b>：逐步卖出长久期桶、转投短久期债 / 货基 / 存款，吃上升的新票息；阶梯到期资金不再续长久期。</li>
+<li><b>若降息兑现</b>：用短久期桶与到期资金，置换拉长久期，吃资本利得；长久期桶持有不动享受价格上涨。</li>
+<li><b>横切再平衡</b>：股市大跌时，用固收桶的稳定与到期现金补仓权益，触发股债再平衡阈值即执行。</li>
+</ul>
+</div>
+
+<p class="step">第五步 · 前后对比数字推导表</p>
+<div class="card">
+<p><span class="key">推导口径</span>：两桶各初始市值 1000 万；价格变动用近似公式 价格变动 ≈ −久期 × 收益率变动；票息按年 carry 计；单位：万元。</p>
+<p class="key">加息周期（收益率 +100bp）</p>
+<table>
+<tr><th>指标</th><th>短久期桶 D≈2</th><th>长久期桶 D≈8</th></tr>
+<tr><td>起始市值</td><td>1000</td><td>1000</td></tr>
+<tr><td>票息 carry（年 3.0% / 3.5%）</td><td>+30</td><td>+35</td></tr>
+<tr><td>价格变动 −D×Δy（Δy=+1%）</td><td>−2.0% → −20</td><td>−8.0% → −80</td></tr>
+<tr><td>年末市值</td><td>1010</td><td>955</td></tr>
+<tr><td><b>年化总回报</b></td><td><b>+1.0%</b></td><td><b>−4.5%</b></td></tr>
+</table>
+<p class="key">降息周期（收益率 −100bp）</p>
+<table>
+<tr><th>指标</th><th>短久期桶 D≈2</th><th>长久期桶 D≈8</th></tr>
+<tr><td>起始市值</td><td>1000</td><td>1000</td></tr>
+<tr><td>票息 carry</td><td>+30</td><td>+35</td></tr>
+<tr><td>价格变动 −D×Δy（Δy=−1%）</td><td>+2.0% → +20</td><td>+8.0% → +80</td></tr>
+<tr><td>年末市值</td><td>1050</td><td>1115</td></tr>
+<tr><td><b>年化总回报</b></td><td><b>+5.0%</b></td><td><b>+11.5%</b></td></tr>
+</table>
+<p class="key">两个周期对照结论</p>
+<table>
+<tr><th>利率环境</th><th>短久期桶</th><th>长久期桶</th><th>谁占优</th><th>回报差</th></tr>
+<tr><td>加息 +100bp</td><td>+1.0%</td><td>−4.5%</td><td>短久期</td><td>5.5 个百分点</td></tr>
+<tr><td>降息 −100bp</td><td>+5.0%</td><td>+11.5%</td><td>长久期</td><td>6.5 个百分点</td></tr>
+</table>
+<p class="muted">同一笔 2000 万、同样的票息底，仅因久期方向不同，加息年两桶合计差约 55 万、降息年差约 65 万。推导用线性近似，未计凸性、骑乘收益与再投资收益，仅作方向性演示，不构成投资建议。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果这 2000 万全压在单一久期上、且你赌错了方向，一年就是几百万的差距。案例想说明的，不是"该押哪边"，而是：<strong>用双桶 + 阶梯，把"猜方向"变成"两种可能都接得住"</strong>。你的固收配置，现在是在赌一个方向，还是在用结构扛住两种可能？</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　固收不是"无风险"，利率债和信用债风险来源不同；久期是价格对利率的放大镜；加息利短久期、降息利长久期；信用利差是信用风险的体温计。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　画出"双桶 + 阶梯"框架；理解利率周期与久期如何打架；用案例的数字推导表，给自家固收做一次方向压力测试。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　① 按用钱时间匹配久期（负债久期 = 资产久期）② 利率债打底、少量高等级信用债增厚 ③ 设股债再平衡阈值、触发即执行 ④ 留足高流动性利率债作"弹药"，不碰低评级下沉。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>打开你的固收持仓：平均久期大概多长？未来一年你赌加息还是降息，依据是什么？</li>
+<li>用"双桶 + 阶梯"给自家理财做一张久期分布表，标出每笔债的到期日与利率敏感度。</li>
+<li>查一只你持有的信用债：评级、发行人、与同期限国债的利差——高出的那几十个 bp，你愿不愿用本金安全去换？</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">债券是带利息的借条，久期是价格放大镜</div>
+  <div class="q"><b>核心问题：</b>你手里的"稳健理财"，到底是利率债还是信用债？平均久期有多长？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">政策深水区</div>
+  <div class="pos">国债 / 政策性金融债 vs 公司债 / 中票，信用利差</div>
+  <div class="q"><b>核心问题：</b>你买的债，背后是谁在还钱？一旦发行人出问题，你的本金还安全吗？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">利率周期与久期，两股力相反相成</div>
+  <div class="q"><b>核心问题：</b>如果未来一年利率方向你判断错了，组合会亏在价格还是赚在票息？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">双桶对照五步推演，数字推导表</div>
+  <div class="q"><b>核心问题：</b>给你 2000 万固收预算，你会先铺短久期还是长久期？为什么？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你此刻最该补哪一面？看得见收益，却看不见久期错配吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你的固收配置卡在哪一阶？今天能落地的第一步？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A03《生命周期配置》、A02《再平衡的艺术》；后续 A12《股票市场配置逻辑》、A10《高客资产配置偏好》。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A13 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-dur" class="toggle">
+<div class="modal"><label class="backdrop" for="c-dur"></label><div class="modal-box">
+<label class="close" for="c-dur">&times;</label>
+<h3>久期：你的债券对利率有多敏感</h3>
+<p>久期（Duration）衡量债券价格对收益率变动的敏感度，近似公式：<span class="key">价格变动 ≈ −久期 × 收益率变动</span>。久期越长，利率每动 1%，价格就动得越狠——它是固收里的"放大镜倍数"。</p>
+<p class="key">怎么操作</p>
+<div class="block">
+<ul>
+<li><span class="key">看组合平均久期</span>：把你持有的债按市值加权，算出整篮子的平均久期——它就是你的"整体放大镜"。比如平均久期 5，利率升 1% 篮子约跌 5%。</li>
+<li><span class="key">按利率判断调久期</span>：看涨利率就压低久期（多配短债、货基），看跌利率就拉长久期（多配长债博资本利得）。</li>
+<li><span class="key">别用短钱配长债</span>：随时要用的钱配了长久期，利率一升浮亏、急用钱又被迫割在低点——这是久期错配，详见风险盲区。</li>
+<li><span class="key">记住凸性</span>：久期是线性近似，利率大幅变动时真实价格变动会略小于近似（凸性保护），大方向不碍事，但别拿近似当精确账。</li>
+</ul>
+</div>
+<div class="link">相关：<a href="#sec3">机制联动（见模块三）</a> · <a href="#sec4">脱敏案例数字推导（见模块四）</a> · <a href="#sec5">风险盲区（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：固收配置不是孤立的"买点债"，它上接生命周期、下接再平衡、横接利率周期。三条线怎么连、落到操作上怎么做，逐一拆开。</p>
+
+<p class="key">上接生命周期 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>不同年龄、不同用钱目标，固收的"份量"和"久期"该不一样。年轻时离用钱远，股多债少、久期可略长；临近要用钱（买房、传承、退休），债多股少、久期要短，确保到时候本金稳在。</p>
+<ul>
+<li>操作：按"距离用钱还有几年"倒推——5 年内要用的钱，配短久期利率债；10 年以上的长钱，才考虑拉长久期博弹性。</li>
+<li>一句话：固收是生命周期的"减震器"，年纪越大、目标越近，减震器越要重。</li>
+</ul>
+</div>
+
+<p class="key">下接再平衡 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>股市大跌时，固收的稳定现金流让你有底气"不割肉"，反而按纪律用债的票息 / 到期资金去补仓权益，完成再平衡——低买高卖的纪律靠的就是这块压舱石。</p>
+<ul>
+<li>操作：设定股债再平衡阈值（如偏离目标 ±5% 即触发），触发就用固收桶的到期现金或短债卖出补股，不另掏腰包。</li>
+<li>没有固收这个"稳定池"，再平衡往往变成"恐慌割肉"，纪律无从谈起。</li>
+</ul>
+</div>
+
+<p class="key">横接利率周期 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>固收内部也要随周期挪：加息预期升温，短久期桶加重；降息预期升温，长久期桶加重；</li>
+<li>用"双桶 + 阶梯"让方向风险摊平，阶梯到期资金随周期再判断、再配置；</li>
+<li>操作时盯两个锚：央行政策信号（方向）与国债收益率曲线（价格），而不是听"现在该买长债还是短债"的碎片建议。</li>
+</ul>
+</div>
+
+<p>上接生命周期（减震）、下接再平衡（纪律）、横接利率周期（方向）——三者在"固收"这个动作上交汇：该重该轻看人生阶段（上）；该不该动看再平衡阈值（下）；该长该短看利率方向（横）。这就是联动疆界的全貌。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec3">机制联动（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。固收最贵的代价往往不在明面，在两个盲区。</p>
+
+<p class="key">盲区一 · 信用下沉</p>
+<div class="block">
+<ul>
+<li>为追高几十个 bp 的收益，悄悄买低评级、弱资质发行人的债（下沉）；</li>
+<li>一旦违约，本金打折甚至归零，前面多收的那点票息，瞬间被一笔亏光；</li>
+<li>操作：用评级 + 分散 + 限额三道闸——单只信用债不超组合某比例，不为收益牺牲本金安全；利率债永远打底。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 久期错配</p>
+<div class="block">
+<ul>
+<li>用"随时要用的钱"去买长久期债，利率一升就浮亏，急用钱时被迫割在低点；</li>
+<li>本质是把"短期负债"配了"长期资产"，时间结构对不上；</li>
+<li>操作：负债久期匹配资产久期（duration matching）——3 个月内要用的钱只配货基 / 极短债，绝不上长久期。</li>
+</ul>
+</div>
+
+<p class="key">盲区三 · 流动性错觉</p>
+<div class="block">
+<p>以为债券都"随时能卖"，但低评级、冷门债真要变现时可能半天无人接盘，急用钱时卖不出或卖在地板价。操作：留足一层高流动性利率债（国债、政金债）作"弹药"，真正随时能调动的，只有这部分。</p>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>固收的风险，在"买的那天"就埋下了大半</strong>。信用不下沉、久期不错配、流动性留弹药，三件事做到，压舱石才真的稳。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec1">利率债 vs 信用债（见模块一）</a> · <a href="#sec2">政策深水区（见模块二）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把固收从"存款替代"重新看成"流动性的锚"，你会发现它在资本循环里别有位置。</p>
+
+<p class="key">固收是流动性的锚</p>
+<div class="block">
+<p>在股权、地产等长期、低流动性资产之外，固收提供可预测的票息与高流动性头寸——它是"随时能调动的资本"，是整盘资产的定海神针。没有这枚锚，遇到机会或险情，只能贱卖长期资产救火。</p>
+</div>
+
+<p class="key">怎么操作 · 把固收当"第二现金池"</p>
+<div class="block">
+<ul>
+<li>阶梯式到期：把债按 1、3、5、8 年错开，让每个月 / 每季都有一笔到期变现金，既吃票息又保机动；</li>
+<li>利率债为主、少量高等级信用债增厚，保证"弹药层"随时可动；</li>
+<li>把它当作现金管理之上的缓冲池——比现金收益高，比股票稳，关键时刻补位。</li>
+</ul>
+</div>
+
+<p class="key">资本循环 · 固收为长期资产供血</p>
+<div class="block">
+<p>用固收的稳定票息给股权、另类投资"输血"，平滑整体波动；长期资产一时不能变现，固收桶提供日常流动性与再平衡资金。高手看固收，看的是"下一笔可调度的钱从哪来"，而不是"这点票息赚多少"。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（管得住流动性）。三者合一，才是"债券与固定收益"这件事的完整认知。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">脱敏案例（见模块四）</a> · <a href="#sec6">三层进阶（见模块六）</a></div>
+</div></div>
+
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A02 再平衡的艺术：什么时候该动手</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A02</div>
+  <h1>再平衡的艺术：什么时候该动手</h1>
+  <div class="tagrow">
+    <span class="tag">Portfolio</span><span class="tag">Rebalancing</span><span class="tag">Discipline</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+一个股债六四的组合，赶上三年牛市，股票悄悄涨到七成五、债券落在一成半。账户总值翻了上去，可你的"风险浓度"也跟着翻倍——你以为自己在赚市场的钱，其实是把赌注越压越大。再平衡，就是在这把赌注失控之前，按时把它拉回你当初亲手设定的位置。
+</div>
+
+<div class="framework">
+<b>组合稳健度 = 战略锚定 × 触发纪律 × 成本意识 × 风险预算</b><br>
+四个乘数，任意一个没设好，账户涨得再漂亮，也经不起一次像样的回撤。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先搞清"再平衡"到底在平衡什么——它不是预测，是把方向盘拧回原处</p>
+
+<div class="card">
+<p><span class="key">再平衡（Rebalancing）</span>：大白话讲，你当初定好"股票六成、债券四成"，过一阵子因为股票涨得多、债券涨得少，比例变成了"七成五 / 二成五"。再平衡，就是卖掉一点涨多的、补一点涨少的，把比例重新拧回"六 / 四"。它不预测涨跌，只负责"把你拉回原计划"。</p>
+</div>
+
+<div class="card">
+<p><span class="key">阈值再平衡（Threshold / Band Rebalancing）</span>：设一条"容忍带"。比如战略是 60/40，你允许股票在 55%~65% 之间晃，一旦股票占比突破 65%（或跌破 55%），就动手调回 60%。这就是任务里说的"偏离 ±5% 触发"。好比恒温器：房间温度偏离设定值 5 度，空调才启动。</p>
+</div>
+
+<div class="card">
+<p><span class="key">日历再平衡（Calendar Rebalancing）</span>：不盯着比例，只盯时间。每季度末、或每年末，不管比例漂到哪，都调回战略比例。好处是规则简单、可预期；坏处是可能刚调完市场又漂，或只漂了一点点也硬调——白交一笔手续费。</p>
+</div>
+
+<div class="block">
+<p><span class="key">战术再平衡（Tactical Rebalancing）</span>：在标准锚周围"主动加一点赌注"——比如你觉得短期美股要涨，临时把股票从 60% 提到 65%，但必须设一条"回归线"，到了目标或时间就退回到 60%。它和纪律再平衡的区别：纪律再平衡是"回原处"，战术再平衡是"短暂偏离、再回原处"。注意，战术再平衡已经带一点"主观判断"，要严格控制回归纪律，否则就滑向择时。</p>
+</div>
+
+<div class="card">
+<p><span class="key">税损收割（Tax-Loss Harvesting）</span>：大白话"亏着的钱也能帮你省税"。把你手里跌了的持仓卖掉，实现的亏损可以抵消别处的盈利（少缴资本利得税），然后马上买入"长得像、但不是同一只"的资产，保住市场敞口。注意：不能买回"实质相同"的证券（美国有 wash-sale 规则，30 天内买回同款，亏损抵扣作废）。它和再平衡是天生一对——卖亏损股既能省税、又能把比例调回，一举两得。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你现在的组合，距离你当初设定的比例，偏了多少？打开账户看一眼：股票现在占几成？如果已经超过 65%，你其实是"被动满仓"在扛风险，而不是"主动选择"这个敞口。模块一最该带走的认知：<strong>再平衡不是玄学，是"把方向盘拧回原处"的纪律</strong>——它不要求你猜对行情，只要求你守住原计划。</p>
+</div>
+
+<p class="guide">阈值带宽怎么设，才不折腾</p>
+<div class="chips">
+  <label class="chip" for="c-threshold">阈值怎么设才不折腾</label>
+</div>
+
+<h2 id="sec2">二、政策深水区</h2>
+<p class="guide">触发机制的具体规则、成本账、和频率怎么选——再平衡不是"想调就调"</p>
+
+<div class="card">
+<p><span class="key">阈值的三种写法</span></p>
+<ul>
+<li><span class="key">百分比带宽（最常用）</span>：战略 60/40 → 容忍带 55%–65%，单边 ±5%。偏离即触发。简单直观，适合大多数账户。</li>
+<li><span class="key">绝对金额带宽</span>：股票市值偏离目标值超过 X 万才动（比如偏超 50 万才调）。适合大账户，过滤小波动，避免为芝麻大的偏差频繁交费。</li>
+<li><span class="key">相对波动带宽（进阶）</span>：用组合波动率动态调整带宽——波动大的年份放宽到 ±8%，波动小的年份收窄到 ±3%。更精细，但需要数据支持。</li>
+</ul>
+</div>
+
+<div class="block">
+<p><span class="key">触发后的动作清单（怎么操作）</span></p>
+<ul>
+<li>先算"调多少"：目标股票金额 = 总资产 × 60%。当前股票金额 − 目标 = 需卖出（或买入）的金额；</li>
+<li>先卖后买，或用新增现金流补：有工资 / 分红流入时，优先用"新钱"买债券补回，而不是卖掉涨多的股票——省税；</li>
+<li>设"冷静期"：触发后不立刻全调，分 2–3 次在两周内完成，平滑冲击成本和买卖价差。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">成本账——再平衡不是免费的</span></p>
+<ul>
+<li><span class="key">交易费 / 点差</span>：每调一次都有摩擦成本；</li>
+<li><span class="key">税负</span>：卖出增值资产可能产生资本利得税（税损收割可部分对冲，见弹窗）；</li>
+<li><span class="key">机会成本</span>：牛市里反复卖股票，等于提前下车，少赚后半段涨幅（见模块五风险盲区）。</li>
+</ul>
+</div>
+
+<div class="block">
+<p><span class="key">频率选择——日历还是阈值？</span></p>
+<ul>
+<li><span class="key">纯日历（季度 / 年度）</span>：简单、可预期，但可能在"刚漂一点点"时也硬调，白交费；</li>
+<li><span class="key">纯阈值（±5%）</span>：只在真的偏了才动，省费，但可能很久不触发（市场横盘），或连续触发（震荡市）反复交费；</li>
+<li><span class="key">实务组合</span>："日历打底 + 阈值兜底"——每年至少调一次，期间若漂超 ±5% 也调。大多数家办和稳健账户的默认解。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果市场连续三个月震荡，你的组合在 64% 和 66% 之间反复横跳，阈值 ±5% 会不会让你一个月调三次、白交一堆手续费？这时候你该把带宽放宽，还是叠加一个"冷静期"？模块二记住：<strong>再平衡的规则，要适配你的"交易摩擦"</strong>，不是越勤越好。</p>
+</div>
+
+<p class="guide">亏损持仓也能变成节税工具</p>
+<div class="chips">
+  <label class="chip" for="c-tlh">税损收割怎么落地</label>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">再平衡这把"双刃剑"，两股力量相反、互相打架——"不动"和"动太勤"都是坑</p>
+
+<div class="card">
+<p><span class="key">力量一 · 风险暴露随涨而升（"不动"的代价）</span></p>
+<p>股票涨越多，它在组合里的占比越高，你实际扛的风险（对股市的敞口）就越大。60/40 涨成 75/25，意味着你的"风险浓度"从 40% 的债券保护，降到只剩 25% 保护。一轮 20% 的股市回撤，75/25 组合亏约 15%，60/40 只亏约 12%——差出来的 3 个点，就是没再平衡的代价。</p>
+</div>
+
+<div class="block">
+<p><span class="key">力量二 · 交易成本随动而累（"动太勤"的代价）</span></p>
+<p>每调一次都有手续费 + 税。如果带宽设成 ±1%，震荡市里你可能一个月调好几次，摩擦成本吃掉大半身收益。这就是"再平衡磨损"——纪律变成了"过度交易"。</p>
+</div>
+
+<div class="card">
+<p><span class="key">两股力量打架，形成"死结"</span></p>
+<ul>
+<li>带宽设太窄（±1%）：风险控得紧，但交易磨损爆表；</li>
+<li>带宽设太宽（±15%）：磨损几乎为零，但风险暴露长期偏高，回撤时更疼；</li>
+<li>折中 ±5%：既留足"让赢家奔跑"的空间，又把风险暴露控制在可接受范围——这就是任务里 ±5% 的由来，不是拍脑袋，是"风险预算"和"成本预算"的妥协点。</li>
+</ul>
+</div>
+
+<div class="block">
+<p><span class="key">第三个角力 · 纪律 vs 预测冲动</span></p>
+<p>再平衡要求你"涨了卖、跌了买"——正好和人性相反（人爱追涨杀跌）。但如果你改成"我觉得到顶了再卖"，你就从"纪律"滑向"预测"。预测十次对三四次，纪律次次执行。模块三的核心：<strong>再平衡的价值，恰恰在于它"不要求你猜对"</strong>。</p>
+</div>
+
+<div class="card">
+<p><span class="key">结论——再平衡是"风险预算"的执行器</span></p>
+<p>它把抽象的"我要控制风险"变成具体的"比例偏了 5% 我就动"。联动关系：上接战略配置（锚在哪），下接税务成本（动一次交多少税），横接市场节奏（何时是买点卖点）。三条线在"再平衡"这个动作上交汇——这正是模块五三棱镜的入口。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：60/40漂到75/25的完整推演</h2>
+<p class="guide">把前面所有规则，装进一个真实处境里走一遍——比例漂走之后，动还是不动</p>
+
+<div class="card">
+<p><span class="key">背景</span>：某稳健型组合，战略配置股债 60/40，初始总值 1000 万（股票 600 万、债券 400 万）。赶上三年结构牛市，股票翻倍涨到 1200 万，债券基本持平在 400 万，组合总值来到 1600 万，比例变成 75/25。股票占比从 60% 漂到 75%，偏离 +15%，远超 ±5% 阈值——触发再平衡。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li>当前比例 75/25，目标 60/40，总 1600 万；</li>
+<li>目标股票 = 1600 × 60% = 960 万，需卖出股票 1200 − 960 = 240 万，买入债券 240 万；</li>
+<li>现金来源：本季度有一笔 120 万分红到账 + 卖出 120 万股票，分两次补足，避免一次性冲击。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么必须动（不动的代价）</p>
+<div class="block">
+<ul>
+<li>若不动，组合的"股性"从 60% 升到 75%，对股市回撤的敏感度提高约 25%；</li>
+<li>一旦股市回调 20%，75/25 组合净值跌约 15%，60/40 只跌约 12%——差 3 个点，就是 1600 万里的大约 48 万；</li>
+<li>更隐蔽：涨越多，你越"被动满仓"，把当初定好的风险预算全毁了。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 再平衡执行设计</p>
+<div class="card">
+<p>不急着一把梭，先改"节奏"，让再平衡合法、低成本、可复执行：</p>
+<ul>
+<li><span class="key">时点</span>：触发当季末，分两周卖 240 万股票、买 240 万债券，回到 960 / 640（60/40）；</li>
+<li><span class="key">新钱优先</span>：先用 120 万分红买债，再卖 120 万股票补，减少应税卖出；</li>
+<li><span class="key">带宽</span>：保留 ±5% 容忍带，下次漂超再动；叠加季度日历兜底。</li>
+</ul>
+</div>
+
+<p class="step">第四步 · 三年市场路径假设（含一次深度回撤）</p>
+<table>
+<tr><th>年份</th><th>股票收益</th><th>债券收益</th><th>市场情境</th></tr>
+<tr><td>第 1 年</td><td>−30%</td><td>+4%</td><td>深度回调</td></tr>
+<tr><td>第 2 年</td><td>+8%</td><td>+3%</td><td>震荡筑底</td></tr>
+<tr><td>第 3 年</td><td>+18%</td><td>+3%</td><td>温和反弹</td></tr>
+</table>
+
+<p class="step">第五步 · "不动" vs "再平衡" 三年推演对比</p>
+<table>
+<tr><th>项目</th><th>方案 A · 不动（75/25）</th><th>方案 B · 再平衡（60/40）</th></tr>
+<tr><td>触发时总值</td><td>1600 万（1200 股 / 400 债）</td><td>1600 万，调回 960 股 / 640 债</td></tr>
+<tr><td>第 1 年末总值</td><td>1256 万</td><td>1337.6 万</td></tr>
+<tr><td>第 2 年末总值</td><td>1335.7 万</td><td>1411.4 万</td></tr>
+<tr><td>第 3 年末总值</td><td>1511.8 万</td><td>1562.6 万</td></tr>
+<tr><td>最大回撤</td><td>−21.5%</td><td>−16.4%</td></tr>
+<tr><td>期末较起点</td><td>−5.5%</td><td>−2.4%</td></tr>
+<tr><td>交易 / 税负成本</td><td>0</td><td>约 0.5 万（卖出 240 万，低费率）</td></tr>
+<tr><td>风险预算占用</td><td>高（75% 股性）</td><td>回到目标（60% 股性）</td></tr>
+</table>
+<p class="muted">同一笔 1600 万，在"先涨后深度回撤再反弹"的三年里，再平衡方案期末多约 51 万（相对 +3.4%）、最大回撤少 5.1 个点。根子在于：牛市末端"卖高"、回撤里"股性低"——自动低买高卖。代价只是一次约 0.5 万的交易摩擦。但注意：在"持续单边长牛"里结论会反转（见模块五风险盲区）。</p>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　再平衡 = 把方向盘拧回原处；±5% 是风险预算与成本预算的妥协；涨越多、风险越高；税损收割能顺手省税。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　写下你的战略比例 + 带宽；画一张"不动 vs 再平衡"对比表；把税损收割写进年度清单；分清纪律再平衡与战术再平衡。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　①查当前比例偏离多少 ②设 ±5% 阈值 + 季度日历兜底 ③新钱优先补仓省税 ④年度税损收割清单 ⑤分次执行降冲击、留痕可复盘。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>打开账户，算你现在的股票占比，偏了多少？是主动选择，还是被动满仓？</li>
+<li>给你的组合设一条 ±5% 带宽，写下"触发时卖多少、买多少"的计算公式。</li>
+<li>列出你手里"亏着"的资产，能不能做一笔税损收割，同时把比例调回？</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">四种再平衡是什么：阈值 / 日历 / 战术 / 税损收割</div>
+  <div class="q"><b>核心问题：</b>你的组合现在偏离战略比例多少？是主动选择，还是被动满仓扛风险？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">政策深水区</div>
+  <div class="pos">阈值三种写法 + 成本账 + 频率选择</div>
+  <div class="q"><b>核心问题：</b>你的带宽设多宽？纯阈值，还是"日历打底 + 阈值兜底"？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">风险随涨而升 vs 成本随动而累，两股力量打架</div>
+  <div class="q"><b>核心问题：</b>你是在控风险，还是在被交易磨损吃掉收益？折中点在哪里？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">60/40 漂到 75/25 的三年完整推演</div>
+  <div class="q"><b>核心问题：</b>如果是你，触发时会用"新钱"补仓，还是"卖股票"补？为什么？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你此刻最该补哪一面？看得见盲区吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A01《资产配置框架：从战略到执行》；后续 A03《生命周期配置》、A05《CRS 与全球税务透明》（税务视角）、A06《高净值税收筹划全景》（税损收割深讲）。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A02 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-threshold" class="toggle">
+<div class="modal"><label class="backdrop" for="c-threshold"></label><div class="modal-box">
+<label class="close" for="c-threshold">&times;</label>
+<h3>阈值怎么设才不折腾</h3>
+<p>阈值再平衡的带宽，本质是"风险预算"和"成本预算"的拉锯。三种写法，各有适用。</p>
+<p class="key">百分比带宽（最常用）· 怎么操作</p>
+<div class="block">
+<p>战略 60/40 → 设 ±5% 容忍带（55%–65%）。偏离即触发。简单、直观，适合大多数账户。任务里的 ±5% 即此。</p>
+</div>
+<p class="key">绝对金额带宽 · 怎么操作</p>
+<div class="block">
+<p>股票市值偏离目标值超过 X 万才动（比如偏超 50 万才调）。适合大账户，过滤小波动，避免为芝麻大的偏差频繁交费。</p>
+</div>
+<p class="key">相对波动带宽（进阶）· 怎么操作</p>
+<div class="block">
+<p>用组合波动率动态调整带宽——波动大的年份放宽到 ±8%，波动小的年份收窄到 ±3%。更精细，但需要数据支持。</p>
+</div>
+<p>实务默认解："日历打底 + 阈值兜底"——每年至少调一次，期间漂超 ±5% 也调。带宽不是越窄越好：窄了磨损爆表，宽了风险暴露偏高，±5% 是折中而非金科玉律。</p>
+<div class="link">相关：<a href="#sec2">政策深水区（见模块二）</a> · <a href="#sec3">机制联动（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-tlh" class="toggle">
+<div class="modal"><label class="backdrop" for="c-tlh"></label><div class="modal-box">
+<label class="close" for="c-tlh">&times;</label>
+<h3>税损收割怎么落地</h3>
+<p>大白话："亏着的资产，也能帮你省税"。把你手里跌了的持仓卖掉，实现的亏损可以抵消别处的盈利，少缴资本利得税，然后马上买入"长得像、但不是同一只"的资产，保住市场敞口。</p>
+<p class="key">核心约束 · 不能买回"实质相同"的证券</p>
+<div class="block">
+<p>以美国 wash-sale 规则为例：卖出后 30 天内买回"实质相同"的证券，亏损抵扣作废。所以要用"替代标的"（如卖标普 500 指数基金，买全市场指数基金）来维持敞口。</p>
+</div>
+<p class="key">怎么操作</p>
+<div class="block">
+<ul>
+<li>年度末盘点：列出账面亏损 ≥5% 的持仓；</li>
+<li>卖出实现亏损，抵扣本年已实现的资本利得（不够抵还能抵一定额度普通收入，视 jurisdiction 而定）；</li>
+<li>同日或次日买入替代标的，保持战略比例不漂移；</li>
+<li>税损收割和再平衡可合并执行——卖亏损股再平衡、同时省税，一举两得。</li>
+</ul>
+</div>
+<div class="link">相关：<a href="#sec1">基础认知盘（见模块一）</a> · <a href="#sec5">联动疆界（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：再平衡不是孤立的"调比例"，它上接战略配置、下接税务成本、横接市场节奏。三条线怎么连、落到操作怎么做，逐一拆开。</p>
+
+<p class="key">上接战略配置 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>战略配置定"锚"（60/40），再平衡是"把锚拉回原处"的执行器。没有战略锚，再平衡就变成追涨杀跌；有锚无执行，战略只是墙上的字。操作：先写清楚战略比例，再谈触发机制。</p>
+</div>
+
+<p class="key">下接税务成本 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>每次卖出增值资产都可能触发资本利得税。操作上：①用新增现金流（工资、分红）补仓，而非卖股票，省税；②把税损收割和再平衡同日合并执行，亏的卖、比例也调了，税和比例双修。</p>
+</div>
+
+<p class="key">横接市场节奏 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>再平衡天然"高抛低吸"——牛市末端卖股、回撤里股性低。操作上：别把它当成择时，它只是"纪律自动捡便宜"。真正择时交给战术再平衡（设回归线）。</p>
+</div>
+
+<p>上接配置、下接税务、横接节奏，三条线在"再平衡"这个动作上交汇：锚在哪（上）；动一次交多少税（下）；何时是买点卖点（横）。这就是"联动疆界 → 风险盲区 → 资本运作视角"三线相扣的起点。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。再平衡最贵的代价，往往不在明面，在三个盲区。</p>
+
+<p class="key">盲区一 · 过度交易磨损</p>
+<div class="block">
+<p>带宽设太窄（±1%），震荡市里组合在临界线反复横跳，一个月调好几次，手续费 + 点差 + 税把收益啃光。纪律变成"过度交易"。</p>
+</div>
+
+<p class="key">盲区二 · 牛市过早降仓（Rebalancing Drag）</p>
+<div class="block">
+<p>持续单边长牛里，阈值再平衡会反复"卖飞"赢家——股票一涨过 65% 就卖，错过后半段涨幅。这种市况下，再平衡反而跑输"不动"。这也是模块四案例的反面：案例里是"先涨后深度回撤"，再平衡赢；若是"涨了不回头"，再平衡输。</p>
+</div>
+
+<p class="key">盲区三 · 阈值设太宽，风险暴露长期偏高</p>
+<div class="block">
+<p>带宽放宽到 ±15%，磨损几乎为零，但组合的"股性"长期偏高，回撤时更疼——把战略定好的风险预算悄悄毁了。</p>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>再平衡的规则，要适配你的"交易摩擦"和"市场环境"</strong>，不是越勤越好、也不是越宽越好。±5% 是折中，不是金科玉律。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec2">政策深水区（见模块二）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把再平衡从"调比例"重新看成"资本纪律的一环"，你会发现它的价值不在预测，而在"不预测也能做对"。</p>
+
+<p class="key">再平衡是纪律，不是预测</p>
+<div class="block">
+<p>它不要求你猜顶底，只要求你"偏了 5% 就动"。预测十次对三四次，纪律次次执行。高手看再平衡，看的是"规则是否被执行"，不是"这次是不是卖在最高点"。</p>
+</div>
+
+<p class="key">自动低买高卖</p>
+<div class="block">
+<p>涨多了卖、跌多了买——正好逆人性，但长期复利惊人。模块四那 51 万的差额，不是谁"猜对了"，是规则自动捡的便宜。</p>
+</div>
+
+<p class="key">把情绪外包给规则</p>
+<div class="block">
+<p>追涨杀跌是人性的坑。再平衡把"什么时候卖、买什么"外包给一条 ±5% 的线，等于给自己装了个"反人性制动阀"。真正的资本运作能力，是让规则替你做艰难决定。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（管得住手）。三者合一，才是"再平衡"这件事的完整认知。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">案例（见模块四）</a></div>
+</div></div>
+
+</body>
+</html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A01 资产配置框架：从战略到执行</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A01</div>
+  <h1>资产配置框架：从战略到执行</h1>
+  <div class="tagrow">
+    <span class="tag">Asset Allocation</span><span class="tag">SAA / TAA</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+一个人手里有一个亿，另一个人手里有同样一个亿——十年后，一个富得从容，一个慌得四处借钱。差距往往不在"买了哪只牛股"，而在"钱是怎么分布的"。把鸡蛋放在不同篮子里只是第一步，真正拉开差距的，是一套从战略到底层的配置纪律：先定长期方向，再抓阶段性机会，最后用再平衡把纪律钉死。本文把它拆成一条能落地的执行链。
+</div>
+
+<div class="framework">
+<b>长期收益 ≈ 90% 由资产配置决定</b><br>
+战略定方向（SAA）× 战术抓机会（TAA）× 再平衡守纪律，三者缺一不可——配置不是"买什么"，是"怎么管理资本"。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先把三个主角和四件工具认全，别急着操作，先搞清它们各自是什么</p>
+
+<div class="card">
+<p><span class="key">战略资产配置 SAA（Strategic Asset Allocation）</span>：用大白话讲，就是"我这一辈子大致该怎么分钱"的长期蓝图。好比你决定家庭饮食以五谷为主、肉蛋为辅、蔬果点缀——这个比例定了，平时基本不动。它回答的是：股票占多少、债券占多少、另类（黄金、房产、私募等）占多少，依据是你的目标、期限和风险承受能力，通常一年才复盘一次。</p>
+<p><span class="key">战术资产配置 TAA（Tactical Asset Allocation）</span>：在 SAA 的大蓝图里，允许小幅"临时偏离"。好比主食定了五谷为主，但最近杂粮便宜、白米贵，你这季度多吃点杂粮——方向不变，抓个短期便宜。TAA 就是在严格区间内（如 ±5%）临时超配被低估的资产、低配被高估的资产。</p>
+<p><span class="key">再平衡（Rebalancing）</span>：最反人性的动作。股票涨多了，它在组合里的占比就从 40% 涨到 55%，这时你要"卖点股票、买回债券"，把比例拉回 40:30:30。本质是机械地"高抛低吸"，把纪律变成自动执行的动作，而不是靠感觉。</p>
+</div>
+
+<div class="block">
+<p><span class="key">四件核心工具，先各用一句话认脸</span></p>
+<ul>
+<li><span class="key">核心-卫星策略（Core-Satellite）</span>：把大部分钱（核心）放在低成本、宽基、被动的指数上"稳拿市场平均"，只拿小部分（卫星）去做主动的、有想法的下注。核心保底，卫星博超额。</li>
+<li><span class="key">风险预算（Risk Budgeting）</span>：不按"砸了多少钱"分任务，而按"能承受多少波动"分任务。股票可能只占 40% 的本金，却吃掉 70% 的风险额度——风险预算就是把这件事算清楚、管起来。</li>
+<li><span class="key">有效前沿（Efficient Frontier）</span>：在"同样风险下收益最高、同样收益下风险最低"的那条曲线上选组合。它告诉你：别在又低收益又高风险的垃圾区里待着。</li>
+<li><span class="key">Brinson 研究"90%"</span>：1986 年 Brinson、Hood、Beebower 在《金融分析师期刊》的研究指出，组合收益的长期波动，约 90% 由"资产配置"这个决策解释，而非择时或选股。一句话——分钱的方式，比挑哪只股票重要得多。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你名下的可投资资产，今天有"长期蓝图比例"吗？还是哪天听到谁说某产品好就加一点、哪天慌了就赎一点？模块一最该带走的认知：<strong>配置的第一步不是选标的，是先有一张写下来的 SAA 比例表</strong>。没有这张表，后面所有的"操作"都是随波逐流。</p>
+</div>
+
+<h2 id="sec2">二、工具深水区</h2>
+<p class="guide">SAA 不是拍脑袋，是用预期收益、波动、相关性三张表算出来的；下手前还要过政策的门槛</p>
+
+<div class="card">
+<p><span class="key">三张表决定一个组合长什么样</span></p>
+<p><b>① 预期收益表</b>：每类资产未来大概能赚多少。股票长期约 7%–9%，高等级债券约 3%–4%，黄金长期约 3%–5%（主要是保值+对冲），REITs 约 5%–7%。注意这是"长期均值"，不是某年承诺。</p>
+<p><b>② 波动表（风险）</b>：股票年波动约 15%–20%，债券约 3%–5%，黄金约 15%，另类（含私募、对冲）差异大。波动不是坏事，但要知道它多大。</p>
+<p><b>③ 相关性表</b>：这是配置的灵魂。股和债常常"你跌我涨"（相关性为负），黄金和股相关性低。把低相关的资产拼在一起，总波动会小于各自波动的简单相加——这就是分散的魔法，也是有效前沿存在的原因。</p>
+<p class="muted">怎么操作：先列出你能投的每类资产的"预期收益/波动/与别的资产相关性"，再在有效前沿上挑一个你睡得着觉的点，把它翻译成 40:30:30 之类的比例，这就是你的 SAA。</p>
+</div>
+
+<div class="block">
+<p><span class="key">核心-卫星怎么落比例</span></p>
+<p>以股票这 40% 为例：你可以把其中 25–30 个百分点（占全组合）放进宽基指数 ETF（沪深300、标普500、恒生科技等）作为"核心"，只留 10–15 个百分点做"卫星"——比如行业基金、你看好的个股、或战术性主题。债券 30% 里，核心放利率债+高等级信用债，卫星放"固收+"（带一点权益增厚）。另类 30% 里，核心放黄金+REITs，卫星放合格投资者才能进的私募股权、对冲基金。</p>
+<p class="muted">怎么操作：画出"核心/卫星"两栏，每一类资产标上它属于核心还是卫星、占全组合几个百分点，确保核心占比≥60%，卫星≤40%，纪律才不会变形。</p>
+</div>
+
+<div class="card">
+<p><span class="key">政策门槛：不是想买就能买，先过合格投资者这一关</span></p>
+<p>2018 年 4 月 27 日，中国人民银行、银保监会、证监会、外汇局联合发布《关于规范金融机构资产管理业务的指导意见》（银发〔2018〕106号，业内称"资管新规"），2022 年 1 月 1 日全面落地。它干了两件和配置直接相关的事：</p>
+<ul>
+<li><span class="key">打破刚兑、产品净值化</span>：过去"银行理财稳赚 4%"的幻觉被打破，理财也会破净（2022 年债市调整时大量 R2/R3 产品就曾阶段性亏损）。这意味着"只买理财"本身也是带波动的风险暴露，不算无风险。</li>
+<li><span class="key">合格投资者标准</span>：想买私募、股权、高门槛产品，需具 2 年以上投资经历，且满足以下之一——家庭金融净资产≥300 万元，或家庭金融资产≥500 万元，或近 3 年本人年均收入≥40 万元；单只产品起投线：固定收益类≥30 万、混合类≥40 万、权益类≥100 万、商品及金融衍生品≥100 万。这条直接框定了你能不能进"另类 30%"里的私募部分。</li>
+</ul>
+<p class="muted">政策出处：资管新规（银发〔2018〕106号）；公募 REITs 试点依据为证监会、发改委《关于推进基础设施领域不动产投资信托基金（REITs）试点工作的通知》（证监发〔2020〕40号）。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你账户里那些"以为稳赚"的银行理财，真的零波动吗？资管新规后它们也是净值化产品。模块二想逼你认清：<strong>所谓"安全资产"只是波动小，不是没波动；而"高门槛资产"要先把合格投资者资格备齐，否则 30% 另类那一层你根本进不去</strong>。先查自己够不够门槛，再谈比例。</p>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">SAA 要你"别动"，TAA 要你"动点"，再平衡要你"逆着人性动"——三条纪律会互相打架，形成死结</p>
+
+<div class="card">
+<p><span class="key">第一股力：战略纪律要求"长期不动"</span></p>
+<p>SAA 的逻辑是：市场短期噪音多，频繁动反而亏在手续费和情绪上。所以战略层要求你"定了比例就拿着，一年才复盘一次"。这是反投机、反焦虑的定力。</p>
+</div>
+
+<div class="block">
+<p><span class="key">第二股力：战术灵活要求"该动就动"</span></p>
+<p>TAA 的逻辑恰恰相反：当某类资产明显被错杀或过热，死守比例就是浪费机会。它要求你在 ±5% 的带宽里"主动偏离"，比如股市恐慌时临时超配股票 5 个百分点。这是抓阿尔法的敏锐。</p>
+</div>
+
+<div class="card">
+<p><span class="key">两股力打架：带宽就是缓冲垫，但也是战场</span></p>
+<p>矛盾点在于：纪律说"别动"，敏锐说"快动"。解决之道是给 TAA 套上"紧身衣"——只允许在 SAA 目标 ±5% 内偏离，且必须设回归 trigger（比如偏离达到 3% 就启动、5% 封顶）。没有带宽约束，TAA 会越界成投机；带宽太窄，TAA 又失去意义。这条线划在哪，是配置功力的分水岭。</p>
+</div>
+
+<div class="block">
+<p><span class="key">第三股力：再平衡要求"逆人性动"，把前两股力钉死</span></p>
+<p>更要命的是再平衡：股票涨疯了，你账户红了，心情极佳——这时纪律却让你"卖股票买债券"。人性想追涨，纪律让你减仓；人性想止损，纪律让你加仓（跌多了买回）。再平衡就是用机械动作，把"战略别动"和"战术小动"统一收口到原始比例上。</p>
+</div>
+
+<div class="card">
+<p><span class="key">死结的本质：三力合一才是闭环</span></p>
+<p>于是出现一个真实困境：不动怕错失（TAA 喊你动），动又怕乱动（SAA 喊你别动），真动了还怕逆人性下不去手（再平衡喊你反向操作）。破局不在"选哪一股力"，而在把三者写成同一份可执行的规则：SAA 定锚 → TAA 在带宽内微调 → 再平衡定期把锚拉回。三股力不打架时，组合才是活的。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>回想你上次"追涨杀跌"：是不是因为既没有 SAA 当锚，也没有再平衡当刹车？模块三想让你承认：<strong>大多数人的亏损，不是不懂资产，而是三股力里只听"人性"那一股</strong>。你今天愿意把"什么时候必须卖、什么时候必须买"提前写进规则吗？</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：一个家庭的配置改造推演</h2>
+<p class="guide">把前面所有概念，装进一个真实处境里，走一遍五步</p>
+
+<div class="card">
+<p><span class="key">背景</span>：某高净值家庭，夫妻两人，可投资金融资产合计 5000 万元，另有投资性房产一处（估值 1500 万，年租金回报仅约 1.5%，流动性极差）。改造前，金融资产几乎全压在银行理财（4000 万，约 4% 预期）与活期（1000 万），零股票、零债券、零另类——典型"只买理财/房产"。痛点：收益跑不赢通胀、房产一处占净资产近 23% 形成集中度风险、2022 年理财破净时账面一度浮亏。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">资产结构</span>：金融 5000 万中，理财 80%、活期 20%；房产 1500 万单列。整体"股权型收益引擎"缺失。</li>
+<li><span class="key">风险画像</span>：能承受中等波动（可接受年度最大回撤 ≤12%），投资期限 10 年以上，目标含子女教育、养老、跨周期保值。</li>
+<li><span class="key">约束</span>：家庭金融净资产远超 300 万，已符合私募/股权等合格投资者门槛，可进"另类 30%"的私募层；但房产流动性锁死，需靠金融资产内部解决再平衡。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么原来卡住</p>
+<div class="block">
+<ul>
+<li><span class="key">收益塌陷</span>：理财 4% 看似不低，但计入房产低租金后，整体年化仅约 3.2%，而同期通胀约 3%——实际收益逼近零，十年下来购买力原地踏步。</li>
+<li><span class="key">集中度风险</span>：单一房产占净资产近 23%，且零流动；一旦需用钱，只能折价急售或抵押，丧失主动权。</li>
+<li><span class="key">无再平衡可言</span>：全是同质化低波动资产，涨跌幅同步，既没有"高抛低吸"的对象，也没有跨资产的对冲——波动小，但成长也小。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 配置结构设计（SAA 落地为 4:3:3）</p>
+<div class="card">
+<p>依据 Brinson 思路，把"分钱方式"作为第一决策。按风险预算反推：家庭可承受约 8%–9% 组合波动，据此设 SAA 目标为 <span class="num">股 40% : 债 30% : 另类 30%</span>（基于 5000 万金融资产）：</p>
+<ul>
+<li><span class="key">股 40%（2000 万）</span>：核心 25%（宽基指数 ETF：沪深300+标普500+恒生科技）＋卫星 15%（行业基金、个股、港股通/ QDII 战术仓）。</li>
+<li><span class="key">债 30%（1500 万）</span>：核心 22%（利率债+高等级信用债）＋卫星 8%（固收+，带少量权益增厚）。</li>
+<li><span class="key">另类 30%（1500 万）</span>：核心 18%（黄金 10%＋公募 REITs 8%）＋卫星 12%（合格投资者层：私募股权、CTA 对冲）。</li>
+</ul>
+<p class="muted">风险预算校验：股票占本金 40%，却贡献约 70% 的总波动；债券 30% 本金仅贡献约 15% 波动；另类 30% 贡献约 15%。用"风险贡献"而非"本金占比"复核，确认没有哪一类在无意识中独吞风险。</p>
+</div>
+
+<p class="step">第四步 · 执行路径（18 个月分批建仓）</p>
+<div class="block">
+<ul>
+<li><b>第 0–2 月</b>：把 1000 万活期与部分到期理财转入货币+短债作为"缓冲层"，同时开立证券、港股通、QDII 账户，完成合格投资者适当性双录。</li>
+<li><b>第 3–8 月</b>：按核心优先原则先建"核心"仓——宽基指数 ETF（股核心）、利率债/高等级信用债（债核心）、黄金 ETF（另类核心），避免在卫星上过早下注。</li>
+<li><b>第 9–14 月</b>：分批建卫星仓：固收+、行业基金、REITs、及符合条件的私募股权/CTA，单月建仓不超过总计划 10%，摊平时点风险。</li>
+<li><b>第 15–18 月</b>：设再平衡规则——每年 6 月、12 月各检视一次；任一类资产偏离目标 ±5% 即触发临时再平衡（如股涨超 45% 则卖股买债拉回 40%）。</li>
+</ul>
+</div>
+
+<p class="step">第五步 · 前后对比数字推导</p>
+<div class="card">
+<p><span class="key">组合预期收益与波动的算法（基于三张表）</span></p>
+<p>设各类预期收益：股 8%、债 4%、另类 6%；波动：股 18%、债 4%、另类 8%；相关性假设：股-债 −0.2、股-另类 0.3、债-另类 0.1。组合预期收益 = 0.4×8% + 0.3×4% + 0.3×6% = <span class="num">6.2%</span>。</p>
+<p>组合方差 ≈ 0.4²×0.18² + 0.3²×0.04² + 0.3²×0.08² + 2×0.4×0.3×0.18×0.04×(−0.2) + 2×0.4×0.3×0.18×0.08×0.3 + 2×0.3×0.3×0.04×0.08×0.1 ≈ 0.00665，标准差 ≈ <span class="num">8.2%</span>。即在约 8% 波动下拿到 6.2% 收益——落在有效前沿上。</p>
+</div>
+<table>
+<tr><th>指标</th><th>改造前（只理财+房产）</th><th>改造后（4:3:3 框架）</th></tr>
+<tr><td>组合预期年化收益</td><td>约 3.2%（含房产低租金摊薄）</td><td><b>约 6.2%</b></td></tr>
+<tr><td>组合年化波动</td><td>约 2%（但无成长、同质化）</td><td>约 8.2%（跨资产对冲后）</td></tr>
+<tr><td>最大单一资产集中度</td><td>房产占净资产近 23%、理财占金融 80%</td><td>单类资产 ≤40%，房产占比降至约 19%</td></tr>
+<tr><td>1000 万本金 5 年复利</td><td>1000×(1.032)^5 ≈ 1171 万</td><td>1000×(1.062)^5 ≈ 1351 万</td></tr>
+<tr><td>抗通胀能力（通胀 3%）</td><td>实际收益约 0.2%，近乎持平</td><td>实际收益约 3.2%</td></tr>
+<tr><td>再平衡与流动性</td><td>无从再平衡、房产锁死</td><td>股债可再平衡、另类分层、现金缓冲</td></tr>
+</table>
+<p class="muted">仅以 5000 万金融本金、5 年计：改造前约增值至 5855 万，改造后约增值至 6755 万，差额约 <span class="num">900 万</span>；若把时间拉长到 10 年、复利效应叠加，差距将扩大至约 2000 万以上。这 900 万–2000 万的差距，不是来自某只牛股，而是来自"分钱方式"本身——正是 Brinson 那 90% 的注脚。</p>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果你家也是"理财+房产"为主，先别急着抄 4:3:3 这个比例。模块四想让你先算清两笔账：<strong>你当前组合的"预期收益"跑不跑得过 3% 通胀？最大单一资产集中度是多少</strong>？比例可以因人而异，但"先算账、再定比例"这套动作，才是这个案例真正能搬走的东西。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>三棱镜三扇窗，你此刻最该推开哪一扇？模块五想让你诚实：多数人"联动疆界"看得挺欢（什么都能连），却对"风险盲区"视而不见（只看收益不看风险预算）。<strong>先承认自己哪面镜子是盲的，再去点开上面的弹窗</strong>——缺哪面补哪面，比三扇全看一遍更有效。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　先承认：收益主要不是靠选股，是靠"分钱"。记住 SAA 定锚、TAA 微调、再平衡收口这三股力；记住 Brinson 的 90%——配置方式比标的更重要。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　给自己写一张 SAA 比例表（如 4:3:3），分清核心/卫星，按风险预算复核每一类贡献多少波动；用案例里的三张表（收益/波动/相关性）算一遍自己的有效前沿落点。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　①先过合格投资者门槛，备齐适当性材料 ②分批建仓先核心后卫星 ③设再平衡规则（年两次＋±5% 触发）④房产等锁死资产单列管理，不并入再平衡 ⑤每年复盘一次 SAA，不轻易改锚。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>给自己写一张 SAA 比例表，标清核心/卫星，并算出单类资产最大占比是否 ≤40%。</li>
+<li>用"收益/波动/相关性"三张表，估算你当前组合的预期收益与波动，看它落在有效前沿的哪个位置。</li>
+<li>翻出你名下的理财与房产：整体预期收益跑得过 3% 通胀吗？最大单一资产集中度是多少？</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>三层进阶里，你卡在哪一阶？模块六收尾想逼你落地：<strong>别停在"看懂"——今天就能做的最小一步是什么</strong>？也许只是把活期里闲置的钱，划出一笔作为"核心股仓"的建仓准备金；也许只是写下那张 4:3:3 比例表。看懂一千篇，不如动手改一个百分点。</p>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">SAA / TAA / 再平衡，以及核心-卫星、风险预算、有效前沿、Brinson 90%</div>
+  <div class="q"><b>核心问题：</b>你名下资产，今天有一张写下来的长期比例表吗？还是随感觉加减？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">工具深水区</div>
+  <div class="pos">收益/波动/相关性三张表 + 合格投资者门槛</div>
+  <div class="q"><b>核心问题：</b>你那些"稳赚理财"真的零波动吗？买另类前，合格投资者门槛够了吗？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">战略"别动" vs 战术"动点" vs 再平衡"逆人性动"</div>
+  <div class="q"><b>核心问题：</b>三股力里，你过去只听了"人性"那一股吗？怎么把三者写成同一份规则？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">一个家庭 4:3:3 改造的五步推演与前后数字表</div>
+  <div class="q"><b>核心问题：</b>如果是你，从"只理财+房产"到 4:3:3，第一步该先动哪一块？房产怎么处理？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你最该补哪一面？看得见联动，却看不见风险盲区吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A06《高净值税收筹划全景》（配置与税基联动）；后续 A02《再平衡的艺术》、A03《生命周期配置》、A04《全球配置》（战术与跨市场深讲）。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A01 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：资产配置不是孤岛里的"分钱游戏"，它上接税务筹划、下接具体标的、横接生命周期。三条线怎么连、落到操作上怎么做，逐一拆开。</p>
+
+<p class="key">上接税务筹划 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>配置比例直接影响税负结构：利息、股息、资本利得的税率不同，持有主体（个人/公司/信托）也改写整笔税。操作上：</p>
+<ul>
+<li>把"长期不卖、吃分红"的资产（如高股息股、REITs）放进税收友好的持有主体，用时间换免税空间；</li>
+<li>把"频繁交易、博价差"的部分控制规模，避免把短期利得反复暴露在 20% 资本利得口径下；</li>
+<li>跨市场配置时，提前布局开户地与持有架构，让"配置决策"和"税务决策"在同一张蓝图里对齐，而非事后补救。</li>
+</ul>
+</div>
+
+<p class="key">下接具体标的 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>SAA 给的是比例，落到动作才是标的。操作：</p>
+<ul>
+<li>核心层先选"宽基、低成本、被动"的载体（如 ETF、指数基金），不赌单个名字；</li>
+<li>卫星层再挑具体行业基金、个股、私募，且单只标的占全组合不超过 5%，防止"卫星"反客为主变成集中赌注；</li>
+<li>每买一个标的，先问它"归在核心还是卫星、占几个百分点"——没有归属的标的，不买。</li>
+</ul>
+</div>
+
+<p class="key">横接生命周期 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>青年期（长周期、能承受波动）：股的比例可上探，卫星空间更大；</li>
+<li>中年（责任最重）：用风险预算把波动锁在可承受带，核心占比提高；</li>
+<li>临近退休：逐步把卫星兑现回核心与债券，降低再平衡幅度。</li>
+<li>实操中，每隔几年用"生命周期"重校一次 SAA 锚点，让配置跟着人生阶段走，而不是一成不变。</li>
+</ul>
+</div>
+
+<p>上接税筹、下接标的、横接生命周期，三条线在"配置"这个动作上交汇：税筹框定持有结构（上）；比例翻译成具体标的（下）；阶段决定锚点高低（横）。这就是"联动疆界 → 风险盲区 → 资本运作视角"三线相扣的起点。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec2">工具深水区（见模块二）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。资产配置最贵的失误，往往不在明面，在三个盲区。</p>
+
+<p class="key">盲区一 · 只看收益、不看风险预算</p>
+<div class="block">
+<ul>
+<li>很多人定比例时只问"哪类赚得多"，把股票配到 60%、70%，却没算过波动——结果遇到 20% 回撤就睡不着、慌忙割肉；</li>
+<li>风险预算要求先问"我能承受多少波动"，再反推比例，而不是反过来；</li>
+<li>案例里家庭能承受约 8%–9% 波动，才定出 4:3:3；若硬上 7:2:1，波动会突破承受带，纪律必然崩。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 过度集中，名义分散实则同质</p>
+<div class="block">
+<p>"我分散了呀，买了五只理财、三只基金"——但五只理财底层都是同质化债券资产，涨跌幅同步，分散了个寂寞。真正的分散看"相关性"：股、债、黄金、另类要低相关甚至负相关，才算分散。房产占净资产近 23% 且零流动，也是隐蔽的集中度风险。</p>
+</div>
+
+<p class="key">盲区三 · 再平衡"下不去手"</p>
+<div class="block">
+<ul>
+<li>股票涨到 55% 该卖，你舍不得——因为账户红了心情好，人性想追；</li>
+<li>股票跌到 30% 该买，你不敢——因为恐慌，人性想逃；</li>
+<li>于是再平衡从"纪律"退化成"看心情"，SAA 锚点慢慢漂移成"满仓追涨"或"空仓踏空"。</li>
+<li>破解：把再平衡写成硬规则（年两次＋±5% 触发），用机制代替意志，不给自己临场决策的机会。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>配置的风险，一半在"比例算错"，一半在"执行变形"</strong>。你能设计的，是前者；能靠规则兜住的，是后者。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec3">机制联动（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把"配置"从"把钱存好"重新看成"主动管理资本"——你会发现配置是一种资本运作能力，而非被动储蓄。</p>
+
+<p class="key">配置即主动管理资本</p>
+<div class="block">
+<p>被动存钱的逻辑是：有钱就买理财，等用再取。主动配置的逻辑是：先定义目标与风险，再把资本按"战略蓝图"分布到不同收益引擎与对冲器上，让钱在不同周期、不同市场、不同相关性之间互相支撑。前者是"积累"，后者是"调度"。</p>
+</div>
+
+<p class="key">再平衡是"低买高卖"的机械化表达</p>
+<div class="block">
+<ul>
+<li>市场狂热、股票占比超标 → 自动卖股买债，把便宜的债买回来；</li>
+<li>市场恐慌、股票占比跌破 → 自动卖债买股，捡便宜筹码；</li>
+<li>这一步不需要判断"底在哪里"，只需要回到锚点——把择时难题，转化成"回到比例"的简单动作。</li>
+</ul>
+</div>
+
+<p class="key">框架是"资本运作的骨架"</p>
+<div class="block">
+<p>一个家庭从"只理财+房产"到 4:3:3，省下的不是某笔交易费，而是用框架把资本从"沉睡的同质资产"唤醒成"跨周期调度的活水"。Brinson 的 90% 揭示的正是：长期拉开差距的，是这套骨架，不是单笔神操作。能在框架里把资本调度得从容的，才是资本运作能力。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（管得住资本）。三者合一，才是"资产配置框架"这件事的完整认知。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">案例（见模块四）</a></div>
+</div></div>
+
+</body>
+</html>

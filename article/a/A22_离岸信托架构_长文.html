@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A22 离岸信托架构：开曼/新加坡/香港怎么选</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A22</div>
+  <h1>离岸信托架构：开曼/新加坡/香港怎么选</h1>
+  <div class="tagrow">
+    <span class="tag">Offshore Trust</span><span class="tag">Jurisdiction</span><span class="tag">Compliance</span>
+  </div>
+</div>
+
+<div class="lead">
+一家控股公司账面持股价值数亿，实控人想把股权"安全"地传给下一代，又不想在代际之间被迫变现、被迫交一大笔税、或被未来的债权人追及。这时候很多人会问：信托放哪儿？开曼、新加坡、还是香港？听起来像"选个地方注册"，其实是选一套法律、一套税务透明规则、一套控制权安排。选错，不是多花点钱的事，是资产保护和传承目标一起落空。
+</div>
+
+<div class="framework">
+<b>信托地 ≠ 注册地，是法律属地 + 税务透明规则 + 控制权安排的三重选择</b><br>
+开曼讲"灵活与永续"，新加坡讲"实质与免税身份"，香港讲"近岸与熟悉"。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先搞清"离岸信托"到底是把资产装进了什么</p>
+
+<div class="card">
+<p><span class="key">信托（大白话）</span>：把资产交给一个独立的"法律主体"（受托人，通常是持牌信托公司）按你立下的契约去管理，收益给契约里指定的人（受益人）。大白话：你有一栋楼，你把它"托管"给一个专业管家（受托人），约定"租金的 70% 给儿子、30% 给女儿上学用"，管家照办。楼的法律主人变成了"管家 + 信托"，不再是你的私产——这正是它的力量，也是它的约束。</p>
+<p><span class="key">离岸信托</span>：在"非你居住地"的法域设立、适用当地信托法的信托。举例：一家中国背景的家族，把开曼控股公司的股权交给开曼的信托公司持有，适用开曼信托法——这就是一笔离岸信托。</p>
+<p><span class="key">四个角色</span>：设立信托、出资产的人叫<span class="key">委托人</span>；管资产的人叫<span class="key">受托人</span>；拿收益的人叫<span class="key">受益人</span>；监督受托人、在某些事项上点头的人叫<span class="key">保护人</span>。这四个角色怎么分权，是判断"谁在控制"的关键。</p>
+</div>
+
+<div class="block">
+<p><span class="key">三地信托法的"关键词"各不同</span></p>
+<ul>
+<li><span class="key">永久存续</span>：传统信托有"永续期"，到期必须把资产分掉（英国规则最多 125 年）。开曼 STAR、新加坡、香港都已废除或允许永续——资产可以"一代代传、不强制分配"，这是传承的底层前提。</li>
+<li><span class="key">资产保护</span>：信托设立后，资产法律所有权归受托人，委托人不再拥有。合法设立、设立时未欠债，一般债权人追不到（但要避免"虚假转让"——设立时已经负债还去转，会被法庭推翻）。</li>
+<li><span class="key">固定权益 vs 全权信托</span>：固定权益 = 受益人权利写死，受托人必须按约定分；全权信托 = 受托人有权"酌情"分多少、分给谁。全权信托灵活，但受益人权利弱。</li>
+<li><span class="key">STAR 信托（开曼特有）</span>：可以"没有受益人"、只为某个"目的"设信托（比如"持有并增值这家公司"），由一个"执行人"(enforcer) 监督受托人。这是开曼最特别的发明。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你（或你服务的家族）设信托，真正要的是"隔离债权人"，还是"传给下一代不交税"，还是"我还能说了算"？这三件事在三地法律里的优先级完全不同。模块一最该带走的认知：离岸信托不是"注册地选个便宜的"，是选一套"谁能控制、传给谁、债权人能不能追"的法律框架。</p>
+</div>
+
+<h2 id="sec2">二、政策深水区</h2>
+<p class="guide">三地信托法、CRS、经济实质，是选地之前必须过的三道门槛</p>
+
+<div class="card">
+<p><span class="key">开曼（Cayman）</span>：1997 年《Special Trusts (Alternative Regime) Act》（STAR Act）确立 STAR 信托；无企业所得税、无资本利得税；2017 年修法允许信托永久存续。适合"控股实体 + 上市前架构"。</p>
+<p><span class="key">新加坡（Singapore）</span>：《Trustees Act》允许永续；家族办公室可享《Income Tax Act》第 13O / 13U 条境外来源收入免税优惠（原 13R / 13X）；13O 须在新加坡设立家办、满足资产规模（现 ≥ 2000 万新币，且 2 年内达标）、本地雇佣与投资等"实质"要求。</p>
+<p><span class="key">香港（Hong Kong）</span>：《Trustee Ordinance》(Cap. 29)，2013 年修订废除永续期限制，允许永久存续；地域来源征税，信托持有境外资产取得的股息、处置收益，只要非香港境内产生，一般不在港课税；无资本利得税。离内地近、普通法、语言文化熟悉。</p>
+</div>
+
+<div class="block">
+<p><span class="key">CRS 透明申报——信托"藏不住"</span></p>
+<ul>
+<li>CRS（共同申报准则，OECD 制定）下，开曼、新加坡、香港都是参与区，金融机构须识别信托的"实际控制人"（委托人 / 保护人 / 受益人 / 控制性受托人）并申报其账户信息，交换回其税务居民所在国。</li>
+<li>中国实施：国家税务总局等六部门《非居民金融账户涉税信息尽职调查管理办法》（2017 年 7 月 1 日实施，公告 2017 年第 14 号）。换言之，中国税务居民在上述三地设的信托，信息会回到中国税务机关。</li>
+<li>关键认知：离岸信托是"资产隔离 + 代际安排"的工具，不是"隐匿资产"的黑洞。透明是前提，合规是底线。</li>
+</ul>
+</div>
+
+<div class="block">
+<p><span class="key">经济实质——"空壳"不行</span></p>
+<ul>
+<li>开曼《International Tax Co-operation (Economic Substance) Act 2018》等法规要求：从事相关活动（如控股、基金管理）的实体须在当地有"实质"（足够员工、开支、决策地）。</li>
+<li>落到操作：光在开曼挂个名、没有实质的纯持股公司，会触发合规风险；需配注册代理、年度经济实质申报。</li>
+</ul>
+</div>
+
+<p class="guide">三地信托法核心差异（点开看）</p>
+<div class="chips">
+  <label class="chip" for="c-law">三地信托法核心差异</label>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>假设你在开曼设了 STAR 信托持有控股公司——CRS 下，你和受益人的信息会回中国税务机关；经济实质下，这家控股公司得在开曼有"实质"。那么"选开曼"省下的，是注册费，还是本该交的税？想清楚：三地真正差的是"法律规则与身份"，不是"能不能避税"。</p>
+</div>
+
+<h2 id="sec3">三、机制联动</h2>
+<p class="guide">资产保护 与 控制灵活，是同一笔信托里两条方向相反的力量</p>
+
+<div class="card">
+<p><span class="key">资产保护：要"真放手"</span></p>
+<p>信托能隔离债权人，前提是委托人"真的"把资产转让给受托人，自己不再控制。大白话：你敢不敢把楼的法律主人换成"管家"，自己只当"出主意的人"？敢，隔离才成立。设立时已经负债还去转，会被认定为"虚假转让"，隔离当场不成立。</p>
+</div>
+
+<div class="block">
+<p><span class="key">控制灵活：要"留把手"</span></p>
+<p>但家族还想保留投资决策权、分配决定权、甚至换受托人的权力——方便自己运作、也防受托人乱来。大白话：你既想让管家当法律主人（隔离），又想大事小情还是你拍板（控制）。</p>
+</div>
+
+<div class="card">
+<p><span class="key">两条路相反，还会打架</span></p>
+<p>你保留的权力越多，债权人在法庭上越能主张"你还是实际控制人，信托是摆设"——这叫"虚假信托"(sham trust)，资产保护当场失效。你为了隔离彻底放弃权力，资产安全了，但家族日常运作、投资节奏又卡在受托人手里。</p>
+</div>
+
+<div class="block">
+<p><span class="key">死结：想"既隔离又控制"</span></p>
+<p>于是出现一个真实又尴尬的局面：委托人要隔离，就得放手；要控制，就削弱隔离。两头都想要，法律上一个信托如果委托人保留过多权力，可能被认定虚假信托，隔离失效；若彻底放手，家族灵活度又断档。这不是你操作笨，是制度上的两难，也是离岸信托选址最容易被忽略的底层约束。</p>
+<p>三地的"解结"方式不同：开曼用 STAR + 执行人（可保留广泛权力由执行人监督）；新加坡用保护人 + 家办投资权（委托人或投资委员会保留投资决定）；香港更强调受托人义务，保留权力过多可能削弱保护。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你设信托时，最想保留的是哪一把"手"？投资决策、分配节奏、还是换人权力？想清楚这把"手"在三地分别被怎么对待——开曼容得多、香港容得少。模块三带走：选址不是选便宜，是选"你那把控制的手，法律认不认"。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：同一笔控股股权，三地设信托</h2>
+<p class="guide">把前面所有规则，装进同一笔股权走一遍</p>
+
+<div class="card">
+<p><span class="key">背景（脱敏）</span>：某控股家族通过一家离岸控股公司持有境内运营实体 60% 股权，控股公司估值约 5 亿元人民币（≈ 7000 万美元）。家族希望把控股公司股权装入离岸信托，实现代际传承与资产保护，比较在开曼、新加坡、香港三地设信托的方案。</p>
+</div>
+
+<p class="step">第一步 · 盘点手里的牌</p>
+<div class="block">
+<ul>
+<li><span class="key">标的</span>：控股公司股权 V ≈ 7000 万美元，是"控制性股权"（影响上市与治理）。</li>
+<li><span class="key">目标</span>：传承（不强制分配）+ 资产保护（隔离未来债权人）+ 一定控制（投资方向家族定）。</li>
+<li><span class="key">约束</span>：CRS 下三方案都要申报实际控制人；经济实质都要满足；属地税各不同。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 为什么不能只"随便选一个"</p>
+<div class="block">
+<ul>
+<li><span class="key">选开曼</span>：STAR 灵活、成本低，但离得远、与境内运营文化隔阂，且需配经济实质。</li>
+<li><span class="key">选新加坡</span>：可拿 13O 免税身份 + 家办生态，但成本高、实质要求硬（必须真雇人、真投资）。</li>
+<li><span class="key">选香港</span>：近岸、熟悉、设立便宜，但受托人裁量 + 保留权力边界谨慎，控制灵活度中。</li>
+<li>三者没有"绝对好"，只有"匹配你目标"。</li>
+</ul>
+</div>
+
+<p class="step">第三步 · 交易结构设计（三方案）</p>
+<div class="card">
+<ul>
+<li><span class="key">方案 A（开曼 STAR）</span>：控股公司注册在开曼，由开曼 STAR 信托持有；设执行人监督，委托人保留投资指导权。</li>
+<li><span class="key">方案 B（新加坡 13O 信托）</span>：在新加坡设信托 + 家办，信托通过家办持有控股公司；委托人或投资委员会保留投资决定，满足 13O 实质。</li>
+<li><span class="key">方案 C（香港全权信托）</span>：在香港设全权信托持有控股公司；设保护人，受托人裁量分配，委托人保留有限权力。</li>
+</ul>
+</div>
+
+<p class="step">第四步 · 设立与维护成本推导（以 V = 7000 万美元、持有 10 年计）</p>
+<div class="block">
+<p><span class="key">开曼 STAR</span>：设立（法律 + 设立费）4 万美元；年维护（注册代理 + 经济实质申报 + 简易审计）3 万美元/年；10 年维护 30 万美元；<b>10 年总成本 ≈ 34 万美元</b>。</p>
+<p><span class="key">新加坡 13O 信托（含家办）</span>：设立（信托 5 万新币 + 家办 8 万新币，汇率 1 新币 ≈ 0.75 美元）13 万新币 ≈ 9.7 万美元；年维护（家办 2 名 EP 薪酬 + 审计 + 合规 + 本地投资执行，约 30 万新币/年）≈ 22.5 万美元/年；10 年维护 225 万美元；<b>10 年总成本 ≈ 235 万美元</b>——换来 13O 境外收入免税身份与在岸生态。</p>
+<p><span class="key">香港全权信托</span>：设立（法律 + 受托人设立费 18 万港币，1 港币 ≈ 0.128 美元）≈ 2.3 万美元；年维护（受托人年费 0.2% × 7000 万 = 14 万美元 + 审计 3 万）17 万美元/年；10 年维护 170 万美元；<b>10 年总成本 ≈ 172 万美元</b>。</p>
+</div>
+
+<p class="step">第五步 · 三地对比数字表（设立成本 / 税务申报 / 控制灵活度）</p>
+<table>
+<tr><th>维度</th><th>开曼 STAR</th><th>新加坡 13O 信托</th><th>香港全权信托</th></tr>
+<tr><td>一次性设立成本</td><td>4 万美元</td><td>≈ 9.7 万美元</td><td>≈ 2.3 万美元</td></tr>
+<tr><td>年维护成本</td><td>3 万美元</td><td>≈ 22.5 万美元</td><td>≈ 17 万美元</td></tr>
+<tr><td>10 年总成本</td><td><b>≈ 34 万美元</b></td><td><b>≈ 235 万美元</b></td><td><b>≈ 172 万美元</b></td></tr>
+<tr><td>属地税（控股层）</td><td>0（开曼不征所得税）</td><td>境外收入免（13O）</td><td>境外收益不课（地域来源）</td></tr>
+<tr><td>CRS 申报</td><td>是（交换回居民国）</td><td>是</td><td>是</td></tr>
+<tr><td>控制灵活度</td><td>最高（STAR / 执行人 / 可保留权）</td><td>高（受托人 + 保护人 + 家办投资权）</td><td>中（受托人裁量 + 保护人）</td></tr>
+<tr><td>资产保护强度</td><td>强</td><td>强</td><td>强（保留权过多削弱）</td></tr>
+<tr><td>最匹配场景</td><td>红筹控股 / 上市前架构</td><td>家族办公室 / 金融资产持有</td><td>近岸传承 / 教育金安排</td></tr>
+</table>
+<p class="muted">同一笔 7000 万美元控股股权，10 年持有成本开曼约 34 万、香港约 172 万、新加坡约 235 万——新加坡最贵，但那是"信托 + 家办"组合的价，买的是税务居民身份与在岸生态。三地都受 CRS 透明约束，差异在"法律规则、身份、控制"，不在"能否逃税"。</p>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果这笔 7000 万美元控股股权是你的，你会把"控制灵活度"排第一，还是把"10 年成本"排第一？案例里开曼最便宜、控制最高，但离得远；新加坡最贵、却有免税身份。模块四带走：数字推完，答案不在"哪个好"，在"你到底要哪条"。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 → 风险盲区 → 资本运作视角，三点互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>三棱镜三面是联动疆界、风险盲区、资本运作视角。你此刻最该补哪一面？多数人选地时只看见"联动"（能连税务、连身份），却看不见"盲区"（适用法、成本全账、控制权过度）。模块五带走：镜子不是用来照好处，是用来照盲点的。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶：从看懂到落地</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　遇到一笔要传代的资产，先问：要隔离还是传承还是控制？三地永续都已放开；信托在 CRS 下透明，不是隐匿。记住：选地是选法律框架，不是选避税洼地。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 搭好骨架</span>　画出"资产保护 ↔ 控制灵活"的天平；用案例数字理解三地成本差；把 STAR / 13O / 香港全权信托三方案并排比一比。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 落到实处</span>　① 确认目标优先级（隔离 / 传承 / 控制）② 评估实质要求（新加坡家办雇人投资、开曼经济实质）③ 排 CRS 申报路径（实际控制人识别）④ 就控制保留权与律师确认不会触发虚假信托。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>取一笔你熟悉的家族资产，用"隔离 / 传承 / 控制"三目标给它在开曼、新加坡、香港三家排个序，哪家最匹配？</li>
+<li>用案例的推导逻辑，给一笔你设定的股权价值，算一遍三地 10 年持有成本，看和本文数字差多少。</li>
+<li>打开 CRS 规则：你（或客户）如果在三地有金融账户，哪些"实际控制人"信息会被交换回税务居民国？</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>三层进阶里，你卡在哪一阶？多数人卡在"搭好骨架"——看懂门道不难，落到实处又嫌贵嫌烦。模块六带走：今天能落地的第一步，不是去开曼注册，而是先写下你那笔资产"最要的是隔离、传承、还是控制"。这一步零成本，却决定后面全部。</p>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">信托地是法律框架选择，不是注册地</div>
+  <div class="q"><b>核心问题：</b>你设信托最要的是隔离、传承、还是控制？三地优先级一样吗？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">政策深水区</div>
+  <div class="pos">三地信托法 + CRS + 经济实质三道门槛</div>
+  <div class="q"><b>核心问题：</b>CRS 下信托"藏不住"，你选的开曼 / 新加坡 / 香港，差的是税还是规则？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">机制联动</div>
+  <div class="pos">资产保护 vs 控制灵活，两条路相反</div>
+  <div class="q"><b>核心问题：</b>你想保留的"那把控制的手"，在三地分别被法律怎么对待？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">同一笔股权三地设信托的五步推演</div>
+  <div class="q"><b>核心问题：</b>7000 万美元控股股权，三地 10 年成本 34 / 172 / 235 万，你选哪条？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>三面镜子，你最该补哪一面？看得见联动，却看不见盲区吗？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 搭好骨架 / 落到实处</div>
+  <div class="q"><b>核心问题：</b>看懂、搭骨架、落地，你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：前置 A17《家族信托税务筹划：架构优于裸持》、A05《CRS 与全球税务透明》；后续 A18《跨境传承与身份规划：税务居民的游戏》、A16《遗产税与赠与税》（传承篇深讲代际安排）。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Advanced Wealth Management A22 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-law" class="toggle">
+<div class="modal"><label class="backdrop" for="c-law"></label><div class="modal-box">
+<label class="close" for="c-law">&times;</label>
+<h3>三地信托法核心差异</h3>
+<p>把模块二的法域要点再往深里拆一层，看清"同"与"异"：</p>
+<ul>
+<li><span class="key">永续</span>：开曼（2017 修法）、新加坡（《Trustees Act》）、香港（2013 修订废除永续期）三地均已放开永久存续——传承"不强制分配"的底层前提三地都具备。</li>
+<li><span class="key">STAR 信托</span>：仅开曼有。可无受益人、仅为"目的"设信托，由执行人监督。适合"持有并增值一家控股公司"这类非分配导向的安排。</li>
+<li><span class="key">固定权益 vs 全权</span>：香港全权信托强调受托人裁量 + 保护人监督；新加坡常配保护人 + 家办投资权；开曼 STAR 可保留广泛委托人权力。保留权越多，控制越灵，但资产保护越需"非虚假信托"论证。</li>
+<li><span class="key">属地税</span>：开曼不征所得税 / 资本利得税；新加坡凭 13O / 13U 境外收入免税（须满足实质）；香港地域来源征税、无资本利得税。</li>
+</ul>
+<p>一句话：三地的"同"是都永续、都透明（CRS）；"异"在 STAR 灵活度、家办免税身份、近岸熟悉度。选地，先定你要的是哪一条"异"。</p>
+<div class="link">相关：<a href="#sec2">政策深水区（见模块二）</a> · <a href="#sec3">机制联动（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：信托地选择不是孤立的"注册在哪"，它上接家族信托税务、下接身份规划、横接控股与持有安排。三条线怎么连、落到操作上怎么做，逐一拆开。</p>
+
+<p class="key">上接家族信托税务 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>信托地的属地税规则，直接决定"信托层面"要不要交税（开曼 0、新加坡 13O 免、香港地域来源免）。操作上：</p>
+<ul>
+<li>若目标是"控股层不重复课税"，优先看属地税——开曼 / 新加坡 13O 在控股层天然轻；</li>
+<li>但信托受益人（如中国税务居民）取得分配，仍按居民国税法就全球所得纳税——信托地只解决"信托层"，不解决"受益人层"；</li>
+<li>所以选址要和"受益人税务身份"一起算，不能只看设立地税率。</li>
+</ul>
+</div>
+
+<p class="key">下接身份规划 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>新加坡 13O 家办常附带家族成员就业准证（EP），进而影响税务居民身份；香港信托则近岸、不强制改变身份。操作：</p>
+<ul>
+<li>若家族考虑通过家办取得新加坡税务居民身份，选址新加坡=身份 + 信托 + 家办三件事一并解决；</li>
+<li>若只想"近岸传承、不动身份"，香港更轻；</li>
+<li>关键认知：信托地会"牵动"身份，身份又"反噬"受益人税负——两者必须同框设计。</li>
+</ul>
+</div>
+
+<p class="key">横接控股与持有 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>控股上市主体多已在开曼（红筹架构），顺手用开曼 STAR 持有，省去迁册；</li>
+<li>纯金融资产持有，新加坡家办生态 + 免税更顺；</li>
+<li>家族教育金 / 近岸安排，香港全权信托最易落地。</li>
+</ul>
+</div>
+
+<p>上接税务、下接身份、横接控股持有，三条线在"信托地"这个节点交汇：属地税定信托层（上）；家办定身份（下）；架构现状定顺手度（横）。这就是"联动疆界 → 风险盲区 → 资本运作视角"三线相扣的起点。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec2">政策深水区（见模块二）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。离岸信托选址，最贵的失误往往不在明面，在三个盲区。</p>
+
+<p class="key">盲区一 · 只看设立地，不看适用法</p>
+<div class="block">
+<ul>
+<li>很多人比"注册费谁便宜"，却忽略信托真正适用哪套法律——设立地在开曼，但契约约定适用香港法，保护力度按香港法走；</li>
+<li>适用法（governing law）和设立地（sitio）是两件事，前者决定资产保护强度，后者只是注册地；</li>
+<li>操作：签契约前先定"适用法"，再选"设立地"，顺序不能反。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 成本误判</p>
+<div class="block">
+<p>只算"设立费"（开曼 4 万、香港 2.3 万、新加坡 9.7 万），忽略 10 年持有成本（开曼 34 万、香港 172 万、新加坡 235 万）。新加坡最贵，因为那是"信托 + 家办"组合价——若你本不需要家办，硬上新加坡等于为用不上的实质多付几百万。操作：用案例的"设立 + 10 年维护"全口径比价，别被一次性低价带偏。</p>
+</div>
+
+<p class="key">盲区三 · 控制权保留过度</p>
+<div class="block">
+<ul>
+<li>委托人想"说了算"，保留投资、分配、换受托人全权——但保留越多，越易被认定为虚假信托，资产保护当场失效；</li>
+<li>尤其香港对保留权力更谨慎，过度保留可能削弱保护；</li>
+<li>操作：把"必须保留的手"列清单，其余交给受托人 / 保护人 / 执行人，用 STAR 执行人或保护人机制替代直接控制。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>信托地选错，根子往往在"只看表面、不算全账、不舍得放手"</strong>。你能事后补救的，只是其中一小部分，适用法和控制权是源头定死的。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec3">机制联动（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把信托地从"注册便宜地方"重新看成"法律属地选择"——你会发现它服务于控股、持有、传承三大目的，不是"避税天堂"游戏。</p>
+
+<p class="key">信托地是法律属地选择</p>
+<div class="block">
+<p>回笼与沉淀的财富，下一步通常是：控股上市（开曼红筹）、金融资产持有（新加坡家办）、近岸代际安排（香港）。信托地是"把资产放在哪套法律下面"的选择，匹配的是资产形态与代际目标，而非税率洼地。</p>
+</div>
+
+<p class="key">身份与生态被"管理"，而非"免除"</p>
+<div class="block">
+<ul>
+<li>开曼靠 STAR + 经济实质管理"灵活与合规"的平衡；</li>
+<li>新加坡靠 13O 家办把"免税身份 + 在岸生态"一并拿下，代价是实质运营；</li>
+<li>香港靠地域来源 + 近岸熟悉度，低摩擦落地传承。</li>
+</ul>
+</div>
+
+<p class="key">三地服务于不同资本动作</p>
+<div class="block">
+<p>控股（上市前 / 红筹）→ 开曼 STAR 最顺；持有（金融资产 / 家办）→ 新加坡 13O 最配；传承（教育金 / 近岸）→ 香港全权信托最轻。能在"资产形态"和"代际目标"之间选对属地，才是资本运作能力。</p>
+</div>
+
+<p>所以模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（选得对地）。三者合一，才是"离岸信托选址"这件事的完整认知。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+</body>
+</html>
