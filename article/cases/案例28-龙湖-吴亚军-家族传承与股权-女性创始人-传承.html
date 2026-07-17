@@ -4,8 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>龙湖吴亚军：用家族信托把"婚变"和"交班"都做成平稳样本 · 强女思维 · 金融资本库</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
+    --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
     --bg:#FDF8F3; --surface:#F2DECE; --text:#33251B; --brand:#3A2A1F;
     --brand-hover:#261C14; --accent:#ADBCC3; --border:#E5DAD0;
     --white:#FFFFFF; --muted:#7A6B60;
@@ -22,7 +26,7 @@
   .topbar .greet{font-size:13px;color:var(--muted);}
   .wrap{max-width:780px;margin:0 auto;padding:54px 26px 90px;width:100%;box-sizing:border-box;}
   h1{font-size:26px;font-weight:700;letter-spacing:1px;margin:0 0 8px;color:var(--brand);}
-  .tagline{font-size:14px;color:var(--muted);letter-spacing:1px;margin-bottom:26px;
+  .tagline{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em;margin-bottom:26px;
     border-bottom:1px solid var(--border);padding-bottom:16px;}
   .choose{background:var(--surface);border:1px solid var(--border);border-radius:8px;
     padding:14px 18px;margin:20px 0 30px;font-size:15px;}
@@ -53,7 +57,7 @@
   /* 分支 B · 向外：浅棕黄色 #CBA877 */
   .branch-card.b{background:#CBA877;}
   .branch-card.b:hover{background:#C09A6B;transform:translateY(-2px);box-shadow:0 6px 16px rgba(67,28,30,.14);}
-  .bc-label{font-size:10px;letter-spacing:1px;font-weight:700;opacity:.7;margin-bottom:6px;}
+  .bc-label{font-family:var(--mono);font-size:10px;letter-spacing:.08em;font-weight:700;opacity:.85;margin-bottom:6px;}
   .branch-card .bc-title{font-size:15px;font-weight:700;line-height:1.4;}
   .branch-card .bc-sub{font-size:11px;line-height:1.5;margin-top:3px;opacity:.8;}
   .branch-card .bc-go{margin-top:auto;padding-top:10px;font-size:11px;font-weight:700;
@@ -65,12 +69,12 @@
   .branch-panel{display:none;margin-top:26px;border-top:2px solid var(--border);padding-top:8px;}
   .branch-panel:target{display:block;animation:fade .3s ease;}
   @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
-  .panel-tag{font-size:13px;color:var(--muted);letter-spacing:1px;margin:20px 0 4px;}
+  .panel-tag{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:1px;margin:20px 0 4px;}
   .branch-back{display:inline-block;margin:18px 0 4px;font-size:13px;color:var(--brand);
     text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:6px 14px;background:var(--white);}
   .branch-back:hover{background:var(--surface);}
   /* 门禁（内联，复用 app.js） */
-  .gate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+  .gate{font-family:var(--mono);position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
     background:rgba(51,37,27,.72);backdrop-filter:blur(4px);padding:24px;}
   .gate.visible{display:flex;}
   .gate-card{background:var(--white);max-width:380px;width:100%;border-radius:16px;padding:34px 28px;text-align:center;
