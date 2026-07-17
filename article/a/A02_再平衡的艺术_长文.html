@@ -78,9 +78,34 @@ th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px soli
 .node .q b{color:var(--wine);}
 .node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
 @media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇 —— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid rgba(65,20,14,.12);padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:#41140e;text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:#41140e;color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:"Songti SC","SimSun","STSong","Noto Serif CJK SC",serif;
+  font-weight:700;font-size:1rem;color:#41140e;margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+
 </style>
 </head>
 <body>
+<div class="art-nav"><a class="back" href="../../hall-a.html">← 返回栏目</a><span class="crumb">高级财富管理 · 23 篇长文</span></div>
 <div class="header">
   <div class="eyebrow">Qiangnv Capital Library · Advanced Wealth Management · A02</div>
   <h1>再平衡的艺术：什么时候该动手</h1>
@@ -472,5 +497,6 @@ Qiangnv Capital Library · Advanced Wealth Management A02 ｜ Swiss-style produc
 <div class="link">相关：<a href="#sec5">联动疆界 · 风险盲区（见模块五）</a> · <a href="#sec4">案例（见模块四）</a></div>
 </div></div>
 
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="A01_资产配置框架_长文.html"><div class="pn-label">← 上一篇</div><div class="pn-title">A01 资产配置框架</div></a><a class="pn-next" href="A03_生命周期配置_长文.html"><div class="pn-label">下一篇 →</div><div class="pn-title">A03 生命周期配置</div></a></nav>
 </body>
 </html>
