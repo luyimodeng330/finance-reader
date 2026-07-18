@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B19 激励纠纷与红线解码：股权激励的雷区和法律红线</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+.disclaimer{background:var(--pink);color:var(--wine);padding:12px 18px;font-size:.76em;margin-bottom:28px;line-height:1.6;border-left:3px solid var(--wine);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇 —— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid rgba(65,20,14,.12);padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:#41140e;text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:#41140e;color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:"Songti SC","SimSun","STSong","Noto Serif CJK SC",serif;
+  font-weight:700;font-size:1rem;color:#41140e;margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+
+</style>
+</head>
+<body>
+<div class="disclaimer">本篇内容不构成投资建议或专业意见，仅提供知识框架与判断思路，具体决策请咨询持牌专业人士。</div>
+
+<div class="art-nav"><a class="back" href="../../hall-b.html">← 返回栏目</a><span class="crumb">上市公司资本解码 · 19 篇长文</span></div>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Listed Company Decoding · B19</div>
+  <h1>激励纠纷与红线解码：股权激励的雷区和法律红线</h1>
+  <div class="tagrow">
+    <span class="tag">Incentive Dispute</span><span class="tag">Legal Red Line</span><span class="tag">ESOP Risk</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+你在服务客户时，客户（一家刚上市不久的公司实控人）说"我们给核心团队发了不少股票，都是自己人，不会出事"——你怎么判断他是真稳，还是正踩在雷区上？股权激励不是发完就完，它是一张从授予到退出、横跨民事纠纷与行政刑事红线的长周期契约。一面是纠纷：员工离职公司不回购、代持没清、考核争议、离婚要分股；另一面是红线：股份支付造假、内幕交易、利益输送、短线交易——前者赔钱，后者可能让公司吃罚单、实控人担刑责。本篇把四类典型纠纷、四类法律红线逐一拆开，给出"看到某个信号就能判断风险等级与应对"的框架，再用一个离职回购纠纷的脱敏推演，让你看到协议条款和司法实践之间的真实落差，以及员工诉求的胜败概率怎么算出来。
+</div>
+
+<div class="framework">
+<b>股权激励 = 契约 × 证据 × 红线</b><br>
+三个乘数定生死：契约（白纸黑字怎么写）是底线，证据（代持协议/付款凭证/考核记录）是决定官司输赢的关键，红线（监管与刑事底线）是绝对不能碰的高压线。少一个维度，激励就从"留人利器"变成"诉讼导火索"。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先分清两件事：激励纠纷（民事）和法律红线（行政/刑事）是两套完全不同的逻辑</p>
+
+<div class="card">
+<p><span class="key">股权激励纠纷</span>：大白话——公司给员工发了期权或限制性股票，后来员工离职了公司不回购、或者代持人说这股份是他的、或者离婚时配偶要来分一杯羹，双方谈不拢对簿公堂。专业定义：指激励对象与公司（或实控人、持股平台、代持人）之间，就股权激励的授予、成熟、归属、行权、回购、代持、离婚财产分割等事项产生的民事争议，主要适用《民法典》合同编、婚姻家庭编及相关司法解释。</p>
+<p><span class="key">法律红线</span>：大白话——有些激励操作不是"赔不赔钱"的问题，是"违法不违法"的问题。比如把股份支付费用做低虚增利润、用还没公开的激励方案提前买卖股票、把股票低价发给自家人输送利益、董监高半年内倒手自家股票。专业定义：指股权激励的设计与执行过程中，触及证券监管、公司法乃至刑法底线的行为，面临证监会行政处罚、交易所纪律处分，严重的构成内幕交易罪、违规披露罪等刑事风险。</p>
+</div>
+
+<div class="card">
+<p><span class="key">纠纷 vs 红线，一句话分野</span></p>
+<ul>
+<li><span class="key">主体不同</span>：纠纷是"员工 vs 公司"（平等民事主体互撕）；红线是"公司/实控人 vs 监管/公检法"（被监管、被追诉）。</li>
+<li><span class="key">后果不同</span>：纠纷最坏是赔一笔钱、回购一批股；红线最坏是行政处罚、市场禁入、甚至牢狱之灾。</li>
+<li><span class="key">发生时点不同</span>：纠纷多在"退出环节"爆发（离职、离婚、考核未达标）；红线多在"设计环节"埋雷（定价、信披、交易时点）。</li>
+<li><span class="key">可控性不同</span>：纠纷靠"协议写清楚+证据留足"大多能防住；红线靠"合规意识+流程把关"，一碰就出事，靠补都补不回。</li>
+</ul>
+<p>核心认知：<strong>纠纷是"会算账"就能降概率，红线是"守规矩"才能不踩雷——前者是技术活，后者是底线活</strong>。</p>
+</div>
+
+<div class="block">
+<p><span class="key">本篇四条主线，一句话定位</span></p>
+<ul>
+<li><span class="key">四类典型纠纷</span>：离职回购、代持确权、考核争议、配偶股权分割——民事战场最常炸的雷。</li>
+<li><span class="key">四类法律红线</span>：股份支付造假、内幕交易、利益输送、短线交易——监管和刑法盯最紧的线。</li>
+<li><span class="key">信号判断框架</span>：看到"离职未回购、代持未清、异常交易"等信号，先判风险等级，再定应对。</li>
+<li><span class="key">脱敏案例推演</span>：一个离职回购纠纷，看协议条款和司法实践差多远、员工诉求胜算几何。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你下次听到客户说"我们给团队发了不少激励股，都是自己人不会出事"——第一反应不该是"那挺好"，而是<strong>"协议白纸黑字怎么写？代持清了没？离职怎么回购？离婚怎么分？"</strong>模块一最该带走的认知：<strong>股权激励的雷，80%在"退出那一刻"才炸；所谓"自己人"，恰恰是纠纷最高发的人群——因为太熟，所以没写清楚</strong>。</p>
+</div>
+
+<p class="guide">四类纠纷、四类红线的速查对照，建议先点开记个框架</p>
+<div class="chips">
+  <label class="chip" for="c-dispute">纠纷与红线速查</label>
+</div>
+
+<h2 id="sec2">二、规则与实务深水区</h2>
+<p class="guide">四类纠纷逐一拆 + 四类红线逐一拆 + 政策出处与操作动作</p>
+
+<div class="card">
+<p><span class="key">纠纷一 · 离职回购纠纷</span></p>
+<p>大白话——员工没干满约定期限就走了，公司按协议低价回购他的股份，员工不干，说"公司上市了我这股值大钱，凭什么按几块钱收走"。这是实务中最频发的激励纠纷。</p>
+<p><span class="key">规则与出处</span>：回购权来源于激励协议（《上市公司股权激励管理办法》证监会令第126号要求方案明确"激励对象离职等情形下的处理"）；未上市阶段的股权回购还受《公司法》及公司章程约束。实务核心争议是"回购定价口径"——按授予价、按净资产、还是按公允/市价。</p>
+<p><span class="key">操作动作</span>：协议必须写清三件事——①触发条件（何种离职算违约）；②回购主体（公司/实控人/持股平台）；③回购定价（固定价/公式价/审计价）。缺任一项，离职时必撕。详见模块四推演。</p>
+</div>
+
+<div class="card">
+<p><span class="key">纠纷二 · 代持纠纷</span></p>
+<p>大白话——激励股记在老板或高管名下"代持"，没签代持协议，后来代持人反悔说"这股是我的"、或者代持人离婚/欠债，这股份被配偶或债权人查封了，真激励员工血本无归。</p>
+<p><span class="key">规则与出处</span>：代持关系受《民法典》合同编保护，但"股权代持"在上市公司层面受严格限制——拟上市公司申报前须清理代持（监管对"股权清晰"有明确问询要求，详见 B03 股权结构解码）。实务中代持纠纷的死穴是<strong>没有书面代持协议+没有出资/归属凭证</strong>，真到法庭上"口说无凭"。</p>
+<p><span class="key">操作动作</span>：能不用代持就不用；必须用则签书面《股权代持协议》+ 留付款凭证 + 设违约条款；上市前按监管口径完成代持还原/清理，别把雷带到申报稿里。</p>
+</div>
+
+<div class="card">
+<p><span class="key">纠纷三 · 考核争议</span></p>
+<p>大白话——公司设了业绩考核，年底说"你没达标，股份不给你/要收回"，员工说"这指标根本不合理，是公司故意把业绩做低坑我"。</p>
+<p><span class="key">规则与出处</span>：《上市公司股权激励管理办法》要求设置"业绩指标"（上市公司强制考核），指标需具合理性、可验证。争议焦点：指标是否事先明示、是否公司单方可调、公司是否故意操纵业绩使指标不达标。法院会审查考核制度是否经民主程序、是否公示、是否显失公平。</p>
+<p><span class="key">操作动作</span>：考核指标要"可抗辩"——用行业公认的财务口径（营收、净利润、ROE），提前公示并让员工签字确认；避免用公司可随意操纵的内部口径，否则争议时公司反陷被动。</p>
+</div>
+
+<div class="card">
+<p><span class="key">纠纷四 · 配偶股权分割</span></p>
+<p>大白话——激励对象离婚，配偶跳出来说"你这些激励股是婚内挣的，有我一半"，要求分割，公司回购受阻、上市股权清晰受影响。</p>
+<p><span class="key">规则与出处</span>：依据《民法典》婚姻家庭编及婚姻法司法解释，婚内授予、婚内或离婚后归属的股权性权益，通常认定为夫妻共同财产。争议焦点是"未归属部分（期权/未成熟RSU）算不算共同财产"——司法实践中，已成熟/已归属部分一般认定可分割，未成熟部分视情处理。</p>
+<p><span class="key">操作动作</span>：上市前让激励对象配偶签《配偶同意函/放弃声明》（约定激励股权为个人财产或归属一方的安排）；协议中明确"离婚不导致股权变动、由公司统一处理"，把人身关系与股权关系隔离。</p>
+</div>
+
+<div class="card">
+<p><span class="key">红线一 · 股份支付造假</span></p>
+<p>大白话——公司为了报表好看，故意把行权价定高、把公允价值定低，少算一笔股份支付费用，利润就"凭空"多出来。与 B18 税会解码直接相连：这里是"造假"，B18 是"合规怎么摊"。</p>
+<p><span class="key">规则与出处</span>：依据《企业会计准则第11号——股份支付》，公允价值的确定需有依据（估值报告、近期融资价）。压低公允价值少计费用，虚增利润，构成财务造假，证监会可行政处罚（《证券法》第一百九十七条虚假记载），严重的移送刑事。实务信号：行权价与同期公允价差异异常小、无估值支撑。</p>
+<p><span class="key">操作动作</span>：公允价值必须"有出处、可审计"——用近期融资估值或独立评估；股份支付费用老老实实按等待期分摊（呼应 B18）。合规架构+公开政策，绝不做假账。</p>
+</div>
+
+<div class="card">
+<p><span class="key">红线二 · 内幕交易</span></p>
+<p>大白话——激励方案的授予、回购、重大变更，在公开前是内幕信息。有人提前知道，悄悄买（或避损卖）自家股票，赚了这个差价，就是内幕交易。</p>
+<p><span class="key">规则与出处</span>：《证券法》（2019修订）第五十条界定内幕信息，第五十三条禁止内幕交易；股权激励方案的董事会/股东大会决议、授予登记等事项属敏感期信息。激励对象、董监高、知悉方案的内部人均为内幕信息知情人，在窗口期内买卖受限。处罚：没收违法所得+1~10倍罚款，情节严重追究刑事责任。</p>
+<p><span class="key">操作动作</span>：建立"内幕信息知情人登记"+"交易窗口期管控"；激励计划草案披露前严控知情范围，方案公开前任何人不得交易；把激励授予日与敏感期错开。</p>
+</div>
+
+<div class="card">
+<p><span class="key">红线三 · 利益输送</span></p>
+<p>大白话——公司把股票以明显不合理的低价，发给实控人的亲戚、走过场的"激励对象"，肥了少数人、坑了上市公司和中小股东。</p>
+<p><span class="key">规则与出处</span>：《上市公司股权激励管理办法》（证监会令第126号）明确激励对象应为"董事、高管、核心员工"等，且定价（如限制性股票折扣）有合规下限（不低于市价50%，并需说明定价依据）。向无关关联方低价授予、或虚构激励对象，构成利益输送，损害上市公司及中小股东利益，监管可责令改正、罚款，交易所可纪律处分。</p>
+<p><span class="key">操作动作</span>：激励对象须"名实相符"、有真实劳动关系/贡献；定价折扣留合规依据并充分披露；避免"为发而发"的福利化、亲属化授予。</p>
+</div>
+
+<div class="card">
+<p><span class="key">红线四 · 短线交易</span></p>
+<p>大白话——董监高（及持股5%以上股东）六个月内先买后卖、或先卖后买自家股票，赚的差价依法得归公司，这叫"短线交易收益归位"。</p>
+<p><span class="key">规则与出处</span>：《证券法》第四十四条：上市公司董监高、持有5%以上股份的股东，将其持有的该公司股票在买入后六个月内卖出，或卖出后六个月内又买入，所得收益归公司所有，董事会应当收回。激励对象若具董监高身份，其激励股解锁后的买卖同样受此约束。违规不仅收益归位，还面临监管警示。</p>
+<p><span class="key">操作动作</span>：对具董监高身份的激励对象，单独标注"6个月短线交易禁区"；解锁后买卖节奏纳入合规日历；持股平台层面也要排查一致行动人身份。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>现在你手边有一个激励方案：代持没清、考核口径公司可随意调、回购价只写了"按公司决定"、授予日卡在财报披露前一周。四个雷你看到了几个？<strong>模块二最该带走的是：四类纠纷对应"协议/证据/考核/配偶"四道闸，四类红线对应"公允/知情人/对象/窗口期"四道关——漏一道，就可能从民事纠纷滑向行政刑事</strong>。</p>
+</div>
+
+<h2 id="sec3">三、信号解码与判断框架</h2>
+<p class="guide">看到激励纠纷信号，不是慌，而是三步判断：信号→博弈→方向</p>
+
+<p class="step">第一步 · 看到什么纠纷信号</p>
+<div class="block">
+<ul>
+<li><span class="key">离职未回购</span>：核心员工离职后，公司迟迟不办回购、或只肯按几块钱收——这是离职回购纠纷的前兆信号。</li>
+<li><span class="key">代持未清</span>：上市申报前代持协议还在、股份还挂在别人名下——监管问询必炸，且代持人一旦出事（离婚/债务），股权被查封。</li>
+<li><span class="key">异常交易</span>：激励方案披露前后，相关账户出现集中买入/避损卖出、或董监高在窗口期频繁买卖——指向内幕交易或短线交易红线。</li>
+<li><span class="key">考核指标突变</span>：公司临近考核期临时改指标、或业绩"恰好"压线不达标——考核争议的预警。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 背后什么博弈</p>
+<div class="card">
+<p>激励纠纷与红线的信号背后，是四方持续博弈：</p>
+<ul>
+<li><span class="key">公司/实控人（方案设计方，类"卖方"）</span>：立场是"少付、好收、别影响上市"。想压低回购价、模糊代持、灵活调考核、低价发股——每个动作都往"利己"方向。</li>
+<li><span class="key">激励对象/员工（类"买方"）</span>：立场是"多拿、保权、退出能变现"。离职要高价回购、代持要确权、考核要宽松、解锁要自由卖——与公司天然对立。</li>
+<li><span class="key">监管（交易所+证监会）</span>：立场是"合规、透明、保护中小股东"。盯股份支付造假、利益输送、内幕交易——往"实里问、往严里罚"。</li>
+<li><span class="key">中小股东</span>：立场是"别被坑"。最怕利益输送稀释权益、最恨造假虚增蒙蔽市场——是红线的"最终受害者"和"举报源"。</li>
+</ul>
+<p>四方博弈的结果：纠纷是公司与员工就"钱怎么分"拉扯，红线是监管就"规矩有没有守"介入——信号越强，博弈越激烈，代价越高。</p>
+</div>
+
+<p class="step">第三步 · 判断方向（风险等级与应对）</p>
+<div class="block">
+<p>看到信号，先判风险等级，再定动作：</p>
+<table>
+<tr><th>信号</th><th>背后博弈</th><th>风险等级</th><th>应对动作</th></tr>
+<tr><td>离职未回购</td><td>公司想压价、员工要高价</td><td><span class="num">中</span>（民事，可控）</td><td>查协议回购条款；能调解按"协议价+合理补偿"区间谈，别硬刚拖成诉讼（见模块四）</td></tr>
+<tr><td>代持未清</td><td>代持人反悔/出事 vs 真权利人</td><td><span class="num">高</span>（影响上市+确权难）</td><td>立即补代持协议/还原；上市前完成清理，否则申报必被问询</td></tr>
+<tr><td>异常交易（窗口期/方案前后）</td><td>知情人套利 vs 监管严打</td><td><span class="num">高</span>（行政/刑事）</td><td>启动内幕信息知情人核查+交易回溯，涉事人员立即停止交易并报合规</td></tr>
+<tr><td>考核指标突变</td><td>公司操纵 vs 员工抗辩</td><td><span class="num">中</span>（民事，举证关键）</td><td>核对考核制度公示与签字；指标须可抗辩，避免内部随意口径</td></tr>
+<tr><td>低价发亲属/无关方</td><td>利益输送 vs 中小股东</td><td><span class="num">高</span>（监管红线）</td><td>审查对象适格性与定价依据，补全披露，必要时撤销违规授予</td></tr>
+</table>
+<p><span class="key">判断口诀</span>：民事纠纷看"协议+证据"能不能防住（中风险居多）；涉及"造假/内幕/输送/窗口期"的信号，直接进入高风险红线区，必须合规前置，不能事后补。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>下次你看到一家公司的激励公告，第一反应不该是"发了多少股"，而是<strong>"代持清了没？授予日卡没卡窗口期？对象是真干活的人还是自家人？离职怎么回购？"</strong>模块三最该带走的是：<strong>信号不是用来"吓自己"的，是用来"判等级、定动作"的——中风险靠协议补，高风险靠合规守</strong>。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：某离职回购纠纷推演</h2>
+<p class="guide">协议条款 vs 司法实践，员工诉求的胜败数字与概率怎么推导出来</p>
+
+<div class="card">
+<p><span class="key">公司画像（脱敏）</span>：某拟科创板公司，2019年向核心技术人员张某授予<span class="num">限制性股票10万股</span>，授予价 <span class="num">5元/股</span>（同期公允价值约 <span class="num">20元/股</span>），约定"服务期未满离职，公司按授予价+同期存款利息回购"。2022年张某离职（公司上市前夕），彼时市场预期发行价约 <span class="num">60元/股</span>。公司主张按协议以约 <span class="num">5.23元/股</span>（5元+3年存款利息）回购，合计 <span class="num">52.3万元</span>；张某主张按离职时公允价/上市预期价回购，主张至少 <span class="num">40元/股</span>，差额巨大。</p>
+</div>
+
+<div class="card">
+<p><span class="key">协议条款（公司依据）</span></p>
+<ul>
+<li>白纸黑字："服务期未满离职，公司以授予价+同期存款利息回购未归属股份"——对公司有据。</li>
+<li>条款性质：单方拟定、员工签署，属格式条款（《民法典》第四百九十六条）。</li>
+<li>公司无违约：张某确系主动离职，触发条件成立。</li>
+</ul>
+<p><span class="key">司法实践（员工抗辩空间）</span></p>
+<ul>
+<li>法院会审查条款是否"显失公平"（《民法典》第一百五十一条）：授予价5元 vs 公允20元、离职前预期60元，价差悬殊，员工可主张条款严重不公。</li>
+<li>格式条款提示义务：若公司未尽显著提示、员工签署时未充分理解，条款效力可能被否定或调整。</li>
+<li>公司"上市前夕突击低价回购"可能被认定借条款压榨员工预期利益，法院倾向"按比例调整回购价"而非完全支持协议。</li>
+</ul>
+</div>
+
+<p class="step">员工诉求的胜败数字与概率推导表</p>
+<div class="block">
+<p>把法院可能的四种定价结果，按司法实践常见倾向赋概率，推导"员工期望回收金额"（注：以下为推演示意，非真实判例，用于建立判断框架）：</p>
+<table>
+<tr><th>可能结果</th><th>回购定价口径</th><th>10万股回收金额</th><th>司法采纳概率</th><th>风险/说明</th></tr>
+<tr><td>结果1 · 严格按协议</td><td>5.23元/股</td><td><span class="num">52.3万</span></td><td>约 45%</td><td>协议通常获支持，但差额巨大易上诉</td></tr>
+<tr><td>结果2 · 协议价+合理补偿</td><td>调整到约12元/股</td><td><span class="num">120万</span></td><td>约 30%</td><td>显失公平部分调整，最常见折中</td></tr>
+<tr><td>结果3 · 公允价折扣</td><td>约20元/股</td><td><span class="num">200万</span></td><td>约 18%</td><td>需证明公司恶意压价，难度中高</td></tr>
+<tr><td>结果4 · 按市价/预期价</td><td>40元/股</td><td><span class="num">400万</span></td><td>约 7%</td><td>几乎不被全支持，协议明确难推翻</td></tr>
+</table>
+<p><span class="key">期望回收推导</span>：员工期望回收 = 0.45×52.3 + 0.30×120 + 0.18×200 + 0.07×400 ≈ <span class="num">23.5 + 36 + 36 + 28 = 123.5万元</span>。</p>
+<p><span class="key">结论</span>：公司若硬按协议付 <span class="num">52.3万</span>，员工有约 <span class="num">55%</span> 概率起诉且可能被调高到120万以上；理性调解锚点落在 <span class="num">120~130万</span> 区间——既尊重协议，又消化显失公平风险，省下诉讼费与上市前股权纠纷的问询成本。</p>
+</div>
+
+<div class="block">
+<p><span class="key">结构设计 · 公司侧怎么防（事前）</span></p>
+<ul>
+<li>回购价用"公式价"而非"公司单方决定"：如"授予价+年化X%利息"或"离职前12月均价×折扣"，减少显失公平抗辩空间。</li>
+<li>协议设"已成熟/未成熟"分轨处理：已成熟部分确权归员工，未成熟部分按协议回购——降低整体被推翻概率。</li>
+<li>上市前完成代持清理与纠纷了结，避免申报稿出现"未决诉讼/股权不清"硬伤（呼应 B03）。</li>
+</ul>
+<p><span class="key">结构设计 · 员工侧怎么保（事前）</span></p>
+<ul>
+<li>签署时要求公司就回购条款做显著提示，留痕；测算离职时的潜在价差，心里有数。</li>
+<li>配偶同步签《放弃声明》，隔离离婚分割风险。</li>
+<li>保留考核记录、授予通知、付款凭证——纠纷时"证据链"决定胜负。</li>
+</ul>
+</div>
+
+<table>
+<tr><th>维度</th><th>硬刚按协议（52.3万）</th><th>调解折中（约125万）</th></tr>
+<tr><td>公司现金支出</td><td>低（52.3万）</td><td>中（约125万）</td></tr>
+<tr><td>诉讼/问询风险</td><td>高（55%起诉+监管问询）</td><td>低（一次性了结）</td></tr>
+<tr><td>上市进度影响</td><td>可能卡申报（股权纠纷）</td><td>干净，无未决纠纷</td></tr>
+<tr><td>员工满意度</td><td>极差（埋下长期敌意）</td><td>可接受（显失公平被部分纠正）</td></tr>
+</table>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果你是这家公司的顾问，员工闹到门口要按40元回购——你建议硬刚52万还是调解125万？<strong>看期望回收123.5万，硬刚的"省下的73万"很可能被诉讼费、问询延期、上市受阻吃掉还倒贴</strong>。模块四最该带走的是：<strong>纠纷不是"谁有理谁赢"，是"证据+概率+成本"三方权衡——会算期望回收的人，才谈得拢</strong>。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 · 风险盲区 · 资本运作视角——三面镜子互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<div class="block">
+<p><span class="key">联动疆界（概要）</span>：本篇上接 B18 激励税务与会计解码（股份支付造假直接冲击 B18 的会计利润与税务口径——造假少计费用，B18 讲的合规怎么摊就全白做），横接 B03 股权结构设计解码（代持/持股平台/控制权——代持纠纷直接动摇 B03 的股权清晰，是申报硬伤）。激励不是孤立模块，它一头连着账、一头连着权。</p>
+</div>
+<div class="block">
+<p><span class="key">风险盲区（概要）</span>：口头承诺（没书面，纠纷举证难）、代持无协议（确权难+被查封）、回购无资金来源（协议写了回购但公司没钱/上市前无现金，变成空头支票）——三个盲区让"看起来稳"的激励瞬间暴雷。</p>
+</div>
+<div class="block">
+<p><span class="key">资本运作视角（概要）</span>：激励是契约不是人情。太熟所以没写清、靠信任不靠文本，是绝大多数纠纷的根源。把激励当"合同"设计，比当"感情"经营，抗风险能力强十倍。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　先分清"纠纷（民事）"和"红线（行政/刑事）"两套逻辑；记住四类纠纷（离职回购/代持/考核/配偶分割）和四类红线（股份支付造假/内幕交易/利益输送/短线交易）。看到信号先判是哪一类的。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 能用判断</span>　用模块三的信号→风险等级表，给客户的激励方案打"雷区体检"；用模块四的概率推导法，判断员工诉求的胜败区间与期望回收金额，知道调解锚点落在哪。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 精通实务</span>　①设计无漏洞协议（服务期/回购定价公式/资金来源）②上市前完成代持清理与配偶声明③考核指标"可抗辩"且留公示签字④建立内幕信息知情人登记与窗口期管控⑤红线内操作，股份支付公允价值"有出处可审计"——把纠纷概率压到最低、红线永远不碰。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>拿一家你熟悉的上市公司激励公告，做"雷区体检"：代持清了没？授予日卡窗口期没？对象是真干活的人还是自家人？离职怎么回购？逐条打勾。</li>
+<li>套用模块四推演：假设某员工持10万股、授予价5元、离职时市价30元，给四种回购结果赋概率，算公司期望支出与调解锚点。</li>
+<li>画一张"激励合规检查清单"：协议、代持、考核、配偶、内幕、窗口期、对象适格、公允价值——八项，标出你客户最薄弱的两项。</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">纠纷（民事）vs 红线（行政/刑事）是两套逻辑</div>
+  <div class="q"><b>核心问题：</b>客户说"都是自己人不会出事"，你第一反应是问什么——"协议怎么写"还是"真的不会出事"？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">规则与实务深水区</div>
+  <div class="pos">四类纠纷+四类红线+政策文号</div>
+  <div class="q"><b>核心问题：</b>证监会令第126号、证券法第四十四条、会计准则第11号——你客户的方案，哪条红线离得最近？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">信号解码与判断框架</div>
+  <div class="pos">信号→博弈→方向（风险等级+应对）</div>
+  <div class="q"><b>核心问题：</b>看到"离职未回购、代持未清、异常交易"，你先判中风险还是高风险——补协议还是守合规？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">离职回购纠纷：协议价52万 vs 期望回收123万</div>
+  <div class="q"><b>核心问题：</b>硬刚52万还是调解125万？你算的期望回收，落在哪个区间？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>口头承诺、代持无协议、回购无资金来源——三个盲区，你客户踩了几个？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 能用判断 / 精通实务</div>
+  <div class="q"><b>核心问题：</b>看懂、判断、实务——你卡在哪一阶？今天能落地的第一步（八项检查清单）是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：上接 B18《激励税务与会计解码》（股份支付造假直接冲击其会计利润与税务口径）、横接 B03《股权结构设计解码》（代持/持股平台/控制权清晰度是申报硬伤）、B16《拟上市公司期权解码》（授予到行权的契约链）、B17《ESOP解码》（资金来源与对象适格）。本篇是模块四"股权与人性博弈"的收官，把激励从"发"讲到"炸"再到"防"。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Listed Company Decoding B19 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。B线模块三为"信号解码与判断框架"。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-dispute" class="toggle">
+<div class="modal"><label class="backdrop" for="c-dispute"></label><div class="modal-box">
+<label class="close" for="c-dispute">&times;</label>
+<h3>纠纷与红线速查</h3>
+<table>
+<tr><th>类型</th><th>典型场景</th><th>性质</th><th>关键防御点</th></tr>
+<tr><td>离职回购纠纷</td><td>离职后公司低价回购、员工要高价</td><td>民事</td><td>协议写清触发条件/主体/定价公式</td></tr>
+<tr><td>代持纠纷</td><td>代持人反悔、离婚/债务查封</td><td>民事+上市硬伤</td><td>书面代持协议+凭证，上市前清理</td></tr>
+<tr><td>考核争议</td><td>指标不合理、公司做低业绩</td><td>民事</td><td>指标可抗辩、公示签字</td></tr>
+<tr><td>配偶股权分割</td><td>离婚分割婚内激励股</td><td>民事</td><td>配偶同意函/放弃声明</td></tr>
+<tr><td>股份支付造假</td><td>压低公允价值虚增利润</td><td>行政/刑事</td><td>公允价值有出处可审计（见B18）</td></tr>
+<tr><td>内幕交易</td><td>方案前知情人买卖</td><td>行政/刑事</td><td>知情人登记+窗口期管控</td></tr>
+<tr><td>利益输送</td><td>低价发亲属/无关方</td><td>行政/纪律</td><td>对象适格+定价披露</td></tr>
+<tr><td>短线交易</td><td>董监高6个月内倒手</td><td>行政</td><td>6个月禁区标注+合规日历</td></tr>
+</table>
+<p>核心原则：<strong>纠纷靠"协议+证据"防（中风险居多），红线靠"合规前置"守（高风险，事后补不回）</strong>。</p>
+<div class="link">相关：<a href="#sec2">四类纠纷与红线详细拆解（见模块二）</a> · <a href="#sec3">信号判断框架（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：激励纠纷与红线不是孤立章节，它上接管会、横接股权，是 B 线"股权与人性博弈"模块和"税会/结构"模块的交汇点。</p>
+
+<p class="key">上接 B18 激励税务与会计 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>B18 讲"股份支付怎么合规摊销"——本篇红线一"股份支付造假"正是它的反面：公允价值定低，B18 的摊销费用就被压缩，报表利润虚增。</li>
+<li>操作上：公允价值必须"有出处"（近期融资估值/独立评估），与 B18 的摊销逻辑一致；一旦造假，B18 整套合规架构全白做，还追加行政处罚。</li>
+<li>员工侧个税（B18 递延纳税）也受纠纷牵连：代持不清、回购争议，递延备案的股权基础不稳，税优可能落空。</li>
+</ul>
+</div>
+
+<p class="key">横接 B03 股权结构设计 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>B03 讲"控制权怎么搭、代持怎么清、持股平台怎么设"——本篇代持纠纷、配偶分割，直接冲击 B03 的"股权清晰"底线。</li>
+<li>操作上：拟上市前必须完成代持还原（B03 的清理动作），否则本篇的代持纠纷会变成申报稿里的"未决诉讼/股权不清"硬伤，被监管一轮轮问询。</li>
+<li>持股平台（B03 的 GP/LP 结构）也是激励载体——平台内份额纠纷，同样适用本篇的判断框架。</li>
+</ul>
+</div>
+
+<p class="key">顺接 B16/B17 · 怎么联动</p>
+<div class="block">
+<ul>
+<li>B16 期权"授予→成熟→归属→行权"的契约链，是本文所有纠纷的"母本"——链上每一环都可能断。</li>
+<li>B17 ESOP 的"资金来源/对象适格/锁定期"，直接对应本篇红线三（利益输送）与纠纷一（回购资金来源）。</li>
+</ul>
+</div>
+
+<p>上接税会、横接股权、顺接期权的——激励这张网，把"发股"和"守规"拧成一股绳：漏掉任何一节，雷就从这节炸起。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec4">离职回购纠纷推演（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。激励最大的雷，往往不在明面上的条款，在三个被忽略的盲区。</p>
+
+<p class="key">盲区一 · 口头承诺</p>
+<div class="block">
+<ul>
+<li>现象："老板口头说这20%都是你的"——没写进协议，离职时公司不认，员工举证无门。</li>
+<li>后果：纠纷时"口说无凭"，法院只认书面。口头承诺的激励，法律效力趋近于零。</li>
+<li>操作：所有关键条款（数量、价格、条件、回购）必须书面化，员工签字确认，必要时公证/留痕。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 代持无协议</p>
+<div class="block">
+<ul>
+<li>现象：股份挂在老板/高管名下"代持"，只有一句微信记录，没签《代持协议》、没留付款凭证。</li>
+<li>后果：代持人离婚/欠债，股份被配偶或债权人查封；代持人反悔，真权利人血本无归；上市前清理无据，申报被否。</li>
+<li>操作：能不代持就不代持；必须代持则签书面协议+留出资/归属凭证+设违约条款，上市前按监管口径还原。</li>
+</ul>
+</div>
+
+<p class="key">盲区三 · 回购无资金来源</p>
+<div class="block">
+<ul>
+<li>现象：协议写得漂亮"离职按X价回购"，但公司账上没钱、上市前又不能大额现金流出，回购成空头支票。</li>
+<li>后果：员工离职主张回购，公司无力支付，纠纷升级+监管问询"履约能力存疑"；上市前股权纠纷影响申报。</li>
+<li>操作：回购条款配套"资金来源安排"（实控人兜底/专项储备/持股平台回购权），把"写得出"变成"付得起"。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>激励的雷不在"发的时候"，在"退的时候"——口头、代持、钱三件没落实，退出必炸</strong>。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec4">离职回购纠纷推演（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把激励从"人情"重新看成"契约"，你会发现绝大多数纠纷的根源，是"太熟所以没写清"。</p>
+
+<p class="key">激励是契约，不是人情</p>
+<div class="block">
+<p>大白话——给员工发股，本质是一份"服务换股权"的合同：你干满几年、达到什么业绩，我才把股给你/按什么价收回。它和买卖合同没区别，唯一的区别是"甲方乙方平时一起吃饭"。一旦把人情塞进契约，条款就模糊、证据就缺失、退出就撕破脸。</p>
+<ul>
+<li>公司视角：把激励当合同设计，回购价用公式、考核用可抗辩指标、代持必清理——抗风险能力强十倍。</li>
+<li>员工视角：把激励当权利看待，签前看清条款、留足证据、配偶同步声明——维权时有底气。</li>
+</ul>
+</div>
+
+<p class="key">"自己人"恰恰是最高危人群</p>
+<div class="block">
+<ul>
+<li>越是核心团队、越早的兄弟，越容易"口头约定、信任代替文本"——结果离职/离婚/反目时，信任归零、文本空白。</li>
+<li>实务中 80% 的激励纠纷发生在"自己人"之间，而非陌生雇佣关系——因为陌生人反而会签严密合同。</li>
+<li>资本运作视角下，"关系越近，条款越要硬"是反直觉但必须遵守的原则。</li>
+</ul>
+</div>
+
+<p class="key">怎么操作——作为服务者，你是"契约设计师"不是"和事佬"</p>
+<div class="block">
+<ul>
+<li>客户说"都是自己人不会出事"：你的价值不是附和，是提醒"正因为是自己人，才要把协议写死"。</li>
+<li>给客户做"八项检查清单"（协议/代持/考核/配偶/内幕/窗口期/对象/公允价值），把模糊点变清单项。</li>
+<li>你会算期望回收（模块四）、会判风险等级（模块三）——这些才是建立专业信任的判断力，不是帮客户"摆平"谁。</li>
+</ul>
+</div>
+
+<p>模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（看透本质）。三者合一，才是"股权激励纠纷与红线"的完整认知——不只是八类风险清单，是"为什么熟人之间最容易炸、怎么用契约把它钉死"的底层逻辑。</p>
+<div class="link">相关：<a href="#sec3">信号解码与判断框架（见模块三）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="B18_激励税务与会计解码_长文.html"><div class="pn-label">← 上一篇</div><div class="pn-title">B18 激励税务与会计解码</div></a><div class="pn-disabled"></div></nav>
+</body>
+</html>

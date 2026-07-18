@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B03 股权结构设计解码：上市前的控制权怎么搭</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+.disclaimer{background:var(--pink);color:var(--wine);padding:12px 18px;font-size:.76em;margin-bottom:28px;line-height:1.6;border-left:3px solid var(--wine);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇 —— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid rgba(65,20,14,.12);padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:#41140e;text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:#41140e;color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:"Songti SC","SimSun","STSong","Noto Serif CJK SC",serif;
+  font-weight:700;font-size:1rem;color:#41140e;margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+
+</style>
+</head>
+<body>
+<div class="disclaimer">本篇内容不构成投资建议或专业意见，仅提供知识框架与判断思路，具体决策请咨询持牌专业人士。</div>
+
+<div class="art-nav"><a class="back" href="../../hall-b.html">← 返回栏目</a><span class="crumb">上市公司资本解码 · 19 篇长文</span></div>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Listed Company Decoding · B03</div>
+  <h1>股权结构设计解码：上市前的控制权怎么搭</h1>
+  <div class="tagrow">
+    <span class="tag">Equity Structure</span><span class="tag">Control Rights</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+你在服务客户时，客户递给你一张股权结构图——创始人个人只持有公司不到三成股份，其余都是投资机构。你第一反应可能是"创始人股权这么少，公司还是他的吗"。但答案未必。股权结构设计的本质不是"把蛋糕切给谁"，而是"谁说了算、怎么说了算、万一有变数谁兜底"。同样三成持股，有的创始人牢牢控制公司、有的却被投资人一票否决反复掣肘。本篇把上市前最关键的几套控制权工具逐一拆开：控股架构怎么搭、持股平台选哪种、代持怎么清、AB股与一致行动怎么保住创始人、投资人优先权又埋了哪些雷——最后用一张三轮融资的稀释推演表，让你看清"融资越多、控制权越稳还是越松"。
+</div>
+
+<div class="framework">
+<b>股权结构 = 控制权安排，不是分蛋糕</b><br>
+三个维度一起看：控股架构（直接还是间接）决定风险隔离；持股平台与保护条款决定"谁说话算数"；投资人优先权决定"出事后谁先跑"。低估任何一维，上市前都可能踩雷。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">先搞懂：股权比例不等于控制权比例，投票权才是真钥匙</p>
+
+<div class="card">
+<p><span class="key">股权结构</span>：一张图说清"谁持有公司多少比例的股份、这些股份对应多少投票权和分红权"。大白话——你开一家店，股份是"分钱的比例"，投票权是"谁拍板的比例"，这两者可以不一样。很多客户以为"我占股最多就说了算"，其实未必。</p>
+<p><span class="key">控制权 vs 股权比例</span>：控制权看的是"能不能主导股东会和董事会决议"，不一定等于持股最多。通过AB股、一致行动、否决权安排，持股三成也能控制七成的决策。反过来，持股四成如果没有保护条款，也可能被分散的投资人联手架空。</p>
+</div>
+
+<div class="block">
+<p><span class="key">四套核心工具，一句话定位</span></p>
+<ul>
+<li><span class="key">控股架构（直接/间接）</span>：创始人个人直接持股叫直接控股；通过一家控股公司或持股平台间接持有叫间接控股——区别在风险隔离和税务。</li>
+<li><span class="key">持股平台（有限合伙/公司制）</span>：把员工、早期跟投人的股权装进一个"容器"，减少直接股东人数、统一投票口径。</li>
+<li><span class="key">创始人保护条款（AB股/一致行动/否决权）</span>：让创始人在股权被稀释后，依然握有高于持股比例的投票权。</li>
+<li><span class="key">投资人优先权（一票否决/反稀释/优先清算）</span>：投资人进来的"保护伞"，但用不好会反过来锁死公司。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>下次客户跟你说"我们团队持股60%，稳的"——你不该直接点头，而要追问一句：<strong>"这60%是经济权益还是投票权？有没有AB股、一致行动安排？投资人的一票否决覆盖哪些事项？"</strong>模块一最该带走的认知：<strong>看股权结构，第一眼要分的不是谁拿多少钱，是谁说了什么算</strong>。</p>
+</div>
+
+<p class="guide">控股架构与持股平台，两种主流怎么选？</p>
+<div class="chips">
+  <label class="chip" for="c-arch">控股架构与持股平台速查</label>
+</div>
+
+<h2 id="sec2">二、规则与实务深水区</h2>
+<p class="guide">制度依据 + 实务操作：代持要清、AB股有门槛、优先权上市前要收</p>
+
+<div class="card">
+<p><span class="key">直接控股 vs 间接控股 · 法律依据</span></p>
+<p>《公司法》第二百六十五条定义：<span class="key">控股股东</span>指持股50%以上，或持股比例不足50%但所享表决权足以对股东会决议产生重大影响的股东；<span class="key">实际控制人</span>指通过投资关系、协议或其他安排，能够实际支配公司行为的主体。</p>
+<p><span class="key">实务</span>：直接控股（创始人个人持股）简单透明，但创始人个人债务、离婚、继承会直接穿透到公司股权，影响稳定性。间接控股（创始人先设一家控股公司，再由控股公司持有运营公司）能隔离个人风险、便于家族传承和统一投票，是拟上市企业的主流选择。</p>
+</div>
+
+<div class="card">
+<p><span class="key">有限合伙 vs 公司制持股平台</span></p>
+<p>依据《合伙企业法》，<span class="key">有限合伙</span>由普通合伙人（GP，通常创始人担任，哪怕只持1%也掌握全部管理权和投票权）和有限合伙人（LP，出钱不干预经营）组成。员工期权、跟投人做LP，创始做GP——既把人聚起来，投票权还攥在自己手里。税收上合伙企业"先分后税"、穿透到个人，比公司制多一层税的常见坑更可控。</p>
+<p><span class="key">公司制平台</span>是一个独立法人持股，优点是责任有限，缺点是多一道企业所得税、决策需走法人治理程序、投票权分散。实务中员工持股多优先选有限合伙。</p>
+</div>
+
+<div class="card">
+<p><span class="key">代持清理 · 上市硬门槛</span></p>
+<p>代持是"名义股东替实际出资人持股"，早期为方便工商登记、隐藏身份常出现。但上市审核把"股权清晰、不存在代持"作为发行条件——依据《首次公开发行股票注册管理办法》（证监会令第205号，2023）要求发行人"控股股东和受控股股东、实际控制人支配的股东所持发行人的股份权属清晰"。</p>
+<p><span class="key">怎么操作</span>：代持还原需双方签署确认书、支付对价凭证、资金来源说明，必要时公证，确保"还原后无纠纷"。遗留代持未清，是IPO被否的高发原因。</p>
+</div>
+
+<div class="card">
+<p><span class="key">创始人保护条款 · AB股有门槛</span></p>
+<p><span class="key">AB股（同股不同权/特别表决权）</span>：A类股1票、B类股多票（常见10票），由创始人持有。科创板《上海证券交易所科创板股票上市规则》第4.5节、创业板规则允许设置特别表决权，但<span class="key">主板目前不允许</span>；香港联交所《上市规则》第8A章也允许WVR架构。门槛包括：仅创始人可持特别表决权股、上市后不得转让、重大事项仍1股1票。</p>
+<p><span class="key">一致行动协议</span>：多个股东约定投票时保持一致，把分散股权捆成"一个声音"。<span class="key">否决权/一票否决</span>：创始人在特定重大事项（如增资、合并、核心资产处置）上享有一票否决，防止被投资人推翻。</p>
+</div>
+
+<div class="card">
+<p><span class="key">投资人优先权 · 上市前要收</span></p>
+<p>投资协议常见三类优先权：<span class="key">一票否决</span>（投资人对重大事项单独否决）、<span class="key">反稀释</span>（后续融资估值更低时，投资人股份按比例补偿）、<span class="key">优先清算</span>（公司清算时投资人先于普通股拿回本金及收益）。</p>
+<p>注册制下，这类"可能影响控制权稳定或损害其他股东利益"的特殊权利条款，IPO申报前需<span class="key">清理</span>——实践中可附"复效条款"：若上市失败，权利自动恢复。否则审核会认定控制权不稳定。</p>
+</div>
+
+<div class="block">
+<p><span class="key">VIE与红筹 · 两套跨境架构概要</span></p>
+<ul>
+<li><span class="key">VIE（协议控制）</span>：受《外商投资准入负面清单》限制的行业（如部分互联网、教育），境外上市主体通过一系列协议（独家服务、表决权委托、股权质押）控制境内运营实体，而非直接持股。审核关注协议稳定性与税务合规。</li>
+<li><span class="key">红筹架构</span>：境内运营实体的股东在境外（如开曼）设控股公司，境外公司境外上市。早期受"10号文"（商务部等六部委令2006年第10号）关联并购审批约束；2023年《境内企业境外发行证券和上市管理试行办法》（证监会令第134号）改为备案制，境外上市需向证监会备案。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>客户说"我们准备上主板"——你立刻要核对：<strong>他有没有设AB股？如果有，主板不认，得改架构或改板。他有没有投资人一票否决和优先清算？如果有，IPO前必须清掉，否则审核卡壳。</strong>模块二最该带走的是：<strong>控制权工具不是想用就用，每一件都有制度门槛和清理时点</strong>。</p>
+</div>
+
+<h2 id="sec3">三、信号解码与判断框架</h2>
+<p class="guide">看到一张股权结构图，不是直接下结论，而是三步判断：信号→博弈→方向</p>
+
+<p class="step">第一步 · 看到什么股权结构信号</p>
+<div class="block">
+<ul>
+<li><span class="key">创始人持股低但带AB股</span>：持股不到30%，却持有特别表决权股——这是"控制权补强"信号，表面弱实则稳，但要确认AB股在拟上市板块是否被允许。</li>
+<li><span class="key">存在代持或股权代持还原痕迹</span>：股东名册与实控人不一致、突击入股、代持协议——这是"上市障碍"信号，必须清理且留痕。</li>
+<li><span class="key">投资人一票否决事项堆叠</span>：多名投资人各自享有一票否决，且覆盖事项宽泛——这是"控制权被掣肘"信号，越多投资人越难形成有效决议。</li>
+<li><span class="key">多轮融资未设一致行动</span>：创始团队各持一股、无一致行动协议——这是"控制权随时间稀释"信号，融资越往后越被动。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 背后什么博弈</p>
+<div class="card">
+<p>股权结构背后是四方博弈：</p>
+<ul>
+<li><span class="key">创始人要控制权</span>：希望融资越多、自己说话越算数——倾向AB股、一致行动、否决权，把投票权锁死。</li>
+<li><span class="key">投资人要安全垫</span>：担心投进去被创始人乱花、被稀释——倾向一票否决、反稀释、优先清算，把退路铺好。</li>
+<li><span class="key">监管要股权清晰</span>：审核关注"权属清晰、控制权稳定"——代持、对赌、复杂VIE都是重点问询对象。</li>
+<li><span class="key">早期员工要兑现</span>：期权池、跟投平台要能退出变现——持股平台设计不当会卡住激励效果。</li>
+</ul>
+<p>四方博弈的结果：好的股权结构，是让创始人控制得住、投资人睡得着、监管挑不出、员工有盼头——四者的公约数。</p>
+</div>
+
+<p class="step">第三步 · 判断方向</p>
+<div class="block">
+<p>怎么判断控制权稳不稳、风险在哪：</p>
+<ul>
+<li><span class="key">稳的信号</span>：创始人投票权（含AB股+一致行动）始终高于2/3重大事项线；投资人优先权范围窄、且仅在上市前保留；代持已干净清理并留痕。</li>
+<li><span class="key">不稳的信号</span>：创始人经济权益跌破30%且无AB股补强；多名投资人一票否决叠加且无"复活"机制；代持未清或还原有纠纷隐患；VIE协议存在单方解除风险。</li>
+<li><span class="key">判断动作</span>：作为券商客户经理或私行顾问，你不需要替客户设计架构，但你需要<strong>一眼看出这张图"稳不稳、卡在哪、什么时候要收"</strong>——这才是专业信任的来源。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>下次你拿到一张拟上市客户的股权结构图，不要先看"谁占多少"，先看三件事：<strong>创始人投票权有没有过2/3线、投资人优先权有没有上市前清理计划、代持有没有干净还原</strong>。模块三最该带走的是：<strong>股权结构是一份"控制权体检表"，信号背后是四方博弈，博弈决定这家公司上市稳不稳</strong>。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：A轮到Pre-IPO的控制权推演</h2>
+<p class="guide">一家科技公司的创始团队，如何在五轮融资里把控制权牢牢攥住</p>
+
+<div class="card">
+<p><span class="key">公司画像（脱敏）</span>：一家拟科创板上市的硬科技公司。设立时创始人A持股 <span class="num">55%</span>、联合创始人B与C合计 <span class="num">45%</span>。A持有特别表决权股（1股10票），B、C与A签署一致行动协议。天使至Pre-IPO共五轮融资，投资人持普通股（1股1票），不设特别表决权。</p>
+<p><span class="key">推演前提</span>：每轮融资仅向新投资人增发股份，创始团队不再增资；A的55股始终对应550票，控制联盟（A+B+C）共595票。我们跟踪两个指标：<span class="num">创始团队经济权益</span>（分钱比例）与<span class="num">控制联盟投票权</span>（说话算数比例），看融资越多，控制权是松了还是稳了。</p>
+</div>
+
+<table>
+<tr><th>阶段</th><th>新增股份</th><th>总股份</th><th>创始团队经济权益</th><th>控制联盟投票权（含AB股+一致行动）</th><th>对照2/3线</th></tr>
+<tr><td>设立时</td><td>—</td><td>100</td><td><span class="num">100.0%</span></td><td><span class="num">100.0%</span></td><td>远超</td></tr>
+<tr><td>天使轮</td><td>+15</td><td>115</td><td><span class="num">87.0%</span></td><td><span class="num">97.5%</span></td><td>远超</td></tr>
+<tr><td>A轮</td><td>+20</td><td>135</td><td><span class="num">74.1%</span></td><td><span class="num">94.4%</span></td><td>远超</td></tr>
+<tr><td>B轮</td><td>+25</td><td>160</td><td><span class="num">62.5%</span></td><td><span class="num">90.8%</span></td><td>远超</td></tr>
+<tr><td>C轮</td><td>+25</td><td>185</td><td><span class="num">54.1%</span></td><td><span class="num">87.5%</span></td><td>远超</td></tr>
+<tr><td>D轮</td><td>+25</td><td>210</td><td><span class="num">47.6%</span></td><td><span class="num">84.4%</span></td><td>稳</td></tr>
+<tr><td>Pre-IPO</td><td>+23</td><td>233</td><td><span class="num">42.9%</span></td><td><span class="num">81.7%</span></td><td>稳</td></tr>
+</table>
+
+<p class="step">数字告诉我们什么</p>
+<div class="block">
+<p>这张表最反直觉的一幕：<strong>创始团队的经济权益从100%一路稀释到42.9%，几乎腰斩；但控制联盟的投票权只从100%降到81.7%，始终稳稳站在2/3（66.7%）重大事项线之上</strong>。这就是AB股+一致行动组合拳的价值——融资越多，创始人"分到的钱"越少，但"说了算"的权力几乎没掉。</p>
+<ul>
+<li>若没有AB股、没有一致行动：创始人A的经济权益到Pre-IPO只剩约 <span class="num">23.6%</span>，单独投票权约 <span class="num">75.5%</span>，虽也过线，但一旦B、C不跟投或转让，控制联盟立刻松动。</li>
+<li>若再叠加多名投资人一票否决：即便投票权过线，重大融资、并购仍需逐个投资人点头，<span class="key">实际控制效率被架空</span>——这就是"投票权过线但控制权失灵"的典型雷区。</li>
+<li>结论：<strong>控制权稳不稳，看的是"投票权+保护条款"的组合，不是经济权益的绝对值</strong>。42.9%的权益配81.7%的投票权，比60%权益却零保护要稳得多。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">核心结论</span>：股权结构设计，是在"融到钱"和"不丢控制权"之间找平衡。本案例用AB股补强投票权、用一致行动捆住团队、用有限合伙装员工期权——三件套让创始人在稀释近六成经济权益后，依然掌握八成以上投票权。真正的设计功力，是让客户融资越多越放心，而不是越融越慌。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果你的客户现在经济权益已经掉到40%、还没设任何保护条款——你该怎么提醒他？<strong>先算投票权过不过2/3线；不过就补AB股或一致行动；同时把投资人的一票否决列个清单，规划上市前清理时点</strong>。模块四最该带走的是：<strong>控制权不是天生的，是设计出来的——每一轮融资前都要重新算一遍这张表</strong>。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 · 风险盲区 · 资本运作视角——三面镜子互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<div class="block">
+<p><span class="key">联动疆界（概要）</span>：股权结构上接估值（B01）——估值高低决定每轮能融多少、稀释多少；下接退出（B04）——架构怎么搭直接决定未来并购、减持、家族传承的路径；横接税务与外汇——红筹、VIE的搭建时点影响合规成本。</p>
+</div>
+<div class="block">
+<p><span class="key">风险盲区（概要）</span>：代持未清（上市硬障碍）、控制权过早稀释（无AB股/一致行动，权益掉到30%以下无力回天）、优先权冲突（多名投资人一票否决叠加，决议僵局）——三个坑往往到IPO申报前才暴露，补救成本极高。</p>
+</div>
+<div class="block">
+<p><span class="key">资本运作视角（概要）</span>：股权结构不是"分蛋糕"，是"控制权安排"。同样的股份比例，不同的表决权设计、不同的优先权清理节奏，背后是创始人、投资人、监管三方对"谁主导这家公司"的反复博弈。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　看股权结构先分两件事：经济权益（分钱）和投票权（说话算数）。记住三件套——AB股补强投票权、一致行动捆住团队、优先权上市前要清。别被"持股60%"这个数字骗了。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 能用判断</span>　拿到一张股权图，按模块三三步判断：找信号（AB股/代持/一票否决）→看博弈（四方谁要什么）→下结论（控制权稳不稳）。用案例的稀释表，给客户算一轮"融资后投票权还剩多少"。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 精通实务</span>　①按拟上市板块核对AB股可行性（科创板/创业板可、主板不可）②列投资人优先权清单并规划清理/复效时点③核查代持还原留痕（确认书、对价、资金来源）④设计有限合伙平台统一员工投票口径⑤在每轮融资前重算控制权推演表，提前预警稀释红线。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>找一张你熟悉公司的股权结构图：创始人投票权过没过2/3线？投资人一票否决覆盖哪些事项？代持清干净了吗？</li>
+<li>用案例的稀释模型，给一家"创始团队初始70%、准备融四轮"的公司推演每轮后的经济权益与控制联盟投票权，画出控制权变化曲线。</li>
+<li>查一家科创板同股不同权公司：它的AB股比例怎么设的？上市前后特别表决权有什么限制？对比主板公司为什么不能这么玩。</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">股权比例不等于控制权比例，投票权才是真钥匙</div>
+  <div class="q"><b>核心问题：</b>客户说"我们团队持股60%"，你第一句是信还是问——"是经济权益还是投票权"？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">规则与实务深水区</div>
+  <div class="pos">代持要清、AB股有门槛、优先权上市前要收</div>
+  <div class="q"><b>核心问题：</b>客户要上主板却设了AB股——你看出哪处制度冲突？准备怎么提醒他？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">信号解码与判断框架</div>
+  <div class="pos">信号→博弈→判断方向</div>
+  <div class="q"><b>核心问题：</b>看到"创始人持股低但有AB股""代持未清"——哪个是稳的信号、哪个是雷？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">五轮融资，经济权益腰斩、投票权稳守2/3线</div>
+  <div class="q"><b>核心问题：</b>经济权益从100%稀释到42.9%，控制联盟投票权却只降到81.7%——凭什么？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>代持未清、控制权过早稀释、优先权冲突——三个盲区你最容易在哪处踩雷？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 能用判断 / 精通实务</div>
+  <div class="q"><b>核心问题：</b>看懂、判断、实务——你卡在哪一阶？今天能给客户落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：上接 B01《估值解码》（估值高低决定每轮融资稀释多少），下接 B04《退出解码》（股权结构怎么搭决定未来减持、并购与传承路径）。本篇是B线"股权与控制权"的底层框架。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Listed Company Decoding B03 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。B线模块三为"信号解码与判断框架"。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-arch" class="toggle">
+<div class="modal"><label class="backdrop" for="c-arch"></label><div class="modal-box">
+<label class="close" for="c-arch">&times;</label>
+<h3>控股架构与持股平台速查</h3>
+<p>两张对照表，帮你在服务客户时快速判断"该用哪种搭法"。</p>
+
+<p class="key">控股架构：直接 vs 间接</p>
+<table>
+<tr><th>维度</th><th>直接控股（个人直接持股）</th><th>间接控股（控股公司/平台持股）</th></tr>
+<tr><td>风险隔离</td><td>弱：个人债务、离婚、继承直接穿透公司</td><td>强：个人风险止于控股公司一层</td></tr>
+<tr><td>税务</td><td>分红个税，转让个税</td><td>控股公司层面可递延，便于再投资</td></tr>
+<tr><td>传承</td><td>股权直接分割，易分散</td><td>可整体转让控股公司，集中可控</td></tr>
+<tr><td>适用</td><td>早期简单、股东少</td><td>拟上市、家族、多业务板块主流</td></tr>
+</table>
+
+<p class="key">持股平台：有限合伙 vs 公司制</p>
+<table>
+<tr><th>维度</th><th>有限合伙（GP+LP）</th><th>公司制平台</th></tr>
+<tr><td>投票权</td><td>GP（常是创始人）掌全部管理投票权</td><td>按出资比例，易分散</td></tr>
+<tr><td>税收</td><td>先分后税、穿透到个人</td><td>企业所得税+个税，双重</td></tr>
+<tr><td>人数</td><td>压缩直接股东数，统一口径</td><td>同样可装多人，但治理更重</td></tr>
+<tr><td>适用</td><td>员工持股、跟投首选</td><td>责任隔离需求强时选用</td></tr>
+</table>
+<p>操作原则：<strong>拟上市企业优先"间接控股 + 有限合伙持股平台"组合——隔离个人风险、统一投票口径、税收更可控</strong>。</p>
+<div class="link">相关：<a href="#sec2">代持清理与AB股制度门槛（见模块二）</a> · <a href="#sec4">控制权稀释推演（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：股权结构不是孤立图纸，它上接估值、下接退出、横接税务与外汇。三段逻辑一脉相承。</p>
+
+<p class="key">上接估值（B01）· 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>估值高低决定每轮能融多少钱、稀释多少股权——估值越高，同样的融资额稀释越少，创始人控制权越保得住；</li>
+<li>实务操作：在融资前先和业务方对齐估值逻辑（PE/PS/DCF），把"少稀释"作为谈判目标之一，而不是只看到账金额；</li>
+<li>估值与股权结构是同一枚硬币两面：算估值时就要同步推演"这一轮后我的投票权还剩多少"。</li>
+</ul>
+</div>
+
+<p class="key">下接退出（B04）· 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>股权结构直接决定未来退出路径：间接控股便于整体转让、有限合伙便于员工统一减持、红筹架构决定境外变现通道；</li>
+<li>实务操作：搭建架构时就预设退出场景（并购、IPO减持、家族传承），避免在上市前夕为退出而重构，引发税务与合规成本；</li>
+<li>优先权清理时点也要和退出节奏对齐——上市前清、上市后按锁定期减持。</li>
+</ul>
+</div>
+
+<p class="key">横接税务与外汇 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>红筹、VIE的搭建时点影响合规成本：早期搭建比临上市前搭建的外汇登记、税务成本更低；</li>
+<li>有限合伙平台的注册地选择（税收洼地）影响最终税赋，但需以公开合规政策为前提，绝非偷逃；</li>
+<li>架构设计本质是"控制权 + 税筹 + 合规"的三元平衡，任一维失衡都会反噬退出。</li>
+</ul>
+</div>
+
+<p>上接估值、下接退出、横接税汇——三条线在"股权结构"这个节点交汇：控制权安排决定了公司能融多少、能值多少、最终怎么退。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。股权结构最贵的错误，往往到IPO申报前才爆。</p>
+
+<p class="key">盲区一 · 代持未清</p>
+<div class="block">
+<ul>
+<li>代持是上市审核的硬障碍——"股权清晰、不存在代持"是发行条件，遗留代持未还原会被直接问询甚至否决；</li>
+<li>更隐蔽的风险是"还原有纠纷"：名义股东与实际出资人反目、对价说不清、资金来源不明，即便还原也埋下诉讼隐患；</li>
+<li>操作上：代持还原要签署确认书、留付款凭证、说明资金来源，必要时公证，确保"干净无纠纷"。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 控制权过早稀释</p>
+<div class="block">
+<ul>
+<li>没有AB股、没有一致行动，每轮融资纯按比例稀释——到C轮、D轮经济权益掉到30%以下，再想补强已来不及（AB股只能在上市前设置且限于创始人）；</li>
+<li>更危险的是"团队内部分散"：联合创始人各自持股、无一致行动，一旦有人转让或对立，控制联盟瞬间瓦解；</li>
+<li>操作上：设立时就把AB股和一致行动装好，而不是等问题出现再补救。</li>
+</ul>
+</div>
+
+<p class="key">盲区三 · 优先权冲突</p>
+<div class="block">
+<ul>
+<li>多名投资人各自享有一票否决，且覆盖事项宽泛（增资、并购、核心资产处置全要点头）——决议僵局，公司大事谁也推不动；</li>
+<li>反稀释与优先清算若未在IPO前清理，审核会认定"控制权不稳定"或"损害其他股东利益"；</li>
+<li>操作上：投资协议谈判时就限定一票否决的范围（仅核心事项），并约定上市前清理/复效机制，避免临门一脚卡壳。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>股权结构的坑，九成是"早该做没做、晚做做不了"——代持早清、保护早设、优先权早约清理时点</strong>。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec3">信号解码与判断框架（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把股权结构从"一张分蛋糕的图"重新看成"一份控制权安排的合同"，你会发现它本质是博弈的产物。</p>
+
+<p class="key">股权结构 = 控制权安排，不是分蛋糕</p>
+<div class="block">
+<p>同样的股份比例，不同的表决权设计，背后是"谁主导这家公司"的反复博弈。创始人想要"融资越多越说了算"，投资人想要"投进去睡得着"——AB股、一致行动、一票否决、优先清算，全是这场地弈的具象化工具，不是分配的副产品。</p>
+</div>
+
+<p class="key">每个条款背后是立场</p>
+<div class="block">
+<ul>
+<li>创始人推AB股、一致行动：把投票权锁死在自己手里，哪怕经济权益被稀释；</li>
+<li>投资人推一票否决、反稀释、优先清算：把下行风险锁死，出事先跑；</li>
+<li>监管推"股权清晰、控制权稳定"：防止上市后内斗、代持爆雷，保护公众股东；</li>
+<li>员工推期权池、跟投平台：要能变现、要被当自己人。</li>
+</ul>
+</div>
+
+<p class="key">怎么操作——作为服务者，你不是画图的人，你是看穿博弈的人</p>
+<div class="block">
+<ul>
+<li>客户给你一张股权图：先拆"谁要控制权、谁要安全垫、监管要什么"——三方的公约数才是可持续的结构；</li>
+<li>看到投资人优先权堆叠：提醒客户规划上市前清理时点，别临申报才发现卡壳；</li>
+<li>你不需要替客户设计架构，但你需要<strong>一眼看出这张图稳不稳、卡在哪、什么时候要收</strong>——这是建立专业信任的判断力，不是画图力。</li>
+</ul>
+</div>
+
+<p>模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（看透博弈）。三者合一，才是"股权结构"这件事的完整认知——不只是谁持多少股，是这套架构背后"谁主导、谁兜底、谁退出"的博弈逻辑。</p>
+<div class="link">相关：<a href="#sec3">信号解码与判断框架（见模块三）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="B02_IPO解码_长文.html"><div class="pn-label">← 上一篇</div><div class="pn-title">B02 IPO解码</div></a><a class="pn-next" href="B04_交易结构与退出解码_长文.html"><div class="pn-label">下一篇 →</div><div class="pn-title">B04 交易结构与退出解码</div></a></nav>
+</body>
+</html>

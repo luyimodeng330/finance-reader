@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B08 大宗交易解码：大额股权变动的暗号</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+.disclaimer{background:var(--pink);color:var(--wine);padding:12px 18px;font-size:.76em;margin-bottom:28px;line-height:1.6;border-left:3px solid var(--wine);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇 —— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid rgba(65,20,14,.12);padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:#41140e;text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:#41140e;color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:"Songti SC","SimSun","STSong","Noto Serif CJK SC",serif;
+  font-weight:700;font-size:1rem;color:#41140e;margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+
+</style>
+</head>
+<body>
+<div class="disclaimer">本篇内容不构成投资建议或专业意见，仅提供知识框架与判断思路，具体决策请咨询持牌专业人士。</div>
+
+<div class="art-nav"><a class="back" href="../../hall-b.html">← 返回栏目</a><span class="crumb">上市公司资本解码 · 19 篇长文</span></div>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Listed Company Decoding · B08</div>
+  <h1>大宗交易解码：大额股权变动的暗号</h1>
+  <div class="tagrow">
+    <span class="tag">Block Trade</span><span class="tag">Capital Decoding</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+你在服务客户时，客户说"我手里500万股，想慢慢减又不想砸盘"——这时候你该想到的工具不是挂在二级市场每天卖，而是<span class="key">大宗交易</span>。大白话讲，大宗交易就是"整栋楼打包卖"，而不是"一套一套挂中介"。一笔大额股票，找一个买家一次性接走，成交价通常比市价便宜几个点，盘中价格几乎不被惊动。但便宜几个点、谁来接盘、接了多少——这三个数字合在一起，就是市场解读"大股东在套现还是机构在建仓"的暗号。本篇把大宗交易的撮合机制、折价率规律、接盘方画像和股价信号一拆到底：让你下次看到一笔大宗，能读出它背后的博弈，而不是只看个热闹。
+</div>
+
+<div class="framework">
+<b>大宗交易 = 折价率 × 接盘方身份 × 股份数量</b><br>
+三个变量缺一不可：折价率告诉你卖方急不急、让利多少；接盘方身份告诉你"谁在买、为什么买"；数量告诉你"这事重不重要、占股本几个点"。三者合起来，才读得出是减持套现、机构建仓还是利益输送。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">大宗交易不是"偷偷卖股票"，是交易所给大额买卖开的一扇"批发窗口"</p>
+
+<div class="card">
+<p><span class="key">大宗交易</span>：达到规定最低限额（A股单笔申报数量不低于 <span class="num">30万股</span>，或交易金额不低于 <span class="num">200万元</span>）的证券买卖，由买卖双方协议达成一致、经交易所确认成交的机制。大白话——你手里有大量股票想卖，挂二级市场慢慢卖会把股价砸下去（自己吃亏），于是找券商牵线，打包卖给一个买家，成交价通常比市价便宜几个点，这就是大宗交易。</p>
+<p><span class="key">为什么要走大宗，不直接挂盘卖</span>：核心词是"<span class="key">冲击成本</span>"。二级市场是"零售"，一笔大卖单砸进去，盘口被压垮、价格瞬间下滑，轮到自己真正成交时单价已经低了一截。大宗交易把"批发"和"零售"分开——大额一次性成交，盘中价格几乎不受影响，卖方的实际成交均价更可控，买方也能一次性拿足筹码。</p>
+</div>
+
+<div class="block">
+<p><span class="key">三个基本设定，先记牢</span></p>
+<ul>
+<li><span class="key">时间窗口</span>：上交所大宗交易接受申报时间为每个交易日 9:30-11:30、13:00-15:30；深交所基本同口径。多数大宗在<span class="key">收盘后（盘后定价）</span>撮合，完全不触碰盘中报价。</li>
+<li><span class="key">价格区间</span>：有涨跌幅限制的证券，大宗成交价由双方在当日涨跌幅限制范围内协商确定；无涨跌幅限制的，在前收盘价上下30%或当日最高最低价之间。</li>
+<li><span class="key">成交路径</span>：先"意向申报"（买卖方挂出想成交的数量/价格区间）→ 再"成交申报"（双方锁定价格与数量）→ 交易所确认。整个过程由券商营业部牵线最普遍。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你下次在行情软件里看到"某股当日发生一笔大宗交易，折价8%"——第一反应不该是"又有人卖了"，而是<strong>"卖方为什么要让出这8%？接盘的是谁、接了之后能不能马上卖？"</strong>模块一最该带走的认知：<strong>大宗交易的存在，是为了把"大额买卖的冲击"从盘中隔离出去；但隔离了冲击，不等于隔离了信号</strong>。</p>
+</div>
+
+<p class="guide">大宗交易和协议转让，到底是不是一回事？</p>
+<div class="chips">
+  <label class="chip" for="c-vs">大宗交易 vs 协议转让 速查</label>
+</div>
+
+<h2 id="sec2">二、规则与实务深水区</h2>
+<p class="guide">撮合机制、折价率规律、接盘方画像，外加减持新规的硬约束</p>
+
+<div class="card">
+<p><span class="key">大宗交易 vs 协议转让：常被混为一谈，实则两码事</span></p>
+<p><span class="key">大宗交易</span>：在交易所系统内的"批发通道"，单笔 ≥30万股或 ≥200万元即可走，T日成交、T+1可卖（接盘方除非受减持新规约束，否则无强制锁定期），信息披露轻，对股价盘口零冲击。适合减持套现、机构调仓、产品建仓。</p>
+<p><span class="key">协议转让</span>：通过交易所"协议转让"业务办理的场外大额过户，通常针对<span class="key">超过5%的权益变动、大股东整体转让</span>等，需交易所确认、触发权益变动披露（举牌/减持预披露），且<span class="key">受让方6个月内不得转让</span>。适合控制权变更、战略入股、纾困接盘。</p>
+<p><span class="key">一句话区分</span>：大宗是"系统里的批发"，协议是"桌面上签合同的过户"——前者灵活、快、对盘口友好；后者重、慢、监管披露多、锁定期硬。</p>
+</div>
+
+<div class="card">
+<p><span class="key">折价率规律：大宗成交价的"体温计"</span></p>
+<p>实务数据显示，<span class="key">大宗交易折价成交是常态</span>，折价率常见落在 <span class="num">-5% ~ -10%</span> 区间，这 5~10 个点本质是"流动性对价 + 接盘风险补偿"——买方一次性吃下大额筹码，承担了后续变现的不确定性，卖方用折价换来"不砸盘、快成交"。</p>
+<p><span class="key">三种折价档位，信号含义不同</span>：</p>
+<ul>
+<li><span class="key">浅折价（-3% 以内）</span>：买卖双方议价空间小，常是机构间平价调仓、指数产品建仓，信号中性。</li>
+<li><span class="key">典型折价（-5% ~ -10%）</span>：最常见的"让利区间"，大股东/高管减持套现、或接盘方要求风险补偿，市场通常解读为<span class="key">温和偏空的减持信号</span>。</li>
+<li><span class="key">深度折价（-10% 以上）</span>：卖方急迫性高、或标的质地/流动性差、或存在"左手倒右手"式安排，需高度警惕<span class="key">变相减持或利益输送</span>。</li>
+<li><span class="key">溢价成交（折价率 &gt; 0）</span>：买方主动加价接盘，通常意味着机构/产业资本<span class="key">看好</span>，或关联方"高价接盘"——后者是利益输送嫌疑区，要结合接盘方身份看。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">撮合机制：一笔大宗是怎么"对上"的</span></p>
+<ul>
+<li><span class="key">券商席位/营业部牵线</span>：实务中绝大多数大宗由券商营业部做"红娘"——客户经理手里既有想减持的大股东，也有想建仓的机构/产品户，双方需求一对，撮合完成，券商赚佣金。部分券商有专门的"大宗交易撮合"平台，发布买方/卖方意向。</li>
+<li><span class="key">盘后定价</span>：收盘后（15:00后）进行大宗申报，按约定价格成交，<span class="key">完全不影响盘中价格</span>——这是大宗相比二级市场甩卖最大的优势，也是它被称为"暗号"的原因：盘中的你，看不到这笔交易的痕迹。</li>
+<li><span class="key">过桥接盘</span>：专业接盘方短期接走大宗，6个月锁定期满后再二级市场卖出套利，是市场里一类特殊的"流动性提供方"。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">政策出处：减持新规给大宗套上的"硬约束"</span></p>
+<p>大宗交易不是法外之地。现行规则核心是 <span class="key">《上市公司股东减持股份管理暂行办法》（证监会令第224号，2024年5月施行）</span>，配套沪深交易所《上市公司股东及董事、监事、高级管理人员减持股份实施细则》及问答，关键条款：</p>
+<ul>
+<li><span class="key">比例限制</span>：大股东在任意连续90日内，通过大宗交易减持股份的总数，不得超过公司股份总数的 <span class="num">2%</span>（集中竞价通道为1%）——大宗是减持的"主力通道"，但仍有上限。</li>
+<li><span class="key">受让方锁定期</span>：大股东通过大宗交易减持的，<span class="key">受让方在受让后6个月内不得转让</span>所受让股份——这条直接决定了"接盘方能不能马上卖"，是判断大宗后续抛压的关键。</li>
+<li><span class="key">预披露义务</span>：大股东、董监高通过大宗减持，需按规则提前披露减持计划，否则违规。</li>
+</ul>
+<p class="muted">实务提示：以上为通用规则框架，北交所、科创板、创业板及特定股东（如创投基金）另有差异化安排，具体以最新监管规则及公告为准。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>假设一笔大宗：卖方是大股东、折价9%、接盘方是"机构专用"席位、数量占股本1.8%。你作为服务方，第一件要确认的事不是"这笔交易合不合规"，而是<strong>"接盘方是谁、6个月后锁定期满会不会砸出来？"</strong>模块二最该带走的：<strong>撮合机制决定了它"怎么成交"，减持新规决定了它"成交后能不能卖"——两条线合起来，才读出真实的流动性含义</strong>。</p>
+</div>
+
+<h2 id="sec3">三、信号解码与判断框架</h2>
+<p class="guide">看到一笔大宗，不要直接下结论，而是三步判断：信号 → 博弈 → 方向</p>
+
+<p class="step">第一步 · 看到什么信号</p>
+<div class="block">
+<ul>
+<li><span class="key">折价率</span>：浅折价（中性调仓）还是深度折价（急售/利益输送）？溢价成交（看好或关联方接盘）尤其要标记。</li>
+<li><span class="key">数量/占比</span>：占股本几个点？是否逼近90日2%上限？越接近上限，说明卖方减持意图越明确、节奏越紧。</li>
+<li><span class="key">接盘方身份</span>：是"机构专用"、知名营业部（游资）、还是关联方/员工持股计划？身份直接决定后续是"拿着"还是"倒手"。</li>
+<li><span class="key">卖方身份</span>：是大股东、董监高，还是普通机构/产品户？大股东减持 vs 机构调仓，信号含义天差地别。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 背后什么博弈</p>
+<div class="card">
+<p>一笔大宗背后，是四方角力：</p>
+<ul>
+<li><span class="key">卖方（急 vs 稳）</span>：大股东/高管想套现离场→倾向深度折价快成交；机构调仓→浅折价平价；产业资本战略退出→看谈判。</li>
+<li><span class="key">买方（建仓 vs 套利）</span>：机构产品想低成本拿筹码→接受折价接盘；游资想短炒→接了可能配合二级市场；关联方→可能"左手倒右手"。</li>
+<li><span class="key">监管（比例 vs 锁定期）</span>：90日2%上限、6个月锁定期，是硬约束，决定了这笔交易"能减多少、接了能不能马上卖"。</li>
+<li><span class="key">中小股东（接盘 vs 被抛）</span>：盘中看不到大宗，但公告出来后，市场会重新定价——减持信号偏空，增持/机构建仓信号偏多。</li>
+</ul>
+<p>四方的诉求拧在一起：卖方要"快且不砸盘"，买方要"便宜且能变现"，监管划"红线"，市场做"解读"。</p>
+</div>
+
+<p class="step">第三步 · 判断方向</p>
+<div class="block">
+<p>把三个信号输入判断框架，通常落到三种结论之一：</p>
+<ul>
+<li><span class="key">减持套现（偏空）</span>：大股东/高管 + 深度折价（-8%以上）+ 占股本接近2%上限 + 接盘方为过桥/游资 → 典型"高位套现、急售离场"信号，短期股价承压。</li>
+<li><span class="key">机构建仓（偏多/中性）</span>：机构专用席位 + 典型折价（-5%~-10%，正常对价）+ 数量温和 + 后续无大额减持公告 → 机构低成本拿货，6个月锁定期内形成"稳定器"，偏正面。</li>
+<li><span class="key">利益输送（警惕）</span>：关联方/员工持股计划 + 溢价成交或异常浅折价 + 交易对手指向同一控制人 → 疑似"高价接盘""左手倒右手"，需核查是否规避减持限制或转移利益。</li>
+<li><span class="key">判断动作</span>：作为券商客户经理或私行顾问，你不需要自己撮合大宗，但你需要<strong>在客户公告/龙虎榜出来时，第一时间读出"这是套现、建仓还是输送"</strong>——这才是建立专业信任的判断力。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>下次你服务的客户问"我这笔大宗折价10%卖出去，市场会不会觉得我在跑路？"——你的回答不该是安慰，而是<strong>"折价10%本身就会触发'急售'解读，你要么把接盘方换成机构专用以对冲信号，要么接受折价但提前沟通减持计划"</strong>。模块三最该带走的是：<strong>大宗交易是信号弹——同样的减持动作，接盘方和折价率能把它从"偏空"扭成"偏多"</strong>。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：8%折价 + 机构接盘 的推演</h2>
+<p class="guide">把折价率、接盘方、数量装进同一家公司，看股价怎么走</p>
+
+<div class="card">
+<p><span class="key">公司画像（已脱敏）</span>：一家中型制造业上市公司，总股本 <span class="num">2.5亿股</span>，T日二级市场股价 <span class="num">20.0元</span>，总市值 <span class="num">50亿元</span>。大股东持股20%（5000万股）。某日披露一笔大宗交易：</p>
+<ul>
+<li>成交量 <span class="num">500万股</span>，占股本 <span class="num">2.0%</span>（正好触及90日大宗减持2%上限）；</li>
+<li>成交价 <span class="num">18.4元</span>，折价率 = (18.4−20.0)/20.0 = <span class="num">−8%</span>；</li>
+<li>成交金额 <span class="num">9200万元</span>；</li>
+<li>卖方：持股5%以上大股东，减持后持股降至18%；</li>
+<li>接盘方：<span class="key">"机构专用"席位</span>（机构接盘）。</li>
+</ul>
+</div>
+
+<table>
+<tr><th>信号维度</th><th>本案读数</th><th>初步含义</th></tr>
+<tr><td>折价率</td><td>−8%（典型折价区间）</td><td>卖方让利正常、接盘方风险补偿合理</td></tr>
+<tr><td>数量/占比</td><td>500万股，占股本2.0%</td><td>触及90日大宗上限，减持意图明确</td></tr>
+<tr><td>卖方</td><td>持股5%以上大股东</td><td>属"大股东减持"，需预披露、受2%限制</td></tr>
+<tr><td>接盘方</td><td>机构专用席位</td><td>机构建仓/配置盘，非游资短炒</td></tr>
+<tr><td>锁定期</td><td>受让方6个月内不得转让</td><td>短期无二级市场抛压，形成"稳定器"</td></tr>
+</table>
+
+<p class="step">后续股价波动 · 数字推导表</p>
+<div class="card">
+<p>基于"8%折价 + 机构接盘"的组合，市场通常经历"<span class="key">减持信号短期承压 → 机构建仓信号消化 → 锁定期内企稳</span>"三段式。下表为同口径推演（基准T日股价20.0元）：</p>
+</div>
+
+<table>
+<tr><th>时点</th><th>事件</th><th>股价(元)</th><th>较T日</th><th>解读</th></tr>
+<tr><td>T日</td><td>大宗成交@18.4（−8%），二级20.0</td><td>20.0</td><td>0%</td><td>基准价</td></tr>
+<tr><td>T+5</td><td>减持信号消化，小幅承压</td><td>19.2</td><td>−4.0%</td><td>市场短期解读偏空</td></tr>
+<tr><td>T+30</td><td>机构建仓信号被消化，企稳</td><td>19.8</td><td>−1.0%</td><td>接近原价，冲击消化</td></tr>
+<tr><td>T+60</td><td>机构持续买入，转正面</td><td>20.6</td><td>+3.0%</td><td>增持信号偏多</td></tr>
+<tr><td>T+90</td><td>大股东减持节奏平稳，无新增</td><td>20.2</td><td>+1.0%</td><td>减持窗口边界，未超比例</td></tr>
+<tr><td>T+180</td><td>6个月锁定期满，机构未减持</td><td>20.5</td><td>+2.5%</td><td>锁定期满无抛压，安心</td></tr>
+</table>
+
+<div class="block">
+<p><span class="key">同一笔交易，三种判断推演</span></p>
+<ul>
+<li><span class="key">若判为"减持套现"</span>：折价−8% + 占股本2%触顶 + 大股东卖出 → 短期偏空，T+5回落至19.2元合理；但若接盘方是机构而非游资，下行有底。</li>
+<li><span class="key">若判为"机构建仓"</span>：机构专用席位接盘 + 6个月锁定期 → 形成股价"稳定器"，T+60后回升至20.6元，整体偏多。这是本案的基准情景。</li>
+<li><span class="key">反面对照（若为利益输送）</span>：若接盘方是关联方、且折价异常浅或溢价，则T+180锁定期满后可能"左手倒右手"再转回，或出现隐性抛压——股价可能跌至18.8元（−6%），偏离本案推演。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">核心结论</span>：同一笔"8%折价 + 500万股"的大宗，<strong>接盘方身份决定了它的"故事走向"</strong>。机构接盘 → 折价是对价、锁定期是稳定器、后续偏多；游资/过桥接盘 → 6个月后抛压悬顶；关联方接盘 → 利益输送红灯。读懂大宗，不是看"卖了多少"，是看"<span class="key">谁接了、接了能不能卖</span>"。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果你是这家公司的股东，看到机构以−8%折价接了你的500万股——你该高兴还是担心？<strong>高兴的是"不砸盘、快成交"；要盯的是"机构6个月后会不会在20.5元以上派发"</strong>。模块四最该带走的：<strong>大宗交易的终局不在成交日，在6个月锁定期满那天</strong>。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 · 风险盲区 · 资本运作视角——三面镜子互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<div class="block">
+<p><span class="key">联动疆界（概要）</span>：大宗交易上接可交债（B07）——可交债换股后大股东变相减持，常通过大宗"出货"；下接跨市场套利（B09）——AH溢价、跨市场价差常借大宗通道平衡。一条"减持—出货—套利"的链条在大宗节点交汇。</p>
+</div>
+<div class="block">
+<p><span class="key">风险盲区（概要）</span>：接盘方6个月锁定期（满期抛压）、变相减持（过桥接盘规避比例限制）、内幕交易（重大信息前的大宗异动）——三个盲区让大宗的"信号"失真，甚至变成监管雷区。</p>
+</div>
+<div class="block">
+<p><span class="key">资本运作视角（概要）</span>：大宗既是流动性通道（大额不砸盘），也是信号弹（折价率/接盘方暴露意图）。同一笔交易，操盘者用"接盘方选择"把偏空信号扭成偏多——这是资本运作里最轻巧的"信号管理"。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　看到大宗交易，先问三件事：折价率几档（浅/典型/深度）？接盘方是谁（机构/游资/关联方）？占股本几个点、触没触顶2%？记住：大宗是信号弹，不是成交单。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 能用判断</span>　用案例的"8%折价+机构接盘"框架，给一笔真实大宗贴标签（套现/建仓/输送）；找一家公司的减持预披露，核对90日2%上限与接盘方锁定期；识别"深度折价+关联方"的红灯组合。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 精通实务</span>　①帮客户设计减持节奏（大宗2%+竞价1%组合，平滑减持）②选对接盘方（机构专用对冲偏空信号）③测算6个月锁定期满的潜在抛压④把大宗与可交债换股、跨市场套利联动设计⑤在合规架构内做"信号管理"，而非操纵。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>找一笔近期大宗交易：读它的折价率、接盘方、占股本比例，判断它是减持套现、机构建仓还是利益输送，并说明依据。</li>
+<li>用案例的"三段式"框架，给一家你熟悉的公司画一张"大宗后180天股价推演表"，标出关键时点与解读。</li>
+<li>查一家公司的减持预披露公告：核对它的大宗减持是否触及90日2%上限、接盘方锁定期怎么写——判断它合规还是打擦边球。</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">大宗交易是交易所给大额买卖开的"批发窗口"</div>
+  <div class="q"><b>核心问题：</b>客户说"想减500万股又不想砸盘"——你第一反应是让他挂盘卖，还是走大宗？为什么？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">规则与实务深水区</div>
+  <div class="pos">撮合机制 / 折价率规律 / 减持新规硬约束</div>
+  <div class="q"><b>核心问题：</b>大宗和协议转让到底差在哪？证监会令第224号给接盘方套上的6个月锁定期，意味着什么？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">信号解码与判断框架</div>
+  <div class="pos">信号→博弈→判断方向</div>
+  <div class="q"><b>核心问题：</b>同样一笔大宗，怎么读出它是减持套现、机构建仓还是利益输送？三个输入变量是什么？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">8%折价 + 机构接盘 → 180天股价推演</div>
+  <div class="q"><b>核心问题：</b>同一笔"8%折价+500万股"，机构接盘 vs 游资接盘，180天后股价故事为什么完全不同？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>接盘方6个月锁定期、变相减持、内幕交易——三个盲区，你最容易在哪一关踩雷？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 能用判断 / 精通实务</div>
+  <div class="q"><b>核心问题：</b>看懂、判断、实务——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：上接 B07《可交债解码》（换股后变相减持常借大宗出货）、下接 B09《跨市场套利解码》（AH溢价价差常经大宗通道平衡）。本篇是B线"上市后资本运作"的流动性与信号枢纽。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Listed Company Decoding B08 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。B线模块三为"信号解码与判断框架"。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-vs" class="toggle">
+<div class="modal"><label class="backdrop" for="c-vs"></label><div class="modal-box">
+<label class="close" for="c-vs">&times;</label>
+<h3>大宗交易 vs 协议转让 速查</h3>
+<table>
+<tr><th>维度</th><th>大宗交易</th><th>协议转让</th></tr>
+<tr><td>交易场所</td><td>交易所系统内"批发通道"</td><td>交易所协议转让业务（场外过户）</td></tr>
+<tr><td>规模门槛</td><td>单笔≥30万股或≥200万元</td><td>通常针对5%以上权益变动/控制权变更</td></tr>
+<tr><td>成交速度</td><td>快，T日成交、盘后亦可</td><td>慢，需交易所确认</td></tr>
+<tr><td>锁定期</td><td>接盘方一般无强制锁定期（大股东减持情形受让方6个月不得转让）</td><td>受让方6个月内不得转让</td></tr>
+<tr><td>信息披露</td><td>轻，盘后公告</td><td>重，触发权益变动/减持预披露</td></tr>
+<tr><td>盘口冲击</td><td>零冲击（隔离盘中）</td><td>不直接冲击，但举牌信号强</td></tr>
+<tr><td>典型用途</td><td>减持套现、机构调仓、产品建仓</td><td>控制权变更、战略入股、纾困接盘</td></tr>
+</table>
+<p>核心原则：<strong>小额、快、不碰控制权 → 走大宗；大额、控股权、要披露 → 走协议</strong>。两者都受减持新规约束，但锁定期与披露强度的差异，决定了它们在资本运作里的不同角色。</p>
+<div class="link">相关：<a href="#sec2">撮合机制与折价率规律（见模块二）</a> · <a href="#sec3">接盘方信号判断（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：大宗交易不是孤立事件，它上接可交债、下接跨市场套利，是一条"减持—出货—套利"链条的中间节点。</p>
+
+<p class="key">上接可交债（B07） · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>可交债（EB）是"不用减持也能高位套现"的工具：大股东发行可交债，换股期内债券持有人把债换成股票，等于大股东变相减持。</li>
+<li>换股获得的股票，持有人若要大规模变现，常借<span class="key">大宗交易</span>出货——既不砸盘，又快速落袋。操作上：可交债发行时就要规划"换股后怎么出"，大宗是首选通道。</li>
+<li>信号联动：可交债进入换股期 + 同期出现折价大宗 = 典型的"变相减持"组合，市场会叠加解读为偏空。</li>
+</ul>
+</div>
+
+<p class="key">下接跨市场套利（B09） · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>AH溢价（同一公司A股比H股贵）的长期存在，让跨市场价差成为套利温床。机构可在便宜的市场买入、贵的市场通过大宗卖出，平衡头寸。</li>
+<li>大宗的"盘后定价、零盘口冲击"特性，是跨市场调仓的理想通道——尤其当需在A股侧大额减仓而不惊动盘面时。</li>
+<li>操作上：跨市场组合 + 大宗通道，是中性策略常用的"低成本调仓"手法，本身中性，但需警惕借套利之名行减持之实。</li>
+</ul>
+</div>
+
+<p class="key">横向：减持节奏的组合设计</p>
+<div class="block">
+<ul>
+<li>大股东90日内：大宗最多减2% + 集中竞价最多减1% = 合计最多3%，是合规减持的"黄金组合"。</li>
+<li>用大宗解决"大额、不砸盘"，用竞价解决"细水长流"，二者配合平滑减持节奏、管理市场信号。</li>
+</ul>
+</div>
+
+<p>上接可交债、下接跨市场、横向做减持组合——三条线在"大宗"这个节点交汇：它既是出货口，也是调仓口，更是信号口。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。大宗交易最贵的错误，往往不是看错折价率，是忽视接盘方后续的"隐性动作"。</p>
+
+<p class="key">盲区一 · 接盘方6个月锁定期满的抛压</p>
+<div class="block">
+<ul>
+<li>大股东大宗减持，受让方6个月内不得转让——这6个月是"平静期"，股价有稳定器；但<span class="key">锁定期满第一天，抛压可能集中释放</span>。</li>
+<li>判断要点：T+180前后盯接盘方是否发布减持公告、是否出现在龙虎榜卖出席位。机构配置盘通常持有，过桥/游资盘往往派发。</li>
+<li>实务建议：服务客户时，把"锁定期满日"作为关键观测点写进跟踪日历，而非只看成交日。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 变相减持（过桥接盘）</p>
+<div class="block">
+<ul>
+<li>大股东想减但受比例/预披露限制，于是先把股份大宗"过桥"给关联方或专业接盘方，6个月后再由接盘方二级市场卖出——实质是<span class="key">绕开限制</span>的减持。</li>
+<li>识别信号：深度折价 + 接盘方为"过桥"特征主体（新设、无实业背景、短期接多笔） + 锁定期满即大额卖出。</li>
+<li>监管已在重点打击此类安排，服务方应避免为客户设计明显规避性质的"过桥"结构，守住合规底线。</li>
+</ul>
+</div>
+
+<p class="key">盲区三 · 内幕交易</p>
+<div class="block">
+<ul>
+<li>重大信息（并购、定增、业绩暴雷前）前后的异常大宗，可能是内幕知情人借大宗"暗度陈仓"——盘后成交、对手隐蔽，规避盘中监控。</li>
+<li>识别信号：重大公告前突然出现深度折价大宗、接盘方与信息方存在关联。</li>
+<li>红线：参与或协助基于未公开重大信息的大宗交易，属内幕交易，刑事风险极高。务必在合规架构内操作，留存交易合理性证据。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>大宗交易的终局不在成交日，在6个月锁定期满那天；信号失真的地方，往往就是监管雷区</strong>。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec3">信号解码与判断框架（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把大宗交易从"一笔成交"重新看成"流动性通道 + 信号弹"，你会发现同一笔交易，操盘者可以用"接盘方选择"改写它的市场含义。</p>
+
+<p class="key">大宗是流动性通道</p>
+<div class="block">
+<p>对大股东/机构，大宗解决了"大额不砸盘"的刚需——把批发和零售隔离，保护盘中价格，实控成交均价。这是它最朴素的价值：<strong>流动性工具</strong>。</p>
+</div>
+
+<p class="key">大宗更是信号弹</p>
+<div class="block">
+<ul>
+<li>同样的减持动作：接盘方选"机构专用"→ 市场读成"机构建仓、偏多"；选游资/过桥 → 读成"套现离场、偏空"；选关联方 → 读成"利益输送、红灯"。</li>
+<li>折价率也是信号旋钮：−5%是"正常对价"，−10%是"急售"，溢价是"看好或输送"。操盘者每调一档，市场解读就换一种颜色。</li>
+<li>所以"<span class="key">信号管理</span>"是资本运作里最轻巧的一招：不操纵价格，只管理"谁接、让几厘"——偏空动作也能被扭成偏多叙事。</li>
+</ul>
+</div>
+
+<p class="key">怎么操作——作为服务者，你是信号的解读者，不是信号的制造者</p>
+<div class="block">
+<ul>
+<li>客户要减持：帮他把节奏拆成"大宗2%+竞价1%"，选机构专用接盘方对冲偏空信号，提前做减持预披露沟通；</li>
+<li>客户要建仓：用大宗折价拿货，锁定6个月持有，向市场释放"长线配置"信号；</li>
+<li>你看公告：第一时间拆折价率/接盘方/占比，判断套现/建仓/输送，把"锁定期满日"标进跟踪表；</li>
+<li>红线内操作：所有安排落在证监会令第224号与交易所细则框架内，留存合理性证据，绝不碰内幕交易与明显规避性质的过桥。</li>
+</ul>
+</div>
+
+<p>模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（看透信号）。三者合一，才是"大宗交易"的完整认知——它既是出货口，也是调仓口，更是资本运作里最轻巧的那枚信号弹。</p>
+<div class="link">相关：<a href="#sec3">信号解码与判断框架（见模块三）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="B07_可交债解码_长文.html"><div class="pn-label">← 上一篇</div><div class="pn-title">B07 可交债解码</div></a><a class="pn-next" href="B09_跨市场套利解码_长文.html"><div class="pn-label">下一篇 →</div><div class="pn-title">B09 跨市场套利解码</div></a></nav>
+</body>
+</html>

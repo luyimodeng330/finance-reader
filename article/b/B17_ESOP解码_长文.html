@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B17 ESOP解码：上市后员工持股计划的玩法</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+.disclaimer{background:var(--pink);color:var(--wine);padding:12px 18px;font-size:.76em;margin-bottom:28px;line-height:1.6;border-left:3px solid var(--wine);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇 —— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid rgba(65,20,14,.12);padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:#41140e;text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:#41140e;color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:"Songti SC","SimSun","STSong","Noto Serif CJK SC",serif;
+  font-weight:700;font-size:1rem;color:#41140e;margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+
+</style>
+</head>
+<body>
+<div class="disclaimer">本篇内容不构成投资建议或专业意见，仅提供知识框架与判断思路，具体决策请咨询持牌专业人士。</div>
+
+<div class="art-nav"><a class="back" href="../../hall-b.html">← 返回栏目</a><span class="crumb">上市公司资本解码 · 19 篇长文</span></div>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Listed Company Decoding · B17</div>
+  <h1>ESOP解码：上市后员工持股计划的玩法</h1>
+  <div class="tagrow">
+    <span class="tag">ESOP</span><span class="tag">Employee Ownership</span><span class="tag">Leverage</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+你在服务客户时，客户（一家刚上市两年的制造业公司实控人）说"我们准备搞个员工持股计划，让员工跟着公司一起赚"——你怎么判断这套ESOP是真激励，还是变相给员工发福利、甚至是大股东变相减持的通道？员工持股计划（ESOP）不是"白送股票"，是"员工出钱、公司组织、一起当股东"：公司设立一个专门的计划（信托或资管），拿一笔钱去二级市场买、定增拿、或用公司回购的库存股，过户到员工名下，锁定一段时间后分批解锁。本篇把ESOP和股权激励计划的差异、钱从哪来（自筹/杠杆/股东借款）、股票从哪来（二级市场/定增/回购库存股）、谁来管理（信托/资管）、锁定期与考核怎么设，逐一道来——然后给你一套"看到ESOP方案就能判断是激励、福利还是减持通道"的框架。
+</div>
+
+<div class="framework">
+<b>ESOP = 员工出钱 × 杠杆放大 × 时间锁定</b><br>
+三个乘数决定它是不是真激励：员工出钱（自筹比例）是诚意，杠杆放大（优先级/劣后级）是风险开关，时间锁定（锁定期+解锁节奏）是约束。三者组合决定这套方案是"绑定人才"还是"变相分钱"。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">ESOP不是白送股票，是"员工出钱、公司组织、一起当股东"</p>
+
+<div class="card">
+<p><span class="key">员工持股计划（ESOP，Employee Stock Ownership Plan）</span>：大白话——公司上市后说"我帮大家开个账户，你们每人出点钱，我拿这笔钱去买咱家股票，放在这个账户里，等几年解锁后再分给你们"。注意是"员工出钱买"，不是"公司白送"。专业定义：ESOP是上市公司根据员工意愿，通过合法方式使员工获得本公司股票、由专门机构（信托或资管计划）统一管理的一种长期激励与利益共享制度安排，适用《关于上市公司实施员工持股计划试点的指导意见》（证监会公告〔2014〕33号）。</p>
+<p><span class="key">和"股权激励计划"最容易被混为一谈</span>：两者都叫"给员工股票"，但监管规则、股票来源、参与面、资金来源、税务处理全都不一样。一句话区分：<strong>股权激励是"公司按规则发给员工限制性股票或期权"（受《上市公司股权激励管理办法》证监会令第126号约束）；ESOP是"员工自己出钱、通过专门计划去拿公司股票"（受指导意见约束）</strong>。详见下方速查。</p>
+</div>
+
+<div class="card">
+<p><span class="key">ESOP vs 股权激励计划 一句话差异</span></p>
+<ul>
+<li><span class="key">出资义务</span>：ESOP以员工自筹为主（可配杠杆），员工真金白银掏钱；股权激励多为公司无偿授予限制性股票或期权，员工未必出资。</li>
+<li><span class="key">监管规则</span>：ESOP适用《指导意见》（2014年33号公告）；股权激励适用《上市公司股权激励管理办法》（证监会令第126号，2016年公布、2018年修正）。</li>
+<li><span class="key">参与面</span>：ESOP可覆盖全体员工，通过资管/信托计划持有，不穿透计算200人上限；股权激励对象通常为公司董事、高管及核心员工，且有比例上限（如累计不超股本10%）。</li>
+<li><span class="key">股票来源</span>：ESOP可来自二级市场购买、非公开发行（定增）、公司回购的库存股；股权激励多来自定向增发或回购。</li>
+<li><span class="key">强制考核</span>：股权激励必须设置业绩考核指标（办法明确要求）；ESOP无强制考核要求，约束主要靠锁定期与分期解锁——这是判断"激励还是福利"的关键分水岭。</li>
+</ul>
+<p>实务认知：<strong>ESOP的核心词是"员工出钱、自己当股东"；股权激励的核心词是"公司授予、达成条件即归属"。看一套方案，先问"钱谁出、考核有没有"，立刻分清它是哪一类</strong>。</p>
+</div>
+
+<div class="card">
+<p><span class="key">谁参与、谁管理</span></p>
+<ul>
+<li><span class="key">参与对象</span>：ESOP可面向全体员工（含子公司），也可只面向核心骨干；券商客户经理或私行顾问要看"覆盖面"——全员普惠还是只给高管，信号含义完全不同（模块三展开）。</li>
+<li><span class="key">管理机构</span>：ESOP不能由公司直接代持，必须由具备资质的信托公司或证券公司资产管理计划作为"管理机构"统一建账、管理、行使股东权利。这是ESOP和"公司直接发股票"最硬的制度区别。</li>
+<li><span class="key">持股形式</span>：股票登记在资管/信托计划名下，员工作为计划份额持有人间接持股——不直接出现在股东名册，避免"人人都是直接股东"的治理混乱。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>下次客户跟你说"我们搞了个员工持股计划，员工免费拿了500万股"——你第一反应不应该是"真大方"，而是<strong>"员工出钱了吗？有没有杠杆？考核怎么设？锁多久？"</strong>。模块一最该带走的认知：<strong>ESOP的本质是"员工出钱当股东"，凡是员工不出钱、无杠杆、无锁定的"员工持股"，十有八九是变了形的福利或通道，不是真ESOP</strong>。</p>
+</div>
+
+<p class="guide">ESOP和股权激励到底怎么区分、各自利弊？</p>
+<div class="chips">
+  <label class="chip" for="c-vs">ESOP vs 股权激励 速查</label>
+</div>
+
+<h2 id="sec2">二、规则与实务深水区</h2>
+<p class="guide">钱从哪来、股票从哪来、谁来管、锁多久、考不考核</p>
+
+<div class="card">
+<p><span class="key">资金来源（三条路）</span></p>
+<ul>
+<li><span class="key">员工自筹</span>：员工自己掏工资、奖金或自有资金，最干净、最显诚意。自筹比例越高，说明方案越"真激励"。</li>
+<li><span class="key">杠杆资金</span>：通过"优先级+劣后级"结构化安排放大购买力——优先级资金（多来自银行理财、信托）享受固定收益且优先受偿，劣后级（员工自筹）承担全部下行风险并享受剩余收益。常见杠杆比例1:1（优先:劣后）或2:1。杠杆是把双刃剑：放大收益也放大亏损，跌到一定程度员工本金清零（爆仓）。</li>
+<li><span class="key">股东借款</span>：大股东或实控人借钱给员工参与计划，常附"兜底"或"保收益"安排。合规边界要盯紧——若实质是股东代持或变相利益输送、或借道实现减持，监管会重点关注（模块三、五展开）。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">股票来源（三条路）</span></p>
+<ul>
+<li><span class="key">二级市场购买</span>：通过资管计划在竞价交易或大宗交易买入，价格随行就市。优点灵活、不稀释（从市场买）；缺点是公开买入可能推高股价、且锁定期较短（不少于12个月）。</li>
+<li><span class="key">非公开发行（定增）</span>：公司向ESOP定向发行新股，价格有折价（通常不低于定价基准日前20日均价的80%）。优点一次性拿到足额股份、有折价安全垫；缺点是锁定期长（不少于36个月）、会稀释总股本。</li>
+<li><span class="key">回购库存股</span>：公司先用自有资金从二级市场回购股份并注销或库存，再过户给ESOP。优点不新增稀释、价格可控、且向市场传递"公司认为股价被低估"的托底信号；是当前主流且最受认可的方式。也是本篇脱敏案例采用的路径。</li>
+</ul>
+<p><span class="key">规则出处</span>：《指导意见》明确ESOP股票来源包括"上市公司回购本公司股票、二级市场购买、认购非公开发行股票"等；锁定期方面，通过二级市场购买的不少于12个月，通过非公开发行取得的不少于36个月。</p>
+</div>
+
+<div class="card">
+<p><span class="key">管理机构：信托 / 资管</span></p>
+<p>大白话——这笔股票不能由公司自己抱着，得交给有牌照的"管家"（信托计划或券商资管计划）统一管。管家负责建账、管理份额、在股东大会上怎么投票、股票怎么买卖。</p>
+<p><span class="key">实操要点</span>：①管理机构须具备相关金融牌照；②计划章程要明确管理费率、表决权行使方式（通常员工授权管理机构统一行使）、收益分配规则；③员工离职、退休等情形下的份额处置（转让、退出价格）必须写清，避免日后纠纷（B19展开）。</p>
+</div>
+
+<div class="card">
+<p><span class="key">锁定期与考核</span></p>
+<ul>
+<li><span class="key">锁定期</span>：二级市场来源≥12个月，定增来源≥36个月；很多公司主动设更长锁定期（如本篇案例的3年）以显绑定决心。锁定期越长、解锁节奏越分散（如3年分30%/30%/40%），约束越强。</li>
+<li><span class="key">考核</span>：这是ESOP和股权激励最大的"软肋差异"——<strong>ESOP没有强制业绩考核要求</strong>，约束几乎全靠"锁定期+在岗+不减持"。若一家公司ESOP既无杠杆（员工无风险）、又无考核、锁定期形同摆设，那它就很难称得上"激励"，更像是"福利"甚至"通道"。</li>
+<li><span class="key">解锁节奏</span>：分期解锁（而非一次性解禁）是防止"拿到就跑"的关键设计；常见"在岗即解锁、离职即终止未解锁部分"。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>假设你服务的客户准备推ESOP，股票来源选了"定增折价80%"，但员工自筹比例为0（全靠大股东借款+兜底），且没有设定任何业绩考核——你知道这意味着什么吗？<strong>意味着这方案几乎不具备"激励"属性：员工零风险、零考核、锁定期可能被兜底安排架空，更像是借助道给员工发钱或帮大股东锁定抛压</strong>。模块二最该带走的是：<strong>ESOP的"真不真"，看资金来源（是否自筹）、股票来源（是否折价过大）、锁定期与考核（是否形同虚设）三个维度，少一个都是变形</strong>。</p>
+</div>
+
+<h2 id="sec3">三、信号解码与判断框架</h2>
+<p class="guide">看到ESOP方案，不是看"给了多少"，而是三步判断：信号→博弈→方向</p>
+
+<p class="step">第一步 · 看到什么信号</p>
+<div class="block">
+<ul>
+<li><span class="key">杠杆比例</span>：优先:劣后 1:1或更低（员工自筹占大头）= 员工承担风险、诚意足；2:1以上（杠杆过重）= 收益放大但爆仓线很近；0杠杆且全由股东借款/兜底 = 员工零风险，激励成色存疑。</li>
+<li><span class="key">股票来源</span>：回购库存股（不稀释、有托底信号）= 最健康；二级市场购买（随行就市）= 中性；定增折价80%（安全垫厚但稀释+长锁定）= 需结合其他信号看是否有"低价拿货"嫌疑。</li>
+<li><span class="key">考核设置</span>：有明确业绩考核（如营收/净利润门槛）= 真激励导向；无考核、仅靠"在岗"= 约束弱、易变福利。</li>
+<li><span class="key">参与对象</span>：覆盖核心+广泛员工（普惠式绑定）= 组织稳定信号；仅少数高管参与 = 可能是"少数人通道"。</li>
+<li><span class="key">股东借款/兜底</span>：有借款且附保收益兜底 = 员工无下行风险，需警惕变相福利或减持通道；无兜底 = 风险共担。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 背后什么博弈</p>
+<div class="card">
+<p>ESOP方案背后永远是四方博弈：</p>
+<ul>
+<li><span class="key">公司/实控人想低成本留人+稳股价</span>：倾向用回购库存股托底、设长锁定显示信心，同时借员工"锁仓"减少市场抛压、稳定股价。</li>
+<li><span class="key">员工想要低风险高收益</span>：倾向零杠杆或股东兜底（稳赚不赔）、短锁定（早点解禁套现）、覆盖广（人人有份）。</li>
+<li><span class="key">大股东/借款方想借道减持或托价</span>：通过借款+兜底让员工"接盘"、或借ESOP锁定抛压维持股价，为自身后续减持创造窗口——这是最容易踩红线的动机。</li>
+<li><span class="key">监管关注合规</span>：是否变相减持、杠杆是否过度、股东兜底是否构成实质代持或利益输送、信息披露是否充分——每一个都指向"方案干净不干净"。</li>
+</ul>
+<p>四方博弈的结果：一份"好方案"是公司和员工风险共担、利益共享的中间值，不是某一方单方面占便宜或转嫁风险。</p>
+</div>
+
+<p class="step">第三步 · 判断方向</p>
+<div class="block">
+<p>怎么判断这是激励、福利还是减持通道：</p>
+<table>
+<tr><th>判断维度</th><th>真激励</th><th>变相福利</th><th>减持通道</th></tr>
+<tr><td>杠杆/出资</td><td>员工自筹为主，杠杆≤1:1</td><td>零杠杆或全股东兜底，员工无风险</td><td>股东借款+保收益，实质代持</td></tr>
+<tr><td>股票来源</td><td>回购库存股，不稀释</td><td>二级市场随意买</td><td>定增折价过大，低价拿货</td></tr>
+<tr><td>考核</td><td>有明确业绩门槛</td><td>无考核，仅"在岗"</td><td>无考核，解锁即抛</td></tr>
+<tr><td>参与面</td><td>核心+广泛员工</td><td>仅高管小圈子</td><td>形式覆盖，实控人受益</td></tr>
+<tr><td>锁定期</td><td>3年+分期解锁</td><td>最短12个月，形同摆设</td><td>锁定期满即集中抛售</td></tr>
+</table>
+<ul>
+<li><span class="key">判断动作</span>：作为券商客户经理、私行顾问或FA，你不是发ESOP的人，你是判断这套方案"激励谁、绑住谁、还是帮谁减持"的人。看到方案先拉出"杠杆比例 / 股票来源 / 考核设置 / 参与面 / 股东兜底"五张信号卡，再倒推它是哪一类。</li>
+<li><span class="key">红线提示</span>：股东保收益兜底、锁定期满后立即集中减持、股票来源折价异常且参与面高度集中——任一出现，都应警惕"名为激励、实为通道"。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>客户递给你一份ESOP：杠杆2:1、定增折价80%、无业绩考核、仅8名高管参与、大股东提供保收益借款。你怎么一句话判断？<strong>这是"高杠杆+零考核+小圈子+股东兜底"——典型的变相福利甚至减持通道，几乎不具备激励属性</strong>。模块三最该带走的是：<strong>ESOP方案是信号，信号背后是四方博弈，博弈决定它到底"绑定人才、发福利、还是帮人减持"</strong>。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：某上市公司ESOP推演</h2>
+<p class="guide">1:1杠杆 + 回购库存股 + 3年锁定期，算一笔员工收益与风险账</p>
+
+<div class="card">
+<p><span class="key">公司画像</span>：某制造业上市公司，总股本 <span class="num">10亿股</span>，当前股价 <span class="num">10元</span>，总市值 <span class="num">100亿元</span>。公司前期以均价 <span class="num">10元/股</span> 从二级市场回购 <span class="num">5000万股</span> 作为库存股。现推出ESOP：计划规模 <span class="num">5亿元</span>，对应上述5000万股（均价10元）；采用 <span class="key">1:1结构杠杆</span>——优先级资金（机构理财，年化 <span class="num">6%</span>）<span class="num">2.5亿元</span> + 劣后级（员工自筹）<span class="num">2.5亿元</span>；参与员工 <span class="num">500人</span>（核心+骨干+部分一线），人均出资 <span class="num">50万元</span>；锁定期 <span class="num">3年</span>，分3年解锁（30%/30%/40%），设"在岗+不减持"约束，<span class="key">未设强制业绩考核</span>（仅以锁定期与在岗为约束）。</p>
+</div>
+
+<table>
+<tr><th>要素</th><th>设定值</th><th>说明</th></tr>
+<tr><td>总规模 / 持股数</td><td>5亿元 / 5000万股</td><td>均价10元，来自回购库存股</td></tr>
+<tr><td>杠杆结构</td><td>优先2.5亿 : 劣后2.5亿 = 1:1</td><td>员工自筹占50%权益</td></tr>
+<tr><td>优先级成本</td><td>年化6% × 3年 ≈ 0.45亿</td><td>3年到期需还本息 2.95亿</td></tr>
+<tr><td>参与人数 / 人均</td><td>500人 / 50万元</td><td>员工真金白银出资</td></tr>
+<tr><td>锁定期 / 解锁</td><td>3年 / 30%·30%·40%</td><td>分期解锁，绑定中长期</td></tr>
+<tr><td>考核</td><td>无强制业绩考核</td><td>仅靠锁定期+在岗约束</td></tr>
+</table>
+
+<table>
+<tr><th>3年后股价</th><th>股票市值</th><th>还优先级本息</th><th>劣后(员工)净值</th><th>员工收益率</th><th>人均(出资50万)</th><th>风险判读</th></tr>
+<tr><td>15元（+50%）</td><td>7.5亿</td><td>2.95亿</td><td>4.55亿</td><td class="key">+82%</td><td>91万（赚41万）</td><td>杠杆放大收益</td></tr>
+<tr><td>10元（持平）</td><td>5.0亿</td><td>2.95亿</td><td>2.05亿</td><td class="key">−18%</td><td>41万（亏9万）</td><td>利息吃掉本金</td></tr>
+<tr><td>8元（−20%）</td><td>4.0亿</td><td>2.95亿</td><td>1.05亿</td><td class="key">−58%</td><td>21万（亏29万）</td><td>下行被放大</td></tr>
+<tr><td>5.9元（−41%）</td><td>2.95亿</td><td>2.95亿</td><td>≈0</td><td class="key">−100%</td><td>≈0（清零）</td><td>劣后爆仓线</td></tr>
+<tr><td>5元（−50%）</td><td>2.5亿</td><td>2.95亿</td><td>负数（不足）</td><td class="key">本金全损</td><td>0</td><td>优先级亦受损</td></tr>
+</table>
+
+<p class="step">关键推导三句话</p>
+<div class="block">
+<ul>
+<li><span class="key">收益来源</span>：员工收益的核心是"股价从10元涨到15元"的50%涨幅，被1:1杠杆放大到约82%——杠杆让上行弹性更大，这是ESOP用少量自筹撬动大收益的逻辑。</li>
+<li><span class="key">爆仓机制</span>：劣后清零的临界股价 = 优先级本息2.95亿 ÷ 5000万股 = <span class="num">5.9元</span>。也就是说股价只要从10元跌41%，员工2.5亿本金就归零；而<strong>不加杠杆时跌41%员工只亏41%——杠杆把下行风险从"亏41%"放大到"亏100%"，这就是爆仓</strong>。</li>
+<li><span class="key">约束缺口</span>：本案例3年锁定期+分期解锁提供了中长期绑定，但"无强制业绩考核"是软肋——若公司股价不涨仅靠时间锁定，员工收益被利息侵蚀（持平即亏18%），方案激励成色取决于股价表现而非业绩改善。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">核心结论</span>：这套方案"真激励成分中等偏上"的依据是——员工自筹占50%（有诚意）、1:1杠杆（风险可控）、回购库存股（不稀释、有托底信号）、3年锁定（有效约束）。但两个隐患拉低成色：①无强制业绩考核，约束靠"时间"而非"业绩"；②1:1杠杆下股价跌破5.9元即爆仓，员工下行风险被显著放大。判断一句话：<strong>员工出钱+有杠杆+有锁定=真绑定；但无考核+杠杆爆仓线近=成色打折、风险不小</strong>。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果这家公司把杠杆从1:1提到2:1（优先级3.33亿、劣后1.67亿），员工自筹降到1.67亿，爆仓线会变成多少？<strong>临界股价 = (3.33亿+3年利息约0.6亿) ÷ 5000万股 ≈ 7.9元——股价只需从10元跌21%员工本金就清零，比1:1时的−41%敏感近一倍</strong>。模块四最该带走的是：<strong>ESOP的"安全垫"不在给了多少股，在杠杆比例把爆仓线推到了多近——杠杆越重，员工下行越脆</strong>。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 · 风险盲区 · 资本运作视角——三面镜子互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<div class="block">
+<p><span class="key">联动疆界（概要）</span>：ESOP上接拟上市期权（B16）——期权是上市前"给权利"，ESOP是上市后"承接行权、统一持有、面对锁定期"的载体，两者在"员工间接持股平台"节点交汇；下接税会（B18）——ESOP目前无股权激励的递延纳税优惠（财税〔2016〕101号仅适用于股权激励），员工收益按工资薪金或实际转让所得纳税，且可能涉及股份支付费用，税务与会计处理是落地前必须算清的变量。</p>
+</div>
+<div class="block">
+<p><span class="key">风险盲区（概要）</span>：杠杆爆仓（1:1以上杠杆把下行放大到清零）、考核虚设（无业绩门槛、仅靠时间锁定，易变福利）、变相减持（股东借款+兜底让员工接盘、锁定期满集中抛售）——三处盲区任一爆发，都会让ESOP从"激励"滑向"通道"甚至合规红线。</p>
+</div>
+<div class="block">
+<p><span class="key">资本运作视角（概要）</span>：ESOP是绑定不是分钱。公司用"员工出钱+时间锁定"以低成本实现人才绑定与股价稳定，是比直接发钱更聪明的资本运作；但一旦变成"零风险福利"或"减持通道"，就背离了利益共享、风险共担的初衷，反而透支市场信任。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　遇到ESOP方案，先问三件事：员工出钱了吗（自筹比例）？有没有杠杆、爆仓线多近？锁多久、考不考核？记住——ESOP是"员工出钱当股东"，凡是零出资、零考核、短锁定的"员工持股"，先打个问号。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 能用判断</span>　用案例公司的"1:1杠杆+回购库存股+3年锁定"框架，判断一家真实ESOP是激励、福利还是减持通道；识别变形信号（杠杆≥2:1、定增折价过大、无考核、仅高管参与、股东兜底）；算出爆仓临界股价 = 优先级本息 ÷ 持股数。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 精通实务</span>　①按"自筹比例+杠杆+股票来源+考核+参与面"五维搭方案②按《指导意见》（2014年33号公告）核对锁定期（二级≥12月、定增≥36月）与管理机构资质③算杠杆爆仓线与优先级本息④对照财税〔2016〕101号判断税务处理（ESOP不适用递延）⑤在推出前帮客户把"杠杆风险+考核缺口+减持嫌疑"三处隐患一并排雷。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>找一家你熟悉的上市公司ESOP：它的杠杆比例是几比几？股票来源是回购、二级还是定增？有没有业绩考核？判断它是真激励、福利还是通道。</li>
+<li>用本文框架给一家ESOP算爆仓线：假设规模4亿、持股4000万股、优先:劣后=1:1、优先级年化6%、锁3年，临界股价是多少？若股价跌30%，员工本金剩多少？</li>
+<li>对照《关于上市公司实施员工持股计划试点的指导意见》，列出ESOP相比股权激励计划的3个核心差异，并说明"无强制考核"为何是判断福利化的关键信号。</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">ESOP是"员工出钱、公司组织、一起当股东"</div>
+  <div class="q"><b>核心问题：</b>客户说"搞了员工持股计划，员工免费拿股"——你第一反应是问什么："真大方"还是"出钱了吗、杠杆多少、考不考核"？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">规则与实务深水区</div>
+  <div class="pos">资金/股票来源、信托资管、锁定期与考核</div>
+  <div class="q"><b>核心问题：</b>《指导意见》里二级购买锁12月、定增锁36月的差异，会怎么影响你客户ESOP的绑定强度？股票来源选哪种最健康？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">信号解码与判断框架</div>
+  <div class="pos">信号→博弈→判断方向</div>
+  <div class="q"><b>核心问题：</b>杠杆比例、股票来源、考核、参与面、股东兜底五张信号卡摆出来，你判断这是激励、福利还是减持通道？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">1:1杠杆+回购库存股+3年锁定数字推导</div>
+  <div class="q"><b>核心问题：</b>杠杆从1:1提到2:1，爆仓线从5.9元变到多少？为什么杠杆越重员工下行越脆？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>杠杆爆仓、考核虚设、变相减持——三个盲区，你客户的方案最可能爆哪个？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 能用判断 / 精通实务</div>
+  <div class="q"><b>核心问题：</b>看懂、判断、实务——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：上接 B16《拟上市公司期权解码》（期权是上市前"给权利"，ESOP是上市后承接行权、统一持有、面对锁定期的载体）、下接 B18《激励税务与会计解码》（ESOP无递延纳税优惠、按工资薪金或转让所得纳税及股份支付会计处理）、B19《激励纠纷与红线解码》（离职退出与份额处置纠纷）。本篇是上市后员工持股计划（ESOP）的交易结构框架。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Listed Company Decoding B17 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。B线模块三为"信号解码与判断框架"。铁律0-12同B02执行：配色变量统一、瑞士风视觉、零JS checkbox 弹窗、相邻兄弟选择器、h2锚点、模块末思考卡、政策文号出处、案例数字推导表、免责声明与合规口径。
+</div>
+
+<input type="checkbox" id="c-vs" class="toggle">
+<div class="modal"><label class="backdrop" for="c-vs"></label><div class="modal-box">
+<label class="close" for="c-vs">&times;</label>
+<h3>ESOP vs 股权激励 速查</h3>
+<table>
+<tr><th>维度</th><th>员工持股计划 ESOP</th><th>股权激励计划</th></tr>
+<tr><td>核心逻辑</td><td>员工出钱、自己当股东</td><td>公司授予、达标即归属</td></tr>
+<tr><td>出资义务</td><td>员工自筹为主，可配杠杆</td><td>多无偿授予，未必出资</td></tr>
+<tr><td>监管规则</td><td>《指导意见》证监会公告〔2014〕33号</td><td>《管理办法》证监会令第126号</td></tr>
+<tr><td>参与面</td><td>可全覆盖，资管/信托不穿透200人</td><td>董高及核心员工，有比例上限</td></tr>
+<tr><td>股票来源</td><td>二级购买/定增/回购库存股</td><td>定增/回购为主</td></tr>
+<tr><td>强制考核</td><td>无强制，靠锁定期约束</td><td>必须有业绩考核指标</td></tr>
+<tr><td>管理机构</td><td>必须信托/资管计划代持管理</td><td>公司直接授予、登记</td></tr>
+<tr><td>税务</td><td>不适用递延（财税〔2016〕101号）</td><td>可适用递延纳税优惠</td></tr>
+</table>
+<p>判断口诀：<strong>先看"钱谁出、考不考核"——员工出钱+无强制考核=ESOP；公司授予+有业绩考核=股权激励</strong>。两者制度属性不同，服务者在看客户方案时务必先分清类别，再谈设计与风险。</p>
+<div class="link">相关：<a href="#sec1">ESOP基础认知（见模块一）</a> · <a href="#sec5">联动疆界（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：ESOP不是孤立工具，它上接拟上市期权、下接税会处理，横贯整个"员工间接持股"资本架构。两条线在"员工持股平台"这个节点交汇。</p>
+
+<p class="key">上接拟上市期权（B16）· 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>期权是上市前"给未来买股的权利"，ESOP是上市后"承接行权、统一持有、面对锁定期"的载体；</li>
+<li>操作上：员工期权行权后，股票转入ESOP持股平台（信托/资管），统一面对上市后的锁定期与减持规则，避免人人直接持股的治理混乱；</li>
+<li>两者衔接点：上市前用期权"画杠杆"，上市后用ESOP"接盘子、锁长期"——一条人才资本链的两个阶段。</li>
+</ul>
+</div>
+
+<p class="key">下接税会处理（B18）· 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>ESOP目前<strong>不适用</strong>财税〔2016〕101号的递延纳税优惠（该优惠仅适用于股权激励），员工收益多按"工资薪金"或实际转让所得纳税；</li>
+<li>操作上：推出前必须算清税务成本——员工解禁转让的税基、是否触发股份支付费用、对报表利润的影响；</li>
+<li>与股权激励"可递延"相比，ESOP的税务处理是落地前必须单独规划的变量，不能套用期权逻辑。</li>
+</ul>
+</div>
+
+<p class="key">横贯员工间接持股架构 · 怎么操作</p>
+<div class="block">
+<ul>
+<li>读懂ESOP，才能读懂整个"上市后员工怎么当股东"的逻辑链条；</li>
+<li>资金来源、股票来源、杠杆比例、锁定期，每一项都牵连税务（B18）与潜在纠纷（B19）；</li>
+<li>服务者在看客户ESOP时，应把它放进"期权→ESOP→税会→纠纷"的完整图谱里判断，而不是孤立看一个数字。</li>
+</ul>
+</div>
+
+<p>上接B16、下接B18/B19——ESOP是这条员工持股链上的枢纽节点：来源在期权，去向在税会与纠纷，自己解决"上市后怎么持有、怎么锁定、资金从哪来"。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec2">资金与股票来源（见模块二）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。ESOP最贵的错误，往往不是方案设计差，是杠杆失控、考核虚设、或变成减持通道。</p>
+
+<p class="key">盲区一 · 杠杆爆仓</p>
+<div class="block">
+<ul>
+<li>1:1以上杠杆把员工下行风险从"按比例亏"放大到"本金清零"——股价跌到临界线（优先级本息÷持股数）即爆仓；</li>
+<li>杠杆越重（2:1、3:1），爆仓线越接近当前价，员工稍有波动就归零；</li>
+<li>操作上：推出前必须给客户算清爆仓临界股价，并在计划书里充分揭示杠杆风险，避免员工"以为稳赚"。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 考核虚设</p>
+<div class="block">
+<ul>
+<li>ESOP无强制业绩考核，若仅以"在岗"为约束，员工收益全看股价、不看业绩——易变福利；</li>
+<li>无考核+零杠杆+股东兜底，员工零风险，激励成色几乎归零；</li>
+<li>操作上：即便规则不强制，也应主动设业绩门槛或分期解锁条件，把"绑定"做实，否则难敌"变相分钱"质疑。</li>
+</ul>
+</div>
+
+<p class="key">盲区三 · 变相减持</p>
+<div class="block">
+<ul>
+<li>大股东通过借款+保收益兜底让员工"接盘"，或借ESOP锁定抛压托价，为自身后续减持创造窗口；</li>
+<li>股票来源若为定增折价过大、参与面高度集中于高管，减持通道嫌疑更重；</li>
+<li>操作上：盯紧"股东兜底条款、锁定期满后是否集中抛售、折价是否异常"，任一出现即触红线预警。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>ESOP方案能设计得漂亮，不代表能扛住杠杆、考核与减持的三重拷问——落地看的是"干净"，不是"开头"</strong>。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec3">信号解码与判断框架（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把ESOP从"员工福利"重新看成"资本运作工具"，你会发现ESOP是公司最划算的一笔"人才绑定+股价稳定"投资。</p>
+
+<p class="key">ESOP是绑定，不是分钱</p>
+<div class="block">
+<p>公司用"员工出钱+时间锁定"以极低成本实现两大目标：①把核心团队利益和股价长期绑定（员工自己当股东，自然不轻易走）；②借员工"锁仓"减少市场抛压、传递信心托底股价。比起直接发奖金，这是一笔"利益共享、风险共担"的聪明运作。</p>
+</div>
+
+<p class="key">变了形就背离初衷</p>
+<div class="block">
+<ul>
+<li>一旦变成"零风险福利"（员工不出钱、无考核、股东兜底），就沦为变相分钱，透支市场与管理层信任；</li>
+<li>一旦变成"减持通道"（股东借款接盘、锁定期满集中抛），就踩上合规红线，反噬公司信誉与股价；</li>
+<li>杠杆是把双刃剑：适度（≤1:1）放大绑定意愿，过度则引爆爆仓、动摇员工信心。</li>
+</ul>
+</div>
+
+<p class="key">怎么操作——作为服务者，你不是发ESOP的人，你是判断它"绑定还是分钱"的人</p>
+<div class="block">
+<ul>
+<li>客户说"我们ESOP覆盖全员"：先判断是真普惠绑定，还是零出资福利——拉出自筹比例与考核两项；</li>
+<li>看杠杆与爆仓线：1:1还是2:1？临界股价离当前价多远？员工下行能不能承受；</li>
+<li>你不需要自己设计ESOP，但你需要知道<strong>自筹比例、杠杆、股票来源、考核、参与面五个数字怎么组合出"真绑定"或"假福利"</strong>——这是建立专业信任的判断力，不是设计力。</li>
+</ul>
+</div>
+
+<p>模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（看透绑定本质）。三者合一，才是"ESOP"这件事的完整认知——不只是持股计划，是它怎么接期权、怎么避开杠杆与减持陷阱、怎么成为绑定而非分钱。</p>
+<div class="link">相关：<a href="#sec3">信号解码与判断框架（见模块三）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="B16_拟上市公司期权解码_长文.html"><div class="pn-label">← 上一篇</div><div class="pn-title">B16 拟上市公司期权解码</div></a><a class="pn-next" href="B18_激励税务与会计解码_长文.html"><div class="pn-label">下一篇 →</div><div class="pn-title">B18 激励税务与会计解码</div></a></nav>
+</body>
+</html>

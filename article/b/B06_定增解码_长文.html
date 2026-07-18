@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B06 定增解码：低位拿货高位出货的游戏规则</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+.disclaimer{background:var(--pink);color:var(--wine);padding:12px 18px;font-size:.76em;margin-bottom:28px;line-height:1.6;border-left:3px solid var(--wine);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇 —— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid rgba(65,20,14,.12);padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:#41140e;text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:#41140e;color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:"Songti SC","SimSun","STSong","Noto Serif CJK SC",serif;
+  font-weight:700;font-size:1rem;color:#41140e;margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+
+</style>
+</head>
+<body>
+<div class="disclaimer">本篇内容不构成投资建议或专业意见，仅提供知识框架与判断思路，具体决策请咨询持牌专业人士。</div>
+
+<div class="art-nav"><a class="back" href="../../hall-b.html">← 返回栏目</a><span class="crumb">上市公司资本解码 · 19 篇长文</span></div>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Listed Company Decoding · B06</div>
+  <h1>定增解码：低位拿货高位出货的游戏规则</h1>
+  <div class="tagrow">
+    <span class="tag">Private Placement</span><span class="tag">Capital Decoding</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+你在服务客户时，客户说"我们准备做一轮定增，机构已经谈好了"——你怎么判断这轮定增对股价是利好还是利空？定向增发不是简单的"公司又要圈钱"，它是一套关于<b>折扣、锁定期、解禁抛压</b>的套利游戏规则。同样一个定增预案，大股东低位锁价认购是"低位拿货"，高位溢价发行配套融资是"高位出货"——看懂规则的人，能从预案公告日就判断出未来一年股价的运行节奏。本篇把锁价发行与竞价发行、定价基准日与折扣、参与方利益博弈、券商承销实务、解禁前后股价信号规律逐一拆开，再带你用一份脱敏推演，把"折扣如何变成抛压、抛压如何砸出股价缺口"用数字推导一遍。
+</div>
+
+<div class="framework">
+<b>定增 = 折扣率 × 锁定期 × 解禁博弈</b><br>
+三个乘数缺一不可：折扣率决定拿货便宜多少；锁定期决定多久不能卖；解禁博弈决定什么时候、以什么价格卖。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">定增不是"圈钱"两个字能概括，是一套拿货—锁定—出货的循环</p>
+
+<div class="card">
+<p><span class="key">定向增发</span>：大白话——公司要筹一笔钱，但不去公开市场向所有人卖，而是私下找"一小撮特定的人"卖新股筹钱。你买房想融资，不去银行排队，而是私下找几个熟人借钱，约定好价格和还款期——定增就是上市公司用"熟人私下融资"的方式拿钱。</p>
+<p><span class="key">专业定义</span>：向不超过35名特定对象非公开发行股票，是A股最主流的再融资方式（区别于IPO的首发、配股的向原股东摊派）。公司拿到钱用于扩产、补流或并购，认购方拿到打折的股票，但要锁定一段时间不能卖。</p>
+</div>
+
+<div class="block">
+<p><span class="key">两种发行方式，一句话定位</span></p>
+<ul>
+<li><span class="key">锁价发行（定价发行）</span>：发行价和认购方在预案里就提前锁定——"我按18块卖给你，你到时候必须买"。适合大股东、战略投资者这种"提前确定要拿货"的角色。</li>
+<li><span class="key">竞价发行（询价发行）</span>：认购方不提前定，发行时大家来"投标竞价"，谁出价高、谁要得多给谁。适合向市场化机构（公募、私募、保险）募资。</li>
+<li><span class="key">一句话区别</span>：锁价是"先谈好价再发货"，竞价是"先收货再比价"——前者价格确定、对象确定，后者价格随行就市。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>客户跟你说"我们准备锁价发行，大股东全额认购"——你的第一反应不该是"又圈钱了"，而是<strong>"大股东为什么愿意在这个价位锁价拿货？是他真的看好，还是股价被压在低点了？"</strong>模块一最该带走的认知：<strong>定增的发行方式本身就在传递信号——锁价往往意味着有人想低位拿货，竞价往往意味着公司想让市场定个好价</strong>。</p>
+</div>
+
+<p class="guide">锁价和竞价，到底差在哪？</p>
+<div class="chips">
+  <label class="chip" for="c-pricemode">锁价发行 vs 竞价发行 速查</label>
+</div>
+
+<h2 id="sec2">二、规则与实务深水区</h2>
+<p class="guide">折扣怎么定、锁多久、谁有资格买——制度框架与承销实务</p>
+
+<div class="card">
+<p><span class="key">定价基准日与折扣（八折/九折规则）</span></p>
+<p>发行价不能随便定，监管要求不低于"定价基准日前20个交易日股票均价的80%"。定价基准日有三个可选时点：董事会决议公告日、股东大会决议公告日、发行期首日。</p>
+<p><span class="key">折扣率</span> = 发行价 ÷ 市价。2020年再融资新规把下限从"九折"（90%）放宽到"八折"（80%），机构拿货更便宜了。实务中常见8折、8.5折、9折——折扣越大，认购方安全垫越厚。</p>
+<p><span class="key">政策出处</span>：《上市公司证券发行注册管理办法》（证监会令第206号，2023年2月17日施行）第56条、第57条；此前2020年2月再融资新规（证监会令第163号修订《上市公司证券发行管理办法》）确立"八折"定价与"发行对象不超过35名"规则。</p>
+</div>
+
+<div class="card">
+<p><span class="key">锁定期规则</span></p>
+<ul>
+<li>控股股东、实际控制人、战略投资者认购：锁定期 <span class="num">18个月</span>；</li>
+<li>其他市场化发行对象（公募、私募、保险等）：锁定期 <span class="num">6个月</span>；</li>
+<li>拟发行股份数量不超过发行前总股本的 <span class="num">30%</span>；</li>
+<li>这一条是信号判断的关键：18个月锁定的筹码，18个月后才形成解禁抛压；6个月锁定的筹码，半年后就可能砸盘。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">三类参与方，三种利益立场</span></p>
+<ul>
+<li><span class="key">大股东/实控人</span>：锁价认购往往是"低位增持+巩固控制权"，但也可能借高位定增配套融资变相减持套现——立场是"把股价做高对自己最有利"。</li>
+<li><span class="key">机构投资者</span>：公募、私募、保险拿打折筹码，目标是解禁时浮盈退出——立场是"折扣越大越好、锁定期越短越好、解禁时股价越高越好"。</li>
+<li><span class="key">战略投资者</span>：带产业资源进场（技术、渠道、订单），锁18个月，立场是"长期协同"，但也要求发行价有足够吸引力。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">券商承销角色与分销实务</span></p>
+<ul>
+<li><span class="key">主承销商</span>：通常是保荐券商兼任，负责设计发行方案、撰写材料、组织路演询价；</li>
+<li><span class="key">包销 vs 代销</span>：余额包销——卖不掉的部分券商自己掏钱接走（风险高、承销费高）；代销——卖多少算多少（风险低）；</li>
+<li><span class="key">竞价发行分销实务</span>：向数百家机构发送认购邀请、接收报价单、按"价格优先+数量优先"簿记排序，最终确定发行价与获配名单——这是投行最考验销售能力的环节；</li>
+<li><span class="key">怎么操作（落到动作）</span>：作为服务方，你要帮客户判断"这轮定增好不好卖"——折扣够不够厚、机构名单够不够硬、主承销商销售能力强不强，直接决定发行成败和破发概率。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>一份定增预案摆在你面前：发行价9折、锁18个月、大股东+战投认购。你会怎么判断？模块二的答案是：<strong>折扣、锁定期、认购方身份三个变量连起来看——9折不算特别厚、18个月锁定意味着短期没有抛压、大股东认购意味着"自己人拿货"，综合信号偏"低位布局"而非"高位出货"</strong>。</p>
+</div>
+
+<h2 id="sec3">三、信号解码与判断框架</h2>
+<p class="guide">看到定增预案，不要直接利好或利空，而是三步判断：信号→博弈→方向</p>
+
+<p class="step">第一步 · 看到什么定增信号</p>
+<div class="block">
+<ul>
+<li><span class="key">折价率</span>：8折还是9折？折扣越大，说明公司越"求着机构拿货"，也可能是股价已经跌到低位、公司想用厚折扣兜底发行——这是"低位"信号。</li>
+<li><span class="key">认购方</span>：大股东/战投认购，还是纯市场化机构？自己人拿货偏"低位布局"，纯机构拿货偏"套利退出"。</li>
+<li><span class="key">解禁期</span>：锁6个月还是18个月？这决定了未来多久会出现一波潜在抛压——解禁日是你判断股价节奏的"定时炸弹"时间点。</li>
+<li><span class="key">发行时机</span>：预案公告日股价在什么位置？高位发说明公司趁贵圈钱，低位发说明公司趁便宜让利。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 背后什么博弈</p>
+<div class="card">
+<p>定增预案背后是四方博弈：</p>
+<ul>
+<li><span class="key">买方（机构/战投）</span>：想低位拿货、厚折扣、短锁定期、解禁时股价高——他们的立场是"尽量便宜地拿到筹码"。</li>
+<li><span class="key">卖方（大股东/公司）</span>：想高位发行、募资更多、稀释更少——但如果是大股东自己锁价认购，立场又变成"趁低拿货巩固控制"。立场随身份切换。</li>
+<li><span class="key">监管</span>：盯折扣是否合规、认购方是否真实战略投资者、有无利益输送——用"八折下限""战投认定标准"等规则约束博弈边界。</li>
+<li><span class="key">老股东（原有散户/机构）</span>：定增稀释每股收益，短期利空；但若定增带来优质资产或订单，长期利好——他们的立场最被动，只能预判节奏。</li>
+</ul>
+<p>四方博弈的结果：一份定增预案，本质是"谁在什么价位、用多长时间、把筹码交给谁"的安排。</p>
+</div>
+
+<p class="step">第三步 · 判断方向</p>
+<div class="block">
+<p>怎么判断这是"低位拿货"还是"高位出货"：</p>
+<ul>
+<li><span class="key">低位拿货信号</span>：折价率厚（8折）、大股东/战投认购、预案公告日股价处历史低位、募资用于主业扩产——这类定增往往是股价阶段性底部的信号，解禁前公司有动力把股价做上去。</li>
+<li><span class="key">高位出货信号</span>：折价率薄（9折以上接近市价）、纯市场化机构竞价、预案公告日股价处历史高位、募资用途模糊（补流为主）——这类定增偏"趁贵圈钱"，解禁后机构浮盈丰厚、抛压凶猛。</li>
+<li><span class="key">判断动作</span>：作为券商客户经理或私行顾问，你不需要算发行价，但你需要<strong>从折价率、认购方、解禁期三个维度判断这轮定增对股价的短期（稀释利空）和长期（资产注入利好）影响</strong>——这才是客户信任你的专业点。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>下次客户给你看定增预案，你第一句话不该是"这是利好还是利空"，而是<strong>"折价多少、谁认购、多久解禁？"</strong>——三个问题比"利好利空"四个字有用。模块三最该带走的是：<strong>定增是信号，信号背后是博弈，博弈决定股价节奏——你不是预测涨跌的人，你是读懂规则的人</strong>。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：9折锁价 + 机构认购的推演</h2>
+<p class="guide">把折扣、锁定期、解禁抛压装进同一家公司，看数字怎么传导</p>
+
+<div class="card">
+<p><span class="key">公司画像（脱敏）</span>：一家中型制造业上市公司，预案公告日股价 <span class="num">20元</span>，发行前总股本 <span class="num">2亿股</span>，总市值 <span class="num">40亿</span>。拟锁价发行 <span class="num">5000万股</span>，发行价 <span class="num">18元</span>（定价基准日前20日均价20元的<b>9折</b>），募资 <span class="num">9亿</span>，占发行后股本20%（发行后2.5亿股）。认购方为机构为主（公募+私募），锁定期 <span class="num">18个月</span>。</p>
+</div>
+
+<p class="step">盘点与卡点</p>
+<div class="block">
+<ul>
+<li><span class="key">盘点</span>：公司账面现金紧张、扩产项目缺钱，但股价已从高点回落，处于近一年估值中枢偏下——不趁此时定增，等股价再跌发行价更难定、机构更不敢接。</li>
+<li><span class="key">卡点</span>：9折折扣不厚，机构安全垫只有10%；但锁18个月，机构必须赌一年半后股价高于18元才能赚钱——这意味着机构对一年半后的公司价值有强信心，也意味着解禁日是一座"抛压大山"。</li>
+</ul>
+</div>
+
+<p class="step">结构设计</p>
+<div class="block">
+<p>锁价9折 + 机构为主认购 + 18个月锁定。这样的结构对原股东短期是"稀释利空"（股本扩大20%、每股收益摊薄），但募资9亿投入扩产，长期有"资产注入利好"预期。关键变量是<b>解禁日股价能否站上18元发行价</b>。</p>
+</div>
+
+<p class="step">执行路径</p>
+<div class="block">
+<ul>
+<li>第0月：预案公告（股价20元，9折锁价18元）；</li>
+<li>第3月：过会、拿到批文；</li>
+<li>第6月：发行完成，机构资金9亿到账，机构成本18元/股；</li>
+<li>第6~24月：18个月锁定期，机构不能卖；</li>
+<li>第24月：解禁日，机构可抛——抛压开始。</li>
+</ul>
+</div>
+
+<p class="step">解禁期抛压对股价影响的数字推导表</p>
+<table>
+<tr><th>情景</th><th>解禁日股价</th><th>机构成本</th><th>浮盈率</th><th>潜在抛压（股）</th><th>对股价的冲击</th></tr>
+<tr><td>乐观</td><td><span class="num">25元</span></td><td>18元</td><td>+39%</td><td>约1500万股（30%）</td><td>抛压致回落至约22元（−12%）</td></tr>
+<tr><td>中性</td><td><span class="num">18元</span></td><td>18元</td><td>0%</td><td>约500万股（10%）</td><td>温和抛压，股价在17~18元震荡</td></tr>
+<tr><td>悲观/破发</td><td><span class="num">15元</span></td><td>18元</td><td>−17%</td><td>约800万股（16%，止损+被迫）</td><td>破发踩踏，股价跌至约13元（−13%）</td></tr>
+</table>
+
+<div class="card">
+<p><span class="key">数字推导逻辑</span>：机构5000万股成本9亿。解禁日若股价25元，浮盈3.5亿（+39%），盈利丰厚的机构有强烈动机兑现，假设30%筹码（1500万股）在解禁后一月内抛出，按日均成交量测算约形成3%~5%的额外供给冲击，叠加市场情绪，股价从25元回落至22元。若跌破发行价15元，浮亏机构虽不愿卖，但产品到期、净值考核等被动止损仍会带来抛压，形成"破发—踩踏—再下跌"的负循环。</p>
+</div>
+
+<div class="card">
+<p><span class="key">前后对比数字表</span></p>
+<table>
+<tr><th>指标</th><th>定增前</th><th>定增后（发行日）</th><th>解禁日（中性情景）</th></tr>
+<tr><td>总股本</td><td>2亿股</td><td>2.5亿股</td><td>2.5亿股</td></tr>
+<tr><td>每股收益（假设年利2亿）</td><td>1.0元</td><td>0.8元（摊薄−20%）</td><td>随扩产回升至约0.9元</td></tr>
+<tr><td>机构持股市值</td><td>—</td><td>9亿（成本）</td><td>9亿（18元×5000万，浮盈0）</td></tr>
+<tr><td>股价</td><td>20元</td><td>18~20元区间</td><td>约17~18元</td></tr>
+</table>
+<p>核心结论：短期看，定增是稀释利空（股本+20%、EPS−20%）；中期看，18个月锁定让抛压"延后引爆"；长期看，9亿扩产若兑现，EPS回升可消化摊薄。读懂这张表，你就读懂了"定增—解禁—股价"的完整传导链。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果这家公司解禁日股价只有15元（破发），机构浮亏17%——你觉得他们会忍着不卖吗？<strong>产品到期和净值考核会逼出被动抛压，破发反而可能加剧踩踏</strong>。模块四最该带走的是：<strong>定增的折扣不是白给的，它用"锁定期"换来，而锁定期结束那天，就是抛压兑现那天</strong>。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 · 风险盲区 · 资本运作视角——三面镜子互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<div class="block">
+<p><span class="key">联动疆界（概要）</span>：定增上接IPO（首发定价与定增定价共用"八折/九折+基准日"逻辑），下接可交债（大股东用可交换债变相减持，与定增高位出货是同一套"低拿高出"思维的两面），横接并购重组（定增常作为并购支付工具）。三种工具逻辑一脉相承——都是"用折扣和锁定安排，管理筹码的进出节奏"。</p>
+</div>
+<div class="block">
+<p><span class="key">风险盲区（概要）</span>：破发套牢（股价跌破发行价，机构浮亏、散户接盘）、解禁踩踏（集中抛压砸穿股价）、利益输送（锁价发行向关联方低价让利、战投认定注水）——三个风险让定增从"利好"变"地雷"。</p>
+</div>
+<div class="block">
+<p><span class="key">资本运作视角（概要）</span>：定增既是再融资工具，也是套利工具。大股东用它低位增持巩固控制，机构用它打折拿货解禁套利，公司用它高位圈钱——同一份预案，不同角色各取所需。看懂角色立场，才看懂预案意图。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　遇到定增预案，先问三件事：折价多少？谁认购？锁多久？记住：定增=折扣率×锁定期×解禁博弈，三个变量决定股价节奏。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 能用判断</span>　用案例公司的9折/18个月/机构认购框架，判断一份真实预案是"低位拿货"还是"高位出货"；识别解禁日这个"定时炸弹"时间点；预判短期稀释利空与长期资产利好。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 精通实务</span>　①帮客户设计发行方式（锁价还是竞价、基准日选哪个）②计算折扣安全垫与机构退出测算③判断主承销商销售能力、包销风险④跟踪解禁时间表提前提示客户抛压⑤识别战投认定与利益输送合规边界——在合规框架内做资本运作建议。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>找一份近期定增预案：折价率多少？认购方是谁？锁多久？用本篇框架判断是低位拿货还是高位出货。</li>
+<li>用脱敏案例的推导表，换一组数字（不同折扣、不同锁定期）重算解禁日抛压对股价的影响。</li>
+<li>查一家公司已解禁的定增：解禁前后股价怎么走？是破发踩踏还是平稳过渡？验证本篇的信号规律。</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">定增是"拿货—锁定—出货"的循环，不是圈钱二字</div>
+  <div class="q"><b>核心问题：</b>客户说"我们锁价发行、大股东认购"，你第一反应是"圈钱"还是"低位拿货"？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">规则与实务深水区</div>
+  <div class="pos">八折规则、锁定期、三类参与方、券商承销</div>
+  <div class="q"><b>核心问题：</b>9折锁18个月、机构认购——这三个变量连起来，信号偏低位还是高位？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">信号解码与判断框架</div>
+  <div class="pos">信号→博弈→判断方向</div>
+  <div class="q"><b>核心问题：</b>折价率、认购方、解禁期——三个信号怎么拼出"低位拿货还是高位出货"？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">9折锁价 + 机构认购 → 解禁抛压推导</div>
+  <div class="q"><b>核心问题：</b>机构成本18元、解禁日股价15元破发——抛压会更大还是更小？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>破发套牢、解禁踩踏、利益输送——三个风险你最该帮客户盯哪个？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 能用判断 / 精通实务</div>
+  <div class="q"><b>核心问题：</b>看懂、判断、实务——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：上接 B02《IPO解码》（首发定价与定增定价共用八折/基准日逻辑）、下接 B07《可交债解码》（大股东变相减持与定增高位出货是同一套利思维的两面）。本篇是整个B线"再融资与套利"主线的枢纽篇。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Listed Company Decoding B06 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。B线模块三为"信号解码与判断框架"。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-pricemode" class="toggle">
+<div class="modal"><label class="backdrop" for="c-pricemode"></label><div class="modal-box">
+<label class="close" for="c-pricemode">&times;</label>
+<h3>锁价发行 vs 竞价发行 速查</h3>
+<table>
+<tr><th>维度</th><th>锁价发行（定价发行）</th><th>竞价发行（询价发行）</th></tr>
+<tr><td>发行价</td><td>预案里提前锁定（如9折）</td><td>发行时机构竞价确定</td></tr>
+<tr><td>认购方</td><td>提前确定（大股东、战投）</td><td>不确定，价高者得</td></tr>
+<tr><td>定价基准日</td><td>董事会/股东大会决议公告日</td><td>发行期首日</td></tr>
+<tr><td>锁定期</td><td>通常18个月（战投/大股东）</td><td>通常6个月（市场化对象）</td></tr>
+<tr><td>适用场景</td><td>大股东增持、引入战投、并购配套</td><td>纯市场化募资、机构分销</td></tr>
+<tr><td>信号含义</td><td>偏"低位拿货、自己人进场"</td><td>偏"让市场定价、套利退出"</td></tr>
+</table>
+<p>核心原则：<strong>看发行方式先看出资方是谁——自己人锁价是布局信号，市场化竞价是套利信号</strong>。</p>
+<div class="link">相关：<a href="#sec2">规则与实务深水区（见模块二）</a> · <a href="#sec3">信号解码与判断框架（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：定增不是孤立工具，它上接IPO、下接可交债、横接并购重组。三种工具用不同形式，但"用折扣和锁定管理筹码进出"的逻辑一脉相承。</p>
+
+<p class="key">上接IPO · 怎么联动、怎么操作</p>
+<div class="block">
+<p>IPO发行价与定增发行价共用同一套定价逻辑——都是"基准日前20日均价×折扣"。操作上：</p>
+<ul>
+<li>IPO用"发行期首日"为基准、市场化询价；定增锁价可用"董事会决议日"为基准、提前锁价——时间点选择决定了"拿货价"离市价多远；</li>
+<li>IPO绿鞋机制（超额配售15%）给发行价托底；定增的"托底"靠的是厚折扣（8折比9折安全垫更厚）；</li>
+<li>读懂IPO定价，就能读懂定增定价的底层算法——两者都是"折扣×时点"的游戏。</li>
+</ul>
+</div>
+
+<p class="key">下接可交债 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>可交换债（可交债）是大股东把持有的股票"抵债+期权化"，股价涨了债主换股、跌了债主拿本息——本质是高位减持的缓冲工具。操作上：</p>
+<ul>
+<li>定增是"低位拿货"（打折买新股），可交债是"高位出货"（把老股换成债再变相减持）——同一套利思维的两面；</li>
+<li>大股东先做定增锁价增持、再发可交债高位减持，是"低拿高出"的完整闭环；</li>
+<li>判断时要把两类工具放在同一时间轴上看：定增解禁日 + 可交债换股日，都是筹码释放点。</li>
+</ul>
+</div>
+
+<p class="key">横接并购重组 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>定增常作为并购的支付工具——"发行股份购买资产"本质就是向标的股东定向增发；</li>
+<li>此时定增价 = 并购交易价，折扣安排 = 并购定价博弈；</li>
+<li>并购对赌 + 定增锁定，把"高估值"的风险用业绩承诺和锁定期分摊——和B01估值的对赌逻辑呼应。</li>
+</ul>
+</div>
+
+<p>上接IPO、下接可交债、横接并购——三条线在"折扣与锁定管理筹码"这个节点交汇：不同工具形式不同，但"低拿高出"的套利逻辑不变。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec3">信号解码与判断框架（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。定增最贵的错误，往往不是折价算错，是解禁后的抛压与利益安排。</p>
+
+<p class="key">盲区一 · 破发套牢</p>
+<div class="block">
+<ul>
+<li>发行价18元，解禁日股价15元——机构浮亏17%，但散户在20元高位接盘定增预期的人更惨；</li>
+<li>破发后机构不愿卖、但产品到期和净值考核逼出被动止损，形成"越跌越卖"的负循环；</li>
+<li>判断动作：看发行价相对当前股价的位置——已破发的定增，解禁日不是利空出尽，可能是踩踏开始。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 解禁踩踏</p>
+<div class="block">
+<ul>
+<li>5000万股机构筹码，解禁日集中可抛——若日均成交仅几百万股，供给冲击可达数周；</li>
+<li>多轮定增叠加（前一轮刚解禁、后一轮又发行），抛压连绵不绝；</li>
+<li>判断动作：把解禁时间表画出来，"定时炸弹"不止一颗——要算总供给，不只算单轮。</li>
+</ul>
+</div>
+
+<p class="key">盲区三 · 利益输送</p>
+<div class="block">
+<ul>
+<li>锁价发行向关联方低价让利（8折给"自己人"，市场价却是9折）；</li>
+<li>战投认定注水——名义战投实则财务投资者，规避18个月锁定或套取折扣；</li>
+<li>高位配套融资变相减持；</li>
+<li>合规边界：监管用"战投认定标准""八折下限"约束，服务方必须在合规框架内做建议，绝非教唆规避。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>定增的折扣不是白给的，它用锁定期和未来抛压换来的——看到折扣，就要想到解禁那天的抛压</strong>。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec4">脱敏案例推导（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把定增从"再融资"重新看成"套利工具"，你会发现同一份预案，不同角色各取所需。</p>
+
+<p class="key">定增是再融资，也是套利工具</p>
+<div class="block">
+<p>大股东用它低位锁价增持、巩固控制权（低拿）；机构用它打折拿货、解禁套利退出（低拿高出）；公司用它高位配套融资、趁贵圈钱（高出）——同一份预案，三方立场不同，但都围绕"折扣×锁定"做文章。</p>
+</div>
+
+<p class="key">每个角色背后的博弈</p>
+<div class="block">
+<ul>
+<li>大股东锁价认购：选低位基准日、压折扣，是为自己拿便宜筹码；</li>
+<li>机构竞价参与：报低价、要短锁定期，是为套利安全垫；</li>
+<li>公司选发行时机：股价高位发，募资多、稀释少；</li>
+<li>监管定规则：八折下限、战投标准、锁定期，划出博弈边界。</li>
+</ul>
+</div>
+
+<p class="key">怎么操作——作为服务者，你不是算发行价的人，你是读懂意图的人</p>
+<div class="block">
+<ul>
+<li>客户说"我们准备定增"：追问折价多少、谁认购、锁多久——判断是低拿还是高出；</li>
+<li>预案公告日股价高位、纯机构竞价、募资补流：警惕"高位出货"信号，提前提示客户解禁抛压；</li>
+<li>你不需要自己设计发行方案，但你需要知道<strong>折扣、锁定期、认购方三个变量如何拼出股价节奏</strong>——这些是建立专业信任的判断力，不是计算力。</li>
+</ul>
+</div>
+
+<p>模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（看透博弈）。三者合一，才是"定增"这件事的完整认知——不只是折扣和锁定期的算法，是算法背后"谁在低拿、谁在高出、何时兑现"的套利逻辑。</p>
+<div class="link">相关：<a href="#sec3">信号解码与判断框架（见模块三）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="B05_分拆上市解码_长文.html"><div class="pn-label">← 上一篇</div><div class="pn-title">B05 分拆上市解码</div></a><a class="pn-next" href="B07_可交债解码_长文.html"><div class="pn-label">下一篇 →</div><div class="pn-title">B07 可交债解码</div></a></nav>
+</body>
+</html>

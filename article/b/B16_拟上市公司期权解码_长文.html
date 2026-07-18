@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B16 拟上市公司期权解码：上市前给员工的"看涨期权"怎么设计</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+.disclaimer{background:var(--pink);color:var(--wine);padding:12px 18px;font-size:.76em;margin-bottom:28px;line-height:1.6;border-left:3px solid var(--wine);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇 —— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid rgba(65,20,14,.12);padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:#41140e;text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:#41140e;color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:"Songti SC","SimSun","STSong","Noto Serif CJK SC",serif;
+  font-weight:700;font-size:1rem;color:#41140e;margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+
+</style>
+</head>
+<body>
+<div class="disclaimer">本篇内容不构成投资建议或专业意见，仅提供知识框架与判断思路，具体决策请咨询持牌专业人士。</div>
+
+<div class="art-nav"><a class="back" href="../../hall-b.html">← 返回栏目</a><span class="crumb">上市公司资本解码 · 19 篇长文</span></div>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Listed Company Decoding · B16</div>
+  <h1>拟上市公司期权解码：上市前给员工的"看涨期权"怎么设计</h1>
+  <div class="tagrow">
+    <span class="tag">Option Plan</span><span class="tag">Pre-IPO</span><span class="tag">ESOP</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+你在服务客户时，客户（一家准备上市的科技公司创始人）说"我们给核心团队发了一批期权，上市后能翻几倍"——你怎么判断这套期权方案是真激励还是画大饼？期权不是"白给的股票"，是"未来以约定价格买股票的权利"：员工在约定时间、以约定价格，买约定数量的公司股份。上市前发期权，本质是用"未来的钱"锁定现在的人才。本篇把期权和限制性股票单位（RSU）的差异、授予/归属/行权/成熟（vesting）机制、行权价怎么定、期权池（Source of shares）从哪来、上市前怎么清理、股份支付怎么记账，逐一道来——然后给你一套"看到期权方案就能判断激励力度和上市可行性"的框架。
+</div>
+
+<div class="framework">
+<b>期权 = 权利 × 时间 × 价格</b><br>
+三个乘数缺一不可：权利（买不买随你）是核心，时间（几年才成熟）是约束，价格（行权价）是杠杆。三者组合决定这套方案是"真金白银的激励"还是"看着好看的数字"。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">期权不是白给的股票，是"未来按约定价买股票的权利"</p>
+
+<div class="card">
+<p><span class="key">期权（Stock Option）</span>：大白话——公司跟你说"未来三年内，你有权以每股2块钱的价格，从我这儿买10万股公司股票"。注意是"有权买"，不是"白送"。如果到时候股价涨到20块，你2块买进来转手赚18块差价；如果股价跌到1块，你有权"不买"，一毛钱不亏。专业定义：期权是激励对象在约定时间内，以预先确定的价格（行权价）购买公司一定数量股份的权利，是一种选择权而非既得利益。</p>
+<p><span class="key">限制性股票单位（RSU）</span>：大白话——公司说"这10万股先记在你账上，等条件达成（比如干满4年）就真的归你，不用你掏钱买"。RSU是"先给承诺、达标即归属、无需出资"，本质上是限制性股票的一种简化形式。专业定义：RSU是以股份形式授予、在归属条件满足后无偿过户给员工的激励工具，员工无需支付行权价款。</p>
+</div>
+
+<div class="card">
+<p><span class="key">期权 vs RSU 一句话差异</span></p>
+<ul>
+<li><span class="key">出资义务</span>：期权要员工掏钱行权（有成本、有风险）；RSU不需出资（无成本、无风险）。</li>
+<li><span class="key">杠杆效应</span>：期权靠"行权价与市价之差"放大收益，股价不涨员工一无所有；RSU不论涨跌拿到就是拿到，收益相对温和。</li>
+<li><span class="key">适用场景</span>：上市前高成长公司多用期权（赌上市倍数，杠杆狠）；已上市公司或稳定性强的公司多用RSU（收益确定，便于留人）。</li>
+<li><span class="key">报表影响</span>：两者都触发股份支付费用，但RSU因无偿归属，公允价值全额计入，对利润冲击更直接。</li>
+</ul>
+<p>实务选择逻辑：<strong>公司越早期、越赌上市、越想用"低行权价高杠杆"吸引人才，越偏期权；越成熟、越想"稳定给、确定拿"留人，越偏RSU</strong>。</p>
+</div>
+
+<div class="block">
+<p><span class="key">四个动词，顺序不能乱：授予 → 成熟(Vesting) → 归属 → 行权(Exercise)</span></p>
+<ul>
+<li><span class="key">授予（Grant）</span>：公司宣布"我给你10万股的购买权"——此时你只拿到一个权利，股票还在公司账上，一分没到手。</li>
+<li><span class="key">成熟（Vesting）</span>：权利分几年生效。主流是4年成熟、1年悬崖期（Cliff）——前12个月不成熟，满1年一次性成熟25%，之后每月或每年成熟剩余部分。成熟≠拿到，只是"权利生效了"。</li>
+<li><span class="key">归属（Vest）</span>：成熟的权利正式"记到你名下"，你拥有了它，但还没真正变成股票。</li>
+<li><span class="key">行权（Exercise）</span>：你按约定行权价把钱付给公司，股票才真正过户到你名下——这一步要掏真金白银。</li>
+</ul>
+<p>关键认知：<strong>成熟≠拿到钱、行权≠免费、离职时未成熟的部分一律作废（forfeiture）</strong>。这套时间线就是期权"留人"的核心约束。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>下次客户跟你说"我给了团队20%期权"，你第一反应不该是"真大方"，而是<strong>"这20%是期权还是RSU？4年还是2年成熟？行权价多少？"</strong>模块一最该带走的认知：<strong>期权方案看三件事——给的是权利还是股票、成熟要几年、行权价多低，少一个维度都是空谈</strong>。</p>
+</div>
+
+<p class="guide">期权和RSU怎么选、各自利弊？</p>
+<div class="chips">
+  <label class="chip" for="c-rsu">期权 vs RSU 速查</label>
+</div>
+
+<h2 id="sec2">二、规则与实务深水区</h2>
+<p class="guide">行权价怎么定、期权池从哪来、股份支付怎么记账、上市前怎么清理</p>
+
+<div class="card">
+<p><span class="key">行权价设定</span></p>
+<p>大白话——这份权利"值不值钱"，取决于你用多少钱买、将来能卖多少钱。中间的差就是杠杆。</p>
+<p><span class="key">实务定价</span>：上市前期权行权价常见三种锚：①按最近一轮融资估值的折扣（如打3~5折折算成每股价格）；②按注册资本或每股净资产（早期公司可能低至1元/股或几元/股）；③市场化估值折扣。越接近上市、估值越高，行权价相对未来市价的折价越大，杠杆越高。</p>
+<p><span class="key">规则边界</span>：上市前期权行权价没有"必须公允价值"的强制要求，但需有合理定价依据，避免被认定为"名为激励、实为利益输送"。行权价定得过低、激励对象又高度集中，监管会追问定价公允性。</p>
+</div>
+
+<div class="card">
+<p><span class="key">期权池 Source of shares（股份来源）</span></p>
+<p>大白话——这15%的期权，股票从哪儿来？不是凭空变出来的。</p>
+<p><span class="key">两种来源</span>：①创始人/大股东让渡：通过增发新股稀释全体股东，或大股东转让存量股份；②预留股份由持股平台持有：多在股改前（有限责任公司阶段）设立有限合伙企业作为员工持股平台，统一持有和代持管理。</p>
+<p><span class="key">池子占比</span>：常见10%~20%，科技公司为争夺人才可到15%~20%；池子太大稀释老股东、影响投资人回报，太小又激励不足。设立时点通常在Pre-A到B轮之间，越早设代价越低（行权价低、稀释基数小）。</p>
+</div>
+
+<div class="card">
+<p><span class="key">股份支付（Share-based Payment）怎么记账</span></p>
+<p>大白话——公司给员工发期权，等于"用股票换你的劳动"，这中间的差价要算成公司的人工成本，从利润里扣。</p>
+<p><span class="key">准则依据</span>：《企业会计准则第11号——股份支付》规定，以权益结算的股份支付，应按授予日权益工具公允价值计入相关成本或费用，相应增加资本公积。</p>
+<p><span class="key">计算逻辑</span>：每份期权公允价值（通常按最近融资估值折算的每股价值）− 行权价 = 每份价差；× 授予总数量 = 股份支付总费用；再按归属期分摊到各年（比如4年归属就分4年计入费用）。</p>
+<p><span class="key">IPO影响</span>：申报期（最近3年）内的股份支付费用会拉低报表利润——必须在申报前规划好授予节奏，避免申报期头一年集中计提、利润"断层"。</p>
+</div>
+
+<div class="card">
+<p><span class="key">上市前期权清理</span></p>
+<p>大白话——要上市了，这堆"未来才能买"的权利必须有个明确说法，不能悬着。</p>
+<p><span class="key">规则出处</span>：《首发业务若干问题解答》（2020年修订）对期权激励计划有专门规定：申报前制定、拟上市后实施的期权激励计划，原则上应在申报前执行完毕或终止；如保留，需满足"激励对象不超过200人、行权价格合理、总量合理、经股东大会批准、不造成控制权重大变化"等条件。科创板、创业板审核问答（《上海证券交易所科创板股票发行上市审核问答》《深圳证券交易所创业板股票首次公开发行上市审核问答》）进一步要求期权激励体现"闭环原则"或"穿透计算"，避免变相公开发行。</p>
+<p><span class="key">两条实务路径</span>：①申报前全部行权完毕——期权转实股，由持股平台统一持有；②终止期权计划——转为限制性股票或直接清理，把"未来权利"变成"确定安排"或彻底了结。清理不干净（既没行权也没终止）会直接卡住审核。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>假设你服务的客户公司明年要报材料，期权还挂在账上既没行权也没终止——你知道这意味着什么吗？<strong>意味着申报前必须二选一：要么全员行权转实股（一次性股份支付费用冲击利润），要么终止计划（员工可能不满流失）</strong>。模块二最该带走的：<strong>期权不是发了就完事，上市前有一道"清理"硬门槛，时间窗口和利润影响要提前算</strong>。</p>
+</div>
+
+<h2 id="sec3">三、信号解码与判断框架</h2>
+<p class="guide">看到期权方案，不是看"给了多少"，而是三步判断：信号→博弈→方向</p>
+
+<p class="step">第一步 · 看到什么信号</p>
+<div class="block">
+<ul>
+<li><span class="key">归属期长短</span>：4年成熟+1年Cliff是市场主流；2年太松（锁不住人），6年太狠（员工觉得遥不可及、激励感弱）。归属期直接反映"公司想留你多久"。</li>
+<li><span class="key">行权价高低</span>：相对最近融资估值折价多少——折价大=杠杆高=激励力度大；行权价接近当前估值=杠杆薄=诚意有限。</li>
+<li><span class="key">期权池占比</span>：15%左右是健康区间；低于5%多为象征性安抚，高于25%则老股东被过度稀释、投资人会警惕。</li>
+<li><span class="key">授予对象范围</span>：只给少数高管（集中度高、普通员工无感）还是覆盖核心技术/中层（普惠式留人、组织稳定性强）。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 背后什么博弈</p>
+<div class="card">
+<p>期权方案背后永远是四方博弈：</p>
+<ul>
+<li><span class="key">创始人想少稀释、多留人</span>：倾向池子小、行权价高、归属期短——省钱但留人效果打折。</li>
+<li><span class="key">员工和候选人想要高杠杆</span>：倾向池子大、行权价低、归属期长——账面钱多但要等、要熬。</li>
+<li><span class="key">投资人关注稀释与清理</span>：池子太大拉低估值回报；清理方案未定影响上市节奏和估值谈判。</li>
+<li><span class="key">监管关注合规</span>：是否变相公开发行、是否存在利益输送、股份支付是否足额计提——每一个都指向"方案干净不干净"。</li>
+</ul>
+<p>四方博弈的结果：一份"好方案"是创始人、员工、投资人都能接受的中间值，不是某一方单方面占便宜。</p>
+</div>
+
+<p class="step">第三步 · 判断方向</p>
+<div class="block">
+<p>怎么判断激励力度和上市可行性：</p>
+<ul>
+<li><span class="key">激励力度强</span>：期权池15%+ 、4年归属、行权价显著低于上市预期价（杠杆倍数5倍以上）——员工真金白银愿意等。</li>
+<li><span class="key">激励力度弱</span>：池子低于5%、归属期短、行权价接近当前估值——更像"安抚性画饼"，核心人才未必买账。</li>
+<li><span class="key">上市可行性风险</span>：池子超过25%稀释过度；申报前清理方案未定（既未行权也未终止）；存在代持员工股未还原；股份支付未按准则足额计提——任意一条都可能卡审核。</li>
+<li><span class="key">判断动作</span>：作为券商客户经理、私行顾问或FA，你不是设计期权的人，你是判断这套方案"能不能成、值不值钱、会不会卡上市"的人。看到方案先问归属期、行权价、池占比三个数字，再倒推激励力度与可行性。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>客户递给你一份期权方案：池子8%、2年归属、行权价等于当前融资价。你怎么一句话判断？<strong>这是"弱激励+低约束"——留人效果有限、杠杆几乎为零，更像安抚而非人才杠杆</strong>。模块三最该带走的是：<strong>期权方案是信号，信号背后是四方博弈，博弈决定它到底"激励谁、锁住谁、会不会卡上市"</strong>。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：某拟上市公司期权推演</h2>
+<p class="guide">期权池15% + 4年归属 + 上市退出，算一笔员工收益账</p>
+
+<div class="card">
+<p><span class="key">公司画像</span>：某拟上市科技公司，Pre-IPO估值 <span class="num">30亿</span>，总股本 <span class="num">1亿股</span>（即每股估值30元），期权池预留 <span class="num">1500万股</span>（占15%），采用4年成熟（1年Cliff后逐年25%）机制，行权价定为 <span class="num">2元/股</span>（按早期融资估值折算）。假设上市后市场预期价 <span class="num">20元/股</span>。</p>
+</div>
+
+<table>
+<tr><th>角色</th><th>授予期权(万股)</th><th>行权价</th><th>行权成本</th><th>上市预期价</th><th>上市后价值</th><th>净收益</th><th>杠杆倍数</th></tr>
+<tr><td>核心员工A（副总级）</td><td>10</td><td>2元</td><td>20万</td><td>20元</td><td>200万</td><td>180万</td><td>9倍</td></tr>
+<tr><td>技术骨干B</td><td>5</td><td>2元</td><td>10万</td><td>20元</td><td>100万</td><td>90万</td><td>9倍</td></tr>
+<tr><td>中层骨干C</td><td>2</td><td>2元</td><td>4万</td><td>20元</td><td>40万</td><td>36万</td><td>9倍</td></tr>
+</table>
+
+<table>
+<tr><th>维度</th><th>数字推导</th><th>含义</th></tr>
+<tr><td>期权池占比</td><td>1500万股 / 1亿股 = 15%</td><td>健康区间，稀释可接受</td></tr>
+<tr><td>股份支付总费用</td><td>(20元−2元) × 1500万 = 2.7亿</td><td>公允价值与行权价价差全额计提</td></tr>
+<tr><td>年分摊费用</td><td>2.7亿 / 4年 ≈ 6750万/年</td><td>申报期内逐年计入，压低利润</td></tr>
+<tr><td>员工总杠杆</td><td>(20元−2元) / 2元 = 9倍</td><td>激励力度强，愿意等长周期</td></tr>
+</table>
+
+<p class="step">关键推导三句话</p>
+<div class="block">
+<ul>
+<li><span class="key">杠杆来源</span>：激励力度的核心是"行权价2元 vs 上市预期价20元"的10倍价差——这价差就是员工愿意干满4年的理由。</li>
+<li><span class="key">留人约束</span>：4年归属+1年Cliff意味着员工必须干满1年才拿到第一批、满4年才拿全——中途离职，未成熟部分作废，这是硬约束。</li>
+<li><span class="key">清理前提</span>：申报前这1500万股需全部行权（转实股由持股平台持有）或终止计划，否则"悬而未决"直接卡住审核；同时2.7亿股份支付费用需在申报期前规划好分摊节奏。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">核心结论</span>：这套方案"激励力度强、上市可行"的判断依据是——池子15%（健康）、4年归属（有效约束）、行权价2元对预期价20元（9倍杠杆）。但它能否落地，取决于两件事：①申报前清理路径是否明确（行权还是终止）；②2.7亿股份支付费用是否提前规划、不冲击申报期利润。方案设计得好，不如清理得干净。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果这家公司把行权价从2元提到15元，员工净收益从180万变成多少？<strong>(20−15)×10万=50万，杠杆从9倍降到1.3倍——激励力度断崖式下跌，核心员工可能直接不买账</strong>。模块四最该带走的是：<strong>期权方案的"含金量"不在给了多少股，在行权价与预期市价之间的那道价差</strong>。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 · 风险盲区 · 资本运作视角——三面镜子互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<div class="block">
+<p><span class="key">联动疆界（概要）</span>：期权上接股权结构（B03）——期权池来自创始人让渡或持股平台，直接影响控制权与稀释比例；下接ESOP（B17）——期权是ESOP的工具之一，与员工持股计划、信托代持、资金来源、锁定期构成完整体系。读懂期权，才能读懂整个上市前人才资本架构。</p>
+</div>
+<div class="block">
+<p><span class="key">风险盲区（概要）</span>：代持员工股未还原（持股平台背后真实人数超200人）、归属纠纷（离职回购价格谈不拢）、清理不干净（申报前既未行权也未终止）——三处盲区任一爆发，都会让上市审核停摆。</p>
+</div>
+<div class="block">
+<p><span class="key">资本运作视角（概要）</span>：期权是上市前的人才杠杆，不是福利。用"未来的钱"以极低成本锁定核心团队，是公司最划算的一笔"人力资本投资"——但杠杆用过头（池子过大、行权价过低）会反噬老股东与投资人回报。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　遇到期权方案，先问三件事：给的是期权还是RSU？成熟要几年？行权价多低？记住——期权是权利不是白送，成熟≠拿到，行权要掏钱。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 能用判断</span>　用案例公司的"池15%+4年+行权价2元对预期价20元"框架，判断一家真实公司期权方案的激励力度；识别弱激励信号（池<5%、归属期短、行权价接近估值）；判断其上市清理是否留有隐患。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 精通实务</span>　①按行业与公司阶段选期权或RSU②用行权价与预期市价算杠杆倍数③按《企业会计准则第11号》测算股份支付总费用及年分摊④对照《首发业务若干问题解答》核对清理路径（行权或终止）⑤在申报前窗口帮客户把"清理+利润影响"一并规划。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>找一家你熟悉的拟上市公司：它的期权池占比多少？4年还是2年归属？行权价相对最新估值折价多少？判断激励力度强还是弱。</li>
+<li>用本文框架给一家Pre-IPO公司算员工收益：假设行权价3元、上市预期价25元、授予5万股，净收益和杠杆倍数各是多少？股份支付总费用怎么算？</li>
+<li>对照《首发业务若干问题解答》，列出期权方案在申报前必须解决的3个清理问题，并说明每条不解决会卡住什么。</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">期权不是白给的股票，是"未来按约定价买的权利"</div>
+  <div class="q"><b>核心问题：</b>客户说"给了20%期权"，你第一反应是问什么——"真大方"还是"期权还是RSU、几年成熟、行权价多少"？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">规则与实务深水区</div>
+  <div class="pos">行权价、期权池、股份支付、上市前清理</div>
+  <div class="q"><b>核心问题：</b>《企业会计准则第11号》的股份支付费用，会怎么冲击你客户的申报期利润？清理路径选"行权"还是"终止"？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">信号解码与判断框架</div>
+  <div class="pos">信号→博弈→判断方向</div>
+  <div class="q"><b>核心问题：</b>池占比、归属期、行权价三个数字摆出来，你判断这是真激励还是画饼？会不会卡上市？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">池15%+4年归属+上市退出数字推导</div>
+  <div class="q"><b>核心问题：</b>行权价从2元提到15元，员工净收益从180万掉到多少？激励力度为什么断崖式下跌？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>代持员工股、归属纠纷、清理不干净——三个盲区，你客户的方案最可能爆哪个？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 能用判断 / 精通实务</div>
+  <div class="q"><b>核心问题：</b>看懂、判断、实务——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：上接 B03《股权结构设计解码》（期权池来源与控制权搭建）、下接 B17《ESOP解码》（员工持股计划、信托代持、资金来源与锁定期）、B18《激励税务与会计解码》（股份支付个税与会计处理实务）、B19《激励纠纷与红线解码》（离职回购与行权争议）。本篇是拟上市公司人才资本架构的期权底层框架。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Listed Company Decoding B16 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。B线模块三为"信号解码与判断框架"。本篇定位拟上市公司期权设计，与B03/B17/B18/B19构成股权与人性博弈模块。
+</div>
+
+<input type="checkbox" id="c-rsu" class="toggle">
+<div class="modal"><label class="backdrop" for="c-rsu"></label><div class="modal-box">
+<label class="close" for="c-rsu">&times;</label>
+<h3>期权 vs RSU 速查</h3>
+<table>
+<tr><th>维度</th><th>期权 Stock Option</th><th>限制性股票单位 RSU</th></tr>
+<tr><td>本质</td><td>未来以约定价买股的权利</td><td>达标即无偿归属的股票承诺</td></tr>
+<tr><td>出资义务</td><td>需掏钱行权，有成本有风险</td><td>无需出资，无成本无风险</td></tr>
+<tr><td>收益来源</td><td>行权价与市价之差（杠杆）</td><td>归属日股票市价（确定性）</td></tr>
+<tr><td>股价不涨</td><td>可不行权，一毛不亏</td><td>照样拿到，收益随市价波动</td></tr>
+<tr><td>报表冲击</td><td>股份支付按价差计提</td><td>按全额公允价值计提，更直接</td></tr>
+<tr><td>适用阶段</td><td>上市前高成长、赌上市倍数</td><td>已上市或稳定性强的留人</td></tr>
+</table>
+<p>选择逻辑：<strong>越早期、越赌上市、越想用低行权价高杠杆吸引人才，越偏期权；越成熟、越想"稳定给、确定拿"留人，越偏RSU</strong>。</p>
+<div class="link">相关：<a href="#sec1">期权与RSU基础认知（见模块一）</a> · <a href="#sec5">联动疆界（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：期权不是孤立工具，它上接股权结构、下接ESOP，横贯整个上市前人才资本架构。两条线在"期权"这个节点交汇。</p>
+
+<p class="key">上接股权结构（B03）· 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>期权池的来源通常是创始人让渡或增发稀释——这直接改变股权结构和控制权比例，需在B03的控股架构设计阶段就预留；</li>
+<li>持股平台（有限合伙）作为期权载体，其GP（普通合伙人）通常由创始人担任，保证控制权不分散；</li>
+<li>操作上：在有限责任公司阶段就设立期权池和持股平台，比股改后设立成本低、稀释基数小。</li>
+</ul>
+</div>
+
+<p class="key">下接ESOP（B17）· 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>期权是ESOP（员工持股计划）的工具之一，与限制性股票、信托代持、资金来源、锁定期共同构成完整体系；</li>
+<li>操作上：期权解决"上市前给权利"，ESOP解决"上市后怎么持有、怎么退出、资金从哪来"；</li>
+<li>两者衔接点：期权行权后转入ESOP持股平台，统一面对上市后锁定期和减持规则。</li>
+</ul>
+</div>
+
+<p class="key">横贯人才资本架构 · 怎么操作</p>
+<div class="block">
+<ul>
+<li>读懂期权，才能读懂整个上市前"用股权换人才"的逻辑链条；</li>
+<li>期权池占比、行权价、归属期，每一项都牵连股权结构（稀释）与ESOP（后续持有）；</li>
+<li>服务者在看客户期权方案时，应当把它放进"股权结构→期权→ESOP"的完整图谱里判断，而不是孤立看一个数字。</li>
+</ul>
+</div>
+
+<p>上接B03、下接B17——期权是这条人才资本链上的枢纽节点：来源在股权结构，去向在ESOP，自己解决"上市前激励"。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec2">期权池与股份支付（见模块二）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。期权最贵的错误，往往不是方案设计差，是清理不干净、权属不清晰。</p>
+
+<p class="key">盲区一 · 代持员工股未还原</p>
+<div class="block">
+<ul>
+<li>持股平台背后真实持股员工若超过200人，触及"变相公开发行"红线，监管会要求还原或清理；</li>
+<li>代持关系若没有清晰协议、工商登记与实际不符，上市审核会被反复追问；</li>
+<li>操作上：申报前必须完成代持还原或规范，真实人数控制在200人以内（闭环原则）。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 归属纠纷</p>
+<div class="block">
+<ul>
+<li>员工离职时，未成熟部分作废、已成熟部分回购——回购价格谈不拢是高频纠纷源；</li>
+<li>协议若没写清"离职回购条款"（价格、时限、违约责任），争议会拖到申报期；</li>
+<li>操作上：授予协议必须明确回购触发条件与定价公式，避免口头约定。</li>
+</ul>
+</div>
+
+<p class="key">盲区三 · 清理不干净</p>
+<div class="block">
+<ul>
+<li>申报前期权"既未行权也未终止"，悬而未决，直接卡住审核——这是最常见也最致命的盲区；</li>
+<li>清理路径选错（如仓促终止引发员工集体不满、或集中行权冲击申报期利润）；</li>
+<li>操作上：至少提前12~18个月确定清理方案，给利润分摊和员工沟通留足窗口。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>期权方案能设计得漂亮，不代表能清理得干净——上市看的是"收尾"，不是"开头"</strong>。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec3">信号解码与判断框架（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把期权从"员工福利"重新看成"人才杠杆"，你会发现期权是上市前最划算的一笔人力资本投资。</p>
+
+<p class="key">期权是人才杠杆，不是福利</p>
+<div class="block">
+<p>用"未来的钱"（上市后才兑现的价差）以极低成本锁定核心团队——公司当下不掏现金、不稀释太多，员工赌的是上市倍数。这是一笔"双赢但有时限"的杠杆：公司用预期换忠诚，员工用时间换倍数。</p>
+</div>
+
+<p class="key">杠杆用过头会反噬</p>
+<div class="block">
+<ul>
+<li>期权池过大（>25%）严重稀释老股东和投资人回报，估值谈判时投资人会压价或要求反稀释；</li>
+<li>行权价过低且激励对象集中，易被认定为利益输送，监管追问定价公允性；</li>
+<li>归属期过短留不住人，过长又削弱激励感——杠杆的"度"比"量"更重要。</li>
+</ul>
+</div>
+
+<p class="key">怎么操作——作为服务者，你不是发期权的人，你是判断杠杆健康度的人</p>
+<div class="block">
+<ul>
+<li>客户说"我们期权池20%"：先判断是健康区间还是过度稀释，结合行权和归属期看整体杠杆；</li>
+<li>看清理方案是否明确：申报前行权还是终止、股份支付费用怎么分摊、会不会冲击利润；</li>
+<li>你不需要自己设计期权，但你需要知道<strong>池占比、行权价、归属期三个数字怎么组合出"强激励"或"弱画饼"</strong>——这是建立专业信任的判断力，不是设计力。</li>
+</ul>
+</div>
+
+<p>模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（看透杠杆）。三者合一，才是"期权"这件事的完整认知——不只是授予机制，是它怎么嵌进股权结构、怎么避开清理陷阱、怎么成为人才杠杆。</p>
+<div class="link">相关：<a href="#sec3">信号解码与判断框架（见模块三）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="B15_市值管理全解码_长文.html"><div class="pn-label">← 上一篇</div><div class="pn-title">B15 市值管理全解码</div></a><a class="pn-next" href="B17_ESOP解码_长文.html"><div class="pn-label">下一篇 →</div><div class="pn-title">B17 ESOP解码</div></a></nav>
+</body>
+</html>

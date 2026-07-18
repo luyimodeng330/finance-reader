@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B09 跨市场套利解码：AH溢价的价差逻辑</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+.disclaimer{background:var(--pink);color:var(--wine);padding:12px 18px;font-size:.76em;margin-bottom:28px;line-height:1.6;border-left:3px solid var(--wine);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇 —— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid rgba(65,20,14,.12);padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:#41140e;text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:#41140e;color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:"Songti SC","SimSun","STSong","Noto Serif CJK SC",serif;
+  font-weight:700;font-size:1rem;color:#41140e;margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+
+</style>
+</head>
+<body>
+<div class="disclaimer">本篇内容不构成投资建议或专业意见，仅提供知识框架与判断思路，具体决策请咨询持牌专业人士。</div>
+
+<div class="art-nav"><a class="back" href="../../hall-b.html">← 返回栏目</a><span class="crumb">上市公司资本解码 · 19 篇长文</span></div>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Listed Company Decoding · B09</div>
+  <h1>跨市场套利解码：AH溢价的价差逻辑</h1>
+  <div class="tagrow">
+    <span class="tag">Cross-market Arbitrage</span><span class="tag">AH Premium</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+你在服务客户时，客户说"同一家公司，A股比港股贵30%，能不能套利？"——这不是一道算术题，是一套"为什么同一个东西在两个市场定价不同"的逻辑。同样一股，上海卖11.7元、香港卖9元（折人民币），差出来的30%不是白捡的钱，是流动性、投资者结构、汇率、制度四股力量拧出来的价差。本篇把AH溢价的成因拆开，讲清折价率规律、三条跨市场套利路径（AH互换 / ETF套利 / 港股通）的真实成本，以及最容易被忽略的汇率裸敞口风险——最后告诉你：跨市场是定价差异，不是无风险套利。
+</div>
+
+<div class="framework">
+<b>AH溢价 = 流动性溢价 + 投资者结构差 + 汇率预期 + 制度红利</b><br>
+四个因子此消彼长，溢价不是常数，是变量；价差不是机会，是四股力量博弈的结果。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">同一家公司，为什么A股和H股价格不一样？</p>
+
+<div class="card">
+<p><span class="key">跨市场价差 / AH股</span>：用大白话讲——你买同一品牌的两家店，一家开在境内商场（A股）、一家开在香港（H股），卖的是同一件商品（同一家公司的股权），但标价不同。这就是跨市场价差。专业定义：AH股指注册地在境内、同时在A股（上交所/深交所）和H股（港交所）上市的公司的股票；两地价格经汇率折算后的差异，除以H股价格，即为AH溢价率。</p>
+<p><span class="key">为什么"同股不同价"是常态</span>：因为两地市场是相对隔离的"两个池子"。资金不能自由对流（资本管制+港股通门槛），定价参与者不同（散户 vs 外资机构），计价货币不同（人民币 vs 港币），交易制度不同（涨跌停/T+1 vs 无涨跌/T+0）。四个"不同"叠加，价格自然拧出系统性价差，而不是偶发错误定价。</p>
+</div>
+
+<div class="block">
+<p><span class="key">三个核心概念，一句话定位</span></p>
+<ul>
+<li><span class="key">A股</span>：境内人民币普通股票，散户主导、流动性极高、有涨跌停板和T+1规则。</li>
+<li><span class="key">H股</span>：境内企业赴港上市的外资股，以港币计价、外资机构主导、无涨跌幅限制、T+0。</li>
+<li><span class="key">港股通</span>：内地投资者经沪/深交易所买卖港股的通道（沪港通2014年、深港通2016年落地），是普通投资者参与H股最现实的主路径。</li>
+</ul>
+</div>
+
+<div class="block">
+<p><span class="key">AH溢价指数（HSAHP）</span>：恒生指数公司编制的恒生AH股溢价指数，以100为基准（A、H同价），长期在 <span class="num">120~150点</span> 区间浮动——意味着A股整体长期比H股贵20%~50%。大白话：这不是个别股票的怪象，是系统性的"同股不同价"。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你下次听到客户说"H股便宜、A股贵，买H股套利"时，第一反应不该是"那买啊"，而是<strong>"这30%的差价，是凭空少付的钱，还是别人已经替你付过的成本？"</strong>模块一最该带走的认知：<strong>价差是结果，不是机会；机会藏在"价差会不会收敛、怎么收敛、成本多少"里</strong>。</p>
+</div>
+
+<p class="guide">AH溢价指数和折价率，怎么读？</p>
+<div class="chips">
+  <label class="chip" for="c-ah">AH溢价与折价率速查</label>
+</div>
+
+<h2 id="sec2">二、规则与实务深水区</h2>
+<p class="guide">溢价成因（四因子）+ 折价率规律 + 三条套利路径 + 汇率风险</p>
+
+<div class="card">
+<p><span class="key">成因一 · 流动性差异</span></p>
+<p>A股散户多、换手率常年是全球主要市场的数倍，流动性本身就是溢价。"能随时卖掉"是一种便利，买家愿意为这份便利多付钱——这叫流动性溢价。H股机构主导、换手率低，存在流动性折价。一句话：A股贵出来的那部分，有一块是"随时能变现"的便利费。</p>
+</div>
+
+<div class="card">
+<p><span class="key">成因二 · 投资者结构</span></p>
+<p>A股个人投资者占比高、情绪与题材驱动、对政策敏感；H股以外资机构为主、看重股息率与现金流、估值更保守。同一份年报，A股往往读出"概念"，H股读出"分红"——定价逻辑不同，价格自然不同。结构差异越大的股票，AH溢价往往越高。</p>
+</div>
+
+<div class="card">
+<p><span class="key">成因三 · 汇率</span></p>
+<p>H股以港币计价，港币通过联系汇率盯住美元；A股用人民币。持有H股赚的是港币，换回人民币要看人民币兑美元（进而兑港币）的走势。当市场预期人民币贬值，H股未来换回的人民币变少、相对吸引力下降，A股（人民币资产）相对更贵——汇率预期被直接拧进溢价里。汇率不是背景音，是定价因子本身。</p>
+</div>
+
+<div class="card">
+<p><span class="key">成因四 · 制度</span></p>
+<p>A股有资本管制（QDII额度、港股通门槛限制资金自由南下）、壳价值、打新红利、涨跌停保护；H股无涨跌幅、T+0、全球资金可自由进出。制度把A股围成一个相对封闭、供给受限的高溢价池——同样的东西，池子不同，水位不同。</p>
+</div>
+
+<div class="block">
+<p><span class="key">折价率规律（哪些股溢价小、哪些大）</span></p>
+<ul>
+<li><span class="key">大盘金融 / 能源 / 央企AH股</span>：溢价稳定在30%~50%，盘子大、两地都有机构覆盖，分歧小。</li>
+<li><span class="key">高股息红利股（银行、电力）</span>：溢价偏低，因H股机构看重股息、估值接近。</li>
+<li><span class="key">小盘 / 题材股</span>：溢价可翻倍甚至更高，A股情绪溢价极端。</li>
+<li><span class="key">牛熊规律</span>：A股牛市溢价扩大（情绪外溢），熊市收窄甚至倒挂（H股一度比A股贵）——溢价不是单向的，别把它当成只会收敛的常数。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">路径一 · AH互换（配对交易 pair trade）</span></p>
+<p>做多相对低估的H股、做空相对高估的A股（融券或境外衍生工具），等溢价收敛双边获利。政策出处：A股融券依据《证券公司融资融券业务管理办法》（证监会令第117号）；境外做空受香港《证券及期货条例》及港交所《上市规则》约束。难点：A股融券标的少、券源紧、费率高（年化6%起）；H股做空需借货、有成本；两边都得对冲汇率——落地门槛极高，多为机构专属。</p>
+</div>
+
+<div class="card">
+<p><span class="key">路径二 · 跨境ETF套利</span></p>
+<p>以恒生ETF、H股ETF为代表，做一二级市场折溢价套利：当ETF二级市价高于基金份额净值（IOPV），一级申购买入成分股换份额、二级市场卖出赚差；反之赎回套利。政策出处：依据《公开募集证券投资基金运作管理办法》（证监会令第104号）及沪深交易所ETF业务规则。难点：受外汇额度限制、折溢价窗口短（分钟级）、冲击成本高，散户难以持续捕捉。</p>
+</div>
+
+<div class="card">
+<p><span class="key">路径三 · 港股通买H股</span></p>
+<p>内地投资者经沪港通/深港通（依据证监会公告〔2014〕54号沪港通、〔2016〕33号深港通）直接买H股，赚取"较A股便宜"的价差收敛。这是普通投资者最现实的路径。难点：它不解决"溢价为什么收敛"的问题，只是低买了H股；若溢价不收敛甚至扩大（H股更跌），反被套；且天然承担汇率裸敞口。</p>
+</div>
+
+<div class="card">
+<p><span class="key">汇率风险（最容易被忽略的隐性成本）</span></p>
+<p>持有H股赚港币，换回人民币受汇率影响。假设持有一年H股涨10%，但人民币兑港币升值3%，实际人民币收益≈10%−3%≈7%（未对冲）；若人民币大幅升值，收益可被吃光甚至转负。对冲手段：远期结售汇、外汇掉期，成本约年化2%~3%——但很多投资者"裸敞口"，把汇率当免费午餐，结果价差赚了、汇率亏了。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>三条路径摆在这：AH互换机构专属、ETF套利散户难持续、港股通最现实但要自己判断溢价收敛。模块二最该带走的是：<strong>套利不是"买便宜的"，是"算清每条路径的成本和前提"——成本里，汇率裸敞口是最容易被你忽略、却最常吃掉收益的那一项</strong>。</p>
+</div>
+
+<h2 id="sec3">三、信号解码与判断框架</h2>
+<p class="guide">看到某股AH溢价突然扩大 → 是套利机会还是风险信号？三步判断</p>
+
+<p class="step">第一步 · 看到什么信号</p>
+<div class="block">
+<ul>
+<li><span class="key">溢价率跳变</span>：某AH股溢价率从常态30%突然扩到60%+——这是信号，不是结论。它告诉你"两地定价开始分裂"，但没告诉你为什么。</li>
+<li><span class="key">单向异动</span>：A股涨停、H股没跟涨，或H股大跌、A股没跟跌——同一张牌，两边打出不同价格。</li>
+<li><span class="key">成交量背离</span>：A股放量、H股缩量（或反之）——资金只在某一侧涌动，另一侧是"真空"。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 背后什么博弈</p>
+<div class="card">
+<p>溢价突然扩大，永远是四方博弈的结果：</p>
+<ul>
+<li><span class="key">买方（套利/南下资金）</span>：看到溢价扩大，想"买便宜H股、等收敛"——但他们是收敛的推动者还是接盘者，取决于趋势方向。</li>
+<li><span class="key">卖方（两地券商、发行方）</span>：A股一侧常由情绪与题材推动溢价，H股一侧由外资基本面定价；卖方研究在两边讲不同故事，本身放大分歧。</li>
+<li><span class="key">监管（两地交易所、外汇局）</span>：资本管制与港股通额度限制资金自由套利，是溢价长期存在的制度根因；监管政策变动（如放宽额度）会改变溢价中枢。</li>
+<li><span class="key">股东（大股东）</span>：偏好在溢价高的市场减持（A股卖更贵）、在折价市场增持——大股东行为本身会放大或缩小溢价。</li>
+</ul>
+<p>四方博弈的结果：溢价扩大不是"市场错了"，是"某一方力量暂时压倒另一方"。</p>
+</div>
+
+<p class="step">第三步 · 判断方向</p>
+<div class="block">
+<p>怎么区分是套利机会还是风险信号：</p>
+<ul>
+<li><span class="key">套利机会信号</span>：溢价扩大由短期情绪/流动性错配驱动（A股题材炒作、H股流动性真空），基本面无变化，历史中枢明确——溢价大概率回归，是配对/港股通买H的机会。</li>
+<li><span class="key">风险信号</span>：溢价扩大由基本面两地解读分化驱动（如H股外资看空、A股散户看多），伴随外资持续减持、H股放量下跌——这不是"H股便宜"，是"H股有A股还不知道的利空"，溢价扩大是预警，不是机会。</li>
+<li><span class="key">判断动作</span>：作为券商或私行客户经理，你不需要自己做配对交易，但你要能帮客户区分"溢价是情绪错配（机会）还是信息分化（风险）"——前者可参与，后者要劝退。判断错了方向，套利变接盘。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>下次客户兴奋地说"这只AH股溢价从30%跳到60%，快买H股套利"——你第一句话不该是"买"，而是<strong>"为什么扩大？是A股炒上去了，还是H股跌下去了？"</strong>模块三最该带走的是：<strong>溢价突然扩大，先分清是错配还是预警，再决定是下手还是劝退</strong>。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：30%溢价的套利推演</h2>
+<p class="guide">某AH金融股，A股较H股溢价30%，推演三条套利路径的成本与收益</p>
+
+<div class="card">
+<p><span class="key">公司画像</span>：某中型金融AH股，H股价格 <span class="num">10.00港元</span>，人民币兑港元汇率 <span class="num">0.90</span>，H股折人民币 <span class="num">9.00元</span>；A股价格 <span class="num">11.70元</span>（=9.00×1.30），A股较H股（人民币计价）溢价 <span class="num">30%</span>。假设12个月后溢价从历史高位收敛至 <span class="num">15%</span> 中枢（H股相对走强）。</p>
+</div>
+
+<table>
+<tr><th>路径</th><th>操作</th><th>主要成本项（以11.7万本金计）</th><th>收敛假设</th><th>毛收益</th><th>汇率对冲成本</th><th>净收益(年化)</th></tr>
+<tr><td>港股通<br>买H股</td><td>买入约1万股H股(折9万)+留2.7万备用</td><td>佣金0.03%(约33元)+港股印花税0.13%(约117元)+汇兑点差0.2%(约180元)≈330元</td><td>H股涨至折10.35元(+15%)，对应A股溢价收敛至15%</td><td><span class="num">+1.35万</span><br>(+15%)</td><td>远期对冲约2%/年≈1800元</td><td>≈<span class="num">1.14万</span><br>(约12.7%)</td></tr>
+<tr><td>AH配对<br>(做多H做空A)</td><td>双边建仓</td><td>融券费率6%/年(约7000元)+H股做空借货成本+双边对冲</td><td>价差由30%收敛至15%，双边各赚约7.5%</td><td>双边合计≈15%</td><td>高(双边)</td><td>受融券标的限制，多数AH股不可融券，难落地</td></tr>
+<tr><td>跨境ETF<br>套利</td><td>申赎/二级买卖</td><td>申赎费+冲击成本+额度限制</td><td>捕捉ETF折溢价差(通常0.5%~2%)</td><td>捕捉到的折溢价差</td><td>低(人民币计价ETF)</td><td>窗口分钟级，散户难持续，收益被摩擦成本侵蚀</td></tr>
+</table>
+
+<div class="block">
+<p><span class="key">哪种路径最现实？</span></p>
+<ul>
+<li><span class="key">普通投资者</span>：港股通买H股是唯一现实路径，但前提是"你判断溢价会收敛"，且接受汇率裸敞口。</li>
+<li><span class="key">机构</span>：AH配对理论最干净（双边对冲溢价），但融券与做空约束使其多为大行/对冲基金专属。</li>
+<li><span class="key">ETF套利</span>：赚的是"ETF折溢价差"而非"AH价差"，逻辑不同，别混为一谈。</li>
+<li><span class="key">核心结论</span>：30%溢价≠30%利润。扣掉交易成本(约0.3%~1%)、汇率对冲(约2%~3%)、资金占用与滑点，可捕获的净收益远小于表面价差——且前提是溢价真的收敛。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">核心结论</span>：跨市场套利赚的不是"价差全款"，是"价差收敛中你分到的、扣除成本后的那一块"。案例里表面30%溢价，扣完成本净收益约12.7%（港股通路径），且建立在"12个月收敛15%"的假设上——<strong>假设不兑现，收益归零甚至为负</strong>。套利收益=表面价差−全部成本−前提风险，别把价差当利润。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果你是这家公司股东，有人建议你"在A股减持、去港股低价买回"赚价差——你先算：减持税费（印花税0.05%+佣金）、港股买入成本、汇率对冲、以及最关键的前提"溢价会收敛吗"。模块四最该带走的是：<strong>套利收益=表面价差−全部成本−前提风险，别把价差当利润</strong>。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 · 风险盲区 · 资本运作视角——三面镜子互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<div class="block">
+<p><span class="key">联动疆界（概要）</span>：跨市场上接大宗交易（B08）——AH溢价价差常借大宗通道平衡，大股东在A股大宗高价减持、在H股低位买回，完成跨市场价差套利；下接并购（B10《并购动机解码》）——跨境并购的定价要考虑两地上市主体的估值差异，AH溢价直接影响换股比例。一条"减持—套利—并购"的链条在跨市场节点交汇。</p>
+</div>
+<div class="block">
+<p><span class="key">风险盲区（概要）</span>：①汇率裸敞口（价差赚了、汇率亏了，净收益被吃光）②停牌风险（A/H停牌不同步，套利头寸单边暴露、无法平仓）③流动性差异（H股流动性骤降时想卖卖不掉，价差无法收敛平仓）。三个盲区让"看起来稳的套利"变成"单边赌局"。</p>
+</div>
+<div class="block">
+<p><span class="key">资本运作视角（概要）</span>：跨市场是定价差异，不是无风险套利。溢价长期存在，是因为制度（资本管制）与结构（投资者差异）的刚性——把跨市场当成"免费套利"的人，最终都栽在汇率和流动性上。真正的资本运作，是在合规架构内设计跨市场持仓，而非赌价差收敛。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　遇到"A股比H股贵30%"，先问四件事：流动性差多少？投资者结构差多少？汇率怎么动？制度怎么隔？记住：溢价是四因子拧出来的，不是白捡的钱。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 能用判断</span>　用四因子框架判断某股溢价扩大是错配（机会）还是分化（风险）；用案例的三种路径画出成本表，判断客户想做的套利到底能剩多少净收益。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 精通实务</span>　①读恒生AH溢价指数判断整体水位②区分情绪错配与信息分化③帮客户算清港股通/配对的真实成本（含汇率对冲）④提示汇率裸敞口与停牌风险⑤在合规架构内设计跨市场持仓，而非"赌价差收敛"。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>查一只你熟悉的AH股：它的AH溢价率多少？属于大盘金融还是小盘题材？溢价偏大还是偏小？</li>
+<li>用四因子框架判断：某AH股溢价从30%跳到60%，是情绪错配还是信息分化？你会建议客户买H股还是劝退？</li>
+<li>找一份跨境ETF的折溢价数据：它和AH溢价是什么关系？散户做ETF套利的可行性和摩擦成本如何？</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">同一家公司，为什么A股和H股价格不一样</div>
+  <div class="q"><b>核心问题：</b>客户说"H股便宜买它套利"，你先问什么——"差价哪来的"还是"直接买"？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">规则与实务深水区</div>
+  <div class="pos">四成因 + 折价率规律 + 三路径 + 汇率风险</div>
+  <div class="q"><b>核心问题：</b>流动性/结构/汇率/制度，四个因子哪个在你客户那只股票上拧得最狠？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">信号解码与判断框架</div>
+  <div class="pos">信号 → 博弈 → 判断方向</div>
+  <div class="q"><b>核心问题：</b>溢价突然从30%跳到60%，是错配还是预警？你帮客户下手还是劝退？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">30%溢价的三条路径成本收益表</div>
+  <div class="q"><b>核心问题：</b>表面30%溢价，扣完成本和汇率，净收益还有多少？前提是什么？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>汇率裸敞口、停牌不同步、流动性差异——三个盲区你最容易踩哪个？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 能用判断 / 精通实务</div>
+  <div class="q"><b>核心问题：</b>看懂、判断、实务——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：上接 B08《大宗交易解码》（AH溢价价差常借大宗通道平衡，大股东跨市场套利）、下接 B10《并购动机解码》（跨境并购换股比例受AH溢价影响）。本篇是B线"定价差异与跨市场"枢纽。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Listed Company Decoding B09 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。B线模块三为"信号解码与判断框架"。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-ah" class="toggle">
+<div class="modal"><label class="backdrop" for="c-ah"></label><div class="modal-box">
+<label class="close" for="c-ah">&times;</label>
+<h3>AH溢价与折价率速查</h3>
+<table>
+<tr><th>类型</th><th>典型溢价水平</th><th>典型行业 / 公司</th><th>背后含义</th></tr>
+<tr><td>大盘金融/能源/央企</td><td>30%~50% 稳定</td><td>银行、保险、石油、电力央企</td><td>两地机构覆盖充分，分歧小，溢价中枢清晰</td></tr>
+<tr><td>高股息红利股</td><td>偏低（20%~35%）</td><td>银行、电力、运营商</td><td>H股机构看股息，估值接近A股</td></tr>
+<tr><td>小盘/题材股</td><td>可翻倍甚至更高</td><td>中小市值、概念标的</td><td>A股情绪溢价极端，结构差最大</td></tr>
+<tr><td>倒挂（H贵于A）</td><td>AH溢价 &lt; 0</td><td>熊市中的部分蓝筹</td><td>外资比内资更看好，或A股流动性折价</td></tr>
+</table>
+<p>读指数要点：<strong>恒生AH溢价指数长期在120~150点（A股贵20%~50%）；看单一股票时，先对照它所属类型的历史中枢，再看"当前溢价相对中枢是高是低"</strong>——高到离谱可能是情绪，低到倒挂可能是机会或预警。</p>
+<div class="link">相关：<a href="#sec2">四因子成因与折价率规律（见模块二）</a> · <a href="#sec4">30%溢价套利推演（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：跨市场不是孤立现象，它上接大宗交易、下接跨境并购，一条"减持—套利—并购"的链条在跨市场节点交汇。</p>
+
+<p class="key">上接大宗交易（B08） · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>大股东在A股通过大宗交易高价减持（A股流动性好、溢价高），同时在H股低位买回同等股权——利用AH价差完成"高卖低买"的跨市场套利；</li>
+<li>大宗交易的"折价率"与AH溢价互为镜像：A股大宗折价越小，说明A股溢价池越厚，跨市场套利空间越大；</li>
+<li>操作提示：这类套利受减持新规（《上市公司股东、董监高减持股份的若干规定》证监会公告〔2017〕9号）与港股通额度约束，不是无限可套。</li>
+</ul>
+</div>
+
+<p class="key">下接跨境并购（B10） · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>跨境并购涉及两地上市主体时，换股比例要按两地估值差异调整——AH溢价直接决定"用A股股还是H股股换更划算"；</li>
+<li>收购方若同时在A/H上市，倾向用溢价高的A股股份支付、保留折价H股，优化交易成本；</li>
+<li>操作提示：并购定价要把AH溢价作为"估值调整项"，否则换股比例会系统性偏向某一方股东。</li>
+</ul>
+</div>
+
+<p>上接大宗、下接并购——跨市场价差在"定价差异"这个节点把减持套利与并购换股连成一条线：理解溢价，才能看懂大股东为什么在A股减、在H股买，以及并购换股比例怎么定。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。跨市场套利最贵的错误，往往不是价差判断错，是三个盲区把"看起来稳"变成"单边赌局"。</p>
+
+<p class="key">盲区一 · 汇率裸敞口</p>
+<div class="block">
+<ul>
+<li>持有H股赚港币，换回人民币受汇率影响；H股涨10%但人民币兑港币升值3%，实际人民币收益≈7%（未对冲）；</li>
+<li>若人民币大幅升值，价差收益可被吃光甚至转负——很多投资者把汇率当免费午餐，最终"价差赚了、汇率亏了"；</li>
+<li>对冲手段：远期结售汇、外汇掉期，成本约年化2%~3%，但会侵蚀本就不厚的套利空间。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 停牌风险</p>
+<div class="block">
+<ul>
+<li>A股与H股停牌规则不同步：A股可因重大事项长期停牌，H股可能继续交易，或反之；</li>
+<li>套利头寸（如配对交易的一边）若遇单边停牌，无法平仓、无法对冲，价差走向与你无关地暴露；</li>
+<li>实务中这是跨市场套利最不可控的"黑天鹅"——你赚的是收敛，但停牌让你连"等收敛"的资格都没有。</li>
+</ul>
+</div>
+
+<p class="key">盲区三 · 流动性差异</p>
+<div class="block">
+<ul>
+<li>H股流动性远低于A股，极端行情下"想卖卖不掉"——价差要收敛，你得先能平仓；</li>
+<li>流动性骤降时，冲击成本飙升，原本算好的净收益被滑点吞掉；</li>
+<li>尤其小盘AH股，H股日成交可能仅A股的零头，套利规模稍大就推不动价格。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>跨市场套利的前提是"能进能出、能对冲"，凡是卡住进出与对冲的，都是把套利变赌局</strong>。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec3">信号解码与判断框架（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把跨市场从"一个套利机会"重新看成"一种定价差异"，你会发现跨市场不是无风险套利，是制度与结构刚性下的长期现象。</p>
+
+<p class="key">跨市场是定价差异，不是无风险套利</p>
+<div class="block">
+<p>溢价长期存在，根因是制度的刚性（资本管制、港股通门槛限制资金自由对流）与结构的刚性（散户主导 vs 外资主导）。只要这两道墙还在，AH溢价就不会消失——它不是"市场暂时犯错的礼物"，是"两个池子被迫隔离的常态"。把跨市场当成"免费套利"的人，最终都栽在汇率和流动性上。</p>
+</div>
+
+<p class="key">每个价差背后是博弈</p>
+<div class="block">
+<ul>
+<li>大股东：在溢价高的A股减持、在折价的H股增持，用价差优化自身成本；</li>
+<li>套利资金：在溢价扩大时涌入H股，是收敛的推动者，也是情绪的反噬对象；</li>
+<li>监管：额度与管制是溢价的"天花板调节器"——放宽额度，溢价中枢下移；收紧，溢价回升；</li>
+<li>外资：用基本面给H股定价，常常比A股"先知道利空"，溢价扩大有时是预警而非机会。</li>
+</ul>
+</div>
+
+<p class="key">怎么操作——作为服务者，你不是做套利的人，你是判断套利的人</p>
+<div class="block">
+<ul>
+<li>客户说"H股便宜买它套利"：先问四因子（流动性/结构/汇率/制度），再判断溢价会不会收敛、怎么收敛；</li>
+<li>客户想做配对/港股通：帮他算清真实成本（含汇率对冲、融券费率、冲击成本），别把表面价差当利润；</li>
+<li>你不需要自己下场做跨境套利，但你需要知道<strong>汇率裸敞口能吃掉多少收益、停牌与流动性差异何时会卡住平仓</strong>——这些是建立专业信任的判断力，不是交易力。</li>
+</ul>
+</div>
+
+<p>模块三五棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（看透本质）。三者合一，才是"跨市场"这件事的完整认知——不只是AH溢价的公式，是溢价背后"谁在用、为什么用、往哪边用"的博弈逻辑。</p>
+<div class="link">相关：<a href="#sec3">信号解码与判断框架（见模块三）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="B08_大宗交易解码_长文.html"><div class="pn-label">← 上一篇</div><div class="pn-title">B08 大宗交易解码</div></a><a class="pn-next" href="B10_并购动机解码_长文.html"><div class="pn-label">下一篇 →</div><div class="pn-title">B10 并购动机解码</div></a></nav>
+</body>
+</html>

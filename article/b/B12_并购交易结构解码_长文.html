@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B12 并购交易结构解码：现金、换股、资产置换、要约怎么选</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+.disclaimer{background:var(--pink);color:var(--wine);padding:12px 18px;font-size:.76em;margin-bottom:28px;line-height:1.6;border-left:3px solid var(--wine);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇 —— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid rgba(65,20,14,.12);padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:#41140e;text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:#41140e;color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:"Songti SC","SimSun","STSong","Noto Serif CJK SC",serif;
+  font-weight:700;font-size:1rem;color:#41140e;margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+
+</style>
+</head>
+<body>
+<div class="disclaimer">本篇内容不构成投资建议或专业意见，仅提供知识框架与判断思路，具体决策请咨询持牌专业人士。</div>
+
+<div class="art-nav"><a class="back" href="../../hall-b.html">← 返回栏目</a><span class="crumb">上市公司资本解码 · 19 篇长文</span></div>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Listed Company Decoding · B12</div>
+  <h1>并购交易结构解码：现金、换股、资产置换、要约怎么选</h1>
+  <div class="tagrow">
+    <span class="tag">M&amp;A</span><span class="tag">Deal Structure</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+你在服务客户时，客户说"我们准备收购一家同行"——你第一时间该问的不是"花多少钱"，而是"<span class="key">用什么方式付钱</span>"。并购不是只有"一手交钱一手交货"一种玩法：全现金买、发股票换、资产互相换、公开喊话要约收购，四种结构对应四种完全不同的资金安排、税负结果和股东博弈。同一笔20亿的收购，用现金、换股还是混合，买方的现金压力、股本稀释、卖方的税负能差出好几个亿。本篇把四种并购交易结构逐一拆开：每种的玩法、资金压力、税负逻辑、适用场景，再给你一套"看到方案就对出意图"的判断框架。
+</div>
+
+<div class="framework">
+<b>并购结构 = 支付方式 × 对价比例 × 税务属性</b><br>
+三个维度一起看：现金多还是股票多，决定买方资金压力和股本稀释；对价结构怎么搭，决定卖方税负是即缴还是递延；结构不是技术选择，是利益分配。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">并购结构不是"怎么买"，是"用什么付"——四种付法对应四种利益格局</p>
+
+<div class="card">
+<p><span class="key">并购交易结构</span>：买一家公司（或它的一块资产），用什么方式把对价付给卖方。大白话——你买房有全款、贷款、以房换房、公开挂牌竞买四种付法；并购也一样，区别在于"钱从哪出、股份怎么动、税什么时候缴"。</p>
+<p><span class="key">为什么结构比价格更先决定</span>：价格谈的是"值多少"，结构谈的是"谁出钱、谁缴税、谁还持股"。一笔交易价格定了，结构选错，买方可能现金枯竭、原股东被稀释失控、卖方税负当场吃掉利润——结构选对，同样的钱能办成两倍的事。</p>
+</div>
+
+<div class="block">
+<p><span class="key">四种结构，一句话定位</span></p>
+<ul>
+<li><span class="key">现金收购</span>：买方掏真金白银把标的买下，卖方拿钱走人、不再持股——最直接，但买方要先备好钱。</li>
+<li><span class="key">换股收购</span>：买方不发钱，发自家股票；卖方变成买方股东，继续持股分享未来——不烧现金，但原股东被稀释。</li>
+<li><span class="key">资产置换</span>：双方资产互相换，差额用现金补——常见于"净壳"操作，把壳里烂资产换出、好资产换入。</li>
+<li><span class="key">要约收购</span>：买方公开向全体股东喊话"我出XX元买你们的股票"，股东自愿卖——常用于夺控制权或私有化退市。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">一个底层比喻</span>：四种结构像四种"结账方式"。现金是刷卡当场付清；换股是记账分期、卖方变成你的合伙人；资产置换是以物易物；要约是举牌公开竞价。作为券商客户经理或私行顾问，你不需要替客户设计结构，但你要<span class="key">听得懂客户选了哪种、为什么选、风险在哪</span>——这是专业信任的起点。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>下次客户说"我们要并购"，别急着问估值，先问一句：<strong>"你们打算用现金付，还是发股票付？"</strong>这一句话能暴露买方是现金充裕还是想保现金、卖方是想套现还是想持股。模块一最该带走的认知：<strong>结构先于价格，结构是利益分配的骨架</strong>。</p>
+</div>
+
+<p class="guide">四种结构各适合什么场景？先存一张速查表</p>
+<div class="chips">
+  <label class="chip" for="c-struct">四种结构速查表</label>
+</div>
+
+<h2 id="sec2">二、规则与实务深水区</h2>
+<p class="guide">四种结构逐一拆开——资金压力、税负、稀释、监管红线</p>
+
+<div class="card">
+<p><span class="key">现金收购</span></p>
+<p><span class="key">怎么玩</span>：买方向卖方支付现金，取得标的股权或资产，卖方变现退出、不再持有。</p>
+<p><span class="key">资金压力</span>：买方需一次性备齐对价。钱不够就得借款，形成杠杆收购（LBO）——利息费用由买方背，资产负债表承压，若标的现金流覆盖不了利息，买方自己会被拖垮。这是现金收购最硬的约束：<span class="num">钱从哪来</span>。</p>
+<p><span class="key">税负</span>：卖方取得现金对价，视为股权转让所得或资产转让所得——企业缴企业所得税（法定25%），个人缴财产转让所得个税（<span class="num">20%</span>），<span class="key">即时纳税，没有递延空间</span>。卖方面对真金白银的税单，对价里要预留税款。</p>
+<p><span class="key">适用</span>：买方现金流充裕、标的规模可控、不想稀释股本、卖方明确想套现退出。政策出处：《企业所得税法》《个人所得税法》财产转让所得条款。</p>
+</div>
+
+<div class="card">
+<p><span class="key">换股收购</span></p>
+<p><span class="key">怎么玩</span>：买方向标的股东发行股份，标的股东以其股权认购，交易完成后标的股东成为买方股东。</p>
+<p><span class="key">股本稀释</span>：买方原股东权益被摊薄，EPS（每股收益）下降。若标的盈利能力低于买方，叫"稀释性收购"——并表后每股利润被拉低，股价可能承压。这是换股的核心代价：<span class="num">原股东股份被稀释多少</span>。</p>
+<p><span class="key">特殊性税务处理</span>：依据<span class="key">财税[2009]59号</span>《关于企业重组业务企业所得税处理若干问题的通知》，当股权支付额不低于交易总额<span class="num">85%</span>且符合合理商业目的等条件，卖方暂不确认所得，税基结转至取得新股份上，待未来转让时再缴——即<span class="key">递延纳税</span>。这是换股相对现金最大的税务优势：把当期税单变成未来税单。</p>
+<p><span class="key">适用</span>：买方想保住现金、标的方看好买方前景愿意长期持股、大额并购避免现金枯竭。注意：个人股东适用的是个税递延政策（财税[2014]116号等），并非一律免税，须合规架构落地。</p>
+</div>
+
+<div class="card">
+<p><span class="key">资产置换</span></p>
+<p><span class="key">怎么玩</span>：交易双方以资产互换，差额以现金或其他方式补足。典型形态是上市公司"净壳"：把原有低效资产置出，装入拟注入的优质资产。</p>
+<p><span class="key">净壳与借壳</span>：非上市公司把资产注入上市公司（壳），取得控制权实现上市，叫借壳上市。净壳指先把壳公司原有资产负债清理干净再装入新资产，降低后续整合难度。监管对借壳始终高度关注。</p>
+<p><span class="key">监管红线</span>：依据<span class="key">《上市公司重大资产重组管理办法》</span>（证监会令第214号，2023年修订）第十三条，构成"重组上市"的，参照IPO标准审核——审核口径、业绩门槛趋同IPO，规避借壳一直是监管红线。实务中"类借壳"设计须极其谨慎。</p>
+<p><span class="key">适用</span>：拟上市企业想绕开IPO排队快速证券化、壳公司主业萎缩亟需盘活。</p>
+</div>
+
+<div class="card">
+<p><span class="key">要约收购</span></p>
+<p><span class="key">怎么玩</span>：收购人向被收购公司全体股东发出收购其股份的要约，股东自愿决定是否接受。</p>
+<p><span class="key">30%触发线</span>：依据<span class="key">《上市公司收购管理办法》</span>（证监会令第166号，2020年修订）第二十四条、第四十七条，投资者持有一家上市公司股份达到<span class="num">30%</span>后继续增持的，触发强制要约义务——要么向全体股东发出要约，要么向证监会申请豁免。这是A股收购的"分水岭"。</p>
+<p><span class="key">全面要约与部分要约</span>：全面要约面向全体股东、收购全部股份（若收购后公众股低于25%或10%将触发退市）；部分要约只收购一定比例。要约价不得低于要约前6个月最高买入价，保护中小股东。</p>
+<p><span class="key">适用</span>：取得上市公司控制权、私有化退市、敌意收购。高溢价要约常被视为控制权争夺或价值重估信号。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>四种结构里，现金收购卡在"钱够不够"、换股卡在"稀释多少"、资产置换卡在"借壳合规"、要约卡在"30%红线"。<strong>你服务的客户若要做并购，先帮他想清楚：最缺的是钱、是股、还是合规空间？</strong>模块二最该带走的是：<strong>每种结构都有一条硬约束，结构选型本质是选约束</strong>。</p>
+</div>
+
+<h2 id="sec3">三、信号解码与判断框架</h2>
+<p class="guide">看到一份并购方案，不急着评价好坏，三步判断：信号→博弈→方向</p>
+
+<p class="step">第一步 · 看到什么结构信号</p>
+<div class="block">
+<ul>
+<li><span class="key">支付方式</span>：公告写"全部以现金支付"还是"发行股份购买资产"——这是第一信号。全现金=买方当场掏钱；全换股=买方保现金、卖方变股东。</li>
+<li><span class="key">对价结构</span>：混合支付里现金比例高低。现金占比越高，买方资金压力越大、卖方税单越重；换股占比越高，稀释越深、税负越可递延。</li>
+<li><span class="key">是否触发要约</span>：增持到30%是否发要约、要约是全面还是部分——这是控制权信号的硬指标。</li>
+<li><span class="key">是否涉借壳</span>：资产置换是否导致实控人变更、是否构成重组上市——这是合规信号的硬指标。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 背后什么博弈</p>
+<div class="card">
+<p>一份并购方案背后永远是多方的利益博弈：</p>
+<ul>
+<li><span class="key">买方意图</span>：想保现金（选换股）、想并表增厚利润（选能控股的结构）、想少缴税（凑够85%股权支付做特殊性税务处理）、想夺控制权（触发要约）。结构选择暴露买方最在意什么。</li>
+<li><span class="key">卖方诉求</span>：想套现退出（要现金）、想继续分享成长（接受换股）、想递延税负（推高换股比例）。卖方对结构的挑剔程度，暴露它对这笔交易的长期态度。</li>
+<li><span class="key">监管态度</span>：借壳参照IPO、要约保护中小股东、30%强制要约防暗度陈仓——结构是监管审查的第一道入口。</li>
+<li><span class="key">原股东利益</span>：换股稀释EPS、要约溢价是否惠及全体——原股东是结构的被动承受者，也是最该被解释清楚的一方。</li>
+</ul>
+<p>四方的拉扯，最终落在"现金多少、股份多少、税何时缴"这一个三角上。</p>
+</div>
+
+<p class="step">第三步 · 判断方向</p>
+<div class="block">
+<p>怎么从结构反推意图与诉求：</p>
+<ul>
+<li><span class="key">全现金</span>：买方强势、现金充裕或急于并表；卖方明确套现离场、不想再赌未来。判断：这是"一锤子买卖"型交易。</li>
+<li><span class="key">全换股</span>：买方保现金流、卖方看好协同长期持股。判断：双方绑定成利益共同体，但原股东稀释需重点沟通。</li>
+<li><span class="key">混合支付</span>：折中——买方留部分现金、卖方部分套现部分持股。判断：最平衡的结构，常用于大额交易求双方都过得去。</li>
+<li><span class="key">触发要约</span>：控制权争夺或私有化信号，溢价高低反映买方决心。判断：重点看要约价相对市价溢价，高溢价往往意味着志在必得。</li>
+<li><span class="key">判断动作</span>：作为服务方，你不必替客户定结构，但要<span class="key">看懂结构背后的意图与诉求</span>——这是你比同行多懂的那一层。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>下次看到一份并购预案，别只盯着"溢价多少"，先把支付方式、对价比例、是否要约三件事列出来——<strong>这三件事比溢价更能告诉你"谁占了便宜、谁让了步"</strong>。模块三最该带走的是：<strong>结构是博弈的结果，看懂结构就看懂了博弈</strong>。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：同一标的三种结构推演</h2>
+<p class="guide">把同一家标的装进现金、换股、混合三种结构，看数字怎么变</p>
+
+<div class="card">
+<p><span class="key">交易画像</span>：一家盈利稳定的智能制造标的，整体估值 <span class="num">20亿</span>。买方为A股上市公司，当前股价 <span class="num">20元</span>、原股本 <span class="num">4亿股</span>（市值80亿）、账面可动用现金有限。卖方为标的创始团队，个人持股，想部分套现、部分分享成长。我们推演三种结构下的资金占用、股本稀释与税负。</p>
+</div>
+
+<table>
+<tr><th>结构</th><th>买方资金占用</th><th>股本稀释</th><th>卖方税负</th><th>卖方结果</th><th>适用判断</th></tr>
+<tr><td>全现金</td><td><span class="num">20亿</span>现金（需借款）</td><td>0%</td><td><span class="num">4亿</span>（20%个税即缴）</td><td>套现离场，彻底退出</td><td>买方现金足 / 卖方坚决退出</td></tr>
+<tr><td>全换股</td><td>0现金</td><td>稀释20%（发1亿股 / 原4亿股）</td><td>0即缴（递延，特殊性税务处理）</td><td>变股东，持股约20%</td><td>买方保现金 / 卖方看好长期</td></tr>
+<tr><td>混合60%换股+40%现金</td><td><span class="num">8亿</span>现金</td><td>稀释约13%（发6000万股 / 新4.6亿股）</td><td>现金部分<span class="num">1.6亿</span>即缴，换股部分递延</td><td>部分套现、部分持股</td><td>大额交易求双方平衡</td></tr>
+</table>
+
+<p class="step">数字是怎么推导出来的</p>
+<div class="block">
+<ul>
+<li><span class="key">全现金</span>：对价20亿全付现金，买方账面现金不够需融资，利息自担；卖方个人转让所得20亿×20%=<span class="num">4亿</span>个税，签完即缴，实收16亿。</li>
+<li><span class="key">全换股</span>：发股对价20亿÷股价20元=<span class="num">1亿股</span>；新股后股本4亿+1亿=5亿，创始团队持股1亿/5亿=<span class="num">20%</span>；股权支付100%≥85%，符合特殊性税务处理，4亿个税递延至未来转让时缴。</li>
+<li><span class="key">混合</span>：40%现金=8亿（对应所得8亿×20%=<span class="num">1.6亿</span>即缴）；60%换股=12亿÷20元=<span class="num">6000万股</span>，新股后4亿+0.6亿=4.6亿，稀释0.6/4.6≈<span class="num">13%</span>；换股部分12亿对应个税递延。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">核心结论</span>：同一笔20亿交易，三种结构下——买方现金占用从20亿降到0、股本稀释从0升到20%、卖方税负从4亿即缴变成可递延。<strong>没有"最好"的结构，只有"最匹配双方诉求"的结构</strong>：买方怕稀释就多给现金，卖方怕税单就多换股，双方都纠结就走混合。结构选型，本质是双方把"钱、股、税"三件事重新分配一遍。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果你是标的创始团队，三种结构你选哪个？想立刻落袋为安选现金（但要缴4亿税），想赌成长选换股（但股权被稀释、税递延），想两头兼顾选混合。<strong>这道题没有标准答案，只有"你最在意钱、股、还是税"</strong>。模块四最该带走的是：<span class="key">结构推演的本质，是算清三本账——资金账、股本账、税负账</span>。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 · 风险盲区 · 资本运作视角——三面镜子互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<div class="block">
+<p><span class="key">联动疆界（概要）</span>：并购结构上接并购动机（为什么买，决定愿不愿意稀释），下接对赌条款（估值调整机制，决定换股比例是否要重算），横接再融资（保现金的买方常配套募资）。结构不是孤立选择，是资本运作链条的一环。</p>
+</div>
+<div class="block">
+<p><span class="key">风险盲区（概要）</span>：现金枯竭（借款并购利息反噬）、换股稀释失控（EPS持续摊薄引发股价下跌）、借壳合规（类借壳被否）、要约误判（30%红线触发全面要约被动退市）——四个坑，哪一个都能让交易翻车。</p>
+</div>
+<div class="block">
+<p><span class="key">资本运作视角（概要）</span>：结构是利益分配不是技术选择。同样的估值，现金对卖方是落袋、对买方是压力；换股对卖方是绑定、对买方是稀释。高手选结构，是在"钱、股、税"三角里替双方找到都过得去的平衡点。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　遇到并购方案，先问三件事：用什么付（现金/换股/置换/要约）？对价比例怎么搭？税何时缴？记住：结构先于价格，结构是利益分配的骨架。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 能用判断</span>　用案例的三种结构画出"资金账/股本账/税负账"三本账；找一份真实并购预案，判断买方偏保现金还是偏保股本、卖方偏套现还是偏持股；识别方案里的"意图信号"。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 精通实务</span>　①按买方现金缺口和卖方套现意愿初选结构②用85%股权支付线判断能否做特殊性税务处理③算清稀释比例与EPS影响④判断是否会触发30%要约红线⑤在"钱、股、税"三角里帮客户找到平衡点，并把借壳合规红线前置排查。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>找一份并购预案：拆出支付方式、对价比例、是否触发要约——判断买方意图与卖方诉求。</li>
+<li>用案例的20亿标的，自己重算一遍三种结构的资金占用、股本稀释、税负，验证数字。</li>
+<li>查一笔你熟悉的并购：它的结构选型，是因为买方缺现金、还是卖方想递延税？写清楚逻辑。</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">并购结构不是"怎么买"，是"用什么付"</div>
+  <div class="q"><b>核心问题：</b>客户说"要并购"，你第一句是问价格，还是问"用现金还是发股票付"？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">规则与实务深水区</div>
+  <div class="pos">四种结构的资金压力、税负、稀释、监管红线</div>
+  <div class="q"><b>核心问题：</b>现金卡在钱、换股卡在稀释、置换卡在借壳、要约卡在30%——你客户最缺哪一样？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">信号解码与判断框架</div>
+  <div class="pos">信号→博弈→判断方向</div>
+  <div class="q"><b>核心问题：</b>一份方案全换股，你读出的是买方保现金，还是卖方想长期绑定？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">同一标的三种结构：20亿怎么分</div>
+  <div class="q"><b>核心问题：</b>资金账、股本账、税负账——三种结构里，你最该帮客户算清哪一本？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>现金枯竭、稀释失控、借壳合规、要约误判——四个坑你最容易踩哪个？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 能用判断 / 精通实务</div>
+  <div class="q"><b>核心问题：</b>看懂、判断、实务——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：上接 B10《并购动机解码》（为什么买决定愿不愿意稀释），下接 B13《并购估值与对赌解码》（对赌作为估值调整机制如何重算换股比例）。本篇是B线并购交易结构的选型底层框架，与 B02《IPO解码》的发行结构设计逻辑互补。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Listed Company Decoding B12 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。B线模块三为"信号解码与判断框架"。本篇聚焦四种并购交易结构的选型逻辑。
+</div>
+
+<input type="checkbox" id="c-struct" class="toggle">
+<div class="modal"><label class="backdrop" for="c-struct"></label><div class="modal-box">
+<label class="close" for="c-struct">&times;</label>
+<h3>四种结构速查表</h3>
+<table>
+<tr><th>结构</th><th>买方核心代价</th><th>卖方核心结果</th><th>税负属性</th><th>最适用场景</th></tr>
+<tr><td>现金收购</td><td>一次性资金压力（常需借款）</td><td>套现离场、不再持股</td><td>所得税/个税即缴</td><td>买方现金足、卖方想退出</td></tr>
+<tr><td>换股收购</td><td>原股东稀释、EPS摊薄</td><td>变股东、分享未来</td><td>达标可递延（财税[2009]59号）</td><td>买方保现金、卖方看长期</td></tr>
+<tr><td>资产置换</td><td>整合复杂度高</td><td>以资产换资产/股份</td><td>差额部分计税</td><td>净壳/借壳、绕开IPO排队</td></tr>
+<tr><td>要约收购</td><td>触发30%红线、溢价成本</td><td>全体股东可自愿出售</td><td>视对价形式而定</td><td>夺控制权、私有化退市</td></tr>
+</table>
+<p>核心原则：<strong>先看双方最缺什么（钱、股、还是合规空间），再选结构；大额交易多用混合支付平衡三方诉求</strong>。</p>
+<div class="link">相关：<a href="#sec2">四种结构详细拆解（见模块二）</a> · <a href="#sec4">同一标的三种结构对比（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：结构不是孤立选择，它上接并购动机、下接对赌条款、横接再融资，是一条资本运作链上的环节。</p>
+
+<p class="key">上接并购动机 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>为什么买，决定愿不愿意稀释。操作上：</p>
+<ul>
+<li>若并购动机是"补短板、抢时间"（战略协同强），买方更愿接受换股——把卖方绑成股东，利益一致；</li>
+<li>若动机是"财务投资、择机退出"，买方倾向现金，不愿长期摊薄；</li>
+<li>动机越偏战略，结构越偏换股；动机越偏财务，结构越偏现金。读动机，才能读懂结构。</li>
+</ul>
+</div>
+
+<p class="key">下接对赌条款 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>换股比例基于标的估值确定；若标的未来业绩不达标，对赌补偿会重算换股比例或现金补偿——结构和对赌是一体的；</li>
+<li>实务中"高换股比例+高对赌承诺"是常见组合：用股份把卖方留住，用对赌把估值风险锁住；</li>
+<li>作为服务方，看结构时要顺带看对赌：换股比例不是定死的，对赌是它背后的调节阀。</li>
+</ul>
+</div>
+
+<p class="key">横接再融资 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>保现金的买方常配套募资（定增）补流动性——结构选现金，往往牵出再融资方案；</li>
+<li>再融资成本与并购收益的剪刀差，决定现金结构是否划算；</li>
+<li>结构、对赌、再融资三者要一起看，才是完整的资本运作图景。</li>
+</ul>
+</div>
+
+<p>上接动机、下接对赌、横接再融资——三条线在"结构"这个节点交汇：结构选型本质是资本运作链的第一颗扣子。</p>
+<div class="link">相关：<a href="#sec3">信号判断框架（见模块三）</a> · <a href="#sec5">风险盲区与资本运作视角（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。结构最贵的错误，往往不是选错，是算漏了代价。</p>
+
+<p class="key">盲区一 · 现金枯竭</p>
+<div class="block">
+<ul>
+<li>借款并购（LBO）用标的未来现金流还息，若整合不及预期，利息反噬买方自身利润；</li>
+<li>现金结构看似干净，实则把资产负债表压力后置——签完约才发现钱不够，是并购失败高频原因；</li>
+<li>修正方法：先算"并表后自由现金流能否覆盖利息"，再决定现金比例上限。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 换股稀释失控</p>
+<div class="block">
+<ul>
+<li>创始团队换股后持股20%，若标的盈利能力低于买方，EPS持续摊薄，股价下跌，原股东用脚投票；</li>
+<li>稀释不仅是比例，更是控制权稀释——大股东持股比例下滑可能引发控制权不稳；</li>
+<li>修正方法：测算并表后EPS、ROE变化，设稀释上限（如不超过15%）。</li>
+</ul>
+</div>
+
+<p class="key">盲区三 · 借壳合规</p>
+<div class="block">
+<ul>
+<li>资产置换若导致实控人变更且达到重组上市标准，须参照IPO审核——"类借壳"设计一旦被认定，方案直接被否；</li>
+<li>合规红线在方案设计初期就要前置排查，不能等上会才补；</li>
+<li>借壳不是不能做，是必须按IPO标准把资产、业绩、规范都做扎实。</li>
+</ul>
+</div>
+
+<p class="key">盲区四 · 要约误判</p>
+<div class="block">
+<ul>
+<li>增持到30%未意识到触发强制要约，被动发出全面要约可能导致公众股不足而退市；</li>
+<li>要约价不得低于前6个月最高买入价，高溢价要约是一笔不小的现金支出；</li>
+<li>修正方法：把30%红线当成"收购地图的分界线"，提前规划是豁免、部分要约还是止步29.9%。</li>
+</ul>
+</div>
+
+<p>四个盲区共同指向一句话：<strong>结构的代价要提前算清，钱、股、税、合规四本账缺一不可</strong>。</p>
+<div class="link">相关：<a href="#sec2">四种结构的硬约束（见模块二）</a> · <a href="#sec4">三种结构的数字推导（见模块四）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：结构是利益分配，不是技术选择。同一笔估值，落在不同结构上，买卖双方谁占便宜、谁让了步，天差地别。</p>
+
+<p class="key">视角一 · 现金对买方是压力、对卖方是落袋</p>
+<div class="block">
+<ul>
+<li>买方付现金，资产负债表立刻承压，但股权不被稀释、控制权稳固；</li>
+<li>卖方收现金，立刻落袋为安，但失去未来成长红利、且税负即缴；</li>
+<li>现金结构是"买方让渡流动性、卖方让渡成长性"的一次性交换。</li>
+</ul>
+</div>
+
+<p class="key">视角二 · 换股对买方是保现金、对卖方是绑定</p>
+<div class="block">
+<ul>
+<li>买方发股，保住现金但稀释股权、摊薄EPS；</li>
+<li>卖方换股，递延税负但变成小股东，未来价值取决于买方股价；</li>
+<li>换股结构是"买方让渡股权、卖方让渡即时收益"的长期绑定。</li>
+</ul>
+</div>
+
+<p class="key">视角三 · 混合是平衡点</p>
+<div class="block">
+<ul>
+<li>大额交易里，混合支付让买方留部分现金、卖方部分套现部分持股——双方各退一步；</li>
+<li>结构的高手玩法，是在"钱、股、税"三角里替双方找到都过得去的均衡点；</li>
+<li>真正懂资本运作的人，不纠结"哪种结构最好"，而精通"怎么把三种结构揉成最适合这一单的组合"。</li>
+</ul>
+</div>
+
+<p>资本运作视角的底色：<strong>结构背后全是人性——谁想落袋、谁想绑定、谁怕稀释、谁怕税单。看懂结构，就看懂了交易里每个人的心思</strong>。</p>
+<div class="link">相关：<a href="#sec3">信号→博弈→判断（见模块三）</a> · <a href="#sec6">三层进阶实务（见模块六）</a></div>
+</div></div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="B11_资本运作税务解码_长文.html"><div class="pn-label">← 上一篇</div><div class="pn-title">B11 资本运作税务解码</div></a><a class="pn-next" href="B13_并购估值与对赌解码_长文.html"><div class="pn-label">下一篇 →</div><div class="pn-title">B13 并购估值与对赌解码</div></a></nav>
+</body>
+</html>

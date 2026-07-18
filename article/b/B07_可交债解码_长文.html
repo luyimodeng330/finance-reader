@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B07 可交债解码：不用减持也能高位套现</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+.disclaimer{background:var(--pink);color:var(--wine);padding:12px 18px;font-size:.76em;margin-bottom:28px;line-height:1.6;border-left:3px solid var(--wine);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇 —— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid rgba(65,20,14,.12);padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:#41140e;text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:#41140e;color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:"Songti SC","SimSun","STSong","Noto Serif CJK SC",serif;
+  font-weight:700;font-size:1rem;color:#41140e;margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+
+</style>
+</head>
+<body>
+<div class="disclaimer">本篇内容不构成投资建议或专业意见，仅提供知识框架与判断思路，具体决策请咨询持牌专业人士。</div>
+
+<div class="art-nav"><a class="back" href="../../hall-b.html">← 返回栏目</a><span class="crumb">上市公司资本解码 · 19 篇长文</span></div>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Listed Company Decoding · B07</div>
+  <h1>可交债解码：不用减持也能高位套现</h1>
+  <div class="tagrow">
+    <span class="tag">Exchangeable Bond</span><span class="tag">Capital Decoding</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+你在服务客户时，大股东说"我发个可交债"——你第一反应是什么？是"又融资了"，还是"他想卖股票了"？可交换公司债券（Exchangeable Bond, EB）最妙的地方在于：它表面是一只债，骨子里是一把"带期权的高级尺子"——大股东把手里已有的股票质押出去借一笔钱，约定到期投资者要么拿回本息、要么把债券换成那批股票。涨了，投资者来换股，大股东变相"高位卖了股票"还白用了几年低息资金；跌了，投资者不换股，大股东还本付息保住股票，等于做了一笔便宜的融资。<strong>减持和融资，一券两用</strong>。本篇把可交债的套利逻辑拆开：它和可转债到底差在哪、换股比例和下修/赎回条款怎么设计、转股期里发行人和持有人怎么打架、券商承销时怎么在两边之间磨条款——最后用一个脱敏案例，把"换股溢价20%+下修触发+持有人转股vs不转股"算成一张你能直接拿去给客户讲的数字推导表。
+</div>
+
+<div class="framework">
+<b>可交债 = 存量股质押 × 低息融资 + 看涨期权</b><br>
+大股东用"已经持有的股票"做抵押借一笔钱；到期持有人要么拿钱、要么换走股票。对大股东：涨了变相高位减持、跌了白用低息资金——减持与融资，一个工具两头占。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">可交债不是"又发了一只债"，是股东把"未来可能卖出的股票"先抵押出去借了笔钱</p>
+
+<div class="card">
+<p><span class="key">可交换公司债券（可交债 / EB）</span>：上市公司股东把自己持有的股票"打包"成债券卖给投资者。大白话——你手里有一批值钱股票，但舍不得现在卖（怕砸盘压价、怕缴税、怕触发减持披露和比例限制），于是把这批发债抵押出去借一笔钱，约定"到期你可以选择拿钱，或者拿这批股票抵债"。专业定义：依据《上市公司股东发行可交换公司债券试行规定》（证监会公告〔2008〕41号），上市公司股东依法发行、在一定期限内依据约定条件可交换成该股东所持有的上市公司股票的公司债券。</p>
+<p><span class="key">为什么大股东爱用这一招</span>：直接在二级市场减持 = 立刻砸盘压价、还要走减持披露和每90天不超过1%等比例限制、接盘方也难找；发可交债 = 先把钱拿到手，等股价高位时再"换股"把股票过户给持有人（变相减持），过程温柔、还能白用几年低息资金。一句话：<strong>它把"减持"这件容易引发市场恐慌的事，包装成了一场有秩序的、带期权属性的融资</strong>。</p>
+</div>
+
+<div class="block">
+<p><span class="key">可交债 vs 可转债，一张表先建立直觉</span></p>
+<ul>
+<li><span class="key">发行人是谁</span>：可交债的发行人是<strong>股东（大股东）</strong>；可转债的发行人是<strong>上市公司本身</strong>。</li>
+<li><span class="key">换的是什么股</span>：可交债换的是发行人持有的<strong>存量股</strong>（股票本来就存在）；可转债换的是公司<strong>新发的增量股</strong>。</li>
+<li><span class="key">总股本变不变</span>：可交债换股<strong>不增加总股本</strong>（只是股东换人，股本盘子不变）；可转债换股<strong>增加总股本、摊薄每股收益</strong>。</li>
+<li><span class="key">钱进谁的口袋</span>：可交债募资进了<strong>大股东口袋</strong>（是他个人/持股平台在融资）；可转债募资进了<strong>上市公司账户</strong>。</li>
+<li><span class="key">一句话定位</span>：可交债是<strong>股东的减持 + 融资工具</strong>；可转债是<strong>上市公司的融资 + 转股工具</strong>。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你下次听到大股东说"我发个可交债"，第一反应不该是"又融资了"，而是<strong>"他到底想融资，还是想减持？"</strong>——这两个目的设计的条款天差地别。模块一最该带走的认知：<strong>可交债是一把双用途尺子，它既能量出大股东"缺钱"的程度，也能量出他"想不想走"的诚意</strong>。</p>
+</div>
+
+<p class="guide">可交债与可转债，五个维度核心差异一表速查</p>
+<div class="chips">
+  <label class="chip" for="c-diff">可交债 vs 可转债 核心差异</label>
+</div>
+
+<h2 id="sec2">二、规则与实务深水区</h2>
+<p class="guide">换股比例怎么算、下修怎么触发、赎回怎么逼换股、券商怎么设计条款——逐一拆开</p>
+
+<div class="card">
+<p><span class="key">换股比例与换股溢价率</span></p>
+<p>公式：<span class="num">换股比例 = 债券面值100元 ÷ 换股价</span>。例：换股价12元 → 每张债券换 100÷12 ≈ <span class="num">8.33股</span>。</p>
+<p>换股溢价率 =（换股价 − 发行时市价）÷ 发行时市价。换股价12元、市价10元 → 溢价率 =（12−10）÷10 = <span class="num">20%</span>。意思是：投资者要等股价涨过12元（比现在高20%）换股才划算。</p>
+<p><span class="key">溢价率高低 = 大股东的"真实意图温度计"</span>：溢价 <span class="num">20%以上</span>（高溢价）→ 投资者很难换股，大股东偏"融资型"，压根不想真让股票被换走；溢价 <span class="num">平价或折价</span> → 一上市就接近换股临界，大股东偏"减持型"，借机套现。</p>
+</div>
+
+<div class="card">
+<p><span class="key">下修条款（向下修正换股价）</span></p>
+<p>规则：当正股价格连续N个交易日低于换股价的一定比例（常见85%、80%），发行人<strong>可</strong>（注意是"可"，非"必须"）向下修正换股价，使换股更有吸引力。该条款属募集说明书里的市场化约定，无强制触发义务。</p>
+<p><span class="key">实务 + 怎么操作</span>：下修对持有人有利（更容易换股赚钱），但下修后每张债能换更多股、需要更多股票覆盖换股，发行人要<strong>补充质押</strong>。大股东下修的动机 = 想促成换股（把股票换出去=减持）；选择不下修 = 想保住股票（到期还本）。<strong>判断诀窍</strong>：看下修触发后大股东"动不动手"——动手就是想走，不动就是想留。</p>
+</div>
+
+<div class="card">
+<p><span class="key">赎回条款（逼持有人换股的最强武器）</span></p>
+<p>规则：当正股价格连续N个交易日高于换股价的一定比例（常见130%），发行人有权按面值+应计利息赎回债券。另有到期赎回（还本付息）。</p>
+<p><span class="key">实务 + 怎么操作</span>：赎回等于"逼宫"——投资者如果不换股、等着被赎回，拿回的只是面值+微息（远少于此时股票的价值），理性选择是赶紧换股。所以<strong>大股东在股价高时行使赎回，把"还钱义务"变成"过户股票"，变相高位减持</strong>。赎回条款是发行人掌握主动权的核心抓手。</p>
+</div>
+
+<div class="card">
+<p><span class="key">回售条款（持有人的安全带）</span></p>
+<p>规则：若正股持续大跌、下修也救不回来，持有人可在回售期按面值+利息把债券卖回给发行人。这是保护投资者本金的"最后一道闸"，也是约束大股东不能随意摆烂的压力。</p>
+<p><span class="key">实务</span>：回售把"股价跌、大股东不还本"的风险封死——一旦触发回售，大股东必须拿出真金白银接回债券。所以担保质押比例和回售线，是投资者敢买可交债的底气。</p>
+</div>
+
+<div class="card">
+<p><span class="key">承销视角 · 券商怎么设计条款</span></p>
+<p>券商是承销商，要两头平衡：大股东想低利率、高溢价（少稀释、易融资），投资者想要安全性（质押足、有下修/回售保护、换股有赚头）。依据《证券发行与承销管理办法》《公司债券发行与交易管理办法》（证监会令）开展承销。</p>
+<p><span class="key">设计五维 + 怎么操作</span>：①<strong>换股溢价率</strong>（意图的温度计）；②<strong>票面利率</strong>（融资型常低至0.5%~1%，减持型可能略高以吸引认购）；③<strong>期限</strong>（1~3年，减持型偏短、融资型偏长）；④<strong>下修 / 赎回 / 回售触发线</strong>（决定博弈主动权）；⑤<strong>担保质押比例</strong>（通常质押130%~150%的股票，由中国结算办理质押登记）。</p>
+<p>操作动作：<strong>先问大股东"这债是融资还是减持"——定调后倒推条款；再拿条款去路演问投资者接受度，两边磨合</strong>。融资型条款大股东舒服、投资者要担保足；减持型条款投资者舒服、大股东让利。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>现在你手里有一只可交债的募集说明书：换股价溢价20%、票面利率1%、期限3年、质押150%、下修"可"但不强制。<strong>这更像是融资还是减持？</strong>模块二最该带走的认知：<strong>条款不是随便写的，每一条都是大股东"想不想走、想怎么走"的密码——溢价率、利率、期限、下修意愿，四个旋钮转一转，意图就显形了</strong>。</p>
+</div>
+
+<h2 id="sec3">三、信号解码与判断框架</h2>
+<p class="guide">看到大股东发可交债，不急着欢呼或恐慌，三步判断：信号→博弈→判断</p>
+
+<p class="step">第一步 · 看到什么信号</p>
+<div class="block">
+<ul>
+<li><span class="key">标的</span>：换成哪只股票、大股东持股多少、质押多少、质押比例够不够覆盖换股。</li>
+<li><span class="key">期限</span>：1年 / 2年 / 3年——越短，越像"急着把股票换出去"。</li>
+<li><span class="key">换股价 + 溢价率</span>：溢价20%以上偏融资；平价 / 折价偏减持。</li>
+<li><span class="key">票面利率</span>：超低利率（0.5%~1%）偏融资型（大股东想低成本拿钱）；给到吸引力利率偏想让投资者安心持有到期。</li>
+<li><span class="key">下修 / 赎回设定</span>：易触发下修 + 强赎回 = 大股东想促换股；难下修 = 想保股票。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 背后什么博弈</p>
+<div class="card">
+<p>每个信号背后都是四方在"换不换股"这一点上拉扯：</p>
+<ul>
+<li><span class="key">发行人（大股东）</span>：想高位套现或低息融资，立场"往上推股价、促换股"，掌握下修/赎回主动权。</li>
+<li><span class="key">持有人（投资者）</span>：想保本+赚换股价差，立场"股价够高才换、不够就拿利息"，靠回售保底。</li>
+<li><span class="key">监管 / 市场</span>：关注是否变相绕道减持、质押会不会爆仓，立场"防绕道、防违约"。</li>
+<li><span class="key">正股散户</span>：怕大股东借可交债"高位出货"，情绪偏空；但可交债不直接砸盘，冲击小于集中竞价减持，短期反而是"缓释"。</li>
+</ul>
+<p>四方博弈最终在"换股"这一个动作上交汇：大股东想换（减持/消债）、持有人想挑时机换（赚钱）、监管盯着别出风险。<span class="key">转股期</span>就是这场博弈的主战场——进入换股期后，大股东有动力"做市值"推高股价促成换股，也可能压低股价避免被换走，利益冲突极其明显。</p>
+</div>
+
+<p class="step">第三步 · 判断方向</p>
+<div class="block">
+<p>怎么识别是"高位套现"还是"低位让利 / 低息融资"：</p>
+<ul>
+<li><span class="key">高位套现型信号</span>：低溢价 / 折价 + 短期限 + 易下修 + 高质押比例 + 强赎回 → 判断：<strong>大股东想借换股变相减持</strong>。正股短期有"促换股做市值"的动力，但中长期减持预期偏空，散户情绪承压。</li>
+<li><span class="key">低息融资型信号</span>：高溢价（20%+）+ 低利率 + 难下修 + 保留股票 → 判断：<strong>大股东不想卖，就是缺钱用低成本融资</strong>。对正股中性偏稳，质押是安全垫不是抛压。</li>
+<li><span class="key">判断动作</span>：作为券商客户经理或私行顾问，你不需要会算这只债的定价，但要会看<strong>"溢价率 + 期限 + 下修意愿"</strong>三个旋钮——它们直接告诉你客户这把是融资还是减持，这才是你能在饭局上镇住场、建立专业信任的关键。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>下次客户递给你一只可交债方案，你第一句话不该是"利息多少"，而是<strong>"大哥，这债您是想借点钱花，还是想把股票换个高价走？"</strong>——把溢价率、期限、下修意愿三个旋钮一转，意图就藏不住。模块三最该带走的是：<strong>可交债是信号，信号背后是博弈，博弈决定它是套现还是融资——你不是算债的人，你是读意图的人</strong>。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：某大股东发可交债推演</h2>
+<p class="guide">把换股溢价20% + 下修触发 + 持有人转股vs不转股，算成一张数字推导表</p>
+
+<div class="card">
+<p><span class="key">公司画像</span>：某制造业上市公司，总股本 <span class="num">3亿股</span>，大股东持股 <span class="num">1.2亿股</span>（占40%），当前股价 <span class="num">10元</span>。大股东想"既拿到一笔低成本资金，又给自己留一条高位减持的后路"，于是发行可交债。</p>
+<p><span class="key">可交债条款设定</span>：规模 <span class="num">9亿元</span>，面值100元、共 <span class="num">900万张</span>，期限 <span class="num">3年</span>，票面利率 <span class="num">1%/年</span>；换股价 <span class="num">12元</span>（相对现价溢价20%）；换股比例 = 100÷12 ≈ <span class="num">8.33股/张</span>；全部换股需 <span class="num">7500万股</span>；担保质押比例 <span class="num">130%</span> → 初始质押 <span class="num">9750万股</span>。下修触发线 = 换股价×85% = <span class="num">10.2元</span>；赎回触发线 = 换股价×130% = <span class="num">15.6元</span>。</p>
+</div>
+
+<table>
+<tr><th>情景</th><th>正股走势 / 触发</th><th>投资者决策</th><th>大股东所得</th><th>投资者所得</th><th>对正股信号</th></tr>
+<tr><td>上行 · 触发赎回</td><td>股价涨至 <span class="num">16元</span> &gt; 15.6元赎回线</td><td>被赎回"逼"换股</td><td>变相以12元/股减持7500万，得9亿现金+白用3年（利息仅2700万）</td><td>换7500万股市值12亿，浮盈 <span class="num">3亿</span></td><td>股本不变，大股东40%→15%，偏空情绪（高位减持落地）</td></tr>
+<tr><td>横盘 · 不触条款</td><td>股价维持 <span class="num">10元</span></td><td>换股即亏，持有到期</td><td>还本9.27亿，保留1.2亿股，省利息≈<span class="num">1.2亿</span>（对比5%信用融资成本）</td><td>拿回本息9.27亿，收益率低</td><td>无直接冲击，中性偏稳</td></tr>
+<tr><td>下行 · 不下修</td><td>股价跌至 <span class="num">8元</span> &lt; 10.2元下修线，大股东不修</td><td>持有到期</td><td>还本9.27亿，保住股票，低息融资3年</td><td>拿回本息9.27亿</td><td>质押预警但无抛压，大股东资金成本极低</td></tr>
+<tr><td>下行 · 下修促换</td><td>下修换股价至 <span class="num">9元</span>，股价仍8元</td><td>仍不换（需&gt;9元才划算）</td><td>若股价回9元+可促换股变相减持；当前需补质押至1.3亿股（大股东1.2亿不足）</td><td>保本都难盈利</td><td>担保不足风险暴露，下修也未必促成换股</td></tr>
+</table>
+
+<p class="step">这张表说明什么</p>
+<div class="block">
+<ul>
+<li><span class="key">大股东稳赚不赔的底层逻辑</span>：涨了（情景一）以12元/股变相减持，比发债时市价10元多套现（12−10）×7500万 = <span class="num">1.5亿</span>，还白用3年1%低息资金；跌了（情景二、三）还本付息保住股票，做的是一笔比信用贷便宜得多的融资。两头占。</li>
+<li><span class="key">持有人的胜负手在"换股价"</span>：只有股价涨过换股价、且不被赎回"逼"在低位换，才赚得到价差；否则就是一笔低息存款。</li>
+<li><span class="key">下修不是万能</span>：情景四显示，股价跌太深，即便下修，若仍低于新换股价，持有人仍不换；而且下修要补质押，大股东股票不够还会暴露担保不足风险。</li>
+<li><span class="key">对正股的真实影响</span>：可交债本身<strong>不增加总股本</strong>（换股是存量股过户），比集中竞价减持温柔；但"大股东想高位走"的预期会压制散户情绪，属于<strong>缓释型、预期型压力</strong>，不是即时砸盘。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">核心结论</span>：可交债的套利不是"稳赚"，是"<strong>把减持的择时权和低成本融资权打包</strong>"。大股东在溢价20%、低利率、3年期的设定下，给自己留了两条路：股价上去就高位套现，股价下来就低息借钱。作为服务股东的你，读懂这张推导表，就能在方案设计阶段帮客户把"想融资还是想减持"想明白、把条款拧对方向。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果你就是那位大股东，发债时股价10元、换股价定12元——<strong>你希望3年后股价涨到16元被赎回换股，还是希望横盘10元还本保股？</strong>答案暴露了你的真实意图：想套现就盼涨（触发赎回），想融资就盼平（白用钱）。模块四最该带走的：<strong>大股东自己都不一定说清的意图，藏在换股价和期限里</strong>。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 · 风险盲区 · 资本运作视角——三面镜子互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<div class="block">
+<p><span class="key">联动疆界（概要）</span>：可交债上接定增B06（同为股东融资/减持工具——定增是"低位拿货"、可交债是"高位套现"，方向相反却常常配合使用），下接大宗B08（可交债换股后，持有人拿到的股票往往通过大宗交易或二级市场减持，是可交债的"下游出口"）。三个工具串成一条"股东股份进出"的资本链。</p>
+</div>
+<div class="block">
+<p><span class="key">风险盲区（概要）</span>：①<strong>下修稀释/补质押风险</strong>——下修要更多股票覆盖换股，大股东股票不足就暴露担保缺口；②<strong>履约担保风险</strong>——股价跌至质押预警线，大股东有补质押/补保证金义务，资金链紧时会爆；③<strong>标的下跌风险</strong>——股价长期低迷，持有人不换股，大股东到期集中还本，形成现金流压力。</p>
+</div>
+<div class="block">
+<p><span class="key">资本运作视角（概要）</span>：可交债是<strong>减持的优雅替代</strong>——不砸盘、锁定价、低息融资三合一。集中竞价减持受比例和披露约束、容易引发恐慌；可交债把"卖股票"变成"发债+换股"两步曲，过程有序、价格提前锁定、还能先拿钱。它是大股东在合规框架内管理股份流动性的高阶工具。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　遇到可交债，先记住一句话：它是大股东用存量股质押借的钱，换股=变相减持。区分可交债（股东发、换存量股、不稀释）与可转债（公司发、换增量股、稀释）是基本功。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 能用判断</span>　看到一只可交债，拧一拧"溢价率 + 期限 + 下修意愿"三个旋钮：高溢价+长期限+难下修=融资；低溢价+短期限+易下修=减持。能对客户说清"这债大哥是想借钱还是想走"。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 精通实务</span>　①帮股东定调"融资型vs减持型"再倒推条款②算清换股比例、质押担保比例（130%~150%）和补质押缺口③预判下修/赎回触发后的博弈走向④把可交债与定增B06、大宗B08串成股东股份进出的一条链⑤在方案设计阶段就帮客户把"想融资还是想减持"想明白、把条款拧对方向。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>找一只已发行的可交债公告：读出它的换股溢价率、期限、票面利率，判断发行大股东是融资型还是减持型。</li>
+<li>用本文案例的设定（现价10元、换股价12元、规模9亿），自己重算一遍四种情景下大股东和持有人的盈亏，画出数字推导表。</li>
+<li>把可交债和定增B06、大宗B08连起来想：一个股东如果"定增低位拿货→可交债高位套现→大宗出货"，这条资本链是怎么转起来的？</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">可交债 = 股东用存量股质押借钱，换股 = 变相减持</div>
+  <div class="q"><b>核心问题：</b>大股东说"发个可交债"，你第一反应是"又融资了"还是"他想卖股票了"？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">规则与实务深水区</div>
+  <div class="pos">换股比例 / 下修 / 赎回 / 回售 / 券商设计五维</div>
+  <div class="q"><b>核心问题：</b>溢价率、利率、期限、下修意愿——哪四个旋钮一转，大股东"想不想走"就显形？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">信号解码与判断框架</div>
+  <div class="pos">信号→博弈→判断：高位套现 vs 低息融资</div>
+  <div class="q"><b>核心问题：</b>看到大股东发可交债，你先拧哪三个旋钮判断他是套现还是融资？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">换股溢价20%+下修触发+转股vs不转股推导表</div>
+  <div class="q"><b>核心问题：</b>股价16元被赎回换股、横盘10元还本、跌到8元不下修——大股东哪种情形赚得最舒服？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>下修补质押缺口、质押爆仓、标的下跌集中还本——三个盲区你最容易漏看哪个？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 能用判断 / 精通实务</div>
+  <div class="q"><b>核心问题：</b>看懂、判断、实务——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：上接 B06《定增解码》（低位拿货，与可交债高位套现方向相反却常配合使用）、下接 B08《大宗交易解码》（可交债换股后持有人多通过大宗出货，是可交债的下游出口）。本篇是 B 线"股东股份进出"资本链的关键一环。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Listed Company Decoding B07 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。B线模块三为"信号解码与判断框架"。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-diff" class="toggle">
+<div class="modal"><label class="backdrop" for="c-diff"></label><div class="modal-box">
+<label class="close" for="c-diff">&times;</label>
+<h3>可交债 vs 可转债 核心差异</h3>
+<table>
+<tr><th>维度</th><th>可交换债券（EB）</th><th>可转换债券（CB）</th></tr>
+<tr><td>发行人</td><td>上市公司<strong>股东</strong>（大股东/持股平台）</td><td><strong>上市公司本身</strong></td></tr>
+<tr><td>换股标的</td><td>发行人持有的<strong>存量股</strong>（已存在）</td><td>公司<strong>新发增量股</strong></td></tr>
+<tr><td>总股本</td><td>换股<strong>不增加</strong>总股本（股东换人）</td><td>换股<strong>增加</strong>总股本、摊薄EPS</td></tr>
+<tr><td>募资去向</td><td>进<strong>大股东口袋</strong></td><td>进<strong>上市公司账户</strong></td></tr>
+<tr><td>核心目的</td><td><strong>股东减持 + 融资</strong></td><td><strong>公司融资 + 转股</strong></td></tr>
+<tr><td>质押担保</td><td>必须以标的股票质押（中国结算登记）</td><td>一般无股票质押，靠信用/担保</td></tr>
+<tr><td>对正股影响</td><td>不稀释，但释放"股东想走"预期</td><td>稀释每股收益，摊薄存量股东</td></tr>
+</table>
+<p>一句话记忆：<strong>可交债是"股东拿旧股换钱"，可转债是"公司发新股换钱"</strong>。两者都是"债+转股权"，但一个动存量、一个动增量，决定了它们对股本、对股东、对市场的冲击完全不同。</p>
+<div class="link">相关：<a href="#sec1">基础认知盘（见模块一）</a> · <a href="#sec2">换股比例与条款设计（见模块二）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：可交债不是孤立工具，它上接定增、下接大宗，串成一条"股东股份进出"的资本链。三个工具方向相反却常常配合使用。</p>
+
+<p class="key">上接定增 B06 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>定增是"低位拿货"——大股东或关联方在股价低位参与定向增发，拿到便宜筹码；可交债是"高位套现"——把高位股票通过换股变相减持。操作上：</p>
+<ul>
+<li>低位时定增/增持拿筹码，高位时发可交债锁定出货价格，一进一出完成"低买高卖"的股份周转；</li>
+<li>定增有锁定期，可交债有换股期，两者期限可错配，让股东在合规框架内管理流动性；</li>
+<li>关键差异：定增是"公司融资、股本增加"，可交债是"股东融资、股本不变"——用途和冲击完全不同。</li>
+</ul>
+</div>
+
+<p class="key">下接大宗 B08 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>可交债换股后，持有人（投资者）拿到的是存量股——这些股票往往通过大宗交易或二级市场减持，是可交债的"下游出口"。操作上：</p>
+<ul>
+<li>持有人换股获得股票后，若在二级市场直接抛会砸价，更倾向于走大宗交易（折价撮合、找接盘方）；</li>
+<li>所以可交债的"减持效应"常常滞后体现在大宗交易的放量上——你看大宗异动，要往上游想"是不是某只可交债换股了"；</li>
+<li>折价率规律：大宗接盘方要安全垫，可交债换股后的抛压会压低大宗折价率。</li>
+</ul>
+</div>
+
+<p>上接定增（低位拿货）、本篇可交债（高位套现）、下接大宗（出货出口）——三条线在"股东股份流动性管理"这个节点交汇：进、持、出，各有工具，逻辑一脉相承。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec3">信号判断框架（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。可交债看着温柔，坑往往出在质押和还本上。</p>
+
+<p class="key">盲区一 · 下修稀释与补质押缺口</p>
+<div class="block">
+<ul>
+<li>下修换股价 → 每张债能换更多股 → 需要更多股票覆盖换股。原质押130%可能不够，大股东必须<strong>补充质押</strong>；</li>
+<li>若大股东持股本就接近质押上限（案例中1.2亿股、下修后需1.3亿股），下修会直接暴露<strong>担保不足</strong>，引发违约担忧；</li>
+<li>修正方法：设计时就预留"补质押空间"，或把下修幅度限制在担保覆盖范围内。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 履约担保与质押爆仓</p>
+<div class="block">
+<ul>
+<li>股价跌至质押预警线，大股东有<strong>补质押 / 补保证金</strong>义务；</li>
+<li>若大股东资金链紧张、无股可补、无钱可补，质押股票可能被强制处置，形成"雪崩式"抛压；</li>
+<li>投资人视角：买可交债不能只看换股收益，要看<strong>质押比例够不够厚、大股东偿债能力</strong>——担保才是本金的安全垫。</li>
+</ul>
+</div>
+
+<p class="key">盲区三 · 标的下跌与集中还本</p>
+<div class="block">
+<ul>
+<li>股价长期低迷，持有人不换股，可交债到期变成"纯债"——大股东要<strong>集中还本</strong>（案例9亿+利息）；</li>
+<li>若同时有多只可交债 / 其他债务到期，现金流压力叠加，低息融资的"便宜"瞬间变"贵"；</li>
+<li>回售条款更是放大器：股价跌透、下修救不回，持有人行使回售，大股东必须真金白银接回债券。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>可交债的"低息"是用"质押和还本义务"换来的，担保不足和集中还本，才是真正要盯的风险</strong>。</p>
+<div class="link">相关：<a href="#sec4">脱敏案例四种情景（见模块四）</a> · <a href="#sec5">资本运作视角（见模块五）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把可交债放回"股东怎么管理股份流动性"的大图景——它最优雅的地方，是<strong>减持的温柔替代</strong>。</p>
+
+<p class="key">为什么可交债是"优雅的减持"</p>
+<div class="block">
+<ul>
+<li><strong>不砸盘</strong>：直接二级市场减持 = 立刻压价、引发恐慌；可交债先发债拿钱，换股是存量股过户，不直接制造卖盘；</li>
+<li><strong>锁定价</strong>：换股价提前锁定，等于大股东给自己定了一个"最低出货价"（溢价越高、底价越高），比随行就市卖更有掌控感；</li>
+<li><strong>低息融资</strong>：发债拿到现金，白用几年1%左右低息资金，比信用贷、质押回购都便宜；</li>
+<li><strong>合规绕道</strong>：集中竞价减持受每90天不超1%、提前披露等约束，可交债在合规框架内把"卖股票"变成"发债+换股"两步曲，过程有序。</li>
+</ul>
+</div>
+
+<p class="key">怎么操作 · 服务股东的实务动作</p>
+<div class="block">
+<ul>
+<li>先问清客户"融资还是减持"定调，再倒推换股溢价率、期限、利率；</li>
+<li>减持型：低溢价 + 短期限 + 易下修 + 强赎回，帮客户在高位有序出货；</li>
+<li>融资型：高溢价 + 长期限 + 难下修，帮客户低成本拿钱、保住股份；</li>
+<li>协同定增B06（低位拿货）与大宗B08（换股后出货），把可交债放进股东完整的股份周转链条里设计。</li>
+</ul>
+</div>
+
+<p>可交债的本质，是给大股东一个"进可高位套现、退可低息融资"的期权。读懂它，你就读懂了股东在合规框架内管理流动性的高阶玩法。</p>
+<div class="link">相关：<a href="#sec3">信号判断框架（见模块三）</a> · <a href="#sec2">券商条款设计五维（见模块二）</a></div>
+</div></div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="B06_定增解码_长文.html"><div class="pn-label">← 上一篇</div><div class="pn-title">B06 定增解码</div></a><a class="pn-next" href="B08_大宗交易解码_长文.html"><div class="pn-label">下一篇 →</div><div class="pn-title">B08 大宗交易解码</div></a></nav>
+</body>
+</html>

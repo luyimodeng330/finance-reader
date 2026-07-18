@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B04 交易结构与退出解码：投资人怎么进来怎么出去</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+.disclaimer{background:var(--pink);color:var(--wine);padding:12px 18px;font-size:.76em;margin-bottom:28px;line-height:1.6;border-left:3px solid var(--wine);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇 —— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid rgba(65,20,14,.12);padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:#41140e;text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:#41140e;color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:"Songti SC","SimSun","STSong","Noto Serif CJK SC",serif;
+  font-weight:700;font-size:1rem;color:#41140e;margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+
+</style>
+</head>
+<body>
+<div class="disclaimer">本篇内容不构成投资建议或专业意见，仅提供知识框架与判断思路，具体决策请咨询持牌专业人士。</div>
+
+<div class="art-nav"><a class="back" href="../../hall-b.html">← 返回栏目</a><span class="crumb">上市公司资本解码 · 19 篇长文</span></div>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Listed Company Decoding · B04</div>
+  <h1>交易结构与退出解码：投资人怎么进来怎么出去</h1>
+  <div class="tagrow">
+    <span class="tag">Deal Structure</span><span class="tag">Exit</span><span class="tag">Capital Decoding</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+你在服务客户时，客户（上市公司股东/创始人）说"我们刚引进了一家知名PE，投后估值15亿"——你怎么判断这笔交易对投资人、对创始人、对你客户分别意味着什么？交易结构不是"谁投了多少钱"，是"<span class="key">钱怎么进、条款怎么卡、将来怎么出</span>"。本篇把 Pre-IPO 的投资结构、四件套条款（对赌/优先清算/反稀释/回购）、四条退出路径（IPO/并购/回购/转让）逐一拆开，并对比每种退出路径的税负——让你看懂：投资人的安全感来自条款，不是来自故事；而条款设计的核心目的，是给"退出"留好退路。
+</div>
+
+<div class="framework">
+<b>交易结构 = 进入条款 × 退出路径 × 税务成本</b><br>
+三个乘数缺一不可：怎么进（估值+份额+优先权）决定起点；怎么出（IPO/并购/回购/转让）决定终点；出的时候交多少税决定落袋净额。三者一起，才算出投资人的真实收益率——不是看账面估值，是看"到手多少钱"。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">交易结构不是"投钱"，是"设计一条能退出的路"</p>
+
+<div class="card">
+<p><span class="key">交易结构</span>：投资人把钱投进一家公司时，约定的一整套"权利义务+退出安排"。大白话——你借钱给朋友，不光写"借多少"，还要写"什么时候还、还不上怎么办、优先找谁要"；投资也是一样，投多少钱、占多少股、公司没上市怎么办、有人先分钱谁先拿——这些都写在交易结构里。专业定义：围绕股权进入、公司治理、优先权利与退出安排，由投资协议（含股东协议、增资协议）约定的一揽子法律与商业条款。</p>
+<p><span class="key">为什么"进来"和"出去"要一起设计</span>：很多 Founder 以为"拿到钱就赢了"，但投资人签协议时想的是"我这笔钱几年后能按什么价格、用哪条路退出去"。大白话：<strong>投资人进门的每一步条款，都是在为出门铺路</strong>。所以你看一笔 Pre-IPO 交易，不能只看估值高低，要看条款把"退出"安排得安不安全。</p>
+</div>
+
+<div class="block">
+<p><span class="key">四个核心概念，一句话定位</span></p>
+<ul>
+<li><span class="key">对赌（估值调整机制 VAM）</span>：业绩不达标或没上市，估值怎么调、谁来补、按什么价回购——投资人的"兜底绳"。</li>
+<li><span class="key">优先清算权</span>：公司被卖或清算时，投资人先拿回本金+优先收益，剩下的才轮到其他股东分——"先上车先下车"。</li>
+<li><span class="key">反稀释</span>：后续融资估值更低时，保护早期投资人的股份不被稀释——常见的有"完全棘轮"和"加权平均"。</li>
+<li><span class="key">退出路径</span>：IPO、并购、回购、转让——四条路，回报、时间、税负、确定性各不相同。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你下次听到客户说"我们拿了XX亿融资、估值15亿"——第一反应不该是"恭喜拿到钱"，而是<strong>"对赌怎么签的？回购触发条件是什么？投资人打算用哪条路退出？"</strong>。模块一最该带走的认知：<strong>估值数字只是起点，交易结构才是真正决定"谁赚、谁垫、谁能退"的棋局</strong>。</p>
+</div>
+
+<p class="guide">四件套条款一表速查，点开看</p>
+<div class="chips">
+  <label class="chip" for="c-deal">交易结构四件套速查</label>
+</div>
+
+<h2 id="sec2">二、规则与实务深水区</h2>
+<p class="guide">从"怎么进"到"四件套条款"到"四条退出路"，规则出处+实务操作</p>
+
+<div class="card">
+<p><span class="key">Pre-IPO 投资结构怎么搭</span></p>
+<p>实务：投资人通常通过"增资+受让老股"组合进入，主体常设为<span class="key">合伙企业（有限合伙）或专项基金</span>，便于份额流转与税务筹划；创始人一侧常搭<span class="key">持股平台（有限合伙）</span>保留控制权（详见 B03 股权结构）。规则依据：《公司法》关于增资、优先认购权的规定；合伙企业结构依据《合伙企业法》与财税〔2000〕91号（合伙先分后税）。</p>
+<p><span class="key">怎么操作</span>：作为服务者，你要看的不是"投了多少"，而是"投资主体是什么"——合伙企业 vs 公司 vs 自然人，直接决定后面退出时的税负（模块四、模块五细讲）；以及"进入价格对应什么估值口径"（投前/投后、是否含员工期权池稀释）。</p>
+</div>
+
+<div class="card">
+<p><span class="key">对赌条款（估值调整 / 业绩补偿 / 回购）</span></p>
+<p>对赌分三类：①<span class="key">估值调整</span>——业绩不达标则下调估值、补偿股份或现金；②<span class="key">业绩补偿</span>——承诺净利润未实现，创始人现金/股份补偿；③<span class="key">回购</span>——未上市或触发条件时，实控人/公司按"本金+利息"回购投资人股份。</p>
+<p><span class="key">规则出处（关键）</span>：最高法《全国法院民商事审判工作会议纪要》（法〔2019〕254号，俗称"九民纪要"）明确"对赌协议"在与股东/实控人对赌时原则有效、与公司对赌需看公司偿债能力；最高法"华工案"（江苏华工创投向扬州锻压请求公司回购案）确认与公司对赌在具备履行能力时可有效。<span class="key">申报清理规则</span>：依据《监管规则适用指引——发行类第4号》（整合原《首发业务若干问题解答》），投资机构在申报 IPO 前应当终止对赌条款，或约定"上市失败则恢复效力"——这是 B02 讲的"对赌未清"风险来源的法规根。</p>
+<p><span class="key">怎么操作</span>：读协议时抓三件事——触发条件（业绩/时间）、补偿公式（单倍还是复利）、回购义务人（创始人个人还是公司）。回购义务落在"没钱的公司"还是"有钱的创始人"，安全系数天差地别。</p>
+</div>
+
+<div class="card">
+<p><span class="key">优先清算权</span></p>
+<p>公式（实务常见"1倍非参与优先权"）：清算/并购分配时，投资人先拿走"1倍投资本金 + 约定优先收益（如8%/年）"，剩余资产才按股权比例分给其他股东。若是"参与权"版本，投资人拿完优先额还能再按比例分剩余——对创始人更不友好。</p>
+<p><span class="key">规则出处</span>：《公司法》第186条关于公司清算剩余财产分配；投资协议通过在股东权利条款中约定优先权实现（在清算/并购视同清算事件时触发）。</p>
+<p><span class="key">怎么操作</span>：并购退出时，优先清算权直接"吃掉"一部分交易对价。一笔40亿并购，若投资人占20%且带1倍非参与优先权（本金3亿+优先收益约0.72亿），投资人先拿3.72亿，剩下36.28亿才由全体股东按股比分——创始人实际拿到的，比"20%×40亿=8亿"要少。</p>
+</div>
+
+<div class="card">
+<p><span class="key">反稀释条款</span></p>
+<p>两种算法：①<span class="key">完全棘轮（Full Ratchet）</span>——后续更低估值融资时，早期投资人股价直接调到新低价的"地板价"，对创始人最狠；②<span class="key">加权平均（Weighted Average）</span>——按新老股数量加权调整，相对温和，是市场主流。</p>
+<p><span class="key">怎么操作</span>：反稀释是"下行保护"，不影响上行回报，但会在公司后续低价融资时大幅稀释创始人。你判断一笔交易对创始人友好不友好，看反稀释是"棘轮"还是"加权平均"——一字之差，控制权得失以亿计。</p>
+</div>
+
+<div class="card">
+<p><span class="key">四条退出路径概述</span></p>
+<ul>
+<li><span class="key">IPO退出</span>：上市后解禁在二级市场减持。规则：受《上市公司股东、董监高减持股份的若干规定》（证监会公告〔2017〕9号）及交易所细则约束，Pre-IPO 投资人一般锁定12个月。回报最高但时间最长、确定性最低。</li>
+<li><span class="key">并购退出</span>：被上市公司或产业方收购，投资人股份被一并买走。规则：《上市公司重大资产重组管理办法》（证监会令第214号，2023修订）。时间可控、确定性中，但受优先清算权与对赌延续影响。</li>
+<li><span class="key">回购退出</span>：对赌触发，创始人/公司按约回购。确定性"纸面最高"但执行最依赖对方有钱——典型"赢了条款、输了执行"。</li>
+<li><span class="key">转让退出</span>：卖给其他投资人（S基金/老股转让）。规则：《公司法》股权转让优先购买权；协议转让受交易所减持规则约束。灵活但折价大、接盘方难找。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>现在你面前有一份 Pre-IPO 投资协议，写着"对赌+1倍优先清算+加权平均反稀释"。模块二最该带走的是：<strong>这四个条款不是装饰，是四道保险——对赌管"没上市"，优先清算管"被卖了先拿钱"，反稀释管"被贱卖时少亏"，转让/IPO/并购管"正常退出去哪"</strong>。你读条款，就是在读投资人的退路图。</p>
+</div>
+
+<h2 id="sec3">三、信号解码与判断框架</h2>
+<p class="guide">看到某交易结构，不急着下结论，三步判断：信号→博弈→方向</p>
+
+<p class="step">第一步 · 看到什么信号</p>
+<div class="block">
+<ul>
+<li><span class="key">对赌+回购安排并存且触发条件严苛</span>：如"2025年底前未上市即8%年息回购"——信号是"投资人在给自己留最硬的后路"，也意味着"公司上市压力极大"。</li>
+<li><span class="key">优先权层层堆叠</span>：优先清算+反稀释+一票否决+董事席位全有——信号是"投资人对创始人极不信任，或这轮估值偏贵、用条款补偿"。</li>
+<li><span class="key">回购义务落在公司而非创始人</span>：信号是"创始人个人没兜底，真触发时公司可能没钱"——条款好看、执行悬。</li>
+<li><span class="key">对赌触发条件已临近却仍无上市迹象</span>：如申报材料未交、问询多轮——信号是"回购堰塞湖"正在形成。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 背后什么博弈</p>
+<div class="card">
+<p>每个交易结构背后，是四方在"退出安全感"上的拉扯：</p>
+<ul>
+<li><span class="key">买方（PE/VC投资人）</span>：想条款越硬越好、退出越快越稳——立场是"先保本金、再博收益"。</li>
+<li><span class="key">卖方（创始人/实控人）</span>：想估值高、条款软、控制权稳——立场是"拿到钱、别被条款绑死"。</li>
+<li><span class="key">监管（证监会/交易所）</span>：想申报前对赌清理干净、信息披露充分——立场是"别带着雷上市"。</li>
+<li><span class="key">老股东/其他投资人</span>：想别被优先权和反稀释稀释掉——立场是"公平分配、别被后来者挤占"。</li>
+</ul>
+<p>四方博弈最终在"退出路径是否安全"这一点交汇：投资人用条款把风险推给创始人，创始人用高估值把压力转嫁给上市确定性，监管在中间要求"对赌清、信息实"。<span class="key">对赌+回购并存</span>说明投资人把风险推得最狠；<span class="key">回购义务落在公司</span>说明创始人把兜底甩出去了——两种信号合起来，"纸面安全、执行危险"。</p>
+</div>
+
+<p class="step">第三步 · 判断方向</p>
+<div class="block">
+<p>怎么识别退出路径的偏安或偏险：</p>
+<ul>
+<li><span class="key">偏险/危险组合</span>：对赌触发条件严苛（短时间硬上市）+回购义务落公司+优先权全堆叠+已临近大限仍未申报——典型"条款赢了、执行输了"组合，回购堰塞湖风险高，投资人真实收益率可能远低于账面。</li>
+<li><span class="key">偏安/安全信号</span>：回购义务由创始人个人连带、反稀释用加权平均、对赌附"上市成功自动终止"、公司稳步推进申报——投资人退路清晰，创始人也保留博弈空间。</li>
+<li><span class="key">判断动作</span>：作为券商客户经理或私行顾问，你不需要自己审协议，但你要能识别"对赌触发条件、回购义务人、优先权类型、上市进度"这四个公开/可问信号——它们比任何路演PPT都真实。看到偏险组合，提醒客户谨慎参与或重新谈条款；看到安全信号，可重点解读。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>下次你看到一笔交易"对赌2025年底上市、回购落公司、已临近却只走到问询"——你第一句话不该是"估值不错"，而是<strong>"这条退出路径大概率是堰塞湖：条款赢了，但实控人没能力执行回购，IPO也没戏"</strong>。模块三最该带走的是：<strong>信号→博弈→方向，三步把交易结构变成退出安全性的判断，你不是看估值的人，你是读退路的人</strong>。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：某智科技 Pre-IPO 结构推演</h2>
+<p class="guide">把"进入→对赌设计→三条退出路径"装进同一家公司，看数字怎么变</p>
+
+<div class="card">
+<p><span class="key">公司画像</span>：一家拟科创板上市的工业智能公司"某智科技"，投前估值 <span class="num">12亿</span>，Pre-IPO 轮融资 <span class="num">3亿</span>，投后估值 <span class="num">15亿</span>，投资人（有限合伙）持股 <span class="num">20%</span>。对赌：若2025年底前未实现 IPO，实控人按"本金+8%年息"回购；业绩承诺：2023-2025三年累计净利润不低于约定值，否则现金补偿（估值调整）。投资时点2022年，持有期3年。</p>
+</div>
+
+<table>
+<tr><th>进入要素</th><th>设定</th><th>说明</th></tr>
+<tr><td>投资成本</td><td>3亿元</td><td>有限合伙主体进入，便于后续税务筹划</td></tr>
+<tr><td>持股占比</td><td>20%</td><td>3亿 ÷ 15亿投后估值</td></tr>
+<tr><td>对赌条款</td><td>2025年底未IPO则回购</td><td>本金+8%年息，义务人为实控人个人</td></tr>
+<tr><td>优先清算权</td><td>1倍非参与</td><td>并购时先拿3亿本金+优先收益</td></tr>
+<tr><td>反稀释</td><td>加权平均</td><td>后续低价融资时温和保护</td></tr>
+</table>
+
+<p class="step">三种退出路径数字对比（收益率与税负）</p>
+<div class="block">
+<p>假设前提：投资主体为<span class="key">有限合伙企业</span>，自然人合伙人穿透后按"财产转让所得"20%缴纳个税（依据财税〔2009〕167号、财税〔2010〕70号限售股转让个税规则；企业主体则适用25%企业所得税，结论方向一致）。本金3亿、持股20%、持有3年。</p>
+</div>
+
+<table>
+<tr><th>退出路径</th><th>退出时点估值/作价</th><th>投资人回收</th><th>资本利得</th><th>适用税率</th><th>税负</th><th>净到手</th><th>回报倍数(MoM)</th></tr>
+<tr><td>路径A · IPO退出</td><td>解禁市值50亿</td><td>10亿（50亿×20%）</td><td>7亿</td><td>20%个税</td><td>1.40亿</td><td>8.60亿</td><td>2.87倍</td></tr>
+<tr><td>路径B · 并购退出</td><td>整体作价40亿</td><td>8亿（40亿×20%，扣优先清算后略减）</td><td>5亿</td><td>20%个税</td><td>1.00亿</td><td>7.00亿</td><td>2.33倍</td></tr>
+<tr><td>路径C · 回购退出</td><td>本金+8%×3年</td><td>3.72亿</td><td>0.72亿（利息性质）</td><td>20%个税</td><td>0.14亿</td><td>3.58亿</td><td>1.19倍</td></tr>
+</table>
+
+<p class="step">数字推导与关键判断</p>
+<div class="block">
+<ul>
+<li><span class="key">路径A（IPO）</span>：回报最高（净到手8.60亿，MoM 2.87倍），但时间最长（需上市+12月解禁，约4年）、确定性最低。税负按20%个税计1.40亿——若投资主体为公司，企业所得税25%则税负1.75亿、净到手8.25亿（MoM 2.75倍），仍居首。</li>
+<li><span class="key">路径B（并购）</span>：净到手7.00亿（MoM 2.33倍），时间早约1年、确定性中等。注意优先清算权已内含在"先拿本金"中；若交易含"业绩对赌延续"，部分对价可能分期、挂钩后续业绩，实际到手再打折。</li>
+<li><span class="key">路径C（回购）</span>：净到手仅3.58亿（MoM 1.19倍），几乎是"保底利息"水平（税前8%、税后约5.7%/年）。但<span class="key">最大风险不在收益率，在执行</span>——若实控人个人无3.72亿现金，条款赢了也拿不到钱，投资人可能血本之外的"时间成本"全损。</li>
+<li><span class="key">税负对比结论</span>：三条路径资本利得税率同为20%（同主体），差异来自"利得大小"而非"税率"；真正拉开净额的是<span class="key">退出价格（IPO&gt;并购&gt;回购）</span>。若投资主体不同（公司25% vs 合伙20% vs 自然人限售股20%），同一路径税负可差5个百分点——这就是"进入主体"决定的税务变量（见模块五）。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">核心结论</span>：同一笔3亿投资，三条退出路净到手从3.58亿到8.60亿，差出近2.4倍——差距不在条款，在"能不能上市、卖多少钱"。对赌/回购只是保底，真正赚钱靠 IPO 流动性溢价。但 IPO 若不成，回购能否执行取决于实控人腰包——<strong>交易结构设计的全部意义，就是在这三条路之间，给投资人留一条"即使最差也能拿回本金"的底</strong>。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果你是这家公司的 Pre-IPO 投资人，2025年底大限将至——你最怕的不是"上市只涨一点"，是<strong>"没上市、对赌触发、实控人拿不出3.72亿回购"</strong>。模块四最该带走的是：<strong>案例里每个数字背后，都是"退出路径是否真实可执行"——估值再高，退不出去都是纸面富贵</strong>。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 · 风险盲区 · 资本运作视角——三面镜子互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<div class="block">
+<p><span class="key">联动疆界（概要）</span>：交易结构上接股权结构 B03（进入时搭持股平台、保控制权），下接并购 B12（并购退出是交易结构的"出口"，B12讲买公司多少种方式——现金/换股，与退出路径直接衔接），横接资本运作税务 B11（税务是变量不是结果）。同一条"进入—退出"主线，串起上市前中后。</p>
+</div>
+<div class="block">
+<p><span class="key">风险盲区（概要）</span>：对赌触发无解（公司未上市且实控人无钱回购，条款赢了执行输了）、退出堰塞湖（多投资人同时触发回购/解禁，集中求偿或集中抛压）、税务筹划缺失（退出时才发现主体/架构让税负翻倍）——三个盲区让"漂亮交易"变"带雷退出"。</p>
+</div>
+<div class="block">
+<p><span class="key">资本运作视角（概要）</span>：交易结构本质是"退出路径设计"，不是"投钱"。投资人安全感来自条款而非故事；创始人要平衡"拿到钱"与"别被条款绑死"。理解这点，你才看懂为什么条款谈判常比估值谈判更激烈——估值定眼前，条款定退路。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　记住四件套（对赌/优先清算/反稀释/回购）与四条路（IPO/并购/回购/转让）；交易结构=进入条款×退出路径×税务成本；看到"对赌+回购"组合，知道投资人在给自己留后路。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 能用判断</span>　用案例推演套一家真实交易；判断某交易退出路径偏安全还是偏风险（看对赌触发条件、回购义务人、优先权类型、上市进度）；识别"回购落公司+临近大限未申报"的危险组合；独立读出投资人的真实退路。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 精通实务</span>　①读投资协议抓对赌触发条件/补偿公式/回购义务人②算三种退出路径的收益率与税负对比表③判断投资主体（合伙/公司/自然人）对税负的影响（20% vs 25%）④理解优先清算权在并购分配中的"先拿"效应⑤帮客户判断"这笔交易对他的真实意义是退出安全还是融资便利"，并据此给参与或重谈建议。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>找一家近期 Pre-IPO 融资新闻：它的对赌怎么签的？回购义务人是公司还是创始人？用三步判断框架写一句你对退出安全性的判断。</li>
+<li>用案例公司推演：一笔你熟悉的投资，进入成本、持股、对赌、三种退出路径的回收与税负，画一张自己的对比表。</li>
+<li>读一份投资协议（或招股书"对赌条款"章节）：找出优先清算权类型、反稀释算法、回购触发条件——判断哪一条对创始人最不友好。</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">交易结构=怎么进+怎么出+交多少税</div>
+  <div class="q"><b>核心问题：</b>客户说"拿了15亿估值融资"，你第一句该问什么——"恭喜"还是"对赌怎么签、打算怎么退"？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">规则与实务深水区</div>
+  <div class="pos">四件套条款+四条退出路+规则出处</div>
+  <div class="q"><b>核心问题：</b>对赌、优先清算、反稀释、回购——哪一条管"被卖了先拿钱"，哪一条管"没上市怎么办"？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">信号解码与判断框架</div>
+  <div class="pos">信号→博弈→判断方向</div>
+  <div class="q"><b>核心问题：</b>对赌2025年底上市+回购落公司+已临近却只走到问询，三个信号合起来说明什么？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">某智科技推演，3亿进、三路出</div>
+  <div class="q"><b>核心问题：</b>同一笔3亿，IPO净到手8.6亿、回购只3.58亿——差距来自条款还是来自"能不能退出"？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>对赌触发无解、退出堰塞湖、税务筹划缺失，三个盲区哪个你最该帮客户提前预警？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 能用判断 / 精通实务</div>
+  <div class="q"><b>核心问题：</b>看懂、判断、实务——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：上接 B03《股权结构设计解码》（进入时搭持股平台、保控制权的架构联动）、下接 B12《并购交易结构解码》（并购退出是交易结构的"出口"，B12讲买公司多少种方式——现金/换股，与退出路径直接衔接）。本篇是B线"投资人进出"的总图谱，交易结构与并购结构同属"一条退出主线"。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Listed Company Decoding B04 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。B线模块三为"信号解码与判断框架"，含3步判断（信号→博弈→方向）。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-deal" class="toggle">
+<div class="modal"><label class="backdrop" for="c-deal"></label><div class="modal-box">
+<label class="close" for="c-deal">&times;</label>
+<h3>交易结构四件套速查</h3>
+<table>
+<tr><th>条款</th><th>管什么</th><th>常见形态</th><th>对谁有利</th></tr>
+<tr><td>对赌（VAM）</td><td>没上市/业绩不达标怎么办</td><td>估值调整/现金补偿/本金+息回购</td><td>投资人（兜底绳）</td></tr>
+<tr><td>优先清算权</td><td>被卖或清算时谁先拿钱</td><td>1倍非参与 / 1倍参与</td><td>投资人（先上车先下车）</td></tr>
+<tr><td>反稀释</td><td>后续低价融资时股份保护</td><td>完全棘轮 / 加权平均</td><td>早期投资人（创始人偏损）</td></tr>
+<tr><td>回购</td><td>触发条件时强制退出</td><td>创始人回购 / 公司回购</td><td>取决于义务人是谁</td></tr>
+</table>
+<p>核心原则：<strong>四件套不是装饰，是四道保险——对赌管"没上市"、优先清算管"被卖了先拿"、反稀释管"被贱卖少亏"、回购管"强制退出"；而IPO/并购/转让管"正常退出去哪"</strong>。读条款，就是读投资人的退路图。</p>
+<div class="link">相关：<a href="#sec2">规则与实务深水区（见模块二）</a> · <a href="#sec3">信号解码与判断框架（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：交易结构不是孤立事件，它上接股权结构B03、下接并购B12、横接资本运作税务B11——同一条"进入—退出"主线，串起上市前中后。</p>
+
+<p class="key">上接股权结构B03 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>进入时搭持股平台、保控制权，与B03直接衔接。操作上：</p>
+<ul>
+<li>创始人一侧常设有限合伙持股平台，把控制权锁在GP（执行事务合伙人）手里，投资人进在标的公司层面——这是B03讲的"控制权搭建"在交易结构里的落地；</li>
+<li>投资人的进入主体（合伙/公司/自然人）同时影响控制权分布与后续税负，进入时就该和B03架构一起设计；</li>
+<li>所以读交易结构，先问"投资人进在哪一層、创始人控制权怎么保"——这本身就是B03框架的直接应用。</li>
+</ul>
+</div>
+
+<p class="key">下接并购B12 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>并购退出是交易结构的"出口"，与B12买公司的方式直接衔接。操作上：</p>
+<ul>
+<li>B12讲"买公司多少种方式"——现金收购、换股收购、吸收合并；交易结构里的优先清算权，正是在现金并购时决定"投资人先拿多少"；</li>
+<li>换股并购下，投资人股份换成收购方股份，退出节奏跟随收购方解禁规则——与IPO退出的"解禁"逻辑同源；</li>
+<li>理解交易结构的退出条款，才能看懂B12并购分配里"谁先拿、拿多少"——本篇是B12的"进"、B12是"出"的放大。</li>
+</ul>
+</div>
+
+<p class="key">横接资本运作税务B11 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>税务是变量不是结果——进入主体（合伙20% vs 公司25%）在退出时直接改写净到手（见模块四对比表）；</li>
+<li>B11专讲"同并购现金vs换股税差30%+合规筹划路径"，与本条退出税负一脉相承；</li>
+<li>交易结构设计的每一步，都该把"退出时交多少税"当成参数，而非事后再想。</li>
+</ul>
+</div>
+
+<p>上接股权结构、下接并购、横接税务——三条线在"进入—退出"这个节点交汇：进入时搭架构，退出时定分配，税务贯穿始终。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec1">基础认知盘（见模块一）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。交易结构最贵的错误，往往不是估值谈低了，是"退出时退不动"。</p>
+
+<p class="key">盲区一 · 对赌触发无解</p>
+<div class="block">
+<ul>
+<li>公司未上市、对赌触发，但实控人个人/公司都拿不出回购款——条款赢了、执行输了；</li>
+<li>识别：看回购义务人是"有钱的创始人"还是"没钱的公司"，以及创始人资产状况是否足以覆盖回购额；</li>
+<li>实务：投资人常在协议外追加创始人个人连带担保、房产/股权质押，但纸面之外能否执行仍是未知数。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 退出堰塞湖</p>
+<div class="block">
+<ul>
+<li>多个 Pre-IPO 投资人同时触发回购/解禁，集中求偿或集中抛压——单一看都安全，叠加就成"湖"；</li>
+<li>IPO 解禁期高度重叠时，集中减持直接压垮股价，谁都卖不出好价；</li>
+<li>识别：看同一轮次投资人的对赌大限是否扎堆、解禁日是否同一窗口。</li>
+</ul>
+</div>
+
+<p class="key">盲区三 · 税务筹划缺失</p>
+<div class="block">
+<ul>
+<li>退出时才发现投资主体/架构让税负翻倍——本可设合伙穿透20%，却用了公司主体缴25%；</li>
+<li>换股并购 vs 现金并购的税差可达30%（详见B11），结构没设计好，收益被税吃一大块；</li>
+<li>识别：进入时就要定"退出主体"，而非退出前临时改——临时改架构往往触发新的税基确认。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>估值再高，退不出去或退时巨税，都是纸面富贵——对赌执行、退出节奏、税务架构，任一缺失都是退出风险的源头</strong>。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec3">信号解码与判断框架（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把交易结构从"一笔融资"重新看成"一次退出路径设计"，你会发现投资人和创始人的关注点完全不同。</p>
+
+<p class="key">交易结构=退出路径设计，不是投钱</p>
+<div class="block">
+<p>投资人签协议时想的是"几年后按什么价格、用哪条路退出去"——估值是起点，退出是终点。大白话：<strong>投资人进门的每一步条款，都是在为出门铺路</strong>。创始人常误以为"拿到钱就赢"，但条款把"退出安全"安排得越硬，创始人后续腾挪空间越小。</p>
+</div>
+
+<p class="key">投资人安全感来自条款，不是故事</p>
+<div class="block">
+<ul>
+<li>路演讲得再好，不如"本金+8%回购"写进协议——条款是投资人的安全带；</li>
+<li>但安全带能不能勒住，取决于实控人有没有钱执行——所以条款谈判常比估值谈判更激烈；</li>
+<li>识别：条款越硬，往往意味着投资人对"上市确定性"越没信心。</li>
+</ul>
+</div>
+
+<p class="key">怎么操作——作为服务者，你不是签协议的人，你是读懂退路的人</p>
+<div class="block">
+<ul>
+<li>客户说"拿了融资"：追问对赌触发条件、回购义务人、优先权类型、上市进度——判断退出安全；</li>
+<li>看到偏险组合（回购落公司+临近大限未申报）：提醒客户谨慎参与或重谈条款；</li>
+<li>你不需要自己审协议，但你需要知道<strong>对赌大限、回购义务人、投资主体税负</strong>——这些是建立专业信任的判断力，不是计算力。</li>
+</ul>
+</div>
+
+<p>模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（看透博弈）。三者合一，才是"交易结构"这件事的完整认知——不只是四件套条款，是条款背后"谁在留退路、退路通不通"的博弈逻辑。</p>
+<div class="link">相关：<a href="#sec3">信号解码与判断框架（见模块三）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="B03_股权结构设计解码_长文.html"><div class="pn-label">← 上一篇</div><div class="pn-title">B03 股权结构设计解码</div></a><a class="pn-next" href="B05_分拆上市解码_长文.html"><div class="pn-label">下一篇 →</div><div class="pn-title">B05 分拆上市解码</div></a></nav>
+</body>
+</html>

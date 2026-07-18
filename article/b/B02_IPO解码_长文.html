@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B02 IPO解码：从筹备到敲钟，每个环节谁在博弈什么</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Songti+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ffffff;            /* 纯白底 */
+  --ink:#332b2b;              /* 主文字深棕 */
+  --wine:#41140e;            /* 酒红强调 */
+  --wine-soft:#7c2e24;       /* 浅酒红（暗底可读） */
+  --accent:#a8bdc3;          /* 辅助灰蓝 */
+  --line:rgba(51,43,43,.12);
+  --line-wine:rgba(65,20,14,.2);
+  --pink:#E6C2C0;            /* 粉 · 分支A/区块 */
+  --sand:#CBA877;            /* 浅棕黄 · 分支B/区块 */
+  --muted:#8a7d72;           /* 辅助说明 */
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;max-width:860px;margin:0 auto;padding:64px 36px 120px;font-size:16px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.header{margin-bottom:44px;border-bottom:2px solid var(--wine);padding-bottom:26px;}
+.eyebrow{color:var(--muted);letter-spacing:.28em;font-size:.68em;text-transform:uppercase;font-weight:400;font-family:var(--mono);}
+h1{color:var(--wine);font-family:var(--serif);font-size:2.4em;line-height:1.28;margin:.45em 0 0;font-weight:700;letter-spacing:.01em;}
+h2{color:var(--wine);font-family:var(--serif);font-size:1.3em;margin-top:60px;font-weight:700;letter-spacing:.03em;border-top:1px solid var(--line);padding-top:20px;}
+.lead{color:var(--ink);font-size:1.04em;line-height:1.8;margin:28px 0;font-weight:300;}
+.tagrow{margin-top:16px;}
+.tag{display:inline-block;background:var(--wine);color:#fff;padding:4px 12px;border-radius:2px;font-size:.7em;letter-spacing:.08em;margin-right:6px;text-transform:uppercase;font-family:var(--mono);}
+.framework{background:var(--pink);color:var(--wine);padding:24px 30px;margin:38px 0;font-size:1.08em;font-weight:400;letter-spacing:.02em;line-height:1.65;border-left:4px solid var(--wine);}
+.framework b{color:var(--wine);font-weight:700;}
+.guide{color:var(--muted);font-size:.82em;letter-spacing:.04em;margin:.4em 0;text-transform:uppercase;font-family:var(--mono);}
+.step{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:1.08em;margin:32px 0 10px;letter-spacing:.02em;}
+.block{margin:20px 0;padding-left:20px;border-left:2px solid var(--sand);}
+.card{background:#fff;border:1px solid var(--line);padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card:hover{border-color:var(--wine);}
+.key{color:var(--wine);font-weight:600;}
+.num{color:var(--wine);font-weight:700;font-family:var(--mono);}
+.muted{color:var(--muted);font-size:.82em;}
+ul{margin:.5em 0;padding-left:1.2em;}
+li{margin:.4em 0;font-weight:300;}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86em;font-weight:300;}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+th{color:var(--wine);font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--wine);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.chip{display:inline-block;background:var(--sand);color:var(--wine);padding:7px 16px;border-radius:2px;font-size:.8em;letter-spacing:.02em;cursor:pointer;font-weight:600;user-select:none;font-family:var(--mono);}
+.chip:hover{background:var(--wine);color:#fff;}
+.relmap{margin:28px 0;padding:22px 26px;border:1px solid var(--wine);}
+.relmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;font-family:var(--mono);}
+.relmap a{color:var(--wine);}
+/* checkbox-hack modal */
+.toggle{display:none;}
+.modal{position:fixed;inset:0;background:rgba(51,43,43,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:100;}
+.toggle:checked + .modal{display:flex;}
+  .backdrop{position:absolute;inset:0;cursor:pointer;}
+.modal-box{background:#fff;max-width:600px;width:100%;max-height:84vh;overflow:auto;padding:36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;border-top:4px solid var(--wine);}
+.modal-box h3{color:var(--wine);font-family:var(--serif);margin:.1em 0 .7em;font-size:1.15em;font-weight:700;letter-spacing:.02em;}
+.link{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:.82em;color:var(--muted);}
+.link a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);}
+.close{position:absolute;top:10px;right:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.8em;line-height:1;font-weight:300;cursor:pointer;user-select:none;z-index:5;border-radius:50%;}
+.close:hover{color:var(--wine);}
+.foot{margin-top:60px;padding-top:22px;border-top:1px solid var(--wine);color:var(--muted);font-size:.76em;letter-spacing:.04em;font-family:var(--mono);}
+.disclaimer{background:var(--pink);color:var(--wine);padding:12px 18px;font-size:.76em;margin-bottom:28px;line-height:1.6;border-left:3px solid var(--wine);}
+
+.mindmap{margin:36px 0;padding:28px 26px;border:1px solid var(--wine);background:#fff;}
+.mindmap .ttl{color:var(--wine);font-size:.82em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;font-family:var(--mono);}
+.mindmap .sub{color:var(--muted);font-size:.8em;margin-bottom:22px;line-height:1.6;}
+.nodes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.node{border:1px solid var(--line);padding:16px 18px;background:#fff;}
+.node .no{color:var(--wine);font-size:.72em;letter-spacing:.1em;font-weight:700;font-family:var(--mono);}
+.node .nm{color:var(--wine);font-family:var(--serif);font-weight:700;font-size:.98em;margin:.3em 0 .5em;}
+.node .pos{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:10px;}
+.node .q{color:var(--ink);font-size:.86em;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;}
+.node .q b{color:var(--wine);}
+.node a{display:inline-block;margin-top:10px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--accent);font-size:.8em;}
+@media(max-width:560px){.nodes{grid-template-columns:1fr;}body{padding:40px 20px 90px;}}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇 —— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid rgba(65,20,14,.12);padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:#41140e;text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:#41140e;color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:"Songti SC","SimSun","STSong","Noto Serif CJK SC",serif;
+  font-weight:700;font-size:1rem;color:#41140e;margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+
+</style>
+</head>
+<body>
+<div class="disclaimer">本篇内容不构成投资建议或专业意见，仅提供知识框架与判断思路，具体决策请咨询持牌专业人士。</div>
+
+<div class="art-nav"><a class="back" href="../../hall-b.html">← 返回栏目</a><span class="crumb">上市公司资本解码 · 19 篇长文</span></div>
+<div class="header">
+  <div class="eyebrow">Qiangnv Capital Library · Listed Company Decoding · B02</div>
+  <h1>IPO解码：从筹备到敲钟，每个环节谁在博弈什么</h1>
+  <div class="tagrow">
+    <span class="tag">IPO</span><span class="tag">Capital Decoding</span><span class="tag">Long-form</span>
+  </div>
+</div>
+
+<div class="lead">
+你在服务客户时，客户说"我们准备上市了"——你怎么判断他是真要上，还是拿上市当谈判筹码抬身价？IPO不是一锤子买卖，是一场平均18到36个月、横跨几十个环节、五方人马（发行人、投行、监管、Pre-IPO投资人、散户）持续博弈的长跑。本篇把IPO全流程拆成九道关卡——改制、辅导、申报、审核问询、过会、路演、定价、敲钟、绿鞋——每道关卡讲清"谁在盘算什么"；再讲清看到某个信号（问询多轮、定价低于预期、绿鞋护盘）意味着什么。读完你会明白：IPO对创始人是一张退出门票，对散户是一场定价博弈，对Pre-IPO投资人是一笔带对赌的生意。
+</div>
+
+<div class="framework">
+<b>IPO = 九道关卡 × 五方博弈 × 一次定价</b><br>
+改制、辅导、申报、问询、过会、路演、定价、敲钟、绿鞋——九关各有人盘算；发行人、投行、监管、Pre-IPO投资人、散户——五方各有所图；最终所有博弈都收敛到一个问题：发行价定多少、分给谁。
+</div>
+
+<h2 id="sec1">一、基础认知盘</h2>
+<p class="guide">IPO不是"去敲个钟"，是经历九道关卡、五方持续博弈的一场长跑</p>
+
+<div class="card">
+<p><span class="key">IPO（首次公开发行）</span>：第一次把公司股份卖给不特定的公众投资者。大白话——你开了家公司，原来股份只分给合伙人、员工、少数投资人；IPO就是第一次把股份拿到交易所挂牌，谁都能买。专业定义：发行人依照证券法，首次向社会公众公开发行股票并在证券交易所上市交易，股票获得公开、连续的二级市场流动性。</p>
+<p><span class="key">为什么企业要IPO</span>：表面是"融资"，深层是"退出"。创始人和早期投资人手里的股份原来不能卖（没上市、流动性差、有锁定期），IPO之后股份变成可在二级市场买卖的资产——这才是很多股东真正想要的。大白话：IPO对创始人更像"把纸面股份变成能卖的钱"，不是"找一笔钱花"。理解这一点，你才看懂后面九道关卡里每一方的真实动机。</p>
+</div>
+
+<div class="block">
+<p><span class="key">五个角色，一句话定位</span></p>
+<ul>
+<li><span class="key">发行人</span>（拟上市公司及实控人）：想高价发、少披露麻烦事、赶紧过会——立场是"往上推"。</li>
+<li><span class="key">投行</span>（保荐承销商）：想顺利发完、赚承销费、别出合规事故——立场是"稳"。</li>
+<li><span class="key">监管</span>（交易所+证监会）：想合规、信息披露充分、别出造假丑闻——立场是"往下压、往实里问"。</li>
+<li><span class="key">Pre-IPO投资人</span>（PE/VC）：想高价退出、对赌能兑现、别被套——立场是"逼发行人冲刺"。</li>
+<li><span class="key">散户</span>（网下+网上打新/买入）：想不破发、赚一二级市场价差——立场是"希望定价别太高"。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>你下次听到客户说"我们明年报材料"——第一反应不该是"恭喜"，而是<strong>"他这轮Pre-IPO谁进的、对赌怎么签的、真实想退出的是谁"</strong>。模块一最该带走的认知：<strong>IPO不是融资工具，是多方在流动性上的重新分配——谁手里的股份能卖、什么时候能卖，才是真正的棋眼</strong>。</p>
+</div>
+
+<p class="guide">九道关卡的时间、成本、核心博弈方，一表速查</p>
+<div class="chips">
+  <label class="chip" for="c-gates">IPO九道关卡速查</label>
+</div>
+
+<h2 id="sec2">二、规则与实务深水区</h2>
+<p class="guide">九道关卡逐一拆开——规则出处、实务操作、每关谁在博弈</p>
+
+<div class="card">
+<p><span class="key">关卡一 · 改制（股改）</span></p>
+<p>规则：有限责任公司整体变更为股份有限公司，依据《公司法》。实务：以经审计的净资产折股，有限公司连续存续期可连续计算（关键，影响"满3年"上市门槛）。博弈：实控人想保留绝对控股比例（常见定在50%~71%），创始人团队内部股份怎么切；税务上一道常见坑——盈余公积、未分配利润转增股本，自然人股东涉及个税，符合条件可适用"整体变更"缓缴政策，别在股改时稀里糊涂缴了冤枉税。</p>
+</div>
+
+<div class="card">
+<p><span class="key">关卡二 · 辅导</span></p>
+<p>规则：保荐机构对发行人进行上市辅导并向证监局备案，依据《证券发行上市保荐业务管理办法》（证监会令）。实务：辅导期一般3~12个月，核心是解决"独立性"和"规范运作"——资金占用、关联交易、同业竞争，都在这一关整改。博弈：投行想把历史瑕疵在辅导期整改干净，发行人嫌麻烦、想"快进快出"，双方在这里最容易扯皮。</p>
+</div>
+
+<div class="card">
+<p><span class="key">关卡三 · 申报</span></p>
+<p>规则：向交易所提交招股说明书申报稿并预披露；注册制下由交易所审核（上交所、深交所、北交所），依据《首次公开发行股票注册管理办法》（证监会令第205号，2023年2月全面推行）。实务：申报稿公开，接受社会监督，等于把公司家底摊给全市场看。博弈：发行人想"报得漂亮"，投行想"别留硬伤"——因为申报稿就是后续审核问询的靶子，今天含糊一句，明天被问十句。</p>
+</div>
+
+<div class="card">
+<p><span class="key">关卡四 · 审核问询</span></p>
+<p>规则：交易所出具审核问询函，发行人及中介机构回复，依据各板块上市审核规则。实务：首轮问询通常20~30个问题，可多轮往返；问询聚焦财务真实性、持续盈利能力、关联交易、核心技术。博弈：监管想挖出真实问题，发行人想少披露、模糊化、把敏感问题"技术处理"；<span class="key">问询轮数越多，信号越不妙</span>——说明某块有硬伤反复答不清。</p>
+</div>
+
+<div class="card">
+<p><span class="key">关卡五 · 过会（上市委审议）</span></p>
+<p>规则：上市委员会审议，通过后交易所出具审核意见并报证监会注册。实务：现场聆讯，委员就关键问题追问。博弈：发行人想在过会前把问询答扎实一次过会，投行想"避免二次上会"——二次上会不仅耽误时间（可能拖数月），还释放"第一次没过"的负面信号，影响后续定价。</p>
+</div>
+
+<div class="card">
+<p><span class="key">关卡六 · 路演（簿记建档）</span></p>
+<p>规则：向网下机构投资人推介，收集认购意向。实务：线下+线上路演，投行簿记建档统计需求、摸市场水温。博弈：发行人想讲高成长故事拉高定价，机构投资人想压价拿到便宜筹码——路演反馈直接决定下一步定价区间的上限能顶到哪。</p>
+</div>
+
+<div class="card">
+<p><span class="key">关卡七 · 定价（询价）</span></p>
+<p>规则：初步询价+累计投标询价确定发行价，依据《证券发行与承销管理办法》。实务：剔除拟申购总量中报价最高的部分（"高价剔除"，通常剔除10%），取网下申购量对应的价格区间。博弈：<span class="key">这是全流程最核心的博弈</span>——发行人/投行定上限，机构集体压价；定价低于市场预期=发行方让步，高于预期=市场买单。定价定在哪儿，后面破不破发基本就定了。</p>
+</div>
+
+<div class="card">
+<p><span class="key">关卡八 · 敲钟（上市交易）</span></p>
+<p>规则：股票在交易所挂牌，科创板/创业板首日不设涨跌幅，主板首日限44%。实务：上市首日股价表现，是定价的最终检验。博弈：散户赌首日涨幅赚价差；Pre-IPO投资人却要等解禁（一般上市起12个月）才能减持——敲钟对散户是"开奖"，对早期投资人只是"计时开始"。</p>
+</div>
+
+<div class="card">
+<p><span class="key">关卡九 · 绿鞋（超额配售选择权）</span></p>
+<p>规则：主承销商可超额发行不超过发行数量15%的股份，上市后30个交易日内可回购托底或超额配售，依据《证券发行与承销管理办法》超额配售选择权规定。实务：破发时从二级市场回购托底稳定股价；不破发时则行使超额配售、多卖15%圈钱。博弈：发行人/投行用绿鞋给发行价"上保险"；散户看到绿鞋护盘=下行有底，但护盘资金有限，托不住真跌。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>九道关卡里，你觉得哪一道对散户最重要？答案不是敲钟，是<span class="key">定价</span>——定价定低了散户首日赚价差，定高了散户接盘。模块二最该带走的是：<strong>每道关卡都有"规则+实务+博弈"三层，看懂关卡才能看懂信号，看懂信号才能帮客户做判断</strong>。</p>
+</div>
+
+<h2 id="sec3">三、信号解码与判断框架</h2>
+<p class="guide">看到某环节信号，不急着下结论，三步判断：信号→博弈→方向</p>
+
+<p class="step">第一步 · 看到什么信号</p>
+<div class="block">
+<ul>
+<li><span class="key">问询多轮（3轮及以上）</span>：监管对同一问题反复追问——信号是"这块有硬伤，答不清楚"。</li>
+<li><span class="key">定价低于预期</span>：发行PE低于同业，或网下申购冷淡、高价剔除后被迫下修——信号是"市场不买单，定价贵了或故事讲不动"。</li>
+<li><span class="key">绿鞋护盘</span>：上市后30日内主承销商频繁从二级市场回购——信号是"发行价定高了，投行在托底，已经破发"。</li>
+<li><span class="key">突击分红</span>：申报前大额分红——信号是"实控人想上市前先落袋"，监管重点核查是否掏空公司。</li>
+<li><span class="key">对赌未清</span>：申报时回购/补偿条款仍存续——信号是"PE投资人没退路，逼着上市"，监管要求清理或可附条件存续。</li>
+</ul>
+</div>
+
+<p class="step">第二步 · 背后什么博弈</p>
+<div class="card">
+<p>每个信号背后都是五方在"定价"这一点上的拉扯：</p>
+<ul>
+<li><span class="key">发行人</span>：想高价、快过、少披露——立场是"往上推"。</li>
+<li><span class="key">投行</span>：想顺利发行赚承销费、别出事——立场是"稳，别惹监管"。</li>
+<li><span class="key">监管</span>：想合规、真实、别造假——立场是"往下压、往实里问"。</li>
+<li><span class="key">Pre-IPO投资人</span>：想高价退出、对赌兑现——立场是"逼发行人冲刺，别卡关"。</li>
+<li><span class="key">散户</span>：想不破发、赚价差——立场是"希望定价别太高"。</li>
+</ul>
+<p>五方博弈最终在"定价"这一个点上交汇：发行人+投行往上推，机构+散户往下压，监管在中间定规矩。<span class="key">问询多轮</span>说明监管把发行人往下压的力度大；<span class="key">定价低于预期</span>说明市场把发行方往下压赢了；<span class="key">绿鞋护盘</span>说明发行方定价定错了、事后补救。</p>
+</div>
+
+<p class="step">第三步 · 判断方向</p>
+<div class="block">
+<p>怎么识别信号的偏利或偏险：</p>
+<ul>
+<li><span class="key">偏险/危险组合</span>：问询≥3轮且问题涉及财务真实性；定价高于同业PE而申购冷淡；突击分红+对赌未清并存——典型"上市前先捞一笔、投资人逼宫"组合，破发风险高。</li>
+<li><span class="key">偏安/安全信号</span>：问询1~2轮顺利过会；定价低于同业但基本面扎实；绿鞋只是"备而不用"——发行方克制，破发概率低。</li>
+<li><span class="key">判断动作</span>：作为券商客户经理或私行顾问，你不需要自己审材料，但你要能识别"问询轮数、定价相对同业、绿鞋是否启用"这三个公开信号——它们比任何路演PPT都真实。看到偏险组合，提醒客户谨慎参与；看到安全信号，可重点解读。</li>
+</ul>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>下次你看到一家新股"问询3轮、发行PE比同业高20%、首日破发"——你第一句话不该是"运气不好"，而是<strong>"这套信号说明发行方定价太贪、监管早有疑虑、市场用脚投票"</strong>。模块三最该带走的是：<strong>信号→博弈→方向，三步把公开信息变成判断，你不是看热闹的人，你是能读出门道的人</strong>。</p>
+</div>
+
+<h2 id="sec4">四、脱敏案例：某智装备九关推演</h2>
+<p class="guide">把九道关卡装进同一家公司，看时间、成本、每关博弈怎么发生</p>
+
+<div class="card">
+<p><span class="key">公司画像</span>：一家拟创业板上市的智能装备公司"某智装备"，营收 <span class="num">8亿</span>，净利润 <span class="num">0.9亿</span>，增长率约25%，2021年引入Pre-IPO轮PE投资人（投后估值 <span class="num">45亿</span>，带回购对赌：若2024年底前未上市，实控人按8%年息回购）。实控人控股71%。</p>
+</div>
+
+<table>
+<tr><th>关卡</th><th>时间</th><th>主要成本（万元）</th><th>核心博弈</th></tr>
+<tr><td>改制</td><td>第1-2月</td><td>300（审计+评估+律师）</td><td>实控人控股定71%，创始人团队分剩余；自然人转股个税筹划</td></tr>
+<tr><td>辅导</td><td>第3-10月</td><td>500（辅导费）</td><td>投行整改资金占用瑕疵，实控人嫌慢想快进</td></tr>
+<tr><td>申报</td><td>第11月</td><td>200（申报制作）</td><td>申报稿淡化关联交易，投行坚持充分披露</td></tr>
+<tr><td>问询</td><td>第12-18月</td><td>600（回复+补充尽调）</td><td>3轮问询，监管追问毛利率异常；PE投资人催进度</td></tr>
+<tr><td>过会</td><td>第19月</td><td>100</td><td>上市委一次过会，对赌清理附条件存续</td></tr>
+<tr><td>路演</td><td>第20月</td><td>150</td><td>机构压价，发行人讲产能扩张故事</td></tr>
+<tr><td>定价</td><td>第21月</td><td>—</td><td>发行PE 35倍（同业40倍），定低5倍，机构疯抢</td></tr>
+<tr><td>敲钟</td><td>第22月</td><td>80（上市费）</td><td>首日涨120%，散户赚价差</td></tr>
+<tr><td>绿鞋</td><td>上市后30日</td><td>0</td><td>未破发，超额配售15%多募约6亿</td></tr>
+</table>
+
+<p class="step">每关博弈怎么落地（数字推导）</p>
+<div class="block">
+<ul>
+<li><span class="key">总成本约1980万元</span>（不含承销费），承销费按募资额约4%~6%另计——这是"门票钱"，对45亿估值体量的公司是小头。</li>
+<li><span class="key">关键博弈点</span>：①问询3轮=监管对毛利率有疑虑，PE投资人2024年底对赌大限逼着"带伤冲刺"；②定价比同业低5倍PE=发行方让步换顺利发行，结果首日大涨——便宜了打新散户，发行人"少募了"但换来了确定性；③绿鞋未启用=没破发，皆大欢喜，但Pre-IPO投资人还要等12个月解禁才能卖。</li>
+<li><span class="key">前后对比</span>：上市前估值45亿（对应PE约50倍）→发行估值对应PE 35倍→首日收盘市值约 <span class="num">100亿</span>（PE近110倍）。从45亿到100亿，创始人股份从"纸面富贵"变成"可减持资产"——这才是IPO对实控人的真正意义。</li>
+</ul>
+</div>
+
+<div class="card">
+<p><span class="key">核心结论</span>：IPO对这家公司，融资是表皮，退出才是内核。Pre-IPO投资人45亿进、等解禁在100亿市值时退，赚的是流动性溢价不是经营利润；创始人在"少募一点但顺利上市"和"募多点但卡关"之间选了前者——因为对赌大限比募资额更重要。每个数字背后都是"谁等不起、谁在让步"。</p>
+</div>
+
+<p class="step">停下来，先想一个问题</p>
+<div class="card">
+<p>如果你是这家公司的Pre-IPO投资人，2024年底对赌大限将至——你最怕的不是破发，是<strong>"没过会、对赌触发、实控人没钱回购"</strong>。模块四最该带走的是：<strong>案例里的每个数字背后，都是"谁等不起、谁在让步"——IPO推演的本质，是给五方各算一笔时间账和让步账</strong>。</p>
+</div>
+
+<h2 id="sec5">五、纵深三棱镜</h2>
+<p class="guide">联动疆界 · 风险盲区 · 资本运作视角——三面镜子互相关联，点开逐个看</p>
+<div class="chips">
+  <label class="chip" for="c-link">联动疆界</label>
+  <label class="chip" for="c-risk">风险盲区</label>
+  <label class="chip" for="c-cap">资本运作视角</label>
+</div>
+
+<div class="block">
+<p><span class="key">联动疆界（概要）</span>：IPO定价上接估值B01（发行PE锚定可比公司），下接定增B06（上市后低位定增再融资），横接市值管理（上市后股价信号）。三个场景都围绕"股份价格"，但IPO是第一次定价、定增是再定价、市值管理是动态重定价——同一条价格主线，串起上市前中后。</p>
+</div>
+<div class="block">
+<p><span class="key">风险盲区（概要）</span>：对赌未清（申报时回购条款存续，监管要清理）、财务造假（问询想挖的就是这个）、突击分红（申报前大额分红，监管重点核查）——三个盲区让"顺利上市"变"带雷上市"，破发只是表象，雷埋在申报前。</p>
+</div>
+<div class="block">
+<p><span class="key">资本运作视角（概要）</span>：IPO是退出通道不是融资工具。创始人和Pre-IPO投资人要的是流动性，不是那笔募资款；理解这点，你才看懂为什么很多公司"募资用途写得漂亮、减持计划做得实在"——公开讲融资故事，私下算退出账本。</p>
+</div>
+
+<h2 id="sec6">六、三层进阶</h2>
+<p class="guide">三步不必全做，取你当前最需要的那一层</p>
+
+<div class="block">
+<p><span class="key">第一阶 · 看懂门道</span>　记住九道关卡、五方角色；IPO不是融资是退出；看到"问询轮数、定价相对同业、绿鞋是否启用"三个公开信号，就知道这家新股大概靠谱不靠谱。</p>
+</div>
+<div class="block">
+<p><span class="key">第二阶 · 能用判断</span>　用案例公司推演套一家真实新股；判断某新股问询/定价信号偏利好还是偏风险；识别"对赌+突击分红"组合；在路演材料之外，独立读出发行方的让步与底线。</p>
+</div>
+<div class="block">
+<p><span class="key">第三阶 · 精通实务</span>　①读招股书申报稿抓关联交易/毛利率异常②看问询函轮数和问题类型判断过会概率③对比发行PE与同业判断定价高低④理解绿鞋机制在破发时的护盘逻辑与上限⑤帮客户判断"上市对他的真实意义是退出还是融资"，并据此给出参与建议。</p>
+</div>
+
+<p class="step">你的读后作业（任选一题做）</p>
+<div class="card">
+<ul>
+<li>找一家近期新股：它的问询几轮？发行PE比同业高还是低？首日破发了吗？用三步判断框架写一句你的判断。</li>
+<li>用案例公司推演：一家你熟悉的拟上市公司，九道关卡每关谁在博弈、时间多久、成本多少，画一张自己的推演表。</li>
+<li>读一份招股书申报稿：找出它的关联交易、毛利率、对赌条款——判断监管最可能追问什么。</li>
+</ul>
+</div>
+
+<div class="mindmap">
+<div class="ttl">Knowledge Map · 思维引导地图</div>
+<div class="sub">这不是知识清单，是一张让你自己想的地图。每个节点抛一个核心问题，带着问题回对应模块找答案。</div>
+<div class="nodes">
+<div class="node">
+  <div class="no">01</div>
+  <div class="nm">基础认知盘</div>
+  <div class="pos">IPO不是融资是退出，九关五方各有所图</div>
+  <div class="q"><b>核心问题：</b>客户说"准备上市"，你第一句该问什么——"恭喜"还是"谁进的Pre-IPO、对赌怎么签"？</div>
+  <a href="#sec1">进入模块一 →</a>
+</div>
+<div class="node">
+  <div class="no">02</div>
+  <div class="nm">规则与实务深水区</div>
+  <div class="pos">九道关卡规则出处+实务+每关博弈</div>
+  <div class="q"><b>核心问题：</b>九关里哪一道对散户最关键？为什么是"定价"而不是"敲钟"？</div>
+  <a href="#sec2">进入模块二 →</a>
+</div>
+<div class="node">
+  <div class="no">03</div>
+  <div class="nm">信号解码与判断框架</div>
+  <div class="pos">信号→博弈→判断方向</div>
+  <div class="q"><b>核心问题：</b>问询3轮+定价偏高+绿鞋护盘，三个信号合起来说明什么？谁赢了博弈？</div>
+  <a href="#sec3">进入模块三 →</a>
+</div>
+<div class="node">
+  <div class="no">04</div>
+  <div class="nm">脱敏案例</div>
+  <div class="pos">某智装备九关推演，45亿到100亿</div>
+  <div class="q"><b>核心问题：</b>对赌大限将至，Pre-IPO投资人最怕什么——破发，还是"没过会、对赌触发、实控人没钱回购"？</div>
+  <a href="#sec4">进入模块四 →</a>
+</div>
+<div class="node">
+  <div class="no">05</div>
+  <div class="nm">纵深三棱镜</div>
+  <div class="pos">联动疆界 / 风险盲区 / 资本运作视角</div>
+  <div class="q"><b>核心问题：</b>对赌未清、财务造假、突击分红，三个盲区哪个你最该帮客户提前预警？</div>
+  <a href="#sec5">进入模块五 →</a>
+</div>
+<div class="node">
+  <div class="no">06</div>
+  <div class="nm">三层进阶</div>
+  <div class="pos">看懂门道 / 能用判断 / 精通实务</div>
+  <div class="q"><b>核心问题：</b>看懂、判断、实务——你卡在哪一阶？今天能落地的第一步是什么？</div>
+  <a href="#sec6">进入模块六 →</a>
+</div>
+</div>
+</div>
+
+<p class="muted" style="margin-top:14px;">体系衔接：上接 B01《估值解码》（发行PE如何锚定可比公司估值）、下接 B06《定增解码》（上市后低位定增再融资的游戏规则）。本篇是B线"上市前中"关卡的总图谱，IPO定价与定增定价同属价格主线。</p>
+
+<div class="foot">
+Qiangnv Capital Library · Listed Company Decoding B02 ｜ Swiss-style product build<br>
+模块一~六统一拉至"通俗 + 操作化 + 思维引导"深度；Knowledge Map 改造为思维引导地图。B线模块三为"信号解码与判断框架"，含3步判断（信号→博弈→方向）。确认风格后由 skill 批量生成全系列。
+</div>
+
+<input type="checkbox" id="c-gates" class="toggle">
+<div class="modal"><label class="backdrop" for="c-gates"></label><div class="modal-box">
+<label class="close" for="c-gates">&times;</label>
+<h3>IPO九道关卡速查</h3>
+<table>
+<tr><th>关卡</th><th>时间窗口</th><th>主要成本</th><th>核心博弈方</th><th>公开信号</th></tr>
+<tr><td>改制</td><td>1-2月</td><td>审计评估律师约300万</td><td>实控人 vs 创始团队</td><td>控股比例、个税筹划</td></tr>
+<tr><td>辅导</td><td>3-12月</td><td>辅导费约500万</td><td>投行 vs 发行人</td><td>瑕疵整改是否彻底</td></tr>
+<tr><td>申报</td><td>约第11月</td><td>制作约200万</td><td>发行人 vs 投行</td><td>申报稿披露充分度</td></tr>
+<tr><td>问询</td><td>数月至半年</td><td>回复+尽调约600万</td><td>监管 vs 发行人</td><td>问询轮数、问题类型</td></tr>
+<tr><td>过会</td><td>审核末期</td><td>约100万</td><td>上市委 vs 发行人</td><td>一次过会 or 二次上会</td></tr>
+<tr><td>路演</td><td>过会后1月</td><td>约150万</td><td>发行人 vs 机构</td><td>认购意向冷热</td></tr>
+<tr><td>定价</td><td>路演后</td><td>承销费4%-6%</td><td>发行方 vs 市场</td><td>发行PE相对同业</td></tr>
+<tr><td>敲钟</td><td>定价后</td><td>上市费约80万</td><td>散户 vs 早期股东</td><td>首日涨跌幅</td></tr>
+<tr><td>绿鞋</td><td>上市后30日</td><td>0（机制）</td><td>投行 vs 破发风险</td><td>是否启用护盘</td></tr>
+</table>
+<p>核心原则：<strong>九关看"规则+实务+博弈"三层；其中问询轮数、定价相对同业、绿鞋是否启用，是散户和顾问都能读到的三个公开信号</strong>。</p>
+<div class="link">相关：<a href="#sec2">九道关卡详细拆解（见模块二）</a> · <a href="#sec3">信号解码与判断框架（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-link" class="toggle">
+<div class="modal"><label class="backdrop" for="c-link"></label><div class="modal-box">
+<label class="close" for="c-link">&times;</label>
+<h3>联动疆界</h3>
+<p>三棱镜第一条棱：IPO不是孤立事件，它上接估值B01、下接定增B06、横接市值管理——同一条"股份价格"主线，串起上市前中后。</p>
+
+<p class="key">上接估值B01 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>IPO发行价本质是估值——用可比公司PE锚定区间，再用市场需求（路演反馈）微调。操作上：</p>
+<ul>
+<li>投行选一组可比上市公司，算出PE区间（如25~40倍），再根据公司增长率、行业地位调整到发行PE（如35倍）；</li>
+<li>路演后根据买方反馈微调：认购火热往上限靠，冷淡往下限压——这正是B01讲的"估值不是算出来的，是谈出来的"；</li>
+<li>所以读发行PE，先问"相对同业高还是低"，这本身就是B01估值框架的直接应用。</li>
+</ul>
+</div>
+
+<p class="key">下接定增B06 · 怎么联动、怎么操作</p>
+<div class="block">
+<p>公司上市后，若股价低迷、资金紧张，可启动定向增发（定增）再融资。操作上：</p>
+<ul>
+<li>IPO是"第一次定价"，定增是"再定价"——定增常选低位锁价或竞价发行，与IPO高位定价形成对照；</li>
+<li>Pre-IPO投资人解禁减持、定增投资人拿折扣入场，是上市后股份流动性的两轮接力；</li>
+<li>理解IPO定价逻辑，才能看懂定增"低位拿货"的博弈——B06会专讲。</li>
+</ul>
+</div>
+
+<p class="key">横接市值管理 · 怎么联动、怎么操作</p>
+<div class="block">
+<ul>
+<li>市值 = 股价 × 股数，IPO定的是"起点价"，之后股价是市场实时给出的动态估值；</li>
+<li>市值管理（合法手段内）是让市场重新认识公司价值——从发行PE 35倍重定价到更高；</li>
+<li>IPO破发会压制后续市值管理空间，所以发行方愿意用绿鞋"保发"——发行与市值管理在价格上首尾相连。</li>
+</ul>
+</div>
+
+<p>上接估值、下接定增、横接市值——三条线在"股份价格"这个节点交汇：IPO是第一次定价，定增是再定价，市值管理是动态重定价。</p>
+<div class="link">相关：<a href="#sec5">风险盲区 · 资本运作视角（见模块五）</a> · <a href="#sec1">基础认知盘（见模块一）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-risk" class="toggle">
+<div class="modal"><label class="backdrop" for="c-risk"></label><div class="modal-box">
+<label class="close" for="c-risk">&times;</label>
+<h3>风险盲区</h3>
+<p>三棱镜第二条棱：联动疆界讲"连得出去"，风险盲区讲"看不见的坑"。IPO最贵的错误，往往不是没过会，是"带雷上市"。</p>
+
+<p class="key">盲区一 · 对赌未清</p>
+<div class="block">
+<ul>
+<li>申报时若回购/补偿条款仍存续，监管要求清理或可附条件存续（如"上市失败时恢复"）；</li>
+<li>对赌未清意味着PE投资人没退路，会逼发行人"带伤冲刺"——问询轮数偏多常与此相关；</li>
+<li>识别：读招股书"历史沿革/对赌条款"章节，看是否彻底终止还是附条件恢复。</li>
+</ul>
+</div>
+
+<p class="key">盲区二 · 财务造假</p>
+<div class="block">
+<ul>
+<li>审核问询想挖的核心就是财务真实性——毛利率异常、收入确认、客户集中度；</li>
+<li>造假往往集中在申报前"冲业绩"，问询3轮以上且问题反复绕回财务，是危险信号；</li>
+<li>识别：对比同行业毛利率、看应收账款增速是否远超营收、看大客户是否关联方。</li>
+</ul>
+</div>
+
+<p class="key">盲区三 · 突击分红</p>
+<div class="block">
+<ul>
+<li>申报前大额分红，监管会质疑"是否掏空公司、实控人上市前先落袋"；</li>
+<li>分红+募资"边分红边要钱"的组合最易被问询，影响过会节奏；</li>
+<li>识别：看资产负债表"未分配利润"在申报前大幅减少、货币资金被抽走。</li>
+</ul>
+</div>
+
+<p>三个盲区共同指向一句话：<strong>破发只是表象，雷埋在申报前——对赌、造假、分红，任一未清都是上市后风险的源头</strong>。</p>
+<div class="link">相关：<a href="#sec5">联动疆界 · 资本运作视角（见模块五）</a> · <a href="#sec3">信号解码与判断框架（见模块三）</a></div>
+</div></div>
+
+<input type="checkbox" id="c-cap" class="toggle">
+<div class="modal"><label class="backdrop" for="c-cap"></label><div class="modal-box">
+<label class="close" for="c-cap">&times;</label>
+<h3>资本运作视角</h3>
+<p>三棱镜第三条棱：把IPO从"融资庆典"重新看成"一次流动性重新分配"，你会发现IPO对各方意义完全不同。</p>
+
+<p class="key">IPO是退出通道，不是融资工具</p>
+<div class="block">
+<p>创始人和Pre-IPO投资人要的是"股份能卖"——上市后股份变成可减持资产，这才是核心诉求。募到的那笔钱，对45亿估值体量的公司往往只是小数。大白话：<strong>IPO对老板是"把纸面股份换成能卖的钱"，对散户才是"申购一笔新资产"</strong>。</p>
+</div>
+
+<p class="key">每个关卡背后是时间账和让步账</p>
+<div class="block">
+<ul>
+<li>实控人让步（定价低5倍PE）换"顺利上市"——因为对赌大限比募资额更重要；</li>
+<li>Pre-IPO投资人等12个月解禁才能退——敲钟只是计时开始，不是落袋；</li>
+<li>散户赚的是一二级价差——定价低了首日涨，定价高了接盘。</li>
+</ul>
+</div>
+
+<p class="key">怎么操作——作为服务者，你不是报材料的人，你是读懂动机的人</p>
+<div class="block">
+<ul>
+<li>客户说"准备上市"：追问Pre-IPO谁进的、对赌怎么签、真实想退出的是谁；</li>
+<li>看到新股破发：先读问询轮数、发行PE相对同业、绿鞋是否启用——判断是定价贪还是基本面弱；</li>
+<li>你不需要自己审招股书，但你需要知道<strong>对赌大限、解禁节奏、定价相对同业</strong>——这些是建立专业信任的判断力，不是计算力。</li>
+</ul>
+</div>
+
+<p>模块五三棱镜收尾：联动疆界（连得出去）→ 风险盲区（看得见坑）→ 资本运作视角（看透动机）。三者合一，才是"IPO"这件事的完整认知——不只是九道关卡的流程，是九道关卡背后"谁等不起、谁在让步"的博弈逻辑。</p>
+<div class="link">相关：<a href="#sec3">信号解码与判断框架（见模块三）</a> · <a href="#sec4">脱敏案例（见模块四）</a></div>
+</div></div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="B01_估值解码_长文.html"><div class="pn-label">← 上一篇</div><div class="pn-title">B01 估值解码</div></a><a class="pn-next" href="B03_股权结构设计解码_长文.html"><div class="pn-label">下一篇 →</div><div class="pn-title">B03 股权结构设计解码</div></a></nav>
+</body>
+</html>
