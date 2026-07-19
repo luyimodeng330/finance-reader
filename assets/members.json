@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-13 18:33",
-  "count": 2,
+  "generated": "2026-07-19 11:22",
+  "count": 3,
   "members": [
     {
       "email": "demo@vip.com",
@@ -15,6 +15,13 @@
       "order": "",
       "product": "私享会员",
       "expire": "2027-07-13"
+    },
+    {
+      "email": "948202252@qq.com",
+      "name": "居居",
+      "order": "wx00001",
+      "product": "资本认知",
+      "expire": "2026-07-26"
     }
   ]
 }
