@@ -148,10 +148,33 @@
     bindUnlock(members);
   }
 
+  /* ---------- 应急通道：URL ?pass= 直接解锁（绕过邮箱校验）---------- */
+  // 注：这是 MVP 应急方案，pass 为服务端下发的临时口令，用完即换。
+  // 生产应改 Cloudflare Workers 动态校验，避免明文口令泄露。
+  function tryEmergencyPass() {
+    try {
+      var p = new URLSearchParams(location.search).get('pass');
+      if (!p) return false;
+      // 口令白名单（与服务器约定，定期更换）
+      var ALLOWED = ['20260720', 'fin2026open'];
+      if (ALLOWED.indexOf(p) === -1) return false;
+      setS(UK, 'emergency:' + p);
+      hideGate();
+      revealContent();
+      var gb = $('greet-bar'); if (gb) gb.textContent = '欢迎，尊享会员';
+      var tg = $('top-greet'); if (tg) tg.textContent = '欢迎，尊享会员';
+      return true;
+    } catch (e) { return false; }
+  }
+
   /* ---------- 启动 ---------- */
   initTheme();
   initCover();
 
+  // 应急口令优先：命中则跳过 fetch 校验，立即解锁
+  if (tryEmergencyPass()) {
+    // 已解锁，无需再弹门禁
+  } else {
   fetch(ASSET_BASE + 'members.json')
     .then(function (r) { return r.json(); })
     .then(function (data) {
@@ -162,4 +185,5 @@
     .catch(function () {
       if (!$('cover') || getS(EK)) initGate([]);
     });
+  }
 })();
