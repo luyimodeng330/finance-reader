@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-19 11:22",
-  "count": 3,
+  "generated": "2026-07-20 12:21",
+  "count": 5,
   "members": [
     {
       "email": "demo@vip.com",
@@ -19,9 +19,23 @@
     {
       "email": "948202252@qq.com",
       "name": "居居",
-      "order": "wx00001",
+      "order": "朋友圈测试01",
       "product": "资本认知",
       "expire": "2026-07-26"
+    },
+    {
+      "email": "17780530868@163.com",
+      "name": "维尼",
+      "order": "朋友圈测试02",
+      "product": "资本认知",
+      "expire": "2027-07-20"
+    },
+    {
+      "email": "11122604@qq.com",
+      "name": "陈皮兔",
+      "order": "朋友圈测试03",
+      "product": "资本认知",
+      "expire": "2027-07-20"
     }
   ]
 }
