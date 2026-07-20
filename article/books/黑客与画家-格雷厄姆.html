@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黑客与画家 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+/* 付费门禁（复用 assets/app.js，不引深咖 styles.css） */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>黑客与画家：硅谷制造者法则</h1>
+<div class="byline">Paul Graham / Y Combinator 创始人的文集 · 写给想「用代码与产品重写规则」的制造者</div>
+<p class="lead">关于「黑客为何像画家、以及普通人如何用代码杠杆反向定价自己」的第一性原理。本卡是「资本人物馆·硅谷新派书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架⑥ · 硅谷新派与女性破局</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">人物延伸：马斯克 · 安德森（制造者系）</span>
+  <span class="tag">对接 A 线认知 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书（含《Hackers & Painters》《How to Make Wealth》《How to Get Startup Ideas》等）；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？《纳瓦尔宝典》给你「零边际成本杠杆」、《从0到1》给你「垄断式创造」——而 PG 独有序增量是<b>两点</b>：<b>①他第一次把「黑客」从修电脑的人还原成「制造者」</b>（像画家一样用代码造物，而非打工执行）；<b>②他给了普通人一条「不被雇佣关系定价」的具体路径</b>——做出人们想要的东西、用增长放大、用不 scalable 的苦活起步。这本书不可替代，是因为它专门解决「高智女性空有认知差，却困在雇佣/执行身份里」这个破局盲点。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺「怎么赚钱」的方法，你缺的是「把自己从执行者变成制造者」的身份切换，以及「做出人们真想要的东西」的具体起点。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你上一次亲手「造出东西」是什么时候？又有多少收入来自「你不在场也运转」的资产，而非「你在场才发生」的顾问/执行？两个都低——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">黑客即制造者：像画家一样用代码造物</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">科学家发现、工程师搭建、黑客「造物」——和画家同属 maker 阶层。区别在：画家用颜料、黑客用代码，都从一张白纸造出新东西。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「写代码」不是技术工种，是创作。把自己定位成「执行者」就永远被别人定价。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Hackers and painters are both makers."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做咨询/投研是「被人雇来解决问题」；试着做一个「属于你自己、别人主动来用」的产品。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">做出人们想要的：反共识的起点</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">一切价值始于「有人想要」。技术牛不等于有价值，被需要才是唯一准绳。PG 把它浓缩成一句咒语。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最该问的不是「我能不能做」，而是「谁真的想要、愿不愿意为此改变行为」。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Make something people want."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你下个内容/产品，先列「10 个真实会用的人的名字」，而非先写功能清单。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">财富 ≠ 钱：财富是你想要的东西</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">钱只是转移财富的中介；财富才是「食物、住房、自由时间」这些你真正想要的东西。创造财富=造出别人想要的东西。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">追钱是追影子，造财富才是追实体。打工攒的是钱，创业造的是财富引擎。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Wealth is not the same as money. Wealth is the fundamental thing."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你已财务自由却仍「卖时间」——问：我的哪部分产出能沉淀成「不在场也增值」的财富？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">创业 = 被设计成快速增长的公司</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">「新成立」≠「创业」。创业公司的本质是被设计成能指数增长；增长曲线决定它是不是 startup。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">小而美的作坊不是创业、不增长的大公司也不是。只有「增长」这个变量定义创业。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"A startup is a company designed to grow fast."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做的事有没有「增长杠杆」？没有，它就是一门手艺，不是杠杆。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">创业压缩人生：几年干完一生的工作</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">创业把「正常工作 40 年的产出」压缩到 3–5 年。强度极高，但单位时间创造被放大。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「稳定」是用时间换稀释；创业是用时间换密度。怕苦的人选前者，想杠杆的人选后者。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"A startup is a way to compress your whole working life into a few years."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你犹豫「现在All in 太早」——PG 会说：压缩窗口期本身就是回报。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">书呆子不受欢迎，因他们在想更重要的事</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">校园里「受欢迎」是零和游戏；书呆子把算力投到真实问题，自然不参与那种社交定价。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「不合群」不是缺陷，是注意力配置不同。成年后，制造者重新掌握定价权。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The main reason nerds are unpopular is that they have better things to think about."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你曾因「太较真/不圆滑」被排挤——那恰是你后来认知差的源头，别改掉它。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">好品味 = 简单（Taste for Makers）</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">好设计的第一性原理是「简单」。复杂是认知偷懒，简单才是真功夫。删到不能再删。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「加功能」容易、「做减法」难。用户要的是解决，不是堆砌。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Good design is simple."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你那门女性认知课，能不能砍掉一半章节还更值钱？简单才是壁垒。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">好品味 = 永恒：不追潮流</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">潮流会过时，本质不会。好设计经得起时间——因为它贴合「人」本身，而非某一年的审美。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">追热点的人永远在追尾巴；做永恒的人一次做对、长期复用。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Good design is timeless."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做个人IP，内容是「蹭流量」还是「讲十年后仍有用的认知」？后者才沉淀。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">语言限制你能想什么（Lisp / Python 悖论）</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">工具塑造思维。用强表达力的语言（Lisp）你能想别人想不了的结构；「Python 悖论」——用冷门强语言的公司反而招到更强黑客。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">选「流行但弱」的工具是随大流；敢用「强但冷」的工具是认知溢价。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Lisp is worth learning."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你用的「思维工具/框架」是强还是弱？弱工具把你锁在低维问题里。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">先做不 scalable 的事（PG 经典文）</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">早期增长靠「手工苦活」：创始人亲自招前 100 个用户、手写回复。 scalable 的玩法等你有了量才用。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「想自动化一切」是 premature optimization。先 dirty hands，再谈杠杆。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Do things that don't scale."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你嫌「一对一服务高端客户」不 scalable——PG 说这正是你早期该做的苦活。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">找「缺失」，而非硬想点子</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">好点子不是「脑暴」出来的，是「生活在未来、发现现在还缺什么」发现的。你自己的痛点就是最强信号。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">越想「找风口」越找不到；越解决自己真实缺的东西，越容易对。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The way to get startup ideas is not to try to think of startup ideas. It's to look for things that seem to be missing."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你抱怨「高智女性没有好内容」——那你自己来造，就是点子。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">别先做宏大计划，先动手</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">计划在早期是幻觉——你根本不知道用户要什么。先做个最小东西扔出去，让现实教你。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「等我准备好了再 launch」是陷阱。v1 一定丑，发布本身就是数据。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"If you want to start a startup, don't make a plan — just get started."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你那门课打磨半年没上——发出去，市场替你改。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">看上去「显然」的点子才最好</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">最好的点子起初像「这谁想不到」——因为只对「早已生活在那个未来」的创始人显得显然。别人觉得怪，恰恰说明壁垒在。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「大家都说好」的点子通常已红海；「事后看才显然」的点子才值得做。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The best startup ideas are the ones that seem obvious in hindsight."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">别人笑你「高智女性做认知内容太显然」——显然=你已生活在那个需求里。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位会写代码的高智女性，想做一款「女性财务认知」产品。PG 会劝她「别做计划、先做个丑 v1 扔出去、亲手服务前 100 个用户（单元10/11/12）」；但桑德伯格在《向前一步》会补一刀「你得坐到桌前、找赞助人替你背书、谈条件拿走应得（席位/声音/赞助人）」；批评者（波伏瓦视角）更会说「系统本就给女性造物更低估值，你的 build 再好也可能被定价更低」。三种都对，适用阶段不同。</p>
+  <p class="verdict"><b>当裁判：</b>先 build（PG）——没有产品，席位和赞助人都无附着点；再 claim（桑德伯格）——造出来要敢拿走应得，否则白干；最后用波伏瓦的「结构觉醒」解释「为什么我的东西总被低估」，从而主动定价而非等被定价。合上书，写下你的判：你卡在「不敢动手」还是「造出来不敢要价」？再去读书 map 看「制造者/人们想要」节点怎么连，最后听延伸视听里 PG 的演讲。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">制造者：我最近一次想「等团队/等资源」才动手的是 ___</div><div class="ex">示例：那套女性认知课我想「等招到剪辑再拍」——其实手机先拍 3 条就能验证需求。</div></div>
+  <div class="row"><div class="fl">人们想要：我做的东西里，几成是「别人真想要」vs「我觉得该做」 ___</div><div class="ex">示例：我写的长文 8 成是自嗨，只有「怎么谈分成」那篇爆了——后者才是 people want。</div></div>
+  <div class="row"><div class="fl">财富/杠杆：我的产出里，几成来自「不在场也运转」的资产 ___</div><div class="ex">示例：收入仍靠顾问时长；该把认知沉淀成课程/产品，让睡眠时也增值。</div></div>
+  <div class="row"><div class="fl">品味：我上次的「简单」是真简单，还是偷懒 ___</div><div class="ex">示例：我把课砍到 6 节不是偷懒，是 PG 说的 good design is simple——反而卖得更好。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="黑客与画家认知地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <!-- 曲线连线（实线：驱动关系） -->
+  <path d="M340,235 C272,178 222,142 182,108" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C408,178 458,142 498,108" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C262,240 195,243 140,244" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C418,240 485,243 540,244" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C272,308 232,362 207,397" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C408,308 448,362 473,397" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <!-- 曲线连线（虚线：并列同源 / 制造者+人们想要 双引擎） -->
+  <path d="M212,95 C300,78 380,78 468,95" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <!-- 中心：外环 + 主圆 -->
+  <circle cx="340" cy="235" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="235" r="58" fill="#41140e"/>
+  <text x="340" y="229" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">黑客与画家</text>
+  <text x="340" y="248" fill="#ADBCC3" font-size="11" text-anchor="middle">PG</text>
+  <!-- 节点：白底细描边 -->
+  <circle cx="175" cy="105" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="175" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">制造者</text>
+  <text x="175" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">画家式编程</text>
+  <circle cx="505" cy="105" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="505" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">人们想要</text>
+  <text x="505" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">需求导向</text>
+  <circle cx="128" cy="245" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="128" y="241" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">财富</text>
+  <text x="128" y="258" fill="#7A6B60" font-size="9.5" text-anchor="middle">造物引擎</text>
+  <circle cx="552" cy="245" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="552" y="241" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">增长</text>
+  <text x="552" y="258" fill="#7A6B60" font-size="9.5" text-anchor="middle">指数放大</text>
+  <circle cx="200" cy="400" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="200" y="396" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">品味</text>
+  <text x="200" y="413" fill="#7A6B60" font-size="9.5" text-anchor="middle">简单/永恒</text>
+  <circle cx="480" cy="400" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="480" y="396" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">缺失</text>
+  <text x="480" y="413" fill="#7A6B60" font-size="9.5" text-anchor="middle">找痛点</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>黑客与画家由六条路径汇成——「制造者」（画家式编程）与「人们想要」（需求导向）是双引擎（虚线并列=都在场）；二者驱动出「财富」（造物引擎）与「增长」（指数放大）；「品味」（简单/永恒）决定造物质量、「缺失」（找痛点）决定从哪起步。<br>
+  <b>你的落点：</b>高智女性弱在「制造者」身份——有认知差却停在顾问/执行。先把「制造者+人们想要」两节点连上中心，其余自然松动。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>个体如何用代码与制造重写规则，不被雇佣关系定价、反向定价世界？</b><br>一本书只是一个人的解法。下面九位，对同一主心给出九种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">Paul Graham ·《黑客与画家》</div><div class="view">制造者心态：做出人们想要的、用增长放大，逃离「卖时间」的雇佣定价，反向定价自己。Build &gt; 执行。</div></div>
+    <div class="spec"><div class="who">纳瓦尔 ·《纳瓦尔宝典》</div><div class="view">零边际成本杠杆：代码/媒体让普通人平等放大自己。PG 的「制造」正是 Naval 说的杠杆本体。</div></div>
+    <div class="spec"><div class="who">彼得·蒂尔 ·《从0到1》</div><div class="view">垄断式创造：从 0 到 1 做别人没做过的，而非红海竞争。PG 的「造物」到蒂尔这儿升级成「独占」。</div></div>
+    <div class="spec"><div class="who">马克·安德森 · a16z</div><div class="view">软件吞噬世界：每个行业都被软件重写。PG 的「制造者」在安德森这儿变成「全行业重做一遍」。</div></div>
+    <div class="spec"><div class="who">马斯克 · 传记</div><div class="view">第一性原理+工程杠杆：用物理还原真成本再猛干。PG 的「造物」到马斯克是「造火箭/车」的极端版。</div></div>
+    <div class="spec"><div class="who">卡戴珊 · 品牌案例</div><div class="view">人设即资产：把「注意力」做成可交易杠杆。和 PG 的「代码杠杆」同源——都是 permissionless leverage。</div></div>
+    <div class="spec"><div class="who">波伏瓦 ·《第二性》</div><div class="view">结构觉醒：女性造物常被更低估值。先看清「单价机制」从哪来，才谈得上反向定价。</div></div>
+    <div class="spec"><div class="who">邓文迪 · 人物案例</div><div class="view">关系杠杆：用关键人际反向定价自己。PG 走「造物」线，邓文迪走「关系」线，殊途同归。</div></div>
+    <div class="spec"><div class="who">塔勒布 ·《反脆弱》</div><div class="view">在随机里受益：小步试错（PG 的 ugly v1）正是反脆弱的做法——用低成本失败换高收益命中。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>PG（造物逃离雇佣）↔ 蒂尔（独占红海外）；纳瓦尔（杠杆）↔ 卡戴珊（人设）；安德森（行业重写）↔ 马斯克（硬科技）；波伏瓦（看清结构）↔ 塔勒布（扛波动）。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的解法站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=Paul%20Graham%20Hackers%20and%20Painters" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/09</div>
+    <div class="mt">Paul Graham 演讲（黑客与画家）</div>
+    <div class="md">听 PG 真人讲「黑客即制造者」，回看单元 01/09。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6%20%E8%A7%A3%E8%AF%BB" target="_blank" rel="noopener">
+    <div class="mk">书/深读 · 印证单元 03/07</div>
+    <div class="mt">《黑客与画家》解读 / 精读</div>
+    <div class="md">读完精读卡再来啃原书，对应财富定义与好品味。</div>
+    <div class="go">点击打开解读</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=Y%20Combinator%20Paul%20Graham%20startup%20advice" target="_blank" rel="noopener">
+    <div class="mk">播客/视频 · 补单元 04/10</div>
+    <div class="mt">YC Startup Advice（PG）</div>
+    <div class="md">听他讲「先动手、做不 scalable 的苦活」，给你的裁判案子找素材。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E4%BB%8E0%E5%88%B01%20%E8%92%82%E5%B0%94" target="_blank" rel="noopener">
+    <div class="mk">书/交叉 · 补冲突现场</div>
+    <div class="mt">《从0到1》彼得·蒂尔</div>
+    <div class="md">PG 的「造物」到蒂尔升级成「垄断式创造」，对照读冲突现场。</div>
+    <div class="go">点击打开书评</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（黑客与画家 / Paul Graham）— 精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线硅谷新派书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="高盛帝国-埃利斯.html"><div class="pn-label">← 上一篇</div><div class="pn-title">高盛帝国 埃利斯</div></a><a class="pn-next" href="奥尔特曼-Altman.html"><div class="pn-label">下一篇 →</div><div class="pn-title">奥尔特曼 Altman</div></a></nav>
+</body>
+</html>

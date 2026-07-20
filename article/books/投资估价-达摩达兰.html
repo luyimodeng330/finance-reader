@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>估值 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+/* 定位行 */
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+/* 读前 */
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+/* 单元 */
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+/* 冲突 */
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+/* 落到自己 */
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+/* map */
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+/* 媒体 */
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+/* 宏观光谱 */
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>估值：给商业故事标一个价</h1>
+<div class="byline">阿斯沃斯·达摩达兰（Aswath Damodaran）/ 纽约大学斯特恩商学院「估值教父」著</div>
+<p class="lead">估值不是算数，是给一个商业故事定一个合理的价。本卡是「估值与并购实务书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架① · 估值与并购实务</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">微观SVG概念网 + 宏观光谱</span>
+  <span class="tag">对接 A 线认知 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">本书架四本书里，罗森鲍姆 &amp; 珀尔给你「估值怎么做」的操作手册、门口的野蛮人给你「一笔交易怎么被抢」的戏剧、并购之王给你「卖家怎么卖最值」的谈判术——而达摩达兰独有序增量是<b>估值的第一性原理</b>：先有故事，后有数字；先问「这家公司凭什么值钱」，再谈倍数与折现。另外三本是「术」，他是「道」。读他，你才不会被任何模型牵着鼻子走。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是不会算 DCF，你是算完也不敢信。问题不在公式，在你还没想清楚这家公司「凭什么值钱」的故事。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你最近一次给公司或项目定价，是先写商业故事、还是先开 Excel？如果数字在前、故事在后——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">估值是故事先行，数字其后</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">估值=给商业故事定价。先有「公司凭什么赚钱、能持续多久」的叙事，再把它翻译成现金流与倍数；无故事的数字是空壳。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">多数人的错误是反的——先拉 Excel、再补故事。模型越花哨，离真实价值越远。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"A good valuation is a bridge between stories and numbers."（好的估值，是故事与数字之间的一座桥。）</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你给被投企业估值，先逼创始人用一页纸讲清「凭什么值钱」，再碰模型。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">估值的三种语言：内在、相对、期权</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">给东西定价只有两条路——估它自己未来能生多少现金流（内在 / DCF），或看别人给同类付了多少（相对 / 倍数）；某些情形还要用期权思路。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">不存在「唯一正确价」。不同语言给不同价，区间比点位更有用。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"To put a number on something, you can do one of two things, either you estimate the cash flows... or you look at what other people are paying for similar businesses."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你尽调一家 SaaS，用 DCF 估内在、用 comps 看市场，两者差一倍——这正是市场给你的信息。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">内在估值：现金流折现的骨架</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">公司价值=未来现金流按风险折现的现值。四大输入：现金流、增长率、存续期、折现率。模型只是这四件事的容器。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">抓手不是「模型对不对」，是四大输入的假设合不合理。垃圾进，垃圾出。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"There's a big difference between building an Excel model and valuing a company."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你搭 DCF，别炫函数，先把「增长率从哪来、为什么这个 WACC」讲圆。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">相对估值：倍数背后是可比假设</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">市盈率 / EV/EBITDA 本质是「市场给同类付的价 × 我的可比性」。倍数只有可比才有意义。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">低 PE 不等于便宜——可能是增长差、风险高、会计丑。倍数要配故事解读，不能裸看。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Great growth companies can be bad investments at the wrong price."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你看到同行 8 倍 EBITDA 想抄，先问：规模、增速、负债，真的可比吗？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">增长不是免费的</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">增长要再投资（资本开支、营运资金、并购）。高增长公司价值多来自「未来投资」，这些投资要现在花钱。增长越多，当期自由现金流越被吃掉。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">增长常被当成纯加分项。真相：无回报的增长在毁灭价值，增长有「质量」之分。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Growth requires reinvestment."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你给高速扩张的被投企业估值，别把营收增长直接当价值，要看增长靠多少再投资堆出来。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">终值常是估值的全部</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">DCF 里终值（terminal value）往往占价值的 60–80%。对远期假设的微小改动，能掀翻整张表。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为在精算前十年，其实价值大半由「第十年之后的永远」决定。确定性最低的部分，权重最高。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：终值不是「收尾」，是估值的主体——敏感性分析应重点压在它上。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做长期资产估值，把敏感性分析重点放在终值假设上，而非第一年现金流。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">折现率：风险由边际投资者定</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">折现率反映风险。风险由「边际投资者」（决定价格的多数人）感知，而非你个人的风险偏好。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">估值不是按「我觉得多险」打折，是按市场给这家资产定的风险定价。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"All valuations are biased."（所有估值都有偏。）——因为假设本就带主观。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你给跨境资产估值，别用自己国家的无风险利率套，用当地边际投资者的视角。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">市场不总是对，但常常比我们少错</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">市场非完全有效，但多数时候比单个投资者的判断「少错」。价格是锚，不是敌人。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">估值师的傲慢——以为自己比市场聪明。多数主动估值跑不赢市场共识。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Success in investing comes not from being right but from being wrong less often than everyone else."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的估值和市场价差 40%，先假设自己可能错了，再找市场没看见的信息。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">新兴市场 / 小公司：用风险溢价补折扣</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">国别风险、规模风险要用额外溢价计入折现率或现金流，而不是假装没有。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「新兴市场折价」不是歧视，是对真实制度 / 货币风险的定价。忽略它才是冒险。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：风险要显性计价，不能抹掉——把国别与规模风险量化进模型，而非视而不见。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你投东南亚初创，别直接套美股倍数，把汇率与政策风险量化进模型。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">年轻公司 / 初创：故事权重大于数字</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">初创无历史现金流，估值几乎全靠「未来故事」+ 期权思维（成功概率 × 上行）。数字在此退居二线。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">给初创 DCF 是伪科学。它的价值在「如果成了值多少」×「成的概率」。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Falling in love with your own story is always a problem for investors..."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你评估一个天使项目，用情景法（成 / 平 / 败）而非硬 DCF，并给「成」的概率留证据。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">银行 / 资源型：不能用普通 DCF</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">高杠杆金融机构、资源型公司，普通股权自由现金流模型失效，要用调整口径（如权益现金流、商品价情景）。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">一套 DCF 通吃所有行业是误区。行业结构决定该用哪套语言。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：先分行业，再选模型——估值语言必须匹配行业结构。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你估值一家城商行，别用经营性 DCF，改用权益现金流 + 坏账情景。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">估值是判断，不是精确</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">估值给的是区间与方向，不是精确点位。追求「精确错误」不如「模糊正确」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">小数点后两位的估值最危险——它假装确定性，实则掩盖假设。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Valuation is simple, but not easy."（估值很简单，但不容易。）</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你给董事会汇报，给区间 + 关键假设，而非一个假装精确的单价。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">别爱上自己的故事</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">投资者最大陷阱是「爱上自己的叙事」，无视反面证据。估值要保持可证伪，常换参照系。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">越自信的估值越该警惕。确认偏误让好模型产出坏决策。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Falling in love with your own story is always a problem for investors… My advice is to hang out less with people who think just like you."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你重仓一个看好的赛道，主动找反方报告，别只听认同你的合伙人。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一家年利润稳增的消费公司，达摩达兰用 DCF 算出内在价值 120 亿，市场当前市值仅 80 亿；而罗森鲍姆 &amp; 珀尔式的「可比公司 + 先例交易」显示市场价就是合理区间。达摩达兰说「市场错了，这是便宜货」；操作派说「市场价就是价，别和盘面较劲」。</p>
+  <p class="verdict"><b>当裁判：</b>看两点——①你有没有市场没看见的信息（独家渠道、未披露订单）？有，则信内在值；没有，则先信市场。②你的钱能等多久？内在价值回归可能要三年。合上书，写下你的判，再去读书 map 看「内在估值 / 相对估值」两个节点怎么连，最后听延伸视听里达摩达兰自己怎么和市场较劲。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">故事先行：我下次给项目定价，会先写的商业故事是 ___</div><div class="ex">示例：我最近看一个 AI 客服项目，先逼团队写清「凭什么比人工便宜且更准」，再开模型——之前是直接拉 PE 抄同行。</div></div>
+  <div class="row"><div class="fl">增长质量：我曾把 ___ 的增长当成纯加分，其实它靠 ___ 堆出来</div><div class="ex">示例：一家被投公司营收年增 60%，但自由现金流为负、全靠融资续命——那是「烧钱增长」，不是价值。</div></div>
+  <div class="row"><div class="fl">区间而非点位：我过去最常犯的错误是把估值当 ___，应改成 ___</div><div class="ex">示例：给董事会报「目标价 18 元」，应改成「12–22 元区间，核心看增长持续性」。</div></div>
+  <div class="row"><div class="fl">别爱上故事：我目前最该找反方证据的投资判断是 ___</div><div class="ex">示例：我对「算力租赁」赛道重仓且只听多头，应主动读空方关于产能过剩的报告。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="估值认知地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <!-- 曲线连线（实线：驱动关系） -->
+  <path d="M340,235 C272,178 222,142 162,118" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C408,178 458,142 518,118" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C262,240 195,243 152,250" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C418,240 485,243 528,250" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C272,300 232,358 192,392" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C408,300 448,358 488,392" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <!-- 曲线连线（虚线：并列同源） -->
+  <path d="M188,98 C300,80 380,80 492,98" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M210,415 C310,430 370,430 470,415" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M188,250 C300,262 380,262 492,250" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <!-- 中心：外环 + 主圆 -->
+  <circle cx="340" cy="235" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="235" r="58" fill="#41140e"/>
+  <text x="340" y="229" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">估值</text>
+  <text x="340" y="248" fill="#ADBCC3" font-size="11" text-anchor="middle">Valuation</text>
+  <!-- 节点：白底细描边 -->
+  <circle cx="150" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">商业故事</text>
+  <text x="150" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">叙事先行</text>
+  <circle cx="530" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="530" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">相对估值</text>
+  <text x="530" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">倍数 / comps</text>
+  <circle cx="140" cy="250" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="140" y="246" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">内在估值</text>
+  <text x="140" y="263" fill="#7A6B60" font-size="9.5" text-anchor="middle">DCF 折现</text>
+  <circle cx="540" cy="250" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="246" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">增长再投资</text>
+  <text x="540" y="263" fill="#7A6B60" font-size="9.5" text-anchor="middle">非免费</text>
+  <circle cx="180" cy="400" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="180" y="396" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">折现率</text>
+  <text x="180" y="413" fill="#7A6B60" font-size="9.5" text-anchor="middle">风险定价</text>
+  <circle cx="500" cy="400" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="500" y="396" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">市场价</text>
+  <text x="500" y="413" fill="#7A6B60" font-size="9.5" text-anchor="middle">锚 / 少错</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>估值由「商业故事」驱动，向外分化为两条定价语言——「内在估值」（DCF，连着增长再投资与折现率）与「相对估值」（倍数，连着市场价这个锚）。两条都要讲得圆，缺一都是空壳。<br>
+  <b>你的落点：</b>多数高智女性在估值上弱在「先写故事」——有判断却直接开 Excel。回单元 01/02 补链，再用单元 12 的区间思维收口。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>一门生意 / 一笔交易，到底值多少钱、怎么被定价？</b><br>一本书只是一个人的解法。下面八位作者 / 案例，对同一主心给出八种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">达摩达兰 ·《估值》</div><div class="view">故事先行、区间估值、别爱上模型。价是「商业故事 + 现金流折现」算出的内在，不是单点精确数。</div></div>
+    <div class="spec"><div class="who">罗森鲍姆 &amp; 珀尔 ·《投资银行》</div><div class="view">操作派：可比公司 + 先例交易画成「足球场区间」，市场共识即合理价。价是可比出来的。</div></div>
+    <div class="spec"><div class="who">门口的野蛮人 · KKR</div><div class="view">一笔交易的价值由「谁能撬动杠杆、谁出价高」决定，价在竞价博弈里生成，不是算出的。</div></div>
+    <div class="spec"><div class="who">罗伯茨 ·《并购之王》</div><div class="view">卖家视角：价值 = 你能用流程与谈判逼出的最高净到手价。同样的公司，卖法不同价差千万。</div></div>
+    <div class="spec"><div class="who">巴菲特 / 格雷厄姆</div><div class="view">安全边际：价值是内在，价是市场先生给的折扣。买在显著低于内在处，不追市场共识。</div></div>
+    <div class="spec"><div class="who">塔勒布 ·《反脆弱》</div><div class="view">你估的「精确值」在尾部风险前不堪一击。给估值留反脆弱冗余，别被一个点位骗死。</div></div>
+    <div class="spec"><div class="who">有效市场派 · 市场先生</div><div class="view">价格永远对，别和盘面较劲。价已包含所有公开信息，主动估值多是徒劳。</div></div>
+    <div class="spec"><div class="who">索罗斯 · 反身性</div><div class="view">价格反作用于基本面，估值与被估者互相塑造。价不是被发现，是被交易创造。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>达摩达兰（算内在）↔ 市场先生（价即真理）；罗森鲍姆（可比区间）↔ 索罗斯（价被创造）；KKR（博弈定价）↔ 罗伯茨（卖方逼价）↔ 巴菲特（折扣买入）。<b>没有谁对，只有哪句戳中你此刻的定价处境。</b>合上卡，写下：我的定价逻辑站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E8%BE%BE%E6%91%A9%E8%BE%BE%E5%85%B0%20%E4%BC%B0%E5%80%BC%20%E8%AF%BE%E7%A8%8B" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/03</div>
+    <div class="mt">达摩达兰 NYU 估值课</div>
+    <div class="md">听本人讲「故事先行、DCF 骨架」，回看单元 01/03。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E8%BE%BE%E6%91%A9%E8%BE%BE%E5%85%B0%20%E6%95%85%E4%BA%8B%20%E6%95%B0%E5%AD%97%20%E6%BC%94%E8%AE%B2" target="_blank" rel="noopener">
+    <div class="mk">演讲 · 补冲突现场</div>
+    <div class="mt">Narrative and Numbers 演讲</div>
+    <div class="md">听他怎么把「故事与数字」连成桥，给你的裁判案子找素材。</div>
+    <div class="go">点击打开演讲</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=DCF%20%E4%BC%B0%E5%80%BC%20%E6%A8%A1%E5%9E%8B%20%E6%95%99%E7%A8%8B" target="_blank" rel="noopener">
+    <div class="mk">教程 · 深读单元 03/06</div>
+    <div class="mt">DCF 估值模型实操</div>
+    <div class="md">把单元 03 的骨架落成可动手的表，读完精读卡再来啃。</div>
+    <div class="go">点击打开教程</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E7%9B%B8%E5%AF%B9%E4%BC%B0%E5%80%BC%20%E5%8F%AF%E6%AF%94%E5%85%AC%E5%8F%B8%20%E5%80%8D%E6%95%B0" target="_blank" rel="noopener">
+    <div class="mk">教程 · 补单元 04/10</div>
+    <div class="mt">相对估值与倍数方法</div>
+    <div class="md">可比公司、先例交易怎么拉，对应单元 04 与初创估值。</div>
+    <div class="go">点击打开教程</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（估值-达摩达兰）— 精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线思维模型书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="战胜华尔街-林奇.html"><div class="pn-label">← 上一篇</div><div class="pn-title">战胜华尔街 林奇</div></a><a class="pn-next" href="投资银行-罗森鲍姆.html"><div class="pn-label">下一篇 →</div><div class="pn-title">投资银行 罗森鲍姆</div></a></nav>
+</body>
+</html>

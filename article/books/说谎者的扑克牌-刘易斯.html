@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>说谎者的扑克牌 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>说谎者的扑克牌：所罗门兄弟与 80 年代债市权力游戏</h1>
+<div class="byline">迈克尔·刘易斯 Michael Lewis 著 / 所罗门兄弟亲历记 · 权力下沉到交易员个体</div>
+<p class="lead">关于「资本权力如何从合伙人下沉到交易员个体、信息差即权力」的第一性原理。本卡是「资本人物馆·资本认知与权力游戏书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。主心：资本不只是钱，是权力、信息与游戏规则的设计权。</p>
+<div class="tags">
+  <span class="tag">书架④ · 资本认知与权力游戏</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">权力对照：摩根 / 高盛 / 索罗斯</span>
+  <span class="tag">对接 A 线女性财富 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书与公开史料；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？《摩根财团》给你「银行家个人即权力」、《高盛帝国》给你「合伙文化即护城河」——而 Lewis 的《说谎者的扑克牌》独有序增量是三点：<b>①它把「80 年代债券狂潮里，权力如何从小合伙人下沉到交易员个体」写透了</b>（Big Swinging Dick）；<b>②它记录「金融创新（MBS 房贷证券化）如何造富又造祸」</b>——拉涅里的发明二十年后成次贷导火索；<b>③它是第一人称亲历</b>——名校生进所罗门，看见权力游戏的荒诞与规则是交易员写的。这本书不可替代，是因为它专门回答「信息差 + 胆量 = 谁有说话权」这个其他书绕开的盲点。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺「怎么看懂金融」，你缺的是「看清权力怎么从老板下沉到你这种个体、信息差怎么变成你的说话权」。这本书把交易台的权力逻辑一次讲透。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你在你的链条里，是「早知道」还是「后知道」？你靠「赚快」还是「养久」？前者低——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">所罗门兄弟：债券帝国的崛起</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">二战后公司债兴起 → 所罗门成债券之王 → 交易台权力崛起，压过发债的银行。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">权力中心从「生产方（银行）」转移到「交易方（买卖台）」。谁经手流动，谁说话。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）所罗门 = 债市里的「庄家」，定价权在它手里。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你行业权力正从「生产」流向「交易」吗？你在哪一端？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">培训地狱：41 层的筛选</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">新人进所罗门先受训（数字、背债券）→ 淘汰制锻造「自己人」→ 文化先于能力。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最狠的权力，先筛掉「不像我们的人」。入会仪式，就是权力门槛。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）41 层 = 所罗门的「权力洗礼间」。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的圈子的「入会仪式」是什么？筛得越狠，圈子越有权力。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">大波动者（BSD）：交易员的权力图腾</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">能赚大钱的交易员叫 "Big Swinging Dick" → 钱 = 地位 = 话事权。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">在所罗门，赚得最多的人话最多。权力不按职级，按盈亏。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）Lewis 记下俚语 "Big Swinging Dick"——权力以生殖器隐喻被量化。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你圈里「谁赚钱谁说了算」吗？盈亏，是不是你的话语权标尺？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">说谎者的扑克牌：权力的游戏</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">高管用美钞序列号玩赌局 → 古特弗罗伊德与梅里韦瑟豪赌 100 万美元 → 游戏即权力表演。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">真权力不靠 KPI，靠「敢不敢玩大的」。敢下注，才被当成玩家。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）Gutfreund 与 Meriwether 的 100 万美元 liar's poker 豪赌——权力的即兴剧场。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你们的「权力的游戏」是什么？敢在关键局下重注吗？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">房贷证券化（MBS）：金融创新的权力</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">刘易斯·拉涅里把房贷打包成债券 → 创造新资产类别 → 重塑资本流向。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">一个「打包」动作，造出万亿市场。创新，就是凭空造权力的能力。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）"Wall Street's invention"——拉涅里把死房贷打成活流动性。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你能把「死资产」打成「活流动性」吗？打包，是一门造权手艺。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">信息差即权力：交易台的秘密</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">交易员比客户早知道价格变动 → 信息差 = 利润 = 权力。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">在所罗门，权力 = 知道别人不知道的。信息差，才是最硬的杠杆。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）交易台的核心资产，是「比别人早一秒」。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你在链条里是「早知道」还是「后知道」？慢一步，就给别人当燃料。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">古特弗罗伊德：最后的国王</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">John Gutfreund 掌权 → 「华尔街之王」→ 个人权威鼎盛，也成单点风险。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">帝国权力最终系于一人，也随一人崩。强人是护城河，也是裂缝。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）"King of Wall Street"——一个人的名字等于一家机构的王冠。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的「国王」是谁？他退了，系统还能转吗？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">梅里韦瑟与套利：量化权力</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">Meriwether 带量化团队做套利 → 用数学抢信息差 → 权力变「算法」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">权力从「胆大」变「算得准」。靠直觉抢先机，正被模型取代。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）套利 = 用公式把信息差变现。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你靠直觉还是靠模型抢先机？前者有上限，后者可复制。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">文化崩坏：傲慢即风险</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">所罗门极度傲慢（"we're a very arrogant firm"）→ 为利润踩线 → 最终丑闻。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最有权的人，最先越界。傲慢不是自信，是风险的温床。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"We're a very arrogant firm."（所罗门内部自嘲式文化写照）</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你越成功越端还是越飘？一次「我们最懂」的自信，踩了合规线。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">1987 与分拆：权力的消散</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">市场变、丑闻出 → 所罗门被吞并 → 昔日王者散场。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">没有永远的交易台权力。今天的铁王座，保质期有限。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）所罗门的结局：权力结构终被新结构取代。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你今天的「铁王座」，保质期多久？为下一浪留了船吗？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">名校光环：入场券即权力</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">Lewis 是普林斯顿 / 伦敦政经 → 名校是进圈的门票 → 圈子即权力。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">学历不是能力，是「被信任的凭证」。门票，决定你能不能上桌。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）名校 = 一张被预支的信任支票。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的「门票」是什么？头衔、学历，还是真本事？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">金融创新的双刃：MBS 埋下次贷</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">拉涅里的发明，二十年后成次贷危机导火索 → 创新权力反噬。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你造的「好工具」，可能成别人的「炸弹」。权力越大，反噬越狠。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）证券化是把双刃剑：解放流动性，也埋下系统性风险。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的创新，有没有埋雷？便利客户的工具，会不会被滥用？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">什么都不会永远：历史的教训</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">Lewis 结尾点明 "nothing lasts" → 所有权力结构终被新结构取代。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你现在站在浪潮顶，也终会被拍下。没有永恒的赢家，只有持续的转身。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）"Nothing lasts."——所罗门兄弟留给市场最冷静的墓志铭。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你为「下一场浪潮」留了船吗？还是死守正在退潮的牌桌？</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>所罗门信奉「交易员个人英雄主义」——明星交易员赚快钱、话事权最大；高盛信奉「合伙文化共担」——靠制度与声誉活长久。一位高净值女性掌舵的精品投行，正面临「押明星交易员冲规模」还是「建合伙文化守长久」的抉择。</p>
+  <p class="verdict"><b>当裁判：</b>短跑所罗门赢（个人英雄冲得快），长跑高盛赢（制度活更久）。你的判不在二选一，而在：明星能带来爆发，却也带来单点风险与傲慢越界。合上书，写下你的判，再去读书 map 看「交易台权力 / 傲慢风险」节点怎么连，最后听延伸视听里《大空头》对这段历史的改编。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念 → 我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">信息差权力：我在链条里早知道还是后知道？</div><div class="ex">示例：你总比客户晚一步知道政策，永远被动——把「早一秒」做成你的杠杆。</div></div>
+  <div class="row"><div class="fl">交易台心态：我靠「赚快」还是「养久」？</div><div class="ex">示例：你爱做一波流交易，难沉淀客户关系——快钱爽，久钱稳。</div></div>
+  <div class="row"><div class="fl">傲慢风险：我越成功越端还是越飘？</div><div class="ex">示例：一次「我们最懂」的自信，踩了合规线——傲慢是权力的反噬。</div></div>
+  <div class="row"><div class="fl">入场门票：我的圈子凭证是什么？</div><div class="ex">示例：你靠名校 / 头衔进圈，还是靠真本事被留？门票会过期，本事不会。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="说谎者的扑克牌概念地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <path d="M340,238 C 250,180 180,140 140,110" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 430,180 500,140 540,110" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 250,250 170,275 110,290" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 430,250 510,275 570,290" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 280,320 240,370 200,410" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 400,320 440,370 480,410" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <circle cx="340" cy="238" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="238" r="58" fill="#41140e"/>
+  <text x="340" y="232" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">信息差即权力</text>
+  <text x="340" y="251" fill="#ADBCC3" font-size="11" text-anchor="middle">所罗门</text>
+  <circle cx="140" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="140" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">交易台权力</text>
+  <text x="140" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">谁经手谁说话</text>
+  <circle cx="540" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">BSD 图腾</text>
+  <text x="540" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">赚最多话最多</text>
+  <circle cx="110" cy="290" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="110" y="286" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">说谎者游戏</text>
+  <text x="110" y="303" fill="#7A6B60" font-size="9.5" text-anchor="middle">敢下重注</text>
+  <circle cx="570" cy="290" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="570" y="286" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">MBS 创新</text>
+  <text x="570" y="303" fill="#7A6B60" font-size="9.5" text-anchor="middle">打包造权</text>
+  <circle cx="200" cy="410" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="200" y="406" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">傲慢风险</text>
+  <text x="200" y="423" fill="#7A6B60" font-size="9.5" text-anchor="middle">越界反噬</text>
+  <circle cx="480" cy="410" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="480" y="406" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">名校门票</text>
+  <text x="480" y="423" fill="#7A6B60" font-size="9.5" text-anchor="middle">信任凭证</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>所罗门的「信息差即权力」由五条线汇成——以 <b>交易台权力</b>（谁经手谁说话）为底座，靠 <b>BSD 图腾</b>（赚最多话最多）立标杆，用 <b>说谎者游戏</b>（敢下重注）表演权力，向外伸到 <b>MBS 创新</b>（打包造权）与 <b>名校门票</b>（信任凭证），但终被 <b>傲慢风险</b>（越界反噬）拖垮。<br>
+  <b>你的落点：</b>多数高净值女性弱在「交易台权力」——有信息却不敢下重注。回单元 04/06 补链。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>资本不只是钱，是权力、信息与游戏规则的设计权。</b><br>一本书只是一个人的解法。下面九位，对同一主心给出九种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">刘易斯 ·《说谎者的扑克牌》</div><div class="view">权力下沉到交易员个体：信息差 + 胆量 = 交易台的说话权。</div></div>
+    <div class="spec"><div class="who">摩根 ·《摩根财团》</div><div class="view">旧式银行家权威的对照：人即权力，但系于一人。</div></div>
+    <div class="spec"><div class="who">高盛 · 埃利斯</div><div class="view">合伙文化护权力：制度与声誉，比个人英雄活更久。</div></div>
+    <div class="spec"><div class="who">索罗斯 ·《金融炼金术》</div><div class="view">个体投机者撼动国家：用资本改规则，比交易员更猛。</div></div>
+    <div class="spec"><div class="who">巴菲特 ·《滚雪球》</div><div class="view">长期资本权力：用时间换「被永远需要」的治理权。</div></div>
+    <div class="spec"><div class="who">罗斯柴尔德 · 弗格森</div><div class="view">家族信息网络：信息差即统治力，但靠血缘传承。</div></div>
+    <div class="spec"><div class="who">兰小欢 ·《置身事内》</div><div class="view">国家是最终规则设计者：交易员的游戏，活在制度框架里。</div></div>
+    <div class="spec"><div class="who">邓文迪 · 人物案例</div><div class="view">关系杠杆接近权力：把「靠近权力」做成跃迁的桥。</div></div>
+    <div class="spec"><div class="who">塔勒布 ·《反脆弱》</div><div class="view">在随机中获益：不让波动收割你，让不确定性为你工作。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>刘易斯（个体交易员，信息差）↔ 高盛（合伙文化，制度）；摩根（人即权力）↔ 索罗斯（资本改国家）；巴菲特（时间换治理）↔ 罗斯柴尔德（信息网）；兰小欢（国家规则）↔ 邓文迪（关系杠杆）。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的位置在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=说谎者的扑克牌+解读+迈克尔刘易斯" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/03</div>
+    <div class="mt">《说谎者的扑克牌》精读解读</div>
+    <div class="md">先把「交易台权力」与 BSD 图腾听真人讲一遍，回看单元 01/03。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=所罗门兄弟+债券+华尔街+历史" target="_blank" rel="noopener">
+    <div class="mk">纪录 · 补单元 07/10</div>
+    <div class="mt">所罗门兄弟与 80 年代债市</div>
+    <div class="md">看「华尔街之王」怎么崛起又散场，给你的裁判案子找素材。</div>
+    <div class="go">点击打开纪录</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=大空头+电影+改编+次贷" target="_blank" rel="noopener">
+    <div class="mk">电影 · 补单元 12 对照</div>
+    <div class="mt">《大空头》与次贷危机</div>
+    <div class="md">MBS 创新如何埋雷、二十年後引爆，读完精读卡再来啃。</div>
+    <div class="go">点击打开电影</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=房贷证券化+MBS+次贷+科普" target="_blank" rel="noopener">
+    <div class="mk">科普 · 深读单元 05</div>
+    <div class="mt">房贷证券化 MBS 是怎么运作的</div>
+    <div class="md">把书里的「打包造权」翻译成今天的金融工具。</div>
+    <div class="go">点击打开科普</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（书架④ 资本认知与权力游戏）— 刘易斯《说谎者的扑克牌》精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线资本权力书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="范德比尔特-彻诺.html"><div class="pn-label">← 上一篇</div><div class="pn-title">范德比尔特 彻诺</div></a><a class="pn-next" href="金融炼金术-索罗斯.html"><div class="pn-label">下一篇 →</div><div class="pn-title">金融炼金术 索罗斯</div></a></nav>
+</body>
+</html>

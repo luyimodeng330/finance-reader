@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>纳瓦尔宝典 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+/* 定位行 */
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+/* 读前 */
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+/* 单元 */
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+/* 冲突 */
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+/* 落到自己 */
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+/* map */
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+/* 媒体 */
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+/* 宏观光谱 */
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>纳瓦尔宝典：财富与幸福指南</h1>
+<div class="byline">埃里克·乔根森 编 / 纳瓦尔·拉维坎特 原著 · 硅谷天使投资人智慧合集</div>
+<p class="lead">关于财富与幸福的"第一性原理"。本卡是「资本人物馆·思维模型书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架⑤ · 价值投资与思维模型</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">媒体延伸：博客 · 播客 · 视频</span>
+  <span class="tag">对接 A 线认知 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+<div class="position">为什么单读这本？穷查理给你「多元思维」、段永平给你「本分价值投资」——而 Naval 独有序增量是两点：<b>①零边际成本杠杆视角</b>（代码/媒体让普通人第一次平等放大自己）；<b>②幸福与财富彻底解耦</b>（钱填不满欲望的坑）。这本书不可替代，是因为它把"怎么不卖时间赚钱"和"怎么不为钱焦虑"并成一套操作系统。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺"怎么赚钱"的方法，你缺的是"怎么不卖时间也能赚钱"的框架，以及"赚了钱为什么还焦虑"的答案。这本书一次性给两套。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你的总收入里，几成来自"你不在场也运转"的资产？又有多少次，钱多了但焦虑没少？两个数字都低——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">财富 ≠ 金钱，是"睡着也为你工作"的资产</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">金钱是交换媒介（存储）→ 财富是能自动增值的资产组合（引擎）。追求余额是囤积，追求资产是造引擎。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">高薪打工者可能"穷"（无资产），低调收租者才"富"。时薪是陷阱，不是阶梯。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Wealth is having assets that earn while you sleep."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你已财务自由，但收入仍靠"在场的决策/站台"。问：哪些能变股权/内容沉淀？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">杠杆分三种：人力、资本、零边际成本</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">产出=能力×杠杆。人力（管人）、资本（用钱）、零边际成本（代码/媒体）是放大产出的三种力。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最古老两种杠杆（人力/资本）需要别人授权，普通人被挡在门外；第三种不用。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Give me a lever and a place to stand…"</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你有人脉（人力）和资金（资本），但没用"内容杠杆"——一次表达万人看，你值得做。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">零边际成本杠杆是普通人唯一公平的杠杆</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">代码/媒体写一次、复制无限次、成本趋零 → 边际产出不随规模衰减，无需层级授权。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">"不靠资源"反而最公平：一个无团队无融资的人，靠开源库/播客放大了自己。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Code and media are permissionless leverage."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做口播/小红书就是在用这杠杆。但"有账号"≠"有杠杆"，要看是否产出特定知识。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">特定知识：无法被培训、只能自学的认知交集</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">学校教通用知识（可替代）→ 特定知识是你多领域拼接出的独门认知，无法外包、无法培训。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">"努力补短板"是错的。溢价来自长板的交集，不是短板的及格。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Specific knowledge is found by pursuing your genuine curiosity."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你"战略+券商+创业"的交集就是特定知识。把它变成可传播内容，才是杠杆。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">承担责任：以个人名义扛风险，杠杆才放大你</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">杠杆放大产出，但风险也放大。愿以真名承担失败的人，才配得上杠杆的回报。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">躲在机构背后的人拿不到杠杆红利。署名权=责任=杠杆入口。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Escape competition through authenticity."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做个人IP就是"署名担责"。这正是你的杠杆，别缩回机构壳里。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">复利：不只是钱，是信任、声誉、知识、关系</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">金融复利只是特例。信任/声誉/关系的复利曲线前平后陡，是更值钱的资产。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">一次坑人买卖赚的快钱，会永久损伤一条指数级曲线。短视极贵。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Long-term games are infinite games."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你服务的高管圈，声誉就是复利。一次泄密/背刺，曲线归零。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">长期主义与正和游戏</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">零和博弈里长期主义被收割；正和博弈里长期主义吃复利。选对牌桌比努力重要。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">"长期"不是忍，是识别哪些局值得长久玩。错局里坚持是自杀。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Play long-term games with long-term people."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的客户关系是长期正和局。别为单笔佣金破坏它。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">玩抽象游戏：边际产出差异拉开人与人</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">体力劳动者边际产出封顶；律师/程序员一份智力产出可服务万人 → 抽象层级的游戏回报无上限。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">不是"更努力"，是"升维到更抽象的游戏"。同一小时，层级不同价值千倍。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Sales and programming are the two canonical professions."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做"认知差"产品就是升维。别退回卖时间的咨询。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">判断力的杠杆：一个对判断顶百次努力</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">在杠杆时代，方向错则放大错误。清晰判断（选什么不做）是最高杠杆。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">努力是廉价的，判断是稀缺的。省下的"不做"比多做的更值钱。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The most important skill is the ability to make decisions."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你给客户做"不做什么"的建议，价值高过"做什么"。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">幸福 = 对当下无对抗</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">痛苦来自"现实≠期望"的对抗。幸福是降低对抗（调期望或调现实），与财富无必然联系。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">钱能改现实，改不了"还想要"的惯性。很多富人焦虑换壳不减。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Happiness is a state of peace."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你目标50kg/财富自由——达成后仍焦虑，说明坑在欲望不在指标。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">欲望是痛苦之源：降低期望是主动训练</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">期望每升一级，幸福门槛抬高一级。主动管理期望，是可控的幸福杠杆。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">"降低期望"不是认命，是夺回对情绪的主权。强者才降期望。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Desire is a contract you make to be unhappy."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">列"总想要没得到"的清单，逐条主动放下，记焦虑变化。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">活在当下 + 冥想：幸福的肌肉</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">幸福是技能（像肌肉）。冥想训练"从思绪抽离、回到当下"，直接降对抗。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">Naval 财富自由后仍长期抑郁，靠冥想走出——证明幸福不随财富自动到账。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Meditation is the cure for everything."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你上午堆事、咖啡续命——加 10 分钟冥想，比多加一班产出高。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">自我形象解脱：不被过去标签绑定</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">"我是XX"的标签限制选择。随时解构自我叙事，才能接住新杠杆。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">"人设"是牢笼。越成功越易被自己的人设绑架，不敢变。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"You are not your thoughts; you are the observer."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">"鲁一摩灯=AI新商业"是招牌也是壳。留余地让它演进。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位女创始人，公司年利润 3000 万。Naval 劝她"卖公司、拿钱做天使投资，用杠杆放大自由"；段永平劝她"守住主业本分，把企业当终身作品，别被套现诱惑"。两人都对，但她只能选一条路。</p>
+  <p class="verdict"><b>当裁判：</b>看两点——①她的特定知识在"创"（建企业）还是"投"（配资源）？②她要的是自由还是作品？创者在投里是浪费，投者在创里是煎熬。合上书，写下你的判，再去读书 map 看"杠杆/特定知识"节点怎么连，最后听延伸视听里 Naval 自己的取舍。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">杠杆：我还没用起来的零边际成本杠杆是 ___</div><div class="ex">示例：我的"战略+券商+创业"特定知识，至今只用在1对1咨询（卖时间），没做成可复用的内容产品。</div></div>
+  <div class="row"><div class="fl">特定知识：我的独门交集是 ___</div><div class="ex">示例：国际战略咨询 + 上市券商并购 + 新媒体IP = 别人复制不了的"AI新商业赋能"定位。</div></div>
+  <div class="row"><div class="fl">长期主义：我最近一次为短期利益动摇了长期声誉是 ___</div><div class="ex">示例：为赶一单佣金，答应了客户超出能力的承诺——归零了那条信任曲线。</div></div>
+  <div class="row"><div class="fl">幸福：我"总想要没得到"、其实可以放下的是 ___</div><div class="ex">示例：50kg 的执念。降到52kg并加冥想，焦虑掉一半，产出没少。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="纳瓦尔认知地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <!-- 曲线连线（实线：供给关系） -->
+  <path d="M340,238 C262,182 206,150 158,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C418,182 474,150 522,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C262,296 206,328 158,346" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C418,296 474,328 522,346" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <!-- 曲线连线（虚线：并列同源） -->
+  <path d="M196,110 C300,94 380,94 524,110" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M540,156 C558,250 558,250 540,344" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M196,350 C262,382 300,398 332,404" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M524,350 C458,382 400,398 348,404" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <!-- 中心：外环 + 主圆 -->
+  <circle cx="340" cy="238" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="238" r="58" fill="#41140e"/>
+  <text x="340" y="232" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">财富自由</text>
+  <text x="340" y="251" fill="#ADBCC3" font-size="11" text-anchor="middle">&amp; 幸福</text>
+  <!-- 节点：白底细描边 -->
+  <circle cx="150" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">杠杆</text>
+  <text x="150" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">代码/媒体</text>
+  <circle cx="540" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">特定知识</text>
+  <text x="540" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">认知交集</text>
+  <circle cx="150" cy="350" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="346" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">复利</text>
+  <text x="150" y="363" fill="#7A6B60" font-size="9.5" text-anchor="middle">声誉/信任</text>
+  <circle cx="540" cy="350" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="346" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">长期主义</text>
+  <text x="540" y="363" fill="#7A6B60" font-size="9.5" text-anchor="middle">正和游戏</text>
+  <circle cx="340" cy="410" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="340" y="406" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">幸福</text>
+  <text x="340" y="423" fill="#7A6B60" font-size="9.5" text-anchor="middle">欲望减法</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>财富自由与幸福由四条路径汇成——<b>杠杆</b>（靠特定知识供给）→ <b>特定知识</b>→ 沉淀为 <b>复利</b>（声誉/信任）→ 在 <b>长期主义</b>正和局里滚大；<b>幸福</b>独立成支，靠欲望减法。<br>
+  <b>你的落点：</b>多数高净值女性弱在"杠杆"——有认知差却没做成零边际成本产品。回单元 02/03/04 补链。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>在资本与算法时代，个体如何不被定价、反向定价世界？</b><br>一本书只是一个人的解法。下面九本，对同一主心给出九种视角。没有标准答案，你的收获是"视野被拓宽"，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">纳瓦尔 ·《纳瓦尔宝典》</div><div class="view">杠杆+特定知识：你能放大自己，逃离时薪定价，反向定价世界。自由靠"建资产"不是"卖时间"。</div></div>
+    <div class="spec"><div class="who">芒格 ·《穷查理宝典》</div><div class="view">多元思维模型：不被任何单一框架骗，用多学科透镜看同一件事，避免被一种叙事定价。</div></div>
+    <div class="spec"><div class="who">段永平 ·《大道》</div><div class="view">本分+能力圈：不被风口与泡沫定价，守住看得懂的，慢就是快。拒绝被市场情绪反向定价。</div></div>
+    <div class="spec"><div class="who">周金涛 ·《周期》</div><div class="view">康波宿命：人生发财靠康波，你被周期定价。认命，但在窗口期下重注——个人努力敌不过趋势级力量。</div></div>
+    <div class="spec"><div class="who">洛克菲勒 · 传记</div><div class="view">代际杠杆：用家族跨越周期，把定价权传给下一代。个体渺小，系统可继承。</div></div>
+    <div class="spec"><div class="who">卡戴珊 · 品牌案例</div><div class="view">个人品牌即资产：用注意力与叙事反向定价自己，把"人"做成可交易的杠杆。</div></div>
+    <div class="spec"><div class="who">塔勒布 ·《反脆弱》</div><div class="view">在随机性里受益：不被黑天鹅收割，让波动为你工作。承认被定价，但把脆弱转成反脆弱。</div></div>
+    <div class="spec"><div class="who">兰小欢 ·《置身事内》</div><div class="view">国家视角：个体被制度与政绩逻辑定价。看懂"游戏是谁设计的"，才知道在哪用力、何时借势。</div></div>
+    <div class="spec"><div class="who">邓文迪 · 人物案例</div><div class="view">关系杠杆：用关键人际关系反向定价自己。把"靠近权力"做成跃迁的桥，而非依附。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>Naval（你能撬）↔ 周金涛（你被周期推）；段永平（守本分）↔ 卡戴珊（造人设）；芒格（多透镜）↔ 塔勒布（扛波动）↔ 洛克菲勒（跨代）。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的解法站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=Naval%20How%20to%20Get%20Rich%20%E6%BC%94%E8%AE%B2" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 02/03</div>
+    <div class="mt">"How to Get Rich" 演讲</div>
+    <div class="md">先把三种杠杆听真人讲一遍，回看单元 02/03。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=Naval%20Tim%20Ferriss%20%E6%92%95%E5%AE%A2" target="_blank" rel="noopener">
+    <div class="mk">播客 · 补冲突现场</div>
+    <div class="mt">The Tim Ferriss Show #423</div>
+    <div class="md">听 Naval 自己怎么在"创 vs 投"间取舍，给你的裁判案子找素材。</div>
+    <div class="go">点击打开播客</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E7%BA%B3%E7%93%A6%E5%B0%94%E5%AE%9D%E5%85%B8%20%E5%8E%9F%E6%96%87" target="_blank" rel="noopener">
+    <div class="mk">博客 · 深读单元 04/06</div>
+    <div class="mt">Navalmanack (nav.al)</div>
+    <div class="md">特定知识、声誉复利的长文，读完精读卡再来啃原文。</div>
+    <div class="go">点击打开博客</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=Naval%20Lex%20Fridman%20%E6%92%95%E5%AE%A2" target="_blank" rel="noopener">
+    <div class="mk">播客 · 补单元 10/11/12</div>
+    <div class="mt">Modern Wisdom / Lex Fridman</div>
+    <div class="md">偏哲学与幸福，对应欲望减法与冥想。</div>
+    <div class="go">点击打开播客</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡打版 v5（纳瓦尔）— 精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线思维模型书架 · 生成于 2026-07-18
+</div>
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="穷查理宝典-芒格.html"><div class="pn-label">← 上一篇</div><div class="pn-title">穷查理宝典 芒格</div></a><a class="pn-next" href="罗斯柴尔德-弗格森.html"><div class="pn-label">下一篇 →</div><div class="pn-title">罗斯柴尔德 弗格森</div></a></nav>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>保全你的财富（保险 / 离岸架构） · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>保全你的财富（保险 / 离岸架构）</h1>
+<div class="byline">财富守护方法论 · 防御性架构：保险 + 离岸信托 + 税务居民规划</div>
+<p class="lead">关于「赚了钱怎么不被稀释与收割」的第一性原理。本卡是「资本人物馆·财富守护与家族传承书架」的精读认知卡：先讲清这本（工具总结篇）不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架③ · 财富守护与家族传承</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">工具延伸：洛克菲勒 / 家族信托</span>
+  <span class="tag">对接 A 线女性财富 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代，不构成任何投资、法律或税务建议。架构须由持牌律师 / 税务师按你所在司法辖区合规设计；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？前几本给你「信托结构」「财阀控制」「人本心法」——而《保全你的财富》独有序增量是两点：<b>①它把「防御性架构」写透了</b>——保险（杠杆 + 隔离 + 流动性）、离岸信托（剥离所有权、定向传承）、税务居民规划（合法降税基）是三层防御；<b>②它诚实给了「三层防御」的实操顺序</b>——先有现金流兜底（保险）、再用信托锁产权、最后做税务居民优化，避免「帝国因一笔税 / 一场诉被逼卖」。这本书不可替代，是因为它专门解决「赚了钱怎么不被稀释与收割」这个盲点，是工具层的总结篇。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺「怎么把资产做多」，你缺的是「怎么让已有的钱不被税、被诉、被婚变、被败家稀释掉」。这本书把防御性架构的实操顺序摊开。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你家的财富，有没有「保险 + 信托 + 税务」三层防御？若只有理财、没有隔离——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">财富的第一风险不是亏钱，是被「稀释与收割」</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">税、诉、婚变、通胀、败家是五把「慢刀」→ 它们不让你一夜归零，却把财富逐年稀释 → 守成比创富更难。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">人们怕「市场跌」，真正吃掉财富的是「税与讼」。守成的敌人不是波动，是泄漏。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Rule No. 1: Never lose money. Rule No. 2: Never forget Rule No. 1."（巴菲特：第一条别亏钱，第二条别忘第一条）</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家风控只盯「投资亏损」吗？没盯「税 / 讼 / 婚变」这三条泄漏通道。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">三层防御框架总览（保险 / 信托 / 税务）</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">第一层保险兜底现金流、第二层信托锁产权与定向传、第三层税务居民规划合法降税基 → 三层叠起来，财富才「漏不出去」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">守财不是一件工具，是「一套顺序」。缺任一层，前面都白搭。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）守财是三层，不是一招。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家是「只买理财险」还是「保险 + 信托 + 税务」三层齐？少一层，就有洞。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">保险：杠杆 + 隔离 + 流动性三重功能</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">寿险以小博大（杠杆）、部分司法辖区保单有隔离属性、现金值可应急（流动性）→ 一份保单同时解决「兜底 + 隔离 + 周转」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">保险不是「理财赚收益」，是「用确定性换安全」。它的价值在「不出事时的兜底」。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）保险买的是「不出事时的确定性」。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家保单是「理财型」还是「保障 / 隔离型」？只理财没隔离，急用钱仍要卖资产。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">反直觉：保险不是理财，是「兜底现金流」</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">投资负责「增值」、保险负责「不崩」→ 把两件事分开，才知道哪笔钱不能动 → 保住「永远不用卖资产」的现金。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最贵的错误是把「保命钱」拿去投资。保险的意义是「它永远在」，不是它涨多少。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）保命钱，别拿去赌。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家「绝不被动用的现金」有吗？没有，一遇险就只能折价卖资产。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">离岸信托：剥离所有权，定向传承</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">把资产转入离岸信托 → 法律上是「受托人持有、受益人享有」→ 你不再「所有」、却锁死了「传给谁、怎么传」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">信托的魔法在「你交出所有权，反而保住传承权」。放弃控制，才拿到确定性。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）交出所有权，才锁住传承权。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家资产是「个人名下」还是「信托持有」？个人名下，债 / 讼 / 税一击即穿。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">反直觉：信托的核心是「放弃控制换安全」</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">想「自己说了算」就会保留控制权 → 保留控制 = 资产仍算你的 → 隔离失效 → 信托要「真放手」才有效。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">人们设信托却想「仍 control」，等于没设。有效的信托，是敢于把钥匙交给受托人。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）假放手，等于没隔离。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家信托是「真独立」还是「自己仍说了算」？后者在法庭上一戳就破。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">税务居民规划：合法降税基，不是逃税</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">不同司法辖区税率 / 身故税差巨大 → 通过「合法」的税务居民安排 + 架构选址，把税基降下来 → 同一笔钱，合法少交即多留。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">节税不是「逃」，是「选对规则」。合规框架内的税基优化，是守财的合法杠杆。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）节税是选规则，不是破规则。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家税务身份「规划过」吗？没规划，等于把税白送政府。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">反直觉：税务居民身份比资产在哪更关键</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">税按「人」征（居民身份）多于按「资产地」征 → 人落错辖区，资产放哪都难逃高税 → 身份优先于地点。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">人们拼命挪资产，却忘了挪「自己」。税务居民的身份，比资产坐标更致命。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）先定人，再定钱。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家的「税务居民身份」有策略吗？随便定居，税基被动高。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">婚姻与债务隔离：用架构防「人祸」</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">婚前协议 + 信托持有 + 保单指定受益人 → 把「个人财富」与「婚姻 / 债务」隔开 → 一次婚变 / 一次连带担保，不至于清空。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最大的「收割」常来自身边人（婚变 / 担保）。架构防的首先不是市场，是人祸。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）防人祸，先于防市场。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家资产对婚变 / 债务有隔离吗？没有，一次变故即清零。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">继承税流动性：别为缴税折价卖资产</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">身故后继承人要缴遗产 / 继承税 → 若资产全是股权 / 房产，无现金 → 被迫折价卖资产缴税 → 「帝国为税打折卖」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最惨的不是交税，是「为交税贱卖核心资产」。留足税后现金，才是真守护。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）没留缴税现金，核心资产要打折卖。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家继承时「缴税的钱」在哪？全在股权房产，只能贱卖。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">反直觉：架构顺序错了，等于没防</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">先信托后保险 → 现金流仍缺；先税务后信托 → 控制未锁 → 正确顺序是「保险兜底 → 信托锁产 → 税务优化」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">工具都买齐，顺序错也白搭。先有现金垫，才敢放手做信托。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）顺序错，三层变零层。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家的架构是「按顺序搭」还是「想到啥买啥」？乱搭，洞比墙多。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">周期穿越：用保险现金值抗极端</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">市场崩、资产冻时，保单现金值仍可取 → 极端周期里有「不被冻结的弹药」→ 别人被迫卖，你从容过。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">穿越极端靠的不是「抄底技术」，是「有一笔永远不被冻结的现金」。保险现金值就是这笔钱。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）永远不被冻结的现金，才是真弹药。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家有没有「极端情况下也能动」的现金？没有，一冻就瘫。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">女性视角：高净值女性用保险 / 信托守财与隔离婚变</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">女性常面临婚变 / 代持 / 继承中的弱势 → 婚前信托 + 保单指定受益人 + 个人资产隔离，是「不靠别人、自己守得住」的底线工具。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">守财不是「信老公 / 信子女」，是「用架构替自己说话」。女性更该早一步把防线搭好。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）让架构替你说话，不靠谁的情分。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的个人资产有「不依赖婚姻 / 关系的隔离」吗？没有，安全感挂在别人手里。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位高净值女性，刚变现一笔股权。架构师劝她「先把三层防御（保险 + 信托 + 税务）搭齐，钱才不被收割」；休斯式顾问劝她「别光搭架构，先投入后代的人力资本，做 Good Ancestor，人废了架构也白搭」；范德比尔特式是反面——啥都不做，钱在二三代被稀释。三人争「先搭墙还是先育人」。</p>
+  <p class="verdict"><b>当裁判：</b>顺序是「先有安全网（保险兜底），再育人（Hughes），再做全信托 / 税务优化」。架构（保全）护钱、人本（Hughes）护人，缺一不可；只学 Vanderbilt 啥都不做必败。合上书，回光谱看《保全你的财富》↔ 休斯，写下你的判：你家的「墙」和「人」，哪个先补？</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">三层防御：我家有「保险 + 信托 + 税务」三层吗 ___</div><div class="ex">示例：只有理财型保险，没信托没税务规划，婚变 / 税一击即碎。</div></div>
+  <div class="row"><div class="fl">流动性兜底：我家有「不靠卖资产的现金」吗 ___</div><div class="ex">示例：资产全在股权房产，急用钱只能折价卖，没保单现金值垫。</div></div>
+  <div class="row"><div class="fl">婚变隔离：我的资产对婚变有隔离吗 ___</div><div class="ex">示例：婚前无协议、无信托，离婚可能被分走一半。</div></div>
+  <div class="row"><div class="fl">税务居民：我家税务身份规划过吗 ___</div><div class="ex">示例：随便定居，税基高且被动，没做任何合法优化。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="保全你的财富地图">
+  <defs>
+    <marker id="arwW" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <path d="M340,232 C272,182 218,152 170,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwW)"/>
+  <path d="M340,232 C408,182 462,152 510,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwW)"/>
+  <path d="M340,232 C272,282 218,312 170,342" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwW)"/>
+  <path d="M340,232 C408,282 462,312 510,342" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwW)"/>
+  <path d="M340,232 C300,320 280,372 256,402" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwW)"/>
+  <path d="M340,232 C380,320 400,372 424,402" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwW)"/>
+  <path d="M196,100 C300,84 380,84 484,100" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arwW)"/>
+  <path d="M196,348 C300,332 380,332 484,348" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arwW)"/>
+  <path d="M262,408 C320,394 360,394 418,408" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arwW)"/>
+  <circle cx="340" cy="232" r="70" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="232" r="60" fill="#41140e"/>
+  <text x="340" y="227" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">三层防御</text>
+  <text x="340" y="246" fill="#ADBCC3" font-size="10.5" text-anchor="middle">漏不出去</text>
+  <circle cx="150" cy="105" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">保险</text>
+  <text x="150" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">兜底现金</text>
+  <circle cx="530" cy="105" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="530" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">离岸信托</text>
+  <text x="530" y="118" fill="#7A6B60" font-size:9.5" text-anchor="middle">锁产权</text>
+  <circle cx="150" cy="355" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="351" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">税务居民</text>
+  <text x="150" y="368" fill="#7A6B60" font-size="9.5" text-anchor="middle">降税基</text>
+  <circle cx="530" cy="355" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="530" y="351" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">婚变隔离</text>
+  <text x="530" y="368" fill="#7A6B60" font-size="9.5" text-anchor="middle">防人祸</text>
+  <circle cx="240" cy="425" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="240" y="421" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">债务隔离</text>
+  <text x="240" y="438" fill="#7A6B60" font-size="9.5" text-anchor="middle">防连带</text>
+  <circle cx="440" cy="425" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="440" y="421" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">继承税</text>
+  <text x="440" y="438" fill="#7A6B60" font-size="9.5" text-anchor="middle">流动性</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>「三层防御」由六条路径汇成——<b>保险</b>（兜底现金）是第一层、<b>离岸信托</b>（锁产权）是第二层、<b>税务居民</b>（降税基）是第三层（虚线并列 = 三层防御体系）；<b>婚变隔离</b>与 <b>债务隔离</b>是「防人祸」双闸（虚线并列 = 防身边风险）；<b>继承税</b>流动性是「别为缴税贱卖」的兜底（虚线并列 = 与保险兜底呼应）。<br>
+  <b>你的落点：</b>高净值家族弱在「只有理财、没有隔离」——三层防御缺二。回到单元 02 / 09 / 11 补链。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同家族 / 方法论视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>财富如何跨越周期、跨代传递、不被稀释与收割？</b><br>一本书只是一个家族的解法。下面八位家族 / 作者，对同一主心给出八种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">《保全你的财富》</div><div class="view">工具层：保险 + 离岸信托 + 税务居民规划，三层防御，用架构隔离、节税、定向传承。</div></div>
+    <div class="spec"><div class="who">洛克菲勒 ·《Titan》</div><div class="view">美系：信托 + 慈善 + 办公室，用结构把暴富洗成制度，跨三代不散。</div></div>
+    <div class="spec"><div class="who">范德比尔特 · 传记</div><div class="view">反面：创富极狠却没做传承结构，财富在二三代被挥霍、内斗、征税啃光。</div></div>
+    <div class="spec"><div class="who">沃尔顿 ·《富甲美国》</div><div class="view">股权集中 + 合伙人文化：把公司当长期作品，后代共享股权不散伙。</div></div>
+    <div class="spec"><div class="who">罗斯柴尔德 · 传记</div><div class="view">欧系：五子布网 + 族内联姻，用凝聚锁股权，几世纪不散。</div></div>
+    <div class="spec"><div class="who">日本财阀（三井 / 三菱 / 住友）</div><div class="view">养子继承 + 家宪：制度先于血缘，被拆解还能以系列重生。</div></div>
+    <div class="spec"><div class="who">三星李氏 · 韩系财阀</div><div class="view">循环出资控盘：极小个人股比 + 交叉持股锁帝国，代价是继承税命门。</div></div>
+    <div class="spec"><div class="who">詹姆斯·休斯 ·《家族财富》</div><div class="view">人力资本大于金融资本：不培养「人」只传「钱」，三代必散。</div></div>
+  </div>
+  <div class="legend" style="color:var(--muted);font-size:.78em;line-height:1.6;margin-top:14px;"><b style="color:var(--brand);">光谱逻辑：</b>《保全你的财富》（架构先行）↔ 休斯（人先于钱）；洛克菲勒（结构洗白）↔ 沃尔顿（股权集中）；罗斯柴尔德（联姻锁）↔ 日本财阀（养子 + 家宪）；三星（循环出资）↔ 范德比尔特（无结构散）。<b>没有谁对，只有哪句戳中你家族此刻的缺口。</b>合上卡，写下：我的解法站在光谱哪一格？</div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=家族信托+离岸信托+科普" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 05/06</div>
+    <div class="mt">家族信托与离岸信托</div>
+    <div class="md">看「交出所有权锁传承权」的原理，回看单元 05 / 06。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=保险+财富传承+杠杆+隔离" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 03/04/12</div>
+    <div class="mt">保险与财富传承</div>
+    <div class="md">理解「保险是兜底现金流不是理财」，对应单元 03 / 04 / 12。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=高净值+税务居民+税务规划+合规" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 07/08</div>
+    <div class="mt">高净值税务居民规划</div>
+    <div class="md">看「先定人再定钱」的合法节税逻辑，对应单元 07 / 08。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=资产隔离+婚变+债务+家族财富守护" target="_blank" rel="noopener">
+    <div class="mk">科普 · 单元 09/10/11</div>
+    <div class="mt">资产隔离与财富守护</div>
+    <div class="md">把书里的「婚变 / 债务隔离 + 继承税流动性」翻译成实操。</div>
+    <div class="go">点击打开科普</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（书架③ 财富守护与家族传承）—《保全你的财富》精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线财富传承书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="三星.html"><div class="pn-label">← 上一篇</div><div class="pn-title">三星</div></a><a class="pn-next" href="小红筹.html"><div class="pn-label">下一篇 →</div><div class="pn-title">小红筹</div></a></nav>
+</body>
+</html>

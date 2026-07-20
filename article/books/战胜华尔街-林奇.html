@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>战胜华尔街 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>战胜华尔街：彼得·林奇的投资课</h1>
+<div class="byline">彼得·林奇 / 富达麦哲伦基金传奇经理 · 为普通散户撑腰的实战手册</div>
+<p class="lead">关于「散户如何靠常识赢」的第一性原理。本卡是「资本人物馆·价值投资与思维模型书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架⑤ · 价值投资与思维模型</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">媒体延伸：演讲 · 访谈 · 纪录片</span>
+  <span class="tag">对接 A 线认知 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？纳瓦尔给你「杠杆」、马尔基尔给你「指数」、巴菲特给你「复利」——而《战胜华尔街》（彼得·林奇）独有序增量是两点：<b>①「投资你熟知的东西」</b>——从生活里发现十倍股，散户也能反向定价市场；<b>②「做功课 + 分类选股 + 长期持有」</b>，把常识变成可执行的超额收益。这本书不可替代，是因为它专治「散户觉得自己不行」，是书架里唯一一本「为普通人撑腰」的实战手册。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺内幕，你缺的是「用生活观察当 alpha」的眼光，以及「知道为什么持有」的功课。这本书给你。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你最近一次买票，是因为「你真的懂这门生意」还是「听人推荐的」？又有多少十倍股从你生活里溜走？两个都偏——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">投资你熟知的</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">你每天的消费 / 工作能先于机构发现好公司。生活就是你的信息优势。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">散户的「业余观察」常比机构研报更早。你早就在调研。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Invest in what you know."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你爱用的某 App 悄悄涨成十倍股，你却没买——优势在你手里。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">十倍股来自生活</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">林奇的 tenbagger 多来自日常接触的连锁、消费、医疗。从熟悉处下手。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「大牛股」不在神秘角落，在你常去的商圈。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The best stock to buy is the one you already know from your everyday life."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你研究遥远的矿企，却忽略身边的消费品牌。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">知道为什么持有</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">每买一只，写清「我为什么买、看什么指标卖」。无理由 = 该卖。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「听消息买」的，跌了只会慌。有 thesis 才拿得住。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Know what you own, and know why you own it."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你持仓说不清逻辑——林奇会让你先写下来。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">背后是公司</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">股票背后是真实生意。研究公司比研究图形有用一万倍。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">盯着盘口的人看不到生意本身。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Behind every stock is a company. Find out what it's doing."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你只看 K 线不懂业务——回到公司。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">别被消息吓跑</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">坏消息常是买点，好公司遇恐慌错杀。读懂生意才不被噪音吓退。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">TV 喊「快跑」时，常是机会。噪音 ≠ 风险。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The real key to making money in stocks is not to get scared out of them."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你一跌就割肉——被噪音吓出了好公司。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">时间站在好公司这边</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">优秀公司随时间显价值。持有期越长，噪音越不重要。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">天天看盘 = 天天给自己制造恐慌。少看多拿。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Time is on your side when you own shares of superior companies."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你持有好公司却天天盯盘焦虑——交给时间。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">做功课：调研胜过预测</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">研究生意（产品、竞争、财务）比预测大盘有用。微观 > 宏观。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">宏观不可预测，微观可研究。把精力放对地方。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"If you don't study any companies, you have the same success buying stocks as you do in a roulette wheel."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你天天猜大盘涨跌——不如研究一只真公司。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">分类选股：六类框架</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">林奇把股票分六类（缓慢增长 / 稳健 / 快捷 / 周期 / 资产 / 转型），不同类用不同买法。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">用错框架（把周期当成长）必亏。先分类再下注。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"First figure out what kind of stock you own, then use the right method."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你把周期股当成长股长期拿——框架错了。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">避开热门与概念</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">最热的概念、最被追捧的板块，常是估值最高的陷阱。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「大家都在说」是减分项。冷门里才有便宜好货。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The hottest industries often trap the last investors in."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你追「年度最火赛道」——林奇会让你警惕。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">周期股看产能</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">周期股买在产能出清、卖在产能狂扩。看供需而不是 PE。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">周期股低 PE 常是顶部、高 PE 常是底部。PE 会骗人。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"With cyclicals, buy when things look worst and sell when they look best."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你按低 PE 买周期股——可能买在顶。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">小公司更易出十倍</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">大公司体量限制了涨幅，小公司基数小、空间大，更易十倍。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">别只盯蓝筹。小而美常被机构忽略，留给散户。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The most tenbaggers are hidden among small companies."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你只买大蓝筹——错过了小公司的弹性。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">让赢家跑，剪输家</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">砍掉不涨的、让十倍股多跑。组合靠少数赢家贡献收益。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">平均化对待涨跌是错的。赢家该加注，输家该走。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Selling your winners and holding your losers is like cutting the flowers and watering the weeds."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你涨点就卖、跌了死扛——剪花浇草。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">普通人能赢</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">机构受排名、仓位、监管束缚；散户灵活、有生活信息优势，本可战胜。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「我不如机构」是误会。你的劣势被高估、优势被低估。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The individual investor is in a position to exploit opportunities that the institutions cannot."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你自认「散户注定输」——林奇说你本有优势。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位女投资人，到底「买指数躺平」还是「用生活常识挑十倍股」。林奇会劝「你熟知的消费品牌就是 alpha，该下注」；但马尔基尔会反驳「你大概率跑不赢指数，买指数最理性」；巴菲特更会说「长期持有好公司比折腾强」。三派都对，看她的精力。</p>
+  <p class="verdict"><b>当裁判：</b>有精力做功课→学林奇；没精力→学马尔基尔买指数；有耐心→学巴菲特。合上书，写下你的判：你的优势在「生活信息」还是「时间」？再去读书 map 看「熟知 / 十倍股」节点。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">熟知：我从生活里错过的一只十倍股是 ___</div><div class="ex">示例：常逛的某连锁，涨了 8 倍我才看见。</div></div>
+  <div class="row"><div class="fl">为什么持有：我持仓里说不清「为什么买」的是 ___</div><div class="ex">示例：听朋友推的一只，跌了才慌。</div></div>
+  <div class="row"><div class="fl">做功课：我该补一次调研却没补的是 ___</div><div class="ex">示例：买前没看财报，只看热度。</div></div>
+  <div class="row"><div class="fl">让赢家跑：我「涨点就卖」错过的是 ___</div><div class="ex">示例：卖早了好公司，少赚几倍。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="战胜华尔街认知地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <path d="M340,238 C262,182 206,150 158,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C418,182 474,150 522,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C262,296 206,328 158,346" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C418,296 474,328 522,346" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M196,110 C300,94 380,94 524,110" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M540,156 C558,250 558,250 540,344" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M196,350 C262,382 300,398 332,404" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M524,350 C458,382 400,398 348,404" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <circle cx="340" cy="238" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="238" r="58" fill="#41140e"/>
+  <text x="340" y="232" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">常识投资</text>
+  <text x="340" y="251" fill="#ADBCC3" font-size="11" text-anchor="middle">散户赢</text>
+  <circle cx="150" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">投资熟知</text>
+  <text x="150" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">生活信息</text>
+  <circle cx="540" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">十倍股</text>
+  <text x="540" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">来自生活</text>
+  <circle cx="150" cy="350" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="346" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">做功课</text>
+  <text x="150" y="363" fill="#7A6B60" font-size="9.5" text-anchor="middle">调研公司</text>
+  <circle cx="540" cy="350" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="346" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">长期持有</text>
+  <text x="540" y="363" fill="#7A6B60" font-size="9.5" text-anchor="middle">让赢家跑</text>
+  <circle cx="340" cy="410" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="340" y="406" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">分类选股</text>
+  <text x="340" y="423" fill="#7A6B60" font-size="9.5" text-anchor="middle">六类框架</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>常识投资是中枢，从<b>投资熟知</b>出发找<b>十倍股</b>、靠<b>做功课</b>研究公司、<b>长期持有</b>让赢家跑、用<b>分类选股</b>框架避免用错方法。<br>
+  <b>你的落点：</b>多数人弱在「把生活观察变成 alpha」——回单元 01/02，先列你常用的品牌。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>在资本与算法时代，个体如何不被定价、反向定价世界？</b><br>一本书只是一个人的解法。下面九本，对同一主心给出九种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">林奇 ·《战胜华尔街》</div><div class="view">常识投资：从生活观察反向定价市场，散户也能赢。你熟知的，就是你的 alpha。</div></div>
+    <div class="spec"><div class="who">马尔基尔 ·《漫步华尔街》</div><div class="view">指数 + 成本：普通人先别被费率与情绪定价，认输给指数反得自由。</div></div>
+    <div class="spec"><div class="who">巴菲特 ·《滚雪球》</div><div class="view">长期价值：买好公司长期持有，时间是朋友的称重机。</div></div>
+    <div class="spec"><div class="who">芒格 ·《穷查理宝典》</div><div class="view">多元思维：不被任何单一框架骗，用多学科透镜看同一件事。</div></div>
+    <div class="spec"><div class="who">段永平 ·《大道》</div><div class="view">本分价值：守能力圈、做对的事，拒绝被风口定价。</div></div>
+    <div class="spec"><div class="who">纳瓦尔 ·《纳瓦尔宝典》</div><div class="view">建资产逃离时薪：把股权当资产而非工资，反向定价世界。</div></div>
+    <div class="spec"><div class="who">兰小欢 ·《置身事内》</div><div class="view">制度定价：看懂宏观与政策，才知道哪些生意能在消费端先看见。</div></div>
+    <div class="spec"><div class="who">塔勒布 ·《反脆弱》</div><div class="view">避免致命风险：让波动为你工作，别被黑天鹅清零。</div></div>
+    <div class="spec"><div class="who">索罗斯 · 反身性</div><div class="view">认知与价格互塑：谁能先看清偏见，谁就反向定价市场。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>林奇（用常识赢）↔ 马尔基尔（认输指数）；巴菲特（挑好公司）↔ 段永平（守本分）；芒格（多透镜）↔ 纳瓦尔（造资产）↔ 兰小欢（看制度）。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的解法站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%BD%BC%E5%BE%97%E6%9E%97%E5%A5%87%20%E6%BC%94%E8%AE%B2%20%E6%8A%95%E8%B5%84" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/02</div>
+    <div class="mt">彼得·林奇 演讲</div>
+    <div class="md">听他讲「投资你熟知」，回看单元 01/02。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%BD%BC%E5%BE%97%E6%9E%97%E5%A5%87%20%E6%8A%95%E8%B5%84%E4%BD%A0%E7%86%9F%E7%9F%A5" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 03/07</div>
+    <div class="mt">林奇谈「投资你熟知」</div>
+    <div class="md">做功课与知道为什么持有的讲述，对应单元 03/07。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E6%88%98%E8%83%9C%E5%8D%8E%E5%B0%94%E8%A1%97%20%E8%A7%A3%E8%AF%BB" target="_blank" rel="noopener">
+    <div class="mk">视频 · 深读全书</div>
+    <div class="mt">《战胜华尔街》解读</div>
+    <div class="md">十倍股与分类选股的长视频，读完卡再来啃。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%BD%BC%E5%BE%97%E6%9E%97%E5%A5%87%20%E5%8D%81%E5%80%8D%E8%82%A1" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 02/11</div>
+    <div class="mt">林奇 十倍股 方法</div>
+    <div class="md">从生活找 tenbagger 的实操，对应单元 02/11。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（战胜华尔街·林奇）— 精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线思维模型书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="并购之王-罗伯茨.html"><div class="pn-label">← 上一篇</div><div class="pn-title">并购之王 罗伯茨</div></a><a class="pn-next" href="投资估价-达摩达兰.html"><div class="pn-label">下一篇 →</div><div class="pn-title">投资估价 达摩达兰</div></a></nav>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高盛帝国 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>高盛帝国：合伙制的胜利与权力的两难</h1>
+<div class="byline">查尔斯·埃利斯 Charles D. Ellis 著 / 高盛百年史 · 声誉资本与合伙人制即护城河</div>
+<p class="lead">关于「金融机构的权力如何靠文化而非个人延续」的第一性原理。本卡是「资本人物馆·资本认知与权力游戏书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。主心：资本不只是钱，是权力、信息与游戏规则的设计权。</p>
+<div class="tags">
+  <span class="tag">书架④ · 资本认知与权力游戏</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">权力对照：摩根 / 索罗斯 / 所罗门</span>
+  <span class="tag">对接 A 线女性财富 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书与公开史料；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？《摩根财团》给你「银行家个人即权力」、《金融炼金术》给你「资本即改规则的下注」——而 Ellis 的《高盛帝国》（The Partnership）独有序增量是三点：<b>①它把「合伙制文化如何成为护城河」写透了</b>（14 条业务原则、长期贪婪、不上市时的利益一致）；<b>②它记录权力如何从「银行家个人」转移到「机构文化」</b>（1999 上市后如何守住合伙精神）；<b>③它点明高盛的「客户第一」其实是权力来源</b>——声誉资本让你被永远需要。这本书不可替代，是因为它专门回答「没有天才领袖，权力怎么还能长青」这个其他书绕开的盲点。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺「怎么把生意做大」，你缺的是「怎么让权力不系于你一人、离场后系统仍转」。这本书把「制度的胜利」一次讲透。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你的核心圈，是「合伙共担风险」还是「你一人顶雷」？你离场一周，业务是继续转还是停摆？前者低——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">合伙人制：利益一致的权力</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">合伙制下全员用自己钱赌 → 与客户利益绑定 → 长期信任自然生出来。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">权力不靠层级压人，靠「共担风险」。大家肉疼在一起，才听你的。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Our clients' interests always come first."（高盛业务原则第一条）</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的团队，是共担还是你一人扛？关键项目只有你押注，团队没「肉疼」，权力就虚。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">14 条业务原则：把价值观写成制度</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">高盛把「客户第一 / 声誉 / 团队合作」写成 14 条原则 → 文化可复制、不靠个人魅力。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最强的护城河是「写下来的价值观」，不是某代领袖的英明。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Our assets are our people, capital, and reputation."（高盛业务原则）</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你公司有没有「写下来、不可妥协」的原则？还是全靠你临场发挥？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">长期贪婪：短期让利换长期权力</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">Gus Levy 的「long-term greedy」→ 不赚快钱、陪客户走长路 → 客户离不开你。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「贪」但要贪得久，才是真权力。割客户是透支，养客户是囤权。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）"Long-term greedy"——我们贪婪，但是长期的。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你是在「割客户」还是「养客户」？一次让利换来的长期依赖，值不值？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">声誉资本：最值钱的资产</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">声誉坏了客户就走 → 高盛一切决策先问「伤不伤声誉」→ 声誉优先于短期利润。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">市值可以跌回来，声誉跌了回不来。平时「端着」，危机时是救命绳。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）声誉是高盛唯一的、无法被竞争对手复制的资产负债表。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你一次背刺客户的机会成本是多少？为单笔佣金泄露信息，值不值？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">客户关系 &gt; 交易：权力来自被需要</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">高盛不靠单笔交易赚钱，靠「永远被客户需要」→ 关系是权力，不是提成。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最稳的权力是「被依赖」，不是「压人一头」。客户离了你能转，你就没有权力。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）高盛卖的不是交易，是「被需要」。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">客户离了你能转吗？能转 = 你没权力；离不开 = 你的护城河。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">西德尼·温伯格：一个人的王朝</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">温伯格执掌近 40 年，「华尔街先生」→ 个人权威缔造文化，也埋下「人走茶凉」隐患。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">强人能造文化，也能让权力变成单点风险——他一退，系统可能塌。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）"Mr. Wall Street"——一个人的名字等于一家机构的信用。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的权力系于你一人还是制度？你是「温伯格」还是「高盛」？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">从合伙到上市：权力的两难</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">1999 上市 → 融资扩大但合伙精神被稀释 → 如何在公众公司守私密文化，是权力的两难。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">上市拿到钱，也可能卖掉「灵魂」。你能让渡的，永远有「不可让渡」。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）"We are a partnership."——上市后这句话还作数吗？</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你融资时，让渡了哪块「不可让渡」？投票权、文化、还是话语权？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">内部壁垒：越难进，越有权力</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">高盛内部极度竞争、外人难进 → 精英壁垒即权力壁垒，信息只在圈内流动。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">越难进的圈子，越有权力。开放即稀释，门槛即护城河。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）高盛的「esoteric」文化——圈外人看不懂，才是圈内人的权。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的圈子「门槛」够高吗？人人能进，权力就被摊薄了。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">危机中的选择：雷曼倒、高盛活</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">2008 高盛转银行控股公司、逆势募资过冬 → 文化让它比对手稳。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">平时「端着」的声誉，危机时是救命绳。声誉资本不是装饰，是保险。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）同样的危机，有的机构死、有的活——差别在平日攒的声誉。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的「储备声誉」够过冬吗？还是全押在当下业绩上？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">中国业务：权力全球化要学本地规则</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">高盛押注中国、培养关系 → 全球资本权力的本地化落地。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">权力要落地，得懂本地规则。带规则去征服，不如学规则去嵌入。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）全球化不是输出规则，是学会在别人的规则里找位置。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你出海，是带规则还是学规则？前者撞墙，后者扎根。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">交易 vs 顾问：两种权力</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">交易台赚波动、顾问赚信任 → 高盛两端都要，不偏食。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">一种权力赚快钱（交易），一种赚久钱（关系）。只做一种，是有短板。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）高盛既要「赌桌上的手」，也要「客户身边的耳」。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你主营「交易型」还是「关系型」权力？只赌波动，缺久钱。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">黑名单与忠诚：权力的暗面</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">高盛对跳槽 / 泄密者「封杀」→ 用恐惧维护忠诚，制度之外还有暗规则。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">权力也靠「你不敢背叛」。光有文化不够，还要有代价。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）忠诚 = 文化认同 + 背叛成本，缺一不可。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你团队是「服」你还是「怕」你？只靠怕，文化会塌。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">帝国为何长青：制度的胜利</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">高盛活过历次危机，靠的是制度而非某代领袖 → 权力可继承、可复制。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">长青的不是天才，是系统。把权力装进制度，比押在一个人身上稳。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）"The Partnership"——帝国不在某人，在「合伙」二字。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你离场后，系统是继续转还是散？把权力写进制度，才算真拥有。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>高盛的文化口号是「客户第一」，可 2008 年被市场痛骂「用客户的流动性做自营、与客户对赌」。文化说客户第一，激励却可能让它做空客户。一位高净值女性掌舵的精品投行，正面临「跟客户做交易赚快钱」还是「只做顾问养长期信任」的抉择。</p>
+  <p class="verdict"><b>当裁判：</b>声誉口号挡不住利益诱惑，除非激励结构本身把「客户利益」和「自己利益」绑死——这正是高盛合伙制当年的设计。你的判：别信口号，看激励。合上书，写下你的判，再去读书 map 看「声誉资本 / 长期贪婪」节点怎么连，最后听延伸视听里高盛 14 条原则的原话。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念 → 我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">声誉资本：我一次背刺客户的机会成本是多少？</div><div class="ex">示例：为单笔佣金泄露客户信息，之后三年没人敢托你做关键事——短期赚的，不够赔声誉。</div></div>
+  <div class="row"><div class="fl">长期贪婪：我最近一次为短期让利养客户是？</div><div class="ex">示例：免费帮一位女高管做方案，半年后她带来一单大业务——让利不是亏，是囤权。</div></div>
+  <div class="row"><div class="fl">共担风险：我的核心圈是合伙共担还是我一人顶？</div><div class="ex">示例：关键项目只有你押注，团队没「肉疼」——权力虚，一龙九种病。</div></div>
+  <div class="row"><div class="fl">制度 &gt; 人：我离场后业务转不转？</div><div class="ex">示例：你休假一周业务停摆 = 权力没制度化；把流程写下来，系统才替你转。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="高盛帝国概念地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <path d="M340,238 C 250,180 180,140 140,110" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 430,180 500,140 540,110" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 250,250 170,275 110,290" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 430,250 510,275 570,290" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 280,320 240,370 200,410" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 400,320 440,370 480,410" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <circle cx="340" cy="238" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="238" r="58" fill="#41140e"/>
+  <text x="340" y="232" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">声誉资本</text>
+  <text x="340" y="251" fill="#ADBCC3" font-size="11" text-anchor="middle">高盛</text>
+  <circle cx="140" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="140" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">合伙人制</text>
+  <text x="140" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">共担风险</text>
+  <circle cx="540" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">客户第一</text>
+  <text x="540" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">被需要</text>
+  <circle cx="110" cy="290" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="110" y="286" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">长期贪婪</text>
+  <text x="110" y="303" fill="#7A6B60" font-size="9.5" text-anchor="middle">养客户</text>
+  <circle cx="570" cy="290" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="570" y="286" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">内部壁垒</text>
+  <text x="570" y="303" fill="#7A6B60" font-size="9.5" text-anchor="middle">门槛即权</text>
+  <circle cx="200" cy="410" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="200" y="406" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">制度大于人</text>
+  <text x="200" y="423" fill="#7A6B60" font-size="9.5" text-anchor="middle">可继承</text>
+  <circle cx="480" cy="410" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="480" y="406" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">危机过冬</text>
+  <text x="480" y="423" fill="#7A6B60" font-size="9.5" text-anchor="middle">声誉保险</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>高盛的「声誉资本」由五条线汇成——以 <b>合伙人制</b>（共担风险）为底座，靠 <b>客户第一</b>（被需要）拿关系权，用 <b>长期贪婪</b> 养客户，借 <b>内部壁垒</b>（门槛即权）护城河，最终落到 <b>制度大于人</b>（可继承）与 <b>危机过冬</b>（声誉保险）。<br>
+  <b>你的落点：</b>多数高净值女性弱在「制度大于人」——权力系于自己一人。回单元 07/13 补链。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>资本不只是钱，是权力、信息与游戏规则的设计权。</b><br>一本书只是一个人的解法。下面九位，对同一主心给出九种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">高盛 · 埃利斯</div><div class="view">权力来自「客户第一」的声誉资本与合伙人制：被需要，才是真护城河。</div></div>
+    <div class="spec"><div class="who">摩根 ·《摩根财团》</div><div class="view">旧式银行家个人权威的对照：人即权力，离了人系统可能塌。</div></div>
+    <div class="spec"><div class="who">索罗斯 ·《金融炼金术》</div><div class="view">对冲基金视角：权力来自下注与反身性，用资本改基本面。</div></div>
+    <div class="spec"><div class="who">刘易斯 ·《说谎者的扑克牌》</div><div class="view">交易员个人英雄主义 vs 机构文化：明星交易员赚快钱。</div></div>
+    <div class="spec"><div class="who">巴菲特 ·《滚雪球》</div><div class="view">长期资本信任的权力：用时间换「被永远需要」的治理权。</div></div>
+    <div class="spec"><div class="who">罗斯柴尔德 · 弗格森</div><div class="view">家族信息网络：信息差即权力，信使跑赢官方。</div></div>
+    <div class="spec"><div class="who">兰小欢 ·《置身事内》</div><div class="view">国家是最终规则设计者：机构再强，也活在制度框架里。</div></div>
+    <div class="spec"><div class="who">邓文迪 · 人物案例</div><div class="view">关系杠杆接近权力：把「靠近权力」做成跃迁的桥。</div></div>
+    <div class="spec"><div class="who">塔勒布 ·《反脆弱》</div><div class="view">在随机性里获益：不让危机收割你，让波动为你工作。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>高盛（声誉资本，养久钱）↔ 刘易斯（个体交易员，赚快钱）；摩根（人即权力）↔ 高盛（制度即权力）；索罗斯（资本改规则）↔ 巴菲特（时间换治理）；罗斯柴尔德（信息网）↔ 兰小欢（国家规则）。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的解法站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=高盛帝国+解读+Ellis" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/13</div>
+    <div class="mt">《高盛帝国》精读解读</div>
+    <div class="md">先把「合伙制文化」与「制度的胜利」听真人讲一遍，回看单元 01/13。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=高盛+14条业务原则+客户第一" target="_blank" rel="noopener">
+    <div class="mk">科普 · 补单元 02/04</div>
+    <div class="mt">高盛 14 条业务原则</div>
+    <div class="md">把书里的「客户第一 / 声誉资本」翻译成今天的实操原则。</div>
+    <div class="go">点击打开科普</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=高盛+1999+上市+合伙制" target="_blank" rel="noopener">
+    <div class="mk">纪录 · 深读单元 07</div>
+    <div class="mt">高盛 1999 上市与合伙精神</div>
+    <div class="md">权力从个人到公众公司的两难，读完精读卡再来啃历史。</div>
+    <div class="go">点击打开纪录</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=雷曼兄弟+破产+对比+高盛" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补冲突现场</div>
+    <div class="mt">2008：雷曼倒、高盛活</div>
+    <div class="md">看危机里「声誉保险」怎么救命，给你的裁判案子找素材。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（书架④ 资本认知与权力游戏）— 埃利斯《高盛帝国》精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线资本权力书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="门口的野蛮人-伯勒.html"><div class="pn-label">← 上一篇</div><div class="pn-title">门口的野蛮人 伯勒</div></a><a class="pn-next" href="黑客与画家-格雷厄姆.html"><div class="pn-label">下一篇 →</div><div class="pn-title">黑客与画家 格雷厄姆</div></a></nav>
+</body>
+</html>

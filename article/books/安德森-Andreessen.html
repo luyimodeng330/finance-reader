@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安德森 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+/* 付费门禁（复用 assets/app.js，不引深咖 styles.css） */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>安德森：软件吞噬与定价权</h1>
+<div class="byline">Marc Andreessen / 马克·安德森 · a16z 联合创始人 ·《Software is eating the world》《The only thing that matters》等</div>
+<p class="lead">关于「软件如何重写每一个行业、以及创始人如何拿到定价权」的第一性原理。本卡是「资本人物馆·硅谷新派书架」的「人物+文本」卡：以安德森的博客与访谈为文本，拆成 13 个认知单元，最后用读书 map 织网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架⑥ · 硅谷新派与女性破局</span>
+  <span class="tag">人物+文本卡 · 精读认知闭环</span>
+  <span class="tag">人物延伸：马斯克 · 奥尔特曼（硅谷新派）</span>
+  <span class="tag">对接 A 线认知 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自 Marc Andreessen 公开文章（WSJ 2011、a16z 博客、《The only thing that matters》2007 等）及访谈；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这位？《从0到1》给你「垄断打法」、《黑客与画家》给你「制造者心态」——而安德森独有序增量是<b>两点</b>：<b>①他给了「行业被软件重写」的宏观地图</b>（软件吞噬世界）与「产品市场匹配(PMF)」的微观标尺；<b>②他直白点破「定价权」</b>——做价格制定者、敢提价、占小池塘当大鱼。这本书不可替代，是因为它专门解决「高智女性做出好产品却不敢定价、总当价格接受者」这个破局盲点。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这位？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺「怎么做产品」的方法，你缺的是「选对将被软件重写的赛道、拿到 PMF、并敢当价格制定者」的框架与底气。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你做的东西，市场是在「拉着你走」还是「你推着卖」？你定价时是「我说了算」还是「随行就市」？前者弱——这位是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">软件吞噬世界</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">每个行业终将被软件重写——零售、金融、医疗、媒体。赢家是「软件原生」的公司，输家是被颠覆的旧霸主。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「我不是软件公司」是错觉。未来每家公司都是软件公司，或死于此。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Software is eating the world."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做女性认知内容——本质是「软件分发认知」，别用传统媒体思维做。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">PMF 是唯一要紧的事</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">没 PMF，再多融资/团队/营销都救不了；有 PMF，其余问题都变次要。PMF 是第一性指标。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「先搭完美团队/先融资」是错序。PMF 没到，其他都是空转。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Product/market fit is the only thing that matters."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你忙着「招人/做品牌」却没验证 PMF——先让市场拉着你走。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">市场比团队更不可替换</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">好市场会「把产品从初创公司里拉出来」；差市场再强团队也推不动。选错市场，努力清零。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「团队决定一切」是神话。市场错了，天才也白搭。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"In a great market, the market pulls product out of the startup."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你死磕「小众高端女性」这个被忽视的市场——它正可能「拉着你走」。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">不存在的市场是最好的</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">已存在的市场=红海；「还不存在」的市场=你定义规则、独占定价的蓝海。创造需求 &gt; 争夺需求。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「市场调研说没人要」常是机会信号——真需求在被创造前测不出。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Markets that don't yet exist are the best markets of all."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">「女性×资本认知」还没成「市场」——这正是安德森说的黄金位。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">做价格制定者，别做接受者</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">价格接受者被市场定价；价格制定者定义价值。PMF 到位后，你才有制定权。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「随行就市」=把定价权交出去。敢定价，才反向定价世界。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Be a price maker, not a price taker."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你课程「参考同行定价」——这是 price taker。按「我创造的唯一价值」定价才是 maker。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">提高价格：别定太低</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">创业者常把价格定低，错失利润也错失「对的人」。提价过滤低质客户、放大单位经济。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「便宜更好卖」是错觉；贵反筛选高价值客户，PMF 更强。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Raise prices."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你课时费偏低——安德森说直接提价，留下的才是真客户。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">小池塘里的大鱼</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">在大市场当小鱼=被鲸鱼吞；在小市场当大鱼=独占定价。选池子比拼命游重要。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「做大市场」是诱惑；「在小池当王」才是现实路径。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"It's better to be a big fish in a small pond than a small fish in a big pond."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你从「高净值女性」小池做起当大鱼，比「服务所有女性」更现实。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">现在是建造的时候</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">太多人只评论不建造。真正的杠杆属于「动手造」的人——尤其当旧系统失灵时。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「等环境好再建」是拖延。越乱，建造者越稀缺、越值钱。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"It's time to build."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你总「想清楚再建」——安德森说现在就建，边建边改。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">野心要大</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">小目标配小资源；大目标才吸引大资源与大人。野心是杠杆的入口。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「务实点」常是「小看点」。敢想大，牌桌才不同。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Please be ambitious."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你想「先赚点小钱」——安德森说把目标调到「重写一个细分」，资源才来。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">每家公司都将是软件公司</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">软件是杠杆的载体。谁把软件用透，谁就重写行业成本结构、拿到超额利润。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「我和软件无关」是危险错觉。你的认知产品本质也是软件分发。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Every company will be a software company."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做个人IP，把交付「产品化/软件化」（课程系统、社群SaaS）才是杠杆。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">技术创始人有结构性优势</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">能亲手造技术的人，迭代速度与成本结构优于「只管商业」的创始人。技术即护城河。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「我负责战略、技术外包」常被卡脖子。懂技术才不被供应商定价。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"If you can't build the technology, you are at a disadvantage as a founder."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做内容产品至少懂「技术边界」——别把核心全外包，否则被技术方定价。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">分发被严重低估</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">好产品死在「没人知道」。分发（渠道/增长）是和产品的同等级难题，却被轻视。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「酒香不怕巷子深」是致命。不会分发，PMF 也到不了。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Distribution is underappreciated."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你内容好却涨粉慢——安德森说分发是核心能力，该专门下注。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">技术乐观主义：押注建造者</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">安德森公开主张「技术乐观主义」——相信建造者能用科技把世界变好，并据此重仓下注。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「科技让人焦虑」是窄框架；他看的是「建造者改写命运」的长期正和。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"I am a techno-optimist."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你把 AI 当威胁——安德森的乐观提醒你：用技术杠杆放大认知，才是这一代人的机会。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位女性做「高净值女性财务 SaaS」。安德森会劝她「先验证 PMF、占一个还不存在的小市场、做价格制定者敢提价（单元02/04/05/06）」；但桑德伯格在《向前一步》会补「你得坐到桌前、找赞助人替你背书、谈条件拿走应得（席位/声音/赞助人）」；批评者（波伏瓦视角）更会说「系统给女性产品更低估值，你的 PMF 数据可能被更狠地打折」。三种都对，适用阶段不同。</p>
+  <p class="verdict"><b>当裁判：</b>先用 Andreessen 的「PMF+定价权」建底盘——没有真 PMF，席位和赞助人都无附着点；再用 Sandberg 的「席位/赞助人」要价——造出 PMF 却不敢提价，等于白干；最后用波伏瓦的「结构觉醒」解释「为什么我的数据被更低估」，从而主动定价而非等被定价。合上书，写下你的判：你卡在「没 PMF」还是「有 PMF 不敢定价」？再去读书 map 看「PMF/定价权」节点怎么连，最后听延伸视听里安德森的访谈。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">PMF：我做的东西，市场是「拉着我走」还是「我推着卖」 ___</div><div class="ex">示例：我那门课靠私域硬推才动——说明 PMF 没到，先改产品再谈增长。</div></div>
+  <div class="row"><div class="fl">市场：我选的是「已存在红海」还是「不存在的蓝海」 ___</div><div class="ex">示例：「女性资本认知」还没成市场——这是黄金位，我该定义它而非追它。</div></div>
+  <div class="row"><div class="fl">定价权：我是价格制定者还是接受者 ___</div><div class="ex">示例：我按同行价定——该按「我创造的唯一价值」定价，当 maker 不当 taker。</div></div>
+  <div class="row"><div class="fl">建造：我「等准备好再建」还是「现在就建」 ___</div><div class="ex">示例：我想「打磨半年再发」——安德森说现在就建，边建边改。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="安德森认知地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <!-- 曲线连线（实线：驱动关系） -->
+  <path d="M340,235 C272,178 222,142 182,108" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C408,178 458,142 498,108" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C262,240 195,243 140,244" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C418,240 485,243 540,244" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C272,308 232,362 207,397" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C408,308 448,362 473,397" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <!-- 曲线连线（虚线：并列同源 / 软件吞噬+PMF 双引擎） -->
+  <path d="M212,95 C300,78 380,78 468,95" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <!-- 中心：外环 + 主圆 -->
+  <circle cx="340" cy="235" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="235" r="58" fill="#41140e"/>
+  <text x="340" y="229" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">安德森</text>
+  <text x="340" y="248" fill="#ADBCC3" font-size="11" text-anchor="middle">a16z</text>
+  <!-- 节点：白底细描边 -->
+  <circle cx="175" cy="105" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="175" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">软件吞噬</text>
+  <text x="175" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">重写行业</text>
+  <circle cx="505" cy="105" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="505" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">PMF</text>
+  <text x="505" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">产品市场匹配</text>
+  <circle cx="128" cy="245" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="128" y="241" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">市场</text>
+  <text x="128" y="258" fill="#7A6B60" font-size="9.5" text-anchor="middle">选池子</text>
+  <circle cx="552" cy="245" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="552" y="241" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">定价权</text>
+  <text x="552" y="258" fill="#7A6B60" font-size="9.5" text-anchor="middle">maker</text>
+  <circle cx="200" cy="400" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="200" y="396" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">建造</text>
+  <text x="200" y="413" fill="#7A6B60" font-size="9.5" text-anchor="middle">现在就建</text>
+  <circle cx="480" cy="400" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="480" y="396" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">乐观</text>
+  <text x="480" y="413" fill="#7A6B60" font-size="9.5" text-anchor="middle">技术乐观</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>安德森由六条路径汇成——「软件吞噬」（重写行业）与「PMF」（产品市场匹配）是双引擎（虚线并列=都在场）；「市场」（选池子）决定 PMF 是否成立、「定价权」（maker）决定利润归谁；底层是「建造」（现在就建）与「乐观」（技术乐观）。<br>
+  <b>你的落点：</b>高智女性弱在「PMF+定价权」——有好产品却不敢定价、总当 price taker。先把「PMF/定价权」两节点连上中心，其余自然松动。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>硅谷新派如何用「软件/创造/杠杆」重写规则，不被定价、反向定价世界？</b><br>一位人物只是一个人的解法。下面九位，对同一主心给出九种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">马克·安德森 · a16z</div><div class="view">软件吞噬+PMF+定价权：用软件重写行业、验证 PMF、当价格制定者，反向定价世界。</div></div>
+    <div class="spec"><div class="who">纳瓦尔 ·《纳瓦尔宝典》</div><div class="view">杠杆：安德森的「软件」正是 Naval 说的零边际成本杠杆的终极形态。</div></div>
+    <div class="spec"><div class="who">彼得·蒂尔 ·《从0到1》</div><div class="view">垄断+小市场：安德森的「小池塘大鱼」与蒂尔的「占小市场垄断」同源。</div></div>
+    <div class="spec"><div class="who">保罗·格雷厄姆 · YC</div><div class="view">做出人们想要的：安德森投的正是「有 PMF 的人们真想要的东西」。</div></div>
+    <div class="spec"><div class="who">奥尔特曼 · OpenAI</div><div class="view">复利自我+AGI：同属硅谷新派，一个重「产品/市场」，一个重「自我/智能」。</div></div>
+    <div class="spec"><div class="who">马斯克 · 传记</div><div class="view">工程杠杆：安德森「软件吞噬」到马斯克是「软件+物理」的硬科技版。</div></div>
+    <div class="spec"><div class="who">卡戴珊 · 品牌案例</div><div class="view">人设即资产：和安德森「定价权」对照——一个靠叙事定价，一个靠 PMF 定价。</div></div>
+    <div class="spec"><div class="who">波伏瓦 ·《第二性》</div><div class="view">结构觉醒：女性产品常被更低估值。先看清锁链，才谈得上拿定价权。</div></div>
+    <div class="spec"><div class="who">桑德伯格 ·《向前一步》</div><div class="view">席位/声音：安德森教你「建底盘(PMF)」，桑德伯格教你「敢要价、找赞助人」。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>安德森（软件+PMF）↔ 蒂尔（垄断）；纳瓦尔（杠杆）↔ 卡戴珊（人设定价）；格雷厄姆（人们想要）↔ 奥尔特曼（自我复利）；马斯克（工程）↔ 桑德伯格（敢要价）↔ 波伏瓦（看清结构）。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的解法站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=Marc%20Andreessen%20software%20is%20eating%20the%20world" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/10</div>
+    <div class="mt">Andreessen「Software is eating the world」</div>
+    <div class="md">听他真人讲「软件重写行业」，回看单元 01/10。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E8%BD%AF%E4%BB%B6%E5%90%9E%E5%99%AC%E4%B8%96%E7%95%8C%20%E5%AE%89%E5%BE%B7%E6%A3%AE" target="_blank" rel="noopener">
+    <div class="mk">文章/视频 · 补单元 02/04</div>
+    <div class="mt">软件吞噬世界（安德森）解读</div>
+    <div class="md">读完精读卡再来啃原文，对应 PMF 与蓝海市场。</div>
+    <div class="go">点击打开解读</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=a16z%20Andreessen%20interview" target="_blank" rel="noopener">
+    <div class="mk">访谈 · 补单元 05/12</div>
+    <div class="mt">a16z Andreessen 访谈</div>
+    <div class="md">听他讲「定价权与分发」，给你的裁判案子找素材。</div>
+    <div class="go">点击打开访谈</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=product%20market%20fit%20Andreessen" target="_blank" rel="noopener">
+    <div class="mk">课程/视频 · 深读单元 02/03</div>
+    <div class="mt">Product/Market Fit（Andreessen）</div>
+    <div class="md">看他讲「市场拉产品」，对应单元 02/03 的 PMF 标尺。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 人物+文本卡（安德森 / Marc Andreessen）— 精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线硅谷新派书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="奥尔特曼-Altman.html"><div class="pn-label">← 上一篇</div><div class="pn-title">奥尔特曼 Altman</div></a><a class="pn-next" href="三星.html"><div class="pn-label">下一篇 →</div><div class="pn-title">三星</div></a></nav>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家族财富（詹姆斯·休斯） · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>家族财富（Family Wealth · 詹姆斯·休斯）</h1>
+<div class="byline">James E. Hughes 著 / 传承方法论 · 五种资本 + 好祖先 + 家族银行</div>
+<p class="lead">关于「钱传下去了、人却废了」的第一性原理。本卡是「资本人物馆·财富守护与家族传承书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架③ · 财富守护与家族传承</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">方法论延伸：洛克菲勒 / 家族信托</span>
+  <span class="tag">对接 A 线女性财富 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自《Family Wealth》及作者公开论述；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？前几本给你「信托工程」「财阀控制」——而休斯的《家族财富》独有序增量是两点：<b>①它把「金融资本只是五种资本之一」写透了</b>——人力资本（子孙的能力与品格）、智力资本、社会资本、文化资本同样要传，且比钱更抗稀释；<b>②它诚实给了「家族银行（Family Bank）」与「好祖先（Good Ancestor）」这套心法</b>——真正的 wealth 不是留钱，是做让后代不用为钱焦虑、又能自立的祖先。这本书不可替代，是因为它专门解决「钱传下去了、人却废了」这个盲点。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺「怎么把信托设好」，你缺的是「怎么让后代既不为钱愁、又能自己站起来」。这本书把「留人比留钱难」的真相摊开。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你留给后代的，主要是「账户余额」还是「能力 / 价值观 / 关系」？若只有余额——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">重新定义财富：五种资本</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">休斯把 wealth 拆成五种资本：金融、人力（子孙能力品格）、智力（家族智慧）、社会（声誉关系）、文化（价值观家史）→ 金融只是五分之一。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">人们只盯金融资产，却忽略了另外四种才是「钱不被败光」的前提。财富是个系统，不是一个数。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（休斯）"Wealth is not about money; it is about the flourishing of the family."（财富关乎家族的 flourishing，而非钱）</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家「财富盘点」只数钱吗？没盘人力 / 智力 / 社会 / 文化，等于只看了五分之一。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">反直觉：金融资本是最不重要的一种</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">金融资本会被通胀 / 挥霍 / 税啃掉；人力与智力资本越用越多 → 真正抗稀释的是「人」，不是「户头」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">越想「保钱」，越该先「投资人」。钱是结果，人是原因。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（休斯）金融资本是最脆的一种——它只减不增，除非有人经营。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家是「先教孩子管钱」还是「先留钱防他穷」？后者养出不会管钱的成年人。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">人力资本：子孙的能力与品格才是真资产</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">子孙的教育、财商、韧性、判断力 → 这些是「自带增值」的资产 → 一个自立的子孙比一亿现金更抗周期。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最贵的传承不是保单，是「把孩子养成能自己挣钱的人」。人保值，钱未必。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（休斯）家族的目的，是让每个成员健康、快乐、能自立地成长。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家对后代的投入是「给钱」还是「育人」？给钱省事，育人才传得代。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">智力资本：家族的集体智慧与学习力</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">家族会议、共读、代际 mentorship → 把「怎么思考 / 怎么决策」变成家族肌肉 → 一代踩过的坑，下一代不重踩。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">钱可以一夜没了，但「家族会思考」这个能力留下来，就能再赚。智力资本是复利的复利。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）让家族「会思考」，比让家族「有钱」更值钱。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家有「代际共学 / 家族 mentorship」吗？没有，坑要每代重踩一遍。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">社会资本：声誉、关系与信任</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">家族的声誉、跨代信任网络、靠谱的顾问圈 → 危机时有人拉一把 → 社会资本是「隐形的信用额度」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最稳的「贷款」不是银行给的，是家族几十年攒下的信誉。声誉是零成本杠杆。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）声誉是零成本杠杆，败掉要几代还。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家「社会信用」有在经营吗？一次丑闻，几代攒的信任清零。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">文化资本：价值观与故事（家史）</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">家训、创业故事、家族仪式 → 把「我们是谁、信什么」写进血脉 → 后代在诱惑前知道边界在哪。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">比遗嘱更有约束力的是「家史」。孩子记得爷爷怎么熬过来的，就不敢挥金如土。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）家史是免费的信托，比律师写的更入心。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家有没有「可讲给孙辈的创业 / 守业故事」？没有，价值观随老人离世而蒸发。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">反直觉：信托防不住「人废了」</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">信托锁得住钱、锁不住「人是否自立」→ 一个被养废的受益人，照样能把分配到的钱败光 / 被围猎。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">工具再完美，遇到「废人」也白搭。先有人，后有信托；本末不能倒置。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（休斯）对家族财富最大的威胁，是家族本身。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家是「先设信托」还是「先育人」？只设信托不育人，钱照样被败。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">家族银行（Family Bank）：用钱培养人而非养懒人</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">设一笔「家族基金」：只资助教育 / 创业 / 救命，不养日常挥霍 → 钱变成「让人更强」的杠杆，而非「让人变懒」的温床。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">给钱要「带条件、带门槛」。无条件的钱是毒药，有条件的钱是疫苗。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）家族银行是「扶人」不是「养人」。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家给后代的钱「带条件」吗？月月白给，等于发懒人许可证。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">好祖先（Good Ancestor）：做让后代能自立的祖先</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">休斯造词「Good Ancestor」：不替后代铺好所有路，而给他们「安全网 + 自主空间」→ 让后代能自己长，而非靠啃老。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最好的祖先不是留最多钱，是留「刚好够兜底、又不至于废人」的空间。多一分是害。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（休斯）"Be a good ancestor."（做一个好祖先）</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你留给后代的是「兜底网」还是「全包办」？全包办，孩子永远长不大。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">反直觉：留太多钱 = 害了后代</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">无上限的财富 → 后代失去奋斗动力 / 成猎物目标 → 研究显示大额无条件继承与后代幸福感、成就感负相关。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">钱给到「刚好」是爱，给到「过多」是害。爱有上限，遗产也要有上限。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）多给一分钱，可能少一分志气。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家遗产「设上限」了吗？不设上限，爱变成废掉孩子的刀。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">三代诅咒：为什么「富不过三代」</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">一代创、二代守、三代败 → 根因是「只传钱不传人」→ 到第三代既无创富能力、又无守富纪律，钱自然散。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「富不过三代」不是宿命，是「只传金融资本」的必然。传五种资本，就能破咒。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）富不过三代，是因为只传了钱。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家第三代「会自己挣」吗？不会，三代必散是数学。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">周期穿越：用教育而非金钱抗周期</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">金融资本会被周期洗掉；人力 / 智力资本（教育、判断力）不随市场涨跌 → 给后代「会学习的大脑」比给「防跌的组合」更抗周期。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最抗跌的资产不是黄金，是「人的能力」。市场归零，脑子还在。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）市场会归零，脑子不会。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家抗周期靠「资产配置」还是「后代能力」？只靠配置，遇极端仍穿底。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">女性视角：女性在「五种资本」传承中的核心角色</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">母亲 / 祖母常是「文化资本（家史 / 价值观）」与「人力资本（教育 / 品格）」的主要传递者，也是社会资本（家族关系网）的纽带 → 女性是五种资本的「总编辑」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">表面「男管钱」，底层「女传人」。真正的传承在饭桌与家教里，不在银行柜台。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）让女性站到传承的「总编辑」位，不站厨房角落。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你在家里是「传承总编辑」还是「被隔离的夫人」？前者才是真护城河。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位女创始人，准备给后代留一大笔钱。洛克菲勒式顾问劝她「设完善信托，把结构做死，钱锁三代」；休斯式顾问劝她「别只设信托，先投入后代的人力 / 智力资本，做 Good Ancestor，钱留太满反而害他」；范德比尔特式是反面——只给钱不育人，三代散尽。三人争「留钱 vs 留人」。</p>
+  <p class="verdict"><b>当裁判：</b>休斯不是反对信托，是指出「信托防不住人废了」。所以答案：结构（Rockefeller 信托）护钱 + 人本（Hughes 五种资本）护人，两者缺一不可；只学 Vanderbilt 给钱不育人，必败。合上书，回光谱看休斯 ↔ 洛克菲勒，写下你的判：你家的「钱」和「人」，哪个先补？</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">五种资本：我家传的是「钱」还是「五种资本」___</div><div class="ex">示例：只留房产现金，没传价值观 / 能力，孩子成年即焦虑。</div></div>
+  <div class="row"><div class="fl">人力资本：我家有没有「培养人」的系统 ___</div><div class="ex">示例：孩子教育外包，没人教财商 / 品格，成年不会管钱。</div></div>
+  <div class="row"><div class="fl">家族银行：钱是「养人」还是「养懒」___</div><div class="ex">示例：月月给钱没门槛，孩子无动力工作，成啃老族。</div></div>
+  <div class="row"><div class="fl">好祖先：我留给后代的是「焦虑」还是「自立」___</div><div class="ex">示例：控制太紧或撒手太宽，都没让孩子长出自主与安全感。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="家族财富地图">
+  <defs>
+    <marker id="arwH" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <path d="M340,232 C272,182 218,152 170,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwH)"/>
+  <path d="M340,232 C408,182 462,152 510,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwH)"/>
+  <path d="M340,232 C272,282 218,312 170,342" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwH)"/>
+  <path d="M340,232 C408,282 462,312 510,342" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwH)"/>
+  <path d="M340,232 C300,320 280,372 256,402" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwH)"/>
+  <path d="M340,232 C380,320 400,372 424,402" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwH)"/>
+  <path d="M196,100 C300,84 380,84 484,100" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arwH)"/>
+  <path d="M196,348 C300,332 380,332 484,348" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arwH)"/>
+  <path d="M262,408 C320,394 360,394 418,408" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arwH)"/>
+  <circle cx="340" cy="232" r="70" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="232" r="60" fill="#41140e"/>
+  <text x="340" y="227" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">做Good Ancestor</text>
+  <text x="340" y="246" fill="#ADBCC3" font-size="10.5" text-anchor="middle">人先于钱</text>
+  <circle cx="150" cy="105" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">金融资本</text>
+  <text x="150" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">钱</text>
+  <circle cx="530" cy="105" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="530" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">人力资本</text>
+  <text x="530" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">能力品格</text>
+  <circle cx="150" cy="355" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="351" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">智力资本</text>
+  <text x="150" y="368" fill="#7A6B60" font-size="9.5" text-anchor="middle">家族智慧</text>
+  <circle cx="530" cy="355" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="530" y="351" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">社会资本</text>
+  <text x="530" y="368" fill="#7A6B60" font-size="9.5" text-anchor="middle">声誉关系</text>
+  <circle cx="240" cy="425" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="240" y="421" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">文化资本</text>
+  <text x="240" y="438" fill="#7A6B60" font-size="9.5" text-anchor="middle">价值观家史</text>
+  <circle cx="440" cy="425" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="440" y="421" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">家族银行</text>
+  <text x="440" y="438" fill="#7A6B60" font-size="9.5" text-anchor="middle">扶人不养懒</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>「做 Good Ancestor」由六条路径汇成——五种资本环绕：<b>金融</b>（钱）是最脆的一种；<b>人力</b>（能力品格）、<b>智力</b>（家族智慧）、<b>社会</b>（声誉关系）、<b>文化</b>（价值观家史）是抗稀释主体（虚线并列 = 四种「人」的资本互相强化）；<b>家族银行</b>是「用钱培养人」的运作机制（虚线并列 = 钱为人服务）。<br>
+  <b>你的落点：</b>高净值家族弱在「只传金融资本」——有信托、没人本。回到单元 02 / 07 / 09 / 10 补链。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同家族 / 方法论视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>财富如何跨越周期、跨代传递、不被稀释与收割？</b><br>一本书只是一个家族的解法。下面八位家族 / 作者，对同一主心给出八种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">詹姆斯·休斯 ·《家族财富》</div><div class="view">五种资本 + Good Ancestor：人先于钱，信托防不住人废了。留人比留钱难。</div></div>
+    <div class="spec"><div class="who">洛克菲勒 ·《Titan》</div><div class="view">美系：信托 + 慈善 + 办公室，用结构把暴富洗成制度，跨三代不散。</div></div>
+    <div class="spec"><div class="who">范德比尔特 · 传记</div><div class="view">反面：只给钱不育人，财富在二三代被挥霍、内斗、征税啃光。</div></div>
+    <div class="spec"><div class="who">沃尔顿 ·《富甲美国》</div><div class="view">股权集中 + 合伙人文化：把公司当长期作品，后代共享股权不散伙。</div></div>
+    <div class="spec"><div class="who">罗斯柴尔德 · 传记</div><div class="view">欧系：五子布网 + 族内联姻，用凝聚锁股权，几世纪不散。</div></div>
+    <div class="spec"><div class="who">日本财阀（三井 / 三菱 / 住友）</div><div class="view">养子继承 + 家宪：制度先于血缘，被拆解还能以系列重生。</div></div>
+    <div class="spec"><div class="who">三星李氏 · 韩系财阀</div><div class="view">循环出资控盘：极小个人股比 + 交叉持股锁帝国，代价是继承税命门。</div></div>
+    <div class="spec"><div class="who">《保全你的财富》</div><div class="view">工具层：保险 + 离岸信托 + 税务居民规划，用法律壳隔离、节税、定向传承。</div></div>
+  </div>
+  <div class="legend" style="color:var(--muted);font-size:.78em;line-height:1.6;margin-top:14px;"><b style="color:var(--brand);">光谱逻辑：</b>休斯（人先于钱）↔ 范德比尔特（只给钱）；洛克菲勒（结构洗白）↔ 沃尔顿（股权集中）；罗斯柴尔德（联姻锁）↔ 日本财阀（养子 + 家宪）；三星（循环出资）↔《保全你的财富》（工具先行）。<b>没有谁对，只有哪句戳中你家族此刻的缺口。</b>合上卡，写下：我的解法站在光谱哪一格？</div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=詹姆斯休斯+家族财富+五种资本" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/02/05</div>
+    <div class="mt">詹姆斯·休斯 家族财富</div>
+    <div class="md">看「五种资本 + 人先于钱」的核心框架，回看单元 01 / 02 / 05。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=富不过三代+家族传承+家教" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 06/10/11</div>
+    <div class="mt">富不过三代与家族传承</div>
+    <div class="md">理解「只传钱必散」，对应单元 06 / 10 / 11。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=家族办公室+家族银行+家族治理" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 04/08/13</div>
+    <div class="mt">家族办公室与家族银行</div>
+    <div class="md">把书里的「家族银行 / 代际共学」翻译成今天的实操工具。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=信托+人本+家族传承+好祖先" target="_blank" rel="noopener">
+    <div class="mk">科普 · 单元 07/09/12</div>
+    <div class="mt">信托与人本：留钱还是留人</div>
+    <div class="md">理解休斯 vs 洛克菲勒的「钱 vs 人」之争，给你的裁判案找素材。</div>
+    <div class="go">点击打开科普</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（书架③ 财富守护与家族传承）— 詹姆斯·休斯《Family Wealth》精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线财富传承书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="大道-段永平.html"><div class="pn-label">← 上一篇</div><div class="pn-title">大道 段永平</div></a><a class="pn-next" href="并购之王-罗伯茨.html"><div class="pn-label">下一篇 →</div><div class="pn-title">并购之王 罗伯茨</div></a></nav>
+</body>
+</html>

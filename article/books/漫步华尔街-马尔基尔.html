@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漫步华尔街 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>漫步华尔街：超越随机漫步</h1>
+<div class="byline">伯顿·马尔基尔 / 普林斯顿经济学教授 · 有效市场与指数投资圣经</div>
+<p class="lead">关于「普通人如何清醒地赢」的第一性原理。本卡是「资本人物馆·价值投资与思维模型书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架⑤ · 价值投资与思维模型</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">媒体延伸：讲座 · 解读 · 科普</span>
+  <span class="tag">对接 A 线认知 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？纳瓦尔给你「杠杆」、芒格给你「多元思维」、巴菲特给你「复利」——而《漫步华尔街》独有序增量是两点：<b>①「有效市场 + 随机漫步」</b>——个人别幻想战胜市场，先别被费率与情绪定价；<b>②「指数基金 + 资产配置 + 成本控制」</b>是普通人唯一可复制的赢法。这本书不可替代，是因为它用 50 年数据把「主动选股是智商税」讲透，是书架里唯一一本「劝你认输」的清醒剂。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺选股技巧，你缺的是「别被自己与市场情绪反向定价」的清醒，以及一套能躺赢的配置。这本书给你。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你过去三年跑赢指数了吗？又为基金交了多少隐性费率？两个都难看——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">随机漫步：价格不可预测</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">股价短期是随机游走，新信息瞬间反映。基于过去的预测不比掷硬币强。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为能择时，其实择时者是自己最大的敌人。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"A blindfolded monkey throwing darts at a newspaper's financial pages could select a portfolio that would do just as well as one carefully selected by the experts."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你天天看盘择时——马尔基尔说那大概率是损耗。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">坚实基础 vs 空中楼阁</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">两种定价理论：坚实基础（内在价值）vs 空中楼阁（心理与叙事）。市场常由后者驱动。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「价值」常被叙事打败。理性估值敌不过群体情绪。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"When prices are driven by psychology and narrative, even castles in the air can rise."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你只信「估值」——忘了叙事也能定价。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">有效市场假说</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">半强式有效下，公开信息已反映价格，靠公开信息无法持续超额。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「我知道内幕」才可能有 alpha，但那是违法的。合法超额极难。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"No one can consistently beat the market using only publicly available information."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你买「研报推荐」——信息早 price in 了。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">技术分析的徒劳</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">图表形态是后视的。历史价格不含预测未来的信息。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「头肩顶」等形态在样本外失效。看线 = 看运气。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Technical analysis is not a reliable way to beat the market."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你按 MACD 金叉买入——马尔基尔说那是噪音。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">基本面分析的局限</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">即便估值对，市场可能长期不回归；分析师预测常系统性偏乐观。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「价值投资」也对，但多数人在对的时间错的量。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Markets can remain irrational longer than you can remain solvent."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你死扛「低估」却越套越深——时间不一定是朋友。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">泡沫史：这次不一样</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">郁金香、南海、互联网、次贷——泡沫共性：叙事 + 杠杆 +「这次不同」。结局都一样。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">每次泡沫都宣称「新范式」，人性不变，结局不变。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Far more money has been lost by investors preparing for corrections than has been lost in corrections themselves."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你空仓等回调等了一年——错过远比回撤贵。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">成本杀手：费率吞掉收益</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">主动基金高费率 + 换手成本，长期吃掉大半超额。成本低 = 净收益高。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你挑「厉害的基金经理」，其实在给费率打工。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"In investing, the only thing certain is cost."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你买 1.5% 管理费 + 申赎费的基金——成本在偷走复利。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">指数基金：普通人的最优解</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">宽基指数低成本、全市场暴露、无需择时，长期跑赢多数主动基金。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「不挑」反而赢过「精挑」。认输给市场 = 赢。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"For the average investor, the index fund is the best way to own the market."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你纠结选哪只主动基——不如直接买指数。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">资产配置：唯一免费的午餐</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">跨资产（股 / 债 / 商品 / 现金）配置降波动不降收益，是「免费午餐」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">选对资产比重，比选对个股重要得多。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Asset allocation is the only free lunch in investing."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你全仓股票——没吃这顿免费午餐。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">生命周期：时间匹配风险</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">年轻多配权益（时间长扛波动），年长加债券（保本）。风险随年龄降。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">30 岁买货币基金才是真冒险（跑不赢通胀）。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Your asset mix should depend on your time horizon, not on market forecasts."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你 25 岁却全买理财——错配了时间。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">再平衡：反人性的纪律</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">定期把组合拉回目标比例，等于「卖高买低」的机械纪律。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">再平衡逼你「剪赢家补输家」，反直觉但有效。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Rebalancing forces you to sell high and buy low."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你涨了不舍得卖、跌了不敢买——缺再平衡纪律。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">税后收益才是真收益</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">频繁交易产生资本利得税，长期持有递延税、复利更肥。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">税是隐性的成本杀手。税前收益常是错觉。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"It's not what you earn, it's what you keep."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你高频交易——税在啃你的复利。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">理性期望：别被故事带偏</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">长期权益溢价来自企业盈利增长，期望要现实（别信「年化 30%」）。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">高预期常伴随高风险，承诺高收益的多是骗局。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"If it sounds too good to be true, it probably is."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你被「稳赚 20%」的产品吸引——马尔基尔会让你算概率。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位女投资人，到底「买指数躺平」还是「学林奇挑十倍股」。马尔基尔会劝「你大概率跑不赢指数，买指数最理性」；但林奇会反驳「散户用生活常识能战胜指数，我管基金时年年跑赢」；巴菲特更会说「长期持有好公司比指数更优」。三派都对，看她的精力与能力圈。</p>
+  <p class="verdict"><b>当裁判：</b>没精力研究→听马尔基尔买指数；有精力且懂→学林奇；有耐心→学巴菲特。合上书，写下你的判：你的时间该「躺指数」还是「挑好生意」？再去读书 map 看「指数 / 成本」节点。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">随机：我过去三年跑赢指数了吗 ___</div><div class="ex">示例：没跑赢，还交了 2% 费——该买指数。</div></div>
+  <div class="row"><div class="fl">成本：我被费率 / 税偷偷吃掉的是 ___</div><div class="ex">示例：主动基 1.5% + 申赎，吃掉大半收益。</div></div>
+  <div class="row"><div class="fl">配置：我「免费午餐」没吃的是 ___</div><div class="ex">示例：全仓股票，没跨资产分散。</div></div>
+  <div class="row"><div class="fl">再平衡：我最近一次追高 / 杀跌的是 ___</div><div class="ex">示例：涨了不舍得卖、跌了割肉。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="漫步华尔街认知地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <path d="M340,238 C262,182 206,150 158,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C418,182 474,150 522,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C262,296 206,328 158,346" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C418,296 474,328 522,346" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M196,110 C300,94 380,94 524,110" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M540,156 C558,250 558,250 540,344" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M196,350 C262,382 300,398 332,404" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M524,350 C458,382 400,398 348,404" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <circle cx="340" cy="238" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="238" r="58" fill="#41140e"/>
+  <text x="340" y="232" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">有效市场</text>
+  <text x="340" y="251" fill="#ADBCC3" font-size="11" text-anchor="middle">+ 指数</text>
+  <circle cx="150" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">随机漫步</text>
+  <text x="150" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">不可预测</text>
+  <circle cx="540" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">成本控制</text>
+  <text x="540" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">费率/税</text>
+  <circle cx="150" cy="350" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="346" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">指数基金</text>
+  <text x="150" y="363" fill="#7A6B60" font-size="9.5" text-anchor="middle">全市场</text>
+  <circle cx="540" cy="350" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="346" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">资产配置</text>
+  <text x="540" y="363" fill="#7A6B60" font-size="9.5" text-anchor="middle">免费午餐</text>
+  <circle cx="340" cy="410" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="340" y="406" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">长期持有</text>
+  <text x="340" y="423" fill="#7A6B60" font-size="9.5" text-anchor="middle">再平衡</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>有效市场 + 指数是中枢，靠<b>随机漫步</b>打破择时幻想、用<b>成本控制</b>锁住净收益、买<b>指数基金</b>全市场暴露、靠<b>资产配置</b>吃免费午餐、<b>长期持有 + 再平衡</b>机械执行。<br>
+  <b>你的落点：</b>多数人弱在「成本意识」与「配置纪律」——回单元 07/09，先算清费率。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>在资本与算法时代，个体如何不被定价、反向定价世界？</b><br>一本书只是一个人的解法。下面九本，对同一主心给出九种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">马尔基尔 ·《漫步华尔街》</div><div class="view">有效市场 + 指数：个人别想战胜市场，先别被费率与情绪定价。</div></div>
+    <div class="spec"><div class="who">巴菲特 ·《滚雪球》</div><div class="view">长期价值：选好公司能跑赢，时间是朋友的称重机。</div></div>
+    <div class="spec"><div class="who">林奇 ·《战胜华尔街》</div><div class="view">常识投资：散户能用生活观察战胜指数，我管基金时年年跑赢。</div></div>
+    <div class="spec"><div class="who">芒格 ·《穷查理宝典》</div><div class="view">多元思维：不被任何单一金融理论定价，用多学科透镜看市场。</div></div>
+    <div class="spec"><div class="who">塔勒布 ·《反脆弱》</div><div class="view">黑天鹅：有效市场忽略尾部风险，留正凸性才不被清零。</div></div>
+    <div class="spec"><div class="who">段永平 ·《大道》</div><div class="view">本分价值：长期持有好生意，守能力圈慢就是快。</div></div>
+    <div class="spec"><div class="who">纳瓦尔 ·《纳瓦尔宝典》</div><div class="view">建资产逃离时薪：把股权当资产而非工资，反向定价世界。</div></div>
+    <div class="spec"><div class="who">兰小欢 ·《置身事内》</div><div class="view">制度定价：看懂宏观与政策，才知道哪些资产能滚。</div></div>
+    <div class="spec"><div class="who">索罗斯 · 反身性</div><div class="view">市场非有效：认知与价格互塑，谁能先看清谁定价。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>马尔基尔（认输指数）↔ 林奇（用常识赢）；巴菲特（挑好公司）↔ 段永平（守本分）；塔勒布（防黑天鹅）↔ 索罗斯（抓反身性）↔ 兰小欢（看制度）。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的解法站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E9%A9%AC%E5%B0%94%E5%9F%BA%E5%B0%94%20%E6%BC%AB%E6%AD%A5%E5%8D%8E%E5%B0%94%E8%A1%97%20%E8%AE%B2%E5%BA%A7" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/03</div>
+    <div class="mt">马尔基尔 讲座</div>
+    <div class="md">听他讲随机漫步与有效市场，回看单元 01/03。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E6%8C%87%E6%95%B0%E5%9F%BA%E9%87%91%20%E5%AE%9A%E6%8A%95%20%E8%AE%B2%E8%A7%A3" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 08/09</div>
+    <div class="mt">指数基金 定投 讲解</div>
+    <div class="md">对应指数基金与资产配置，听完再去读卡。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E6%9C%89%E6%95%88%E5%B8%82%E5%9C%BA%E5%81%87%E8%AF%B4%20%E8%A7%A3%E8%AF%BB" target="_blank" rel="noopener">
+    <div class="mk">视频 · 深读单元 02/05</div>
+    <div class="mt">有效市场假说 解读</div>
+    <div class="md">坚实基础与空中楼阁的长视频，读完卡再来啃。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E8%B5%84%E4%BA%A7%E9%85%8D%E7%BD%AE%20%E5%86%8D%E5%B9%B3%E8%A1%A1%20%E8%AE%B2%E8%A7%A3" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 09/11</div>
+    <div class="mt">资产配置 再平衡</div>
+    <div class="md">免费午餐与再平衡纪律的实操，对应单元 09/11。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（漫步华尔街·马尔基尔）— 精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线思维模型书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="滚雪球-巴菲特.html"><div class="pn-label">← 上一篇</div><div class="pn-title">滚雪球 巴菲特</div></a><a class="pn-next" href="穷查理宝典-芒格.html"><div class="pn-label">下一篇 →</div><div class="pn-title">穷查理宝典 芒格</div></a></nav>
+</body>
+</html>

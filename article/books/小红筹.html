@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小红筹 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.74em;line-height:1.6;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>小红筹：红筹架构实务</h1>
+<div class="byline">红筹架构实务指南 · 写给要把境内权益搬去境外资本市场定价的创业者与创始人</div>
+<p class="lead">关于“怎么绕开境内监管、把私有权益装进境外架构去上市”的第一性原理。本卡是「资本人物馆·IPO 与资本运作书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架② · IPO 与资本运作</span><span class="tag">书卡 · 精读认知闭环</span><span class="tag">红筹 / VIE / 10号文 / 37号文</span><span class="tag">跨境资本架构</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+
+<div id="article-body" class="prose">
+<div class="position">为什么单读这本？《读懂 IPO》讲境内 A 股路径、《Venture Deals》讲拿美元前的条款——而《小红筹》独有序增量是两点：①它把“境外上市”从“找投行”还原成“搭结构”（10 号文怎么绕、VIE 怎么控、37 号文怎么登记）；②它讲清“小红筹”(民企)与“大红筹”(国企)的本质区别，以及结构的每一步都是“监管套利 vs 合规”的走钢丝。这本书不可替代，是因为它专门解决“我的业务在境内，钱和定价权却要去境外”这个民企最现实的盲点。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺“去哪上市”的选择，你缺的是“我的架构能不能在境内监管下活下来、在境外被定价”的判断。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你的业务是否在外资禁入 / 限制行业(需 VIE)？你或联创的境外身份 / 返程投资登记做了没？两个都模糊——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">什么是小红筹：民企的境外上市通道</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">大红筹 = 国企(招商局 / 中信)经政府批；小红筹 = 民企把境内权益通过境外 SPV(开曼 / BVI)控制、境外上市。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“红筹”是国企专利，其实民企的“小红筹”才是美元基金最爱的退出通道。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">小红筹，是民营企业走向境外资本市场最现实的桥。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你是民企想拿美元——VC 要求开曼主体，小红筹是你的标准动作。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">红筹四步：设立 SPV → 重组 → 控制 → 上市</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">创始人设 BVI / 开曼控股公司→收购境内运营实体(返程)→协议 / 股权控制→境外发行。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">重组不是“搬家”，是“把控制权挪到境外、境内留运营”，每一步都踩监管红线。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">红筹的本质，是把“控制权”放到监管够不着的时区。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你直接拿境内公司去谈美元 VC——对方要的是开曼主体，结构先做对。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">10 号文：返程并购的闸门</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">2006 年《关于外国投资者并购境内企业的规定》(10 号文)要求返程并购报商务部审批→阻断了“先设境外再并购境内”的老路。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">10 号文不是禁红筹，是让“简单红筹”变难；无数架构为绕它而生(信托 / 代持 / 境外身份)。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">10 号文之后，红筹从“流程”变成了“艺术”。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你用境内自然人直接设 SPV 并购自己公司——卡在商务部审批，得换路径。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">VIE(协议控制)：外资禁入行业的例外</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">业务在外资禁入(如增值电信 / 教育)→不能股权控制→用一系列协议(独家服务 / 投票权委托 / 股权质押)实现“控制不持股”。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">VIE 是“法律上不拥有、经济上全控制”的脆弱结构，全靠合同与监管默契。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">VIE，是用一揽子合同在监管缝隙里搭出的控制权。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做在线教育(外资限入)——只能 VIE，股权直控走不通。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">37 号文：自然人境外投资登记</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">境内自然人境外投资 / 返程投资须办 37 号文外汇登记→否则资金出境、利润汇回都违规。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“钱出去再说”，没登记 = 外汇违规，未来上市 / 退出都卡。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">没有 37 号文登记，红筹的每一笔资金流动都是隐患。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你创始人没做 37 号文登记就设了 BVI——补登记时已被外管关注。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">大红筹 vs 小红筹：审批路径不同</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">大红筹(国企)走国资委 / 发改委 / 证监会“红筹批复”；小红筹(民企)靠结构与 VIE 绕开，少一道批。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">国企反而“名正言顺有批文”，民企“灵活却游走在批复之外”。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">大红筹靠批文，小红筹靠结构。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你是民企却想照搬国企红筹路径——没那个批复通道，得靠结构。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">新浪模式：VIE 的鼻祖</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">2000 年新浪为赴美上市首创 VIE(协议控制)→此后互联网中概几乎全用，成“中概标配”。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为 VIE 是新发明，其实它是 20 多年前新浪被逼出来的“中国方案”。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">所有中概股的 VIE，都从新浪那纸协议开始。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做中概准备上市——VIE 不是选项，是必经结构。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">外汇与税务：结构的隐藏成本</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">跨境架构涉汇(37 号文 / ODI)、税(间接转让 / CFC / 预提所得税)→结构的每一步都有税与汇的成本。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“搭完架构就完了”，税务居民身份 / 间接转让一旦触发，补税可能吞掉利润。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">红筹省下的，可能都在税与汇里还回去。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你境外卖了公司——间接转让被认定应税，补税 + 滞纳金超预期。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">控制链设计：BVI / 开曼 / 香港的分工</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">BVI(隐私 / 灵活)持顶层→开曼(上市主体 / 税务中立)→香港( treaty 优惠 / 利润中转)→境内。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">不是“随便设几个壳”，每层都有税务 / 法律 / 上市功能的分工。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">控制链每一层，都是为“税、隐私、上市”三件事权衡的结果。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你少了香港层——境内分红到开曼被双重征税，白白多交。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">重组对价与税务：怎么“买”自己的公司</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">境外 SPV 并购境内实体需支付对价→现金 / 股权置换，触发所得税；用股权置换可递延。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你“左手倒右手”也被征税——重组不是免费搬家。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">红筹重组里的每一次“倒手”，税务局都看在眼里。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你用现金对价重组——创始人先交一大笔个税，现金流吃紧。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">合规边界：套利不是违规</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">红筹是“在法律框架内优化路径”，不是规避法律→一旦被认定虚假 VIE / 代持，上市即撤。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“擦边就能上”，监管对“假外资 / 假协议”零容忍，踩线即全盘崩。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">红筹是走钢丝，不是跳崖——边界之内才是艺术。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你用代持掩盖返程——披露时被抓，上市进程归零。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">上市地选择：港股 / 美股 / 不上市</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">港股(同股同权友好 / proximity)、美股(估值高 / 中概承压)、或先不上市拿美元并购→地点决定结构与估值。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“美国最好”，中概审计 / 政治风险下，港股可能更稳。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">上市地，是红筹结构的终极约束。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你冲美股却遇中概退市风险——结构得预留港股 backup。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">红筹的脆弱：政策一变，全链重搭</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">境内监管(10 号文 / VIE 政策 / 数据安全)一变→已搭结构可能失效，重搭成本高。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“搭好一劳永逸”，红筹是“与监管共舞”的活结构，随时要调。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">红筹不是一次性工程，是跟着监管呼吸的结构。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你 VIE 所涉行业出新规——控制协议要重谈，上市时间表推迟。</div></div>
+  </div>
+</div>
+
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位创始人，业务在教育(外资限入)。架构师 A 劝“用 VIE，协议控制，赶紧去美股”；合规官 B 劝“VIE 政策不确定，先做 37 号文登记 + 港股预备，VIE 只作备选，别 all-in”。两人都对，风险偏好不同。</p>
+  <p class="verdict"><b>当裁判：</b>看“监管确定性”与“退出紧迫度”。若美股窗口紧且 VIE 可控(单元 04/07)，可先 VIE；若政策风险高、想稳，港股 + 小红筹股权控制(非 VIE)更稳(单元 12)。判：列“VIE 失效触发清单”——数据安全 / 行业新规 / 审计——任一高概率，则降 VIE 权重。合上书，写你的判：你的结构是“股权直控”还是“协议控制”？再去读书 map 看“VIE / 10 号文”节点怎么连。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">架构：我业务是否在外资限入(需 VIE)是 ___</div><div class="ex">示例：在线教育限入，只能 VIE；我之前还想股权直控，方向错了。</div></div><div class="row"><div class="fl">登记：我 / 联创的 37 号文与 ODI 登记做了没 ___</div><div class="ex">示例：创始人都没做 37 号文，资金出境是违规，先补。</div></div><div class="row"><div class="fl">控制链：我的 BVI / 开曼 / 香港层分工合理吗 ___</div><div class="ex">示例：我少了香港层，境内分红到开曼双重征税，补一层。</div></div><div class="row"><div class="fl">边界：我“擦边”的结构动作是 ___</div><div class="ex">示例：用代持掩盖返程，披露风险高——改成合规 VIE / 真实持有。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="小红筹概念地图">
+<defs><marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/></marker></defs>
+<path d="M340,235 C245,216 245,129 150,110" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C435,216 435,129 530,110" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C235,237 235,248 130,250" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C445,237 445,248 550,250" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C265,260 265,375 190,400" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C415,260 415,375 490,400" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M196,110 C300,94 380,94 484,110" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+<path d="M176,262 C300,300 380,300 504,262" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+<path d="M236,400 C310,415 370,415 444,400" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+<circle cx="340" cy="235" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+<circle cx="340" cy="235" r="58" fill="#41140e"/>
+<text x="340" y="229" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">小红筹</text>
+<text x="340" y="248" fill="#ADBCC3" font-size="11" text-anchor="middle">境外上市</text>
+<circle cx="150" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="150" y="107" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">红筹架构</text>
+<text x="150" y="124" fill="#7A6B60" font-size="9.5" text-anchor="middle">境外SPV</text>
+<circle cx="530" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="530" y="107" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">VIE</text>
+<text x="530" y="124" fill="#7A6B60" font-size="9.5" text-anchor="middle">协议控制</text>
+<circle cx="130" cy="250" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="130" y="247" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">10号文</text>
+<text x="130" y="264" fill="#7A6B60" font-size="9.5" text-anchor="middle">返程并购</text>
+<circle cx="550" cy="250" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="550" y="247" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">37号文</text>
+<text x="550" y="264" fill="#7A6B60" font-size="9.5" text-anchor="middle">外汇登记</text>
+<circle cx="190" cy="400" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="190" y="397" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">美元基金</text>
+<text x="190" y="414" fill="#7A6B60" font-size="9.5" text-anchor="middle">外资VC</text>
+<circle cx="490" cy="400" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="490" y="397" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">上市地</text>
+<text x="490" y="414" fill="#7A6B60" font-size="9.5" text-anchor="middle">港股美股</text>
+</svg>
+<div class="legend"><b>微观层 · 本书概念网：</b>小红筹由六条路径汇成——红筹架构(境外 SPV)与 VIE(协议控制)是骨架(虚线并列 = 都在“搭结构”)；10 号文(返程并购闸门)与 37 号文(外汇登记)是合规双闸(虚线并列 = 都在“过监管”)；美元基金(外资 VC 偏好)与上市地(港股 / 美股)是终点约束(虚线并列 = 都在“被境外定价”)。<br><b>你的落点：</b>高智女性创业者常卡在“10 号文 / 37 号文”两道闸——结构再美，登记与审批不过就是空中楼阁。</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>一家公司怎么从私有变成公开、怎么在资本市场上被定价与博弈？</b><br>一本书只是一个人的解法。下面围绕这一主心，并置多位作者 / 案例的视角。没有标准答案，你的收获是"视野被拓宽"，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">小红筹 ·《小红筹》</div><div class="view">结构是定价的前提：10 号文 / VIE / 37 号文决定了你能否在境外被定价；红筹是合规套利的艺术。</div></div>
+<div class="spec"><div class="who">读懂IPO ·《读懂 IPO》</div><div class="view">境内对照：不走红筹就走 A 股，两路定价逻辑与监管完全不同。</div></div>
+<div class="spec"><div class="who">布拉德·费尔德 ·《Venture Deals》</div><div class="view">美元基金的先天要求：外资 VC 几乎要求开曼架构，红筹是拿美元的前提。</div></div>
+<div class="spec"><div class="who">索罗斯 ·《金融炼金术》</div><div class="view">VIE 的本质：监管套利下的“共识定价”，脆弱但有效，靠市场信念维持。</div></div>
+<div class="spec"><div class="who">资本的故事 · VOC / 东印度</div><div class="view">红筹的前世：跨境资本结构自古是权力与制度的博弈，今天只是新形态。</div></div>
+<div class="spec"><div class="who">迈克尔·刘易斯 ·《说谎者的扑克牌》</div><div class="view">投行在红筹重组里赚的是“结构的复杂度”，越复杂越有利可图。</div></div>
+<div class="spec"><div class="who">邓文迪 · 人物案例</div><div class="view">跨境身份 / 关系即通道：特殊身份有时是绕开登记的“桥”(亦风险)。</div></div>
+<div class="spec"><div class="who">卡戴珊 · 品牌案例</div><div class="view">个人品牌跨境估值：创始人 IP 在境外市场也是定价因子。</div></div>
+
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>本书站位 ↔ 各路作者 / 案例，从"合规 / 条款 / 结构 / 历史"不同侧面切入同一主心。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的解法站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%B0%8F%E7%BA%A2%E7%AD%B9%20%E7%BA%A2%E7%AD%B9%E6%9E%B6%E6%9E%84%20VIE%20%E5%AE%9E%E6%93%8D" target="_blank" rel="noopener">
+  <div class="mk">视频 · 印证单元 03/04</div>
+  <div class="mt">小红筹 红筹架构 VIE 实操</div>
+  <div class="md">红筹与 VIE 搭建实操，对应单元 03/04。</div>
+  <div class="go">点击打开</div>
+</a>
+<a class="media-card" href="https://search.bilibili.com/all?keyword=10%E5%8F%B7%E6%96%87%20%E8%BF%94%E7%A8%8B%E5%B9%B6%E8%B4%AD%2037%E5%8F%B7%E6%96%87%20%E7%99%BB%E8%AE%B0" target="_blank" rel="noopener">
+  <div class="mk">法规 · 印证单元 03/05</div>
+  <div class="mt">10号文 返程并购 37号文 登记</div>
+  <div class="md">10 号文与 37 号文登记要点，对应单元 03/05。</div>
+  <div class="go">点击打开</div>
+</a>
+<a class="media-card" href="https://search.bilibili.com/all?keyword=%E6%96%B0%E6%B5%AA%E6%A8%A1%E5%BC%8F%20VIE%20%E4%B8%AD%E6%A6%82%E8%82%A1" target="_blank" rel="noopener">
+  <div class="mk">历史 · 印证单元 07</div>
+  <div class="mt">新浪模式 VIE 中概股</div>
+  <div class="md">新浪模式与中概 VIE 源起，对应单元 07。</div>
+  <div class="go">点击打开</div>
+</a>
+<a class="media-card" href="https://search.bilibili.com/all?keyword=%E7%BA%A2%E7%AD%B9%20%E9%87%8D%E7%BB%84%20%E7%A8%8E%E5%8A%A1%20%E5%A4%96%E6%B1%87%20%E6%9E%B6%E6%9E%84" target="_blank" rel="noopener">
+  <div class="mk">税务 · 印证单元 08/10</div>
+  <div class="mt">红筹 重组 税务 外汇 架构</div>
+  <div class="md">红筹重组的税与汇成本，对应单元 08/10。</div>
+  <div class="go">点击打开</div>
+</a>
+
+</div>
+
+<div class="foot">
+  资本人物馆 · 书架② IPO 与资本运作 —《小红筹》精读认知卡：定位增量 → 13 单元拆解 → 冲突当裁判 → 落到自己 → 读书 map 闭环 → 延伸陪读<br>瑞士风视觉 · 零脚本 SVG · 对接 A/B 线 IPO 书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="保全你的财富.html"><div class="pn-label">← 上一篇</div><div class="pn-title">保全你的财富</div></a><a class="pn-next" href="日本财阀.html"><div class="pn-label">下一篇 →</div><div class="pn-title">日本财阀</div></a></nav>
+</body>
+</html>

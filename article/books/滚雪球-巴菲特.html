@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>滚雪球 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>滚雪球：巴菲特和他的财富人生</h1>
+<div class="byline">艾丽斯·施罗德 著 / 沃伦·巴菲特 唯一授权传记 · 价值投资的一生算法</div>
+<p class="lead">关于「复利如何滚成一生」的第一性原理。本卡是「资本人物馆·价值投资与思维模型书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架⑤ · 价值投资与思维模型</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">媒体延伸：传记 · 纪录片 · 股东信</span>
+  <span class="tag">对接 A 线认知 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？纳瓦尔给你「杠杆与自由」、芒格给你「多元思维」、段永平给你「本分价值」——而《滚雪球》（施罗德所著巴菲特授权传记）独有序增量是两点：<b>①把「复利」从一个公式变成一个人 90 年的人生操作系统</b>（耐心 + 好生意 + 声誉 + 现金流，滚成雪球）；<b>②它让你看见「不被市场定价」的底层</b>——巴菲特用「能力圈 + 不亏钱」反向定价世界。这本书不可替代，是因为它用真实轨迹，把抽象的价值投资变成可触摸的人生算法。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺「怎么赚钱」，你缺的是「怎么让钱在几十年里替你滚」的耐心，以及「怎么不被市场情绪反向定价」的定力。这本书一次性给你看一个人怎么做到。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你现在的资产里，几成是「好生意的股权 / 现金牛」、几成是追涨杀跌的筹码？又有多少次，你因为「怕踏空」被市场定价？两个都偏——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">雪球隐喻：湿雪 + 长坡</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">财富像雪球，关键是「湿雪」（高 ROIC 的好生意）和「长坡」（足够长的时间）。两者齐备，小起点也能滚大。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">起点大小不重要，坡的长短才重要。早开始比多本金更值钱。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Life is like a snowball. The important thing is finding wet snow and a really long hill."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你总想「等攒够本金再投资」——其实长坡比本金更稀缺，现在就开始。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">规则一：永远不亏钱</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">亏损不对称——亏 50% 要赚 100% 才回本。保住本金是复利的前提。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「进攻」常被夸，「不亏」才是真防守。少亏 = 多赚。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Rule No. 1: Never lose money. Rule No. 2: Never forget rule No. 1."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你为高收益冲进不懂的产品，忘了规则一——先活下来。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">价格 vs 价值</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">价格是市场报价（情绪），价值是公司内在现金流。买在价格低于价值时才有安全边际。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「便宜」是市场给的礼物，不是羞耻。别人恐慌你研究价值。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Price is what you pay. Value is what you get."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你追热门高价股、忽略价值——颠倒了价格与价值。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">能力圈：只投看得懂的</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">圈内你知根知底，圈外再热闹也是赌博。圈可扩大，但边界要诚实。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">拒绝机会是能力不是怯懦。错过 ≠ 做错。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Risk comes from not knowing what you're doing."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你投「看不懂但很火」的赛道——巴菲特会说：圈外不碰。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">好生意与护城河</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">好生意有护城河（品牌 / 网络效应 / 转换成本），能长期高 ROIC。买公司就是买这条河。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">便宜的差生意长期被竞争抹平；贵的好生意，复利更稳。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"I try to buy stock in businesses that are so wonderful that an idiot can run them, because sooner or later, one will."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你买靠「明星 CEO」的公司，人一走就塌——要买护城河不是人。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">永远持有：时间的朋友</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">优秀公司是「称重机」，时间越长越显价值。频繁交易损耗税费与机会。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「长期持有」不是被动，是主动选择不折腾。卖出需要更强理由。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Our favorite holding period is forever."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你持有好公司却因波动卖掉——把「forever」当标尺。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">市场先生：情绪化的合伙人</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">格雷厄姆的「市场先生」每天报价、情绪化。你可以利用他，不必听他的。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">报价是服务不是指令。他恐慌时你该贪婪。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Be fearful when others are greedy, and greedy when others are fearful."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你被盘面情绪牵着走——把市场先生当工具。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">现金流为王</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">账面利润可修饰，自由现金流才是真金。巴菲特看重「股东盈余」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">高增长不分红、烧钱的公司，可能永远到不了「价值」。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"If you aren't willing to own a stock for ten years, don't own it for ten minutes."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你买「故事好听但没现金」的公司——回到现金流。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">复利需要时间，不耐烦是敌人</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">复利曲线前平后陡。多数人倒在「平」的阶段，没等到「陡」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「慢慢变富」是优势不是劣势。快钱常是诱饵。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The stock market is a device for transferring money from the impatient to the patient."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你嫌复利慢去加杠杆——耐心才是真杠杆。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">声誉与正直：终极复利资产</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">巴菲特把声誉当终极复利资产。诚实让合作与机会自动找上门。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">走捷径短期快，长期归零。正直最贵也最值。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"It takes 20 years to build a reputation and five minutes to ruin it."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你为省事糊弄一次合作——声誉曲线可能永久折损。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">在别人恐慌时出手</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">危机时好资产被错杀、安全边际最大。现金储备 = 抄底弹药。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">危机是礼物不是灾难，前提是你有现金、有定力。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Opportunities come infrequently. When it rains gold, put out the bucket, not the thimble."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你遇回调就砍仓——该做的是端桶接。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">买企业不是买代码</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">股票背后是真实生意。用「当老板」心态而非「炒代码」心态。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">盯着 K 线的人看不到生意本身。所有权视角 > 价格视角。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"If you are in a poker game and after 20 minutes you don't know who the patsy is, then you're the patsy."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你买票只看技术图形、不懂生意——换成老板视角。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">投资自己是最稳的雪球</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">自身能力是零风险的复利资产，不会被市场没收。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">向外找机会前先向内投资自己——这是唯一确定回报。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The best investment you can make is in yourself."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你把钱全投向外、不投能力——最确定的雪坡被你空着。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位女创始人手里有 3000 万现金，纠结「买指数躺平」还是「重仓几只看好的公司」。传记里的巴菲特会劝「买好生意长期持有，别折腾」；但马尔基尔会反驳「你大概率跑不赢指数，买指数才是真理性」；林奇会更激进「你熟知的消费品牌就是十倍股线索，该下注」。三派都对，适用她的认知与精力。</p>
+  <p class="verdict"><b>当裁判：</b>看她的时间与能力圈。有精力研究→学林奇；没精力→学马尔基尔；有耐心→学巴菲特。合上书，写下你的判：你的现金该「躺指数」还是「挑好生意」？再去读书 map 看「复利 / 好生意」节点怎么连。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">雪球：我「长坡」资产（可滚几十年的）是 ___</div><div class="ex">示例：我只有追涨杀跌的筹码，没有「湿雪长坡」的股权——补上。</div></div>
+  <div class="row"><div class="fl">不亏钱：我最近一次违背规则一（为收益冒不懂的险）是 ___</div><div class="ex">示例：冲进一个 DeFi 产品，归零。</div></div>
+  <div class="row"><div class="fl">能力圈：我本该说「不懂」却出手的是 ___</div><div class="ex">示例：跟投 AI 算力，其实只懂概念。</div></div>
+  <div class="row"><div class="fl">声誉：我最近一次损伤长期声誉的是 ___</div><div class="ex">示例：为赶单答应超能力承诺，信任曲线折损。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="滚雪球认知地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <path d="M340,238 C262,182 206,150 158,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C418,182 474,150 522,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C262,296 206,328 158,346" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C418,296 474,328 522,346" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M196,110 C300,94 380,94 524,110" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M540,156 C558,250 558,250 540,344" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M196,350 C262,382 300,398 332,404" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M524,350 C458,382 400,398 348,404" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <circle cx="340" cy="238" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="238" r="58" fill="#41140e"/>
+  <text x="340" y="232" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">财富雪球</text>
+  <text x="340" y="251" fill="#ADBCC3" font-size="11" text-anchor="middle">复利</text>
+  <circle cx="150" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">能力圈</text>
+  <text x="150" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">看得懂</text>
+  <circle cx="540" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">不亏钱</text>
+  <text x="540" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">保住本金</text>
+  <circle cx="150" cy="350" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="346" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">好生意</text>
+  <text x="150" y="363" fill="#7A6B60" font-size="9.5" text-anchor="middle">护城河</text>
+  <circle cx="540" cy="350" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="346" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">耐心</text>
+  <text x="540" y="363" fill="#7A6B60" font-size="9.5" text-anchor="middle">长期持有</text>
+  <circle cx="340" cy="410" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="340" y="406" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">声誉</text>
+  <text x="340" y="423" fill="#7A6B60" font-size="9.5" text-anchor="middle">正直/信任</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>财富雪球由四条路径汇成——<b>能力圈</b>划定边界→<b>不亏钱</b>保住本金→买入有<b>护城河的好生意</b>→靠<b>耐心</b>长期持有滚大；<b>声誉</b>独立成支，是终极复利资产。<br>
+  <b>你的落点：</b>多数高净值女性弱在「长坡资产」缺失——回单元 01/06，把筹码换成可滚的股权。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>在资本与算法时代，个体如何不被定价、反向定价世界？</b><br>一本书只是一个人的解法。下面九本，对同一主心给出九种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">巴菲特 ·《滚雪球》</div><div class="view">复利雪球：长期持有好生意，让时间替你定价世界。好公司是最好的定价权。</div></div>
+    <div class="spec"><div class="who">芒格 ·《穷查理宝典》</div><div class="view">多元思维：不被任何单一叙事骗，用多学科透镜看同一件事。</div></div>
+    <div class="spec"><div class="who">段永平 ·《大道》</div><div class="view">本分价值：中国版巴菲特，买股票 = 买公司，守本分慢就是快。</div></div>
+    <div class="spec"><div class="who">林奇 ·《战胜华尔街》</div><div class="view">常识投资：从生活观察反向定价市场，散户也能赢。</div></div>
+    <div class="spec"><div class="who">马尔基尔 ·《漫步华尔街》</div><div class="view">指数 + 成本：个人大概率跑不赢指数，先别被费率定价。</div></div>
+    <div class="spec"><div class="who">纳瓦尔 ·《纳瓦尔宝典》</div><div class="view">建资产逃离时薪：把股权当资产而非工资，反向定价世界。</div></div>
+    <div class="spec"><div class="who">兰小欢 ·《置身事内》</div><div class="view">制度定价：看懂宏观与政策，才知道哪些生意能滚、何时借势。</div></div>
+    <div class="spec"><div class="who">塔勒布 ·《反脆弱》</div><div class="view">避免致命风险：保住雪球比滚大它更重要，别被黑天鹅一次性清零。</div></div>
+    <div class="spec"><div class="who">索罗斯 · 反身性</div><div class="view">认知与价格互塑：谁能先看清偏见，谁就反向定价市场。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>巴菲特（滚雪球）↔ 马尔基尔（认输指数）；段永平（守本分）↔ 林奇（用常识）；纳瓦尔（造资产）↔ 兰小欢（看制度）↔ 塔勒布（防清零）。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的解法站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E6%BB%9A%E9%9B%AA%E7%90%83%20%E5%B7%B4%E8%8F%B2%E7%89%B9%20%E4%BC%A0%E8%AE%B0%20%E8%A7%A3%E8%AF%BB" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证全书</div>
+    <div class="mt">《滚雪球》传记解读</div>
+    <div class="md">听传记如何把复利写成一生，回看单元 01/09。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E6%88%90%E4%B8%BA%E6%B2%83%E4%BC%A6%E5%B7%B4%E8%8F%B2%E7%89%B9%20%E7%BA%AA%E5%BD%95" target="_blank" rel="noopener">
+    <div class="mk">纪录片 · 补单元 10/13</div>
+    <div class="mt">《成为沃伦·巴菲特》</div>
+    <div class="md">看他的声誉观与终身学习，对应单元 10/13。</div>
+    <div class="go">点击打开纪录片</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%B7%B4%E8%8F%B2%E7%89%B9%20%E8%82%A1%E4%B8%9C%E5%A4%A7%E4%BC%9A%20%E9%97%AE%E7%AD%94" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补冲突现场</div>
+    <div class="mt">巴菲特股东大会问答</div>
+    <div class="md">听他本人讲「不亏钱 / 长期持有」，给你的裁判案子找素材。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%B7%B4%E8%8F%B2%E7%89%B9%20%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1%20%E8%A7%A3%E8%AF%BB" target="_blank" rel="noopener">
+    <div class="mk">视频 · 深读单元 03/08</div>
+    <div class="mt">巴菲特致股东信解读</div>
+    <div class="md">价格与价值、现金流的长文逻辑，读完卡再来啃。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（滚雪球·巴菲特）— 精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线思维模型书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="洛克菲勒-彻诺.html"><div class="pn-label">← 上一篇</div><div class="pn-title">洛克菲勒 彻诺</div></a><a class="pn-next" href="漫步华尔街-马尔基尔.html"><div class="pn-label">下一篇 →</div><div class="pn-title">漫步华尔街 马尔基尔</div></a></nav>
+</body>
+</html>

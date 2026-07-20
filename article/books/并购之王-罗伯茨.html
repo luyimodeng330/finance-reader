@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>并购之王 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>并购之王：中型企业怎么卖最值</h1>
+<div class="byline">丹尼斯·J·罗伯茨（Dennis J. Roberts）/ 麦克莱恩集团董事长 · 中型企业并购老狐狸著</div>
+<p class="lead">一本写给中型企业主和卖方顾问的实战书：企业怎么卖、卖给谁、怎么在谈判里拿到最高价。本卡是「估值与并购实务书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元，最后用读书 map 把线织成网。</p>
+<div class="tags">
+  <span class="tag">书架① · 估值与并购实务</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">微观SVG概念网 + 宏观光谱</span>
+  <span class="tag">对接 A 线认知 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点来自原书；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">本书架里，达摩达兰讲「值多少」（买方估值逻辑）、门口的野蛮人讲「大交易怎么被抢」（华尔街戏剧）、罗森鲍姆 &amp; 珀尔讲「投行怎么做模型」（操作手册）——而《并购之王》独有序增量是<b>卖家视角与成交艺术</b>：同样一家公司，流程、心理、谈判术不同，成交价能差出几千万。它是「把估值变成口袋里的钱」那最后一公里。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你公司值 1 亿还是 1.5 亿，不取决于模型，取决于你找了几个买家、怎么包装、何时亮底牌。卖方不专业，钱就留在桌上。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">如果你是（或代表）一个企业主，想过「怎么卖最值」吗？还是只等中介报价？如果没想过——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">中型企业并购：被忽略的主战场</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">媒体追逐巨型交易，但经济里大量是中等规模（几千万到几亿）企业的买卖。这里信息最不对称、最靠人。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">大交易有模板，中型企业卖身几乎「每单都是手工活」，专业卖家极少。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：中型企业卖家的专业度，直接换算成成交价差——这里没有标准答案，只有手艺。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你帮一家年利 3000 万的企业找买家，别套大投行模板，按中段市场打法做。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">卖方顾问：你该请的「老狐狸」</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">专业 M&amp;A 顾问（不是普通券商）帮你定价、找买家、管流程、挡情绪。卖家最大的错是自己上阵。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">不请顾问省下的 2% 佣金，往往赔掉 20% 的成交价。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：省顾问费，是最贵的省钱——专业卖方代表值回票价。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你筹备出售，先挑一个真正做过同规模同行业交易的顾问，而非关系最近的券商。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">先定价，再上架</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">卖之前要有一个「自己信、市场认」的价（基于真实盈利 Quality of Earnings，而非账面）。价定错，流程全乱。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">多数卖家先问「能卖多少」再美化账，正确顺序是先理清真实盈利再谈价。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：先有可信的盈利质量，才有可信的价——价建立在经得起尽调的数上。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你卖公司前先做 QoE（盈利质量核查），把一次性收益剔除，给买家一个经得起尽调的数。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">真实盈利（QoE）：买家只认调整后的</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">账面利润含大量一次性、非现金、关联交易。买家按「normalized EBITDA」出价。卖家要主动调整并解释。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为的「利润」和买家愿付钱的利润，常常差出 30%。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：买家买的是调整后的盈利，不是财报利润——卖方要会讲「normalized」的故事。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做出售准备，提前把 owner 薪酬、私费、一次性损益调成「卖方版 QoE」并备好依据。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">流程即杠杆：制造竞标</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">同时引入多个买家、制造竞态，是抬高价的核心。独家谈判 = 把定价权交给一个买家。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「只跟一家谈」最省事，也最便宜。竞争才出高价。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：买家数量，是卖方最强的定价杠杆——少一个买家，少一份议价权。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你卖公司，至少同时养 3–5 个意向方，用阶段性数据释放维持竞态。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">招标 vs 私下：两种卖法</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">正式招标（auction）透明但伤关系；私下交易（negotiated）温和但易被压价。选哪种看买家结构与保密需求。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">招标不一定价最高，但确定性高；私下可能碰到大金主，也可能被套牢。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：卖法的选择，是价与确定性的权衡——先想清楚要哪个。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你选招标还是私售，先看「有没有非价诉求（员工 / legacy）」——有就偏私售。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">LOI 与尽职调查：价格的软战场</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">意向书（LOI）锁定大致价与排他期，尽调中买家常借「发现的问题」重新议价（retrade）。卖方要守价。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">签 LOI 不是结束，是「合法杀价」的开始。很多交易死在 retrade。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：LOI 后的尽调，是买家的二次定价权——要在条款里堵住 retrade 的口子。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你签 LOI 时留「价格调整仅限重大不利变化」条款，堵住 retrade 的口子。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">条款比总价更致命</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">成交价之外的条款（对赌 / earn-out、免责、托管、非竞争）决定「你最终拿到多少现金」。总价高可能到手少。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">买家用「高总价 + 苛刻条款」包装，卖方只看总价会吃大亏。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：看净到手，别看名义总价——条款才是真正的定价。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你谈出售，把 earn-out 比例、付款节奏、托管期列成「实际到手表」，逐条比。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">心理战：卖家最常犯的错</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">卖家常因情感依恋、厌倦流程、怕失去控制而贱卖或崩盘。情绪是买方最好的谈判杠杆。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最想「赶紧结束」的卖家，往往拿到最差价。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：卖公司的情绪成本，会直接折成价格折扣——要有人替你管情绪。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你在长流程里设「情绪止损点」，授权顾问代谈关键回合，别亲自被耗。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">买家画像：谁出价最高不一定最好</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">战略买家（同行）能付协同溢价但爱指手画脚；财务买家（PE）干净但讲 IRR 与退出。匹配比单价重要。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最高出价者，可能附带最难咽的条件或最易 retrade。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：选买家是选「价 + 条件 + 确定性」的组合，而非只看数字。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你收多份报价，做一张「价 / 条款 / 确定性 / 文化」四维打分表，而非只看数字。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">时机：在巅峰前一点点卖</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">卖在业绩高点旁（不是顶点）最值钱——买方买「未来」，你要给他增长空间，别卖在已透支时。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">等「再好一点」常等来拐点，卖早一点反而价更高。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：最好的卖点，是增长故事还能讲、还没讲完时——透支的业绩最难卖。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你规划退出，定在「连续两年增长、第三年可见」的窗口，而非业绩见顶那年。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">保密与信息释放节奏</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">过早暴露出售会吓跑客户、动摇团队。信息按阶段（teaser → CIM → 数据室）释放，控节奏 = 控价。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">一股脑亮所有底牌，等于放弃议价筹码。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：信息释放的节奏，就是定价权的节奏——core 客户名单留到最后一轮。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做出售，用 clean room 分批放数据，核心客户名单留到最后一轮才解锁。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">成交之后：钱到手才是真的</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">签约 ≠ 落袋。对赌未达标、托管未释放、税款吞噬，都能让「纸面富贵」缩水。收尾比开局更需专业。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">很多人庆祝签约为时已，真正的钱还在条款迷宫里。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv">本书核心论断：签完字，才算走到半程——净到手才是真正的成交价。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你退出后做一张「税后净到手 + 分期释放」追踪表，别被 headline 价迷惑。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位创始人要把公司卖给 PE，PE 出价 1.2 亿（高总价）但要求 40% earn-out（三年达标才付）+ 2 年非竞争；另一家战略同行出 9000 万现金、无对赌、保留他当顾问。达摩达兰式估值说「1.2 亿更接近内在」；罗伯茨式卖方术说「看净到手与确定性，9000 万可能更实」。</p>
+  <p class="verdict"><b>当裁判：</b>算两张表——①1.2 亿里能确定拿到的（首付 + 大概率 earn-out）是多少；②9000 万现金的确定性溢价值多少。合上书，写下你的判，去读书 map 看「流程定价 / 条款定价」两个节点，最后听延伸视听里中段市场的真实成交案例。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的出售 / 决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">真实盈利：我公司「买家会认的盈利」和我「财报利润」的差，主要来自 ___</div><div class="ex">示例：我把私车、家庭旅游算进费用，账面利润比 normalized EBITDA 低 25%——卖前要先调回。</div></div>
+  <div class="row"><div class="fl">竞标制造：我卖 / 帮卖时，会同时养的买家名单至少有 ___</div><div class="ex">示例：我之前只跟一家谈，被告知「就这价」。下次至少铺 4 个渠道（战略 2 + PE 2）。</div></div>
+  <div class="row"><div class="fl">净到手：我曾只看 ___（名义总价）忽略 ___，应补一张 ___ 表</div><div class="ex">示例：之前看收购报价只看总额，忽略 earn-out 与托管；应做「实际到手 + 确定性」四维表。</div></div>
+  <div class="row"><div class="fl">情绪止损：我在长流程里最容易因 ___ 崩，应授权 ___ 代谈</div><div class="ex">示例：我易被「再让一点就成」说服，设 5% 让步红线，超了让顾问上。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="并购之王认知地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <!-- 曲线连线（实线：驱动关系） -->
+  <path d="M340,235 C272,178 222,142 162,118" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C408,178 458,142 518,118" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C262,240 195,243 152,250" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C418,240 485,243 528,250" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C272,300 232,358 192,392" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C408,300 448,358 488,392" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <!-- 曲线连线（虚线：并列同源） -->
+  <path d="M188,98 C300,80 380,80 492,98" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M210,415 C310,430 370,430 470,415" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M188,250 C300,262 380,262 492,250" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <!-- 中心：外环 + 主圆 -->
+  <circle cx="340" cy="235" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="235" r="58" fill="#41140e"/>
+  <text x="340" y="229" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">卖最值</text>
+  <text x="340" y="248" fill="#ADBCC3" font-size="11" text-anchor="middle">Sell Side</text>
+  <!-- 节点：白底细描边 -->
+  <circle cx="150" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">真实盈利</text>
+  <text x="150" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">QoE调整</text>
+  <circle cx="530" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="530" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">竞标流程</text>
+  <text x="530" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">多买家</text>
+  <circle cx="140" cy="250" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="140" y="246" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">信息节奏</text>
+  <text x="140" y="263" fill="#7A6B60" font-size="9.5" text-anchor="middle">控释放</text>
+  <circle cx="540" cy="250" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="246" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">买家画像</text>
+  <text x="540" y="263" fill="#7A6B60" font-size="9.5" text-anchor="middle">价+确定性</text>
+  <circle cx="180" cy="400" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="180" y="396" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">条款定价</text>
+  <text x="180" y="413" fill="#7A6B60" font-size="9.5" text-anchor="middle">净到手</text>
+  <circle cx="500" cy="400" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="500" y="396" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">时机窗口</text>
+  <text x="500" y="413" fill="#7A6B60" font-size="9.5" text-anchor="middle">见顶前</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>「卖最值」由六条卖方手艺汇成——先把账面调成「真实盈利」（QoE），再用「竞标流程」制造买家竞态，用「信息节奏」控价，用「买家画像」选对主，用「条款定价」锁定净到手，卡准「时机窗口」在最值钱时出手。<br>
+  <b>你的落点：</b>高智女性创业者常「重做业务、轻卖自己」——觉得卖公司掉价。回单元 05/08/11，把出售当一门值得专业的手艺。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者 / 案例的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>一门生意 / 一笔交易，到底值多少钱、怎么被定价？</b><br>一本书只是一个人的解法。下面八位作者 / 案例，对同一主心给出八种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">罗伯茨 ·《并购之王》</div><div class="view">价 = 卖家用流程与谈判逼出的最高净到手价。同样的公司，卖法不同价差千万。</div></div>
+    <div class="spec"><div class="who">达摩达兰 ·《估值》</div><div class="view">价 = 故事 + 现金流折现的内在。卖方要先有逻辑，才有可谈的价。</div></div>
+    <div class="spec"><div class="who">罗森鲍姆 &amp; 珀尔 ·《投资银行》</div><div class="view">价 = 可比公司 + 先例交易的足球场区间，市场共识即合理价。</div></div>
+    <div class="spec"><div class="who">门口的野蛮人 · KKR</div><div class="view">价 = 竞价博弈里被推高的成交。买家多抢，价就脱离内在。</div></div>
+    <div class="spec"><div class="who">巴菲特 / 格雷厄姆</div><div class="view">价 = 市场先生的折扣，买在显著低于内在处。卖方的高价，他要等打折接。</div></div>
+    <div class="spec"><div class="who">战略买家 · 协同</div><div class="view">价 = 协同效应能撑起的溢价，愿为「控制 + 整合」多付——卖家的溢价来源。</div></div>
+    <div class="spec"><div class="who">PE · IRR 逻辑</div><div class="view">价 = 退出时能转卖的倍数，受基金期限与杠杆约束。高总价常配苛刻条款。</div></div>
+    <div class="spec"><div class="who">塔勒布 ·《反脆弱》</div><div class="view">价在尾部风险前脆弱，留反脆弱冗余——别被一个 headline 价锁死。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>罗伯茨（卖方逼价）↔ 达摩达兰（内在锚）；PE（高总价 + 条款）↔ 战略买家（协同溢价）；KKR（博弈推高）↔ 巴菲特（折扣接盘）↔ 塔勒布（留冗余）。<b>没有谁对，只有哪句戳中你此刻的出售处境。</b>合上卡，写下：我的定价逻辑站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E4%BC%81%E4%B8%9A%E5%B9%B6%E8%B4%AD%20%E5%8D%96%E6%96%B9%20%E5%AE%9E%E5%8A%A1" target="_blank" rel="noopener">
+    <div class="mk">教程 · 印证单元 02/05</div>
+    <div class="mt">企业并购卖方实务</div>
+    <div class="md">听中段市场怎么卖，回看单元 02 顾问与单元 05 竞标。</div>
+    <div class="go">点击打开教程</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E6%9D%A0%E6%9D%86%E6%94%B6%E8%B4%AD%20LBO%20%E4%BC%B0%E5%80%BC%20%E6%A8%A1%E5%9E%8B" target="_blank" rel="noopener">
+    <div class="mk">模型 · 补单元 03/08</div>
+    <div class="mt">杠杆收购估值模型</div>
+    <div class="md">看懂买家怎么算价，反推你的净到手，对应单元 03 与 08。</div>
+    <div class="go">点击打开模型</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%B9%B6%E8%B4%AD%20%E5%B0%BD%E8%81%8C%E8%B0%83%E6%9F%A5%20%E6%B5%81%E7%A8%8B" target="_blank" rel="noopener">
+    <div class="mk">流程 · 补单元 06/07</div>
+    <div class="mt">并购尽调与出价流程</div>
+    <div class="md">招标 vs 私售、LOI 后的 retrade，给你的裁判案子找素材。</div>
+    <div class="go">点击打开流程</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E4%BC%81%E4%B8%9A%E4%BC%B0%E5%80%BC%20%E5%8F%AF%E6%AF%94%E5%85%AC%E5%8F%B8%20%E5%80%8D%E6%95%B0" target="_blank" rel="noopener">
+    <div class="mk">方法 · 深读单元 04</div>
+    <div class="mt">企业估值与倍数方法</div>
+    <div class="md">normalized EBITDA 与倍数，读完精读卡再来啃。</div>
+    <div class="go">点击打开方法</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（并购之王-罗伯茨）— 精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线估值与并购书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="家族财富-休斯.html"><div class="pn-label">← 上一篇</div><div class="pn-title">家族财富 休斯</div></a><a class="pn-next" href="战胜华尔街-林奇.html"><div class="pn-label">下一篇 →</div><div class="pn-title">战胜华尔街 林奇</div></a></nav>
+</body>
+</html>

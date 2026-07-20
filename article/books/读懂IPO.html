@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>读懂IPO · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.74em;line-height:1.6;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>读懂 IPO：国内上市实务</h1>
+<div class="byline">国内 A 股上市实务指南 · 写给想读懂“企业如何走向公开资本市场”的创业者与投资人</div>
+<p class="lead">关于“一家公司怎么从私有变成公开”的第一性原理拆解。本卡是「资本人物馆·IPO 与资本运作书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架② · IPO 与资本运作</span><span class="tag">书卡 · 精读认知闭环</span><span class="tag">A股上市 / 注册制 / 发行定价</span><span class="tag">对接 A 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+
+<div id="article-body" class="prose">
+<div class="position">为什么单读这本？《Venture Deals》教你一级市场怎么拿钱、《小红筹》教你怎么搭境外架构——而《读懂 IPO》独有序增量是两点：①它把“上市”从“圈钱终点”还原成“规范化与披露质量的竞赛”（能不能上、发多少价，本质是你财务 / 法务 / 业务的规范程度）；②它讲清 A 股特有的“核准转注册”定价逻辑（从监管背书到市场博弈）。这本书不可替代，是因为它专门解决“境内上市到底在审什么、定价权在谁手”这个一级市场书和架构书都绕开的盲点。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺“怎么上市”的流程清单，你缺的是“监管到底在审什么、我的定价权在哪里”的判断框架。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你的公司里，几成收入经得起“穿透核查”？又有多少关联交易 / 同业竞争还没清理？两个都悬——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">上市不是终点，是规范化的起点</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">私有公司靠老板拍板→上市公司靠披露与内控。上市逼你把“人治”翻译成“制度 + 披露”，这本身就是价值。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">很多企业把上市当“毕业”，其实上市是“被持续考试”的开始；规范成本最高，却也是估值溢价来源。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">行业共识：上市不是圈钱的终点，而是规范化的新起点。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你公司财务还靠老板个人卡走账——先把“公私分离 + 账务规范”当成上市前三年内功，而非临申报才补。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">股改：把有限公司变成能上市的股份公司</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">有限公司(人合)→股份公司(资合)是上市法理前提；净资产折股、业绩连续计算都卡在这一步。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">股改不是“换个牌子”，是重新确认股权结构、清理代持；代持不清，后面全卡。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">没有清晰的股权，就没有上市的门票。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你有代持 / 股权池没落地——股改前必须还原，否则申报即被否。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">财务规范：净利润经得起“穿透核查”才算数</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">收入确认、成本归集、关联交易、税金——任何一处不规范，净利润都是“虚的”，发审会直接质疑。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“利润高”就能上，其实“利润干净”比“利润高”更重要；一笔说不清的关联交易能拖垮整个申报。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">可核查的利润，才是能被定价的利润。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你用关联方走量做高营收——申报前必须切断并补税，否则被认定“业绩造假”。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">同业竞争与关联交易：A 股最敏感的两条红线</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">同业竞争 = 实控人跟你抢生意(必须消除)；关联交易 = 利益输送嫌疑(必须公允 + 披露)。这是 A 股“独立性”核心。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">很多创始人觉得“用自己的另一家公司帮衬”很正常，在 A 股这恰恰是“独立性缺陷”，一票否决。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">独立性是上市的生命线。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你实控的另一家公司跟主业重叠——要么注入、要么关停、要么彻底切割，不能含糊。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">核准制到注册制：定价权从监管移交给市场</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">核准制下发审委“背书”估值→注册制下交易所问询 + 市场询价定档；监管只审“真不真”，不再保“值不值”。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">注册制不是“更容易上”，是“上了之后更可能被市场用脚投票”；破发常态化。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">注册制下，监管把关真实性，市场决定价格。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你按老逻辑“过会即胜利”——现在要看发行价和上市后表现，路演能力变关键。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">辅导与申报：把“规范”变成“可披露的文件”</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">保荐机构辅导→内核→申报稿披露→多轮问询回复；过程是“把规范翻译成监管语言”。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">申报不是“交作业”，是“开卷考试”——问询会追到每一笔交易的商业合理性。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">申报稿不是终点文件，是监管与企业的一场持久对话。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你以为申报稿写漂亮就行——真实考验在反馈意见的回复质量。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">问询：监管在替市场“挑刺”</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">问询函聚焦持续盈利能力 / 收入真实性 / 关联方——本质是替中小投资者把风险问清楚。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">被问询多 ≠ 坏事，答得好反而建立信任；最怕“答非所问”或“挤牙膏式”披露。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">好的问询回复，本身就是一次定价沟通。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你收到问询回避核心问题——市场会解读为“心虚”，发行折价。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">路演与询价：从“监管背书”到“机构投票”</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">网下询价(机构)→网上申购(散户)→定价→发行；机构报价权重决定你的发行市盈率。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">路演不是“讲故事吹估值”，是把“为什么值这个价”讲清楚；机构用脚投票，吹过头反噬。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">路演卖的不是故事，是可验证的增长逻辑。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你路演只讲愿景不讲财务模型——机构压价，发行募资缩水。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">发行定价：市盈率背后的博弈</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">23 倍“隐形红线”曾是 A 股惯例→注册制后突破，但可比公司 / 行业 PE 仍是锚；定价是“监管窗口 + 市场预期”的妥协。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">定太高(超募被质疑)和定太低(贱卖)都挨骂；“恰到好处”才是艺术。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">发行价是两个故事的交集：你讲的，和市场信的。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你坚持高定价——若破发，首日跌幅就是给市场的“不信任票”。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">上市首日与破发：市场定价权的第一次行使</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">上市首日涨跌 = 市场对你发行价的修正；注册制下破发常态化，是定价权回归的信号。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">“上市即巅峰”越来越常见；破发不是羞耻，是市场有效。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">破发是市场对发行定价的诚实投票。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你公司破发了——别慌，看的是长期被定价，不是首日表演。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">募投项目：钱要“说清楚去哪”</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">募资用途(扩产 / 研发 / 补流)需论证合理性→监管怕“圈钱乱花”；募投是“为什么需要这笔钱”的证明。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">不是“能募多少募多少”，是“募的钱要有去处”；补流比例过高易被质疑。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">募投不是融资的借口，是增长的蓝图。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你为冲规模编了用不上的募投——问询必被追，反而暴露战略模糊。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">持续督导与减持：上市后的“长期考试”</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">上市后保荐机构持续督导→实控人锁定期(3 年)→减持新规约束；上市是“被盯 3 年 +”的开始。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">创始人最难受的是“上市了还不能卖、卖了就被骂”；减持节奏是门政治。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">锁定期结束那天，才是真正接受市场检验的开始。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你计划一解禁就清仓——市场预期会提前反映在股价，折价跑不掉。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">退市与壳价值：上市不是“铁饭碗”</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">注册制 + 退市常态化→“壳”不再稀缺；经营不善该退就退，上市资格本身不再是护城河。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">以前“保壳”是生意，现在“该退就退”；上市后躺平也会被淘汰。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">注册制消灭了壳的暴利，也消灭了上市的侥幸。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你上市只为“有个壳”——价值逻辑已变，得靠经营说话。</div></div>
+  </div>
+</div>
+
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位创始人，公司年利润 8000 万，已股改规范。顾问 A(投行)劝“趁注册制窗口赶紧报，先上再说，定价靠路演博弈”；监管老法师劝“别急，你还有两笔关联交易没清理，强行报必被否，先把规范性做满再上”。两人都对，但节奏不同。</p>
+  <p class="verdict"><b>当裁判：</b>看“规范度”是否真达 threshold。若关联交易是硬伤(单元 04)，报了也是浪费时间(且留下被否记录伤声誉)；若只是窗口焦虑，则早报早占赛道。判：先自评“红线清单”——代持 / 同业 / 关联交易任一未清，先治；都清了，再抢窗口。合上书，写下你的判：你公司现在卡在“规范”还是“窗口”？再去读书 map 看“合规 / 审核”节点怎么连。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">规范：我公司里“经不起穿透核查”的一块是 ___</div><div class="ex">示例：老板个人卡收过几笔业务款，先公私分离、补账补税，上市前三年就开始。</div></div><div class="row"><div class="fl">股权：我还没还原的代持 / 没落地的期权池是 ___</div><div class="ex">示例：早期联创的代持没还原，股改前必须做实，否则申报即卡。</div></div><div class="row"><div class="fl">定价权：我对“路演讲增长逻辑”的准备是 ___</div><div class="ex">示例：我只备了愿景 PPT，没备财务模型——机构会压价，先补可验证的增长假设。</div></div><div class="row"><div class="fl">长期：我“上市 = 上岸”的误判是 ___</div><div class="ex">示例：以为过会就胜利；其实破发 + 持续督导 + 减持政治才是真考，心理上要切换到“长期被盯”。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="IPO上市概念地图">
+<defs><marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/></marker></defs>
+<path d="M340,235 C245,216 245,129 150,110" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C435,216 435,129 530,110" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C235,237 235,248 130,250" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C445,237 445,248 550,250" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C265,260 265,375 190,400" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C415,260 415,375 490,400" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M196,110 C300,94 380,94 484,110" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+<path d="M176,262 C300,300 380,300 504,262" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+<path d="M236,400 C310,415 370,415 444,400" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+<circle cx="340" cy="235" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+<circle cx="340" cy="235" r="58" fill="#41140e"/>
+<text x="340" y="229" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">IPO上市</text>
+<text x="340" y="248" fill="#ADBCC3" font-size="11" text-anchor="middle">私有→公开</text>
+<circle cx="150" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="150" y="107" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">股改</text>
+<text x="150" y="124" fill="#7A6B60" font-size="9.5" text-anchor="middle">股份制改造</text>
+<circle cx="530" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="530" y="107" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">合规</text>
+<text x="530" y="124" fill="#7A6B60" font-size="9.5" text-anchor="middle">财务规范</text>
+<circle cx="130" cy="250" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="130" y="247" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">辅导</text>
+<text x="130" y="264" fill="#7A6B60" font-size="9.5" text-anchor="middle">申报翻译</text>
+<circle cx="550" cy="250" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="550" y="247" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">审核</text>
+<text x="550" y="264" fill="#7A6B60" font-size="9.5" text-anchor="middle">问询挑刺</text>
+<circle cx="190" cy="400" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="190" y="397" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">发行定价</text>
+<text x="190" y="414" fill="#7A6B60" font-size="9.5" text-anchor="middle">路演询价</text>
+<circle cx="490" cy="400" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="490" y="397" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">上市博弈</text>
+<text x="490" y="414" fill="#7A6B60" font-size="9.5" text-anchor="middle">破发检验</text>
+</svg>
+<div class="legend"><b>微观层 · 本书概念网：</b>IPO 由六条路径汇成——股改(法理前提)与合规(财务规范)是地基(虚线并列 = 都在“打基础”)；辅导(申报翻译)与审核(问询挑刺)是监管对话(虚线并列 = 都在“过关”)；发行定价(路演询价)与上市博弈(破发检验)是市场定价(虚线并列 = 都在“被市场定价”)。<br><b>你的落点：</b>高智女性创业者常卡在“合规”与“关联交易”两节点——先把规范做满，再去抢窗口。</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>一家公司怎么从私有变成公开、怎么在资本市场上被定价与博弈？</b><br>一本书只是一个人的解法。下面围绕这一主心，并置多位作者 / 案例的视角。没有标准答案，你的收获是"视野被拓宽"，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">读懂IPO ·《读懂 IPO》</div><div class="view">合规即定价权：A 股上市把“规范性”翻译成“可上市性”，披露质量决定发行价；注册制下定价权交给市场。</div></div>
+<div class="spec"><div class="who">达摩达兰 ·《估值》</div><div class="view">DCF / 可比公司给出内在价值锚，发行价围绕它博弈，无论境内外。</div></div>
+<div class="spec"><div class="who">布拉德·费尔德 ·《Venture Deals》</div><div class="view">更早一层的定价：pre-IPO 轮的 term sheet 已定下估值与权力结构，IPO 只是兑现。</div></div>
+<div class="spec"><div class="who">索罗斯 ·《金融炼金术》</div><div class="view">反身性：IPO 定价不是被动发现，是发行方 / 投行 / 市场相互塑造的共识与泡沫。</div></div>
+<div class="spec"><div class="who">迈克尔·刘易斯 ·《说谎者的扑克牌》</div><div class="view">承销博弈：投行在买卖双方间套利，定价是关系与权力的产物。</div></div>
+<div class="spec"><div class="who">周金涛 ·《周期》</div><div class="view">窗口命：能不能高价发，一半看业绩一半看你在康波哪一段。</div></div>
+<div class="spec"><div class="who">格雷厄姆 ·《聪明投资者》</div><div class="view">市场先生：上市后股价是情绪报价，不是公司价值，别被首日涨跌定价。</div></div>
+<div class="spec"><div class="who">摩根 / 洛克菲勒 · 资本运作史</div><div class="view">IPO 是资本运作的鼻祖工具(VOC 1602 第一只股票)，四百年未变。</div></div>
+
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>本书站位 ↔ 各路作者 / 案例，从"合规 / 条款 / 结构 / 历史"不同侧面切入同一主心。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的解法站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E8%AF%BB%E6%87%82IPO%20%E4%B8%8A%E5%B8%82%20%E6%B5%81%E7%A8%8B%20%E8%A7%A3%E8%AF%BB" target="_blank" rel="noopener">
+  <div class="mk">视频 · 印证单元 05/09</div>
+  <div class="mt">《读懂IPO》上市流程解读</div>
+  <div class="md">先看 A 股上市全流程，回看单元 05 核准转注册 / 09 发行定价。</div>
+  <div class="go">点击打开</div>
+</a>
+<a class="media-card" href="https://search.bilibili.com/all?keyword=A%E8%82%A1%20%E6%B3%A8%E5%86%8C%E5%88%B6%20%E7%A7%91%E5%88%9B%E6%9D%BF%20IPO%20%E7%A7%91%E6%99%AE" target="_blank" rel="noopener">
+  <div class="mk">科普 · 印证单元 01/03</div>
+  <div class="mt">A股 注册制 科创板 IPO 科普</div>
+  <div class="md">听清“规范 = 定价权”，对应单元 01/03 财务规范。</div>
+  <div class="go">点击打开</div>
+</a>
+<a class="media-card" href="https://search.bilibili.com/all?keyword=IPO%20%E8%B7%AF%E6%BC%94%20%E5%AE%9A%E4%BB%B7%20%E7%A0%B4%E5%8F%91%20%E6%A1%88%E4%BE%8B" target="_blank" rel="noopener">
+  <div class="mk">案例 · 印证单元 08/10</div>
+  <div class="mt">IPO 路演 定价 破发 案例</div>
+  <div class="md">看真实路演与破发，对应单元 08/10。</div>
+  <div class="go">点击打开</div>
+</a>
+<a class="media-card" href="https://search.bilibili.com/all?keyword=%E4%BC%81%E4%B8%9A%E8%82%A1%E6%94%B9%20%E8%B4%A2%E5%8A%A1%E8%A7%84%E8%8C%83%20%E4%B8%8A%E5%B8%82" target="_blank" rel="noopener">
+  <div class="mk">实务 · 印证单元 02/04</div>
+  <div class="mt">企业股改 财务规范 上市</div>
+  <div class="md">股改与关联交易清理实务，对应单元 02/04。</div>
+  <div class="go">点击打开</div>
+</a>
+
+</div>
+
+<div class="foot">
+  资本人物馆 · 书架② IPO 与资本运作 —《读懂 IPO》精读认知卡：定位增量 → 13 单元拆解 → 冲突当裁判 → 落到自己 → 读书 map 闭环 → 延伸陪读<br>瑞士风视觉 · 零脚本 SVG · 对接 A/B 线 IPO 书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="从0到1-蒂尔.html"><div class="pn-label">← 上一篇</div><div class="pn-title">从0到1 蒂尔</div></a><div class="pn-disabled"></div></nav>
+</body>
+</html>

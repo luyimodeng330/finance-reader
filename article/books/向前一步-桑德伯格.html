@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>向前一步 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+/* 定位行 */
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+/* 读前 */
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+/* 单元 */
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+/* 冲突 */
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+/* 落到自己 */
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+/* map */
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+/* 媒体 */
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+/* 宏观光谱 */
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+/* 付费门禁（复用 assets/app.js，不引深咖 styles.css） */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>向前一步：女性、工作及领导意志</h1>
+<div class="byline">谢丽尔·桑德伯格 / Facebook 前首席运营官 · 写给高智女性的职场与领导破局书</div>
+<p class="lead">关于"女性如何坐到桌前、发出声音、拿走应得"的第一性原理。本卡是「资本人物馆·女性破局书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架⑥ · 硅谷新派与女性破局</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">人物延伸：邓文迪 · 卡戴珊（纪录片）</span>
+  <span class="tag">对接 A 线女性财富 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？《纳瓦尔宝典》给你"杠杆与自由"、《穷查理》给你"多元思维"——而桑德伯格独有序增量是两点：<b>①她把"女性为什么不敢往前坐"从性格问题还原成结构性问题</b>（社会叙事 + 职场制度 + 伴侣分工三重绑）；<b>②她给的不是鸡汤而是可操作战术</b>（谈判话术、3-1-1、寻求赞助人）。这本书不可替代，是因为它专门解决"高智女性自我设限"这个其他理财/思维书绕开的盲点。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺能力，你缺的是"坐到桌前"的勇气和"谈条件"的话术。这本书把"女性该谦虚"的隐形脚本摊开，给你拆掉它。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你最近一次本该争取、却主动退后的是什么？又有多少次，你用"我还没准备好"替自己叫停？两个都有——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">坐到桌前来：席位不会为你留，先坐再说</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">物理上的"坐在桌边"隐喻心理上的"在场与发声"。女性常退到角落、不发言。先占有席位，才有影响力。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">"等准备好了再举手"是陷阱。席位不等人，先坐上去，能力在桌上长。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"What would you do if you weren't afraid?"</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你开闭门会常坐后排、等被点名才说。下次主动坐前排、第一个抛观点。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">冒充者综合征：你不是不够好，是标准被你内严了</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">男性高估自己、女性低估自己→同样资历，女性觉得"还不够格"才申请。自我评估偏差直接吃掉机会。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">不是你真不行，是"够好"的线被你画得更远。男同事早递了申请。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Women systematically underestimate their own abilities."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你拒过几次"觉得自己配不上"的邀约/合作？那几次可能正是杠杆入口。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">不要提前退场：你为"还没发生的家庭"放弃了当下</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">女性常在没结婚生子时就按"将来要顾家"规划职业（拒外派/拒大项目）→ 提前把自己踢出赛道，等真需要时已没位置。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你为"想象中的家庭"放弃"当下的机会"，是人生最贵的虚值期权。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Don't leave before you leave."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你推掉某操盘机会，理由是"以后要平衡家庭"——可家庭还早。先把局占住。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">职业是方格架不是梯子：弯路可能是更短的路</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">男性叙事是直线梯子（逐级升）；女性常因断点（生育/换行）被梯子的"连续"要求惩罚。方格架允许横移、绕行、借力。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">"走弯路"不是掉队，是换条更短的路。横移有时比硬爬快。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Careers are jungle gyms, not ladders."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你从券商跳创业看似"降维"，其实在方格架横移到更高势能节点。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">寻求赞助人胜过导师：要的是有人替你赌</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">导师给建议（你已有），赞助人(sponsor)在关键场合替你争资源/席位（你缺的）。女性常围着导师转，却没人替她"上桌推一把"。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">不是"有人教你"，是"有人替你背书"。找愿拿自己信誉为你担的人。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Sponsors, not mentors, get women promoted."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你圈里有肯为你背书的老大哥/大姐吗？没有就主动经营一个。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">谈判的"温柔坚持"：包装成共同利益才谈得成</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">女性直接谈薪会被判"不讨喜"，用"为团队/为公平"的框架谈，既拿到又不被罚。话术结构决定成败。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">同样的数，包装成"共同利益"女性谈成率更高。会包装不是软，是赢。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Negotiate as if you're advocating for others."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你下次提价/谈分成，用"为客户长期价值"框架，而非"我要赚更多"。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">伴侣是人生最重要的职业决策：选平等分工的</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">事业高度常被"谁做家务/带娃"锁死。选一个真把平等当默认的伴侣，等于保住你的职业带宽。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">"找个能照顾家的"是反向操作——你要的是"一起分担的"。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The most important career decision is who you marry."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你减脂塑形、事业全开，伴侣是否真把家务当自己事？不是就重谈分工。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">完成好过完美：完美主义是隐形天花板</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">等"完美"再出手，机会窗口关了。先交付再迭代，市场替你改。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">"差不多先发"比"永远打磨"赢更多。发出去才有反馈闭环。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Done is better than perfect."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你那门课/那本书卡了半年"还不够好"——发出去，别再内部打磨。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">向内看：建立自己的价值标尺，不止为钱</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">向前一步不只是追职位，是追"这件事是否让你有意义"。外部标尺（头衔/薪）填满不了内部空洞。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你已财富自由，再爬职级的边际意义递减，要找到"非钱"的驱动源。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Find your own meaning, not just the next title."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做"鲁一摩灯"不止为钱，是为"赋能高智女性"的意义感——守住它，别被 GMV 带偏。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">让另一半真当家务合伙人：拆掉羞辱男人的壳</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">社会羞辱"顾家的男人"，导致男性不做家务→女性被钉在家务上→职业带宽被吃。拆掉这层羞辱，释放双方。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">"男主外女主内"是双输，不是传统美德。平等分工才双赢。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"We hold women back when we don't let men forward."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家里谁管账/谁陪诊？默认归你=你的带宽在被偷。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">勇气是肌肉：不敢发言是没练过，不是天生怂</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">不敢发言是"肌肉萎缩"，每次硬着头皮说一次就强一点。勇气可练，不是天赋。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你不是"性格内向"，是"没机会练"。练一次，阈值降一截。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Courage is like a muscle; it strengthens with use."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">下次闭门会第一个发言，哪怕手心出汗——练一次。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">被喜欢 vs 被尊重的双重绑：惩罚是系统的，不是你错</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">男性进取=有魄力；女性进取=不讨喜。同一行为两性罚则不同，女性被困在"成功就要失去人缘"。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">这惩罚是系统的，不是你做错了。承认它，再用话术（单元06）绕过。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Success and likeability are positively correlated for men, negatively for women."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你被说"太强势"时，别自我怀疑——那是双重绑在生效，不是你的问题。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">系统性阻碍：改制度比劝勇敢更关键</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">个人再"lean in"，没有带薪产假/灵活工时/托育支持，女性仍被结构劝退。改变公司政策=放大所有女性的席位。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">"女性不够勇敢"是错归因，真正瓶颈在制度设计。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"We need better workplaces, not just braver women."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做企业培训，可把"女性友好制度"做成交付模块——从帮个人到改系统。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位女合伙人，被挖去当某基金唯一女性 managing partner，薪资比同级别男合伙人低 20%，对方说"你资历稍浅"。桑德伯格会劝她"温柔坚持谈回去、坐上桌"；但波伏瓦会反驳"问题不在她敢不敢谈，而在'女性该谦虚'的锁链还没被看清——谈姿势前先看清结构"；批评者更会说"lean in 是中产白人视角，底层女性连桌都没有"。三种都对，适用对象不同。</p>
+  <p class="verdict"><b>当裁判：</b>看她的"桌"在不在——有桌（已被挖去当 MP），就该谈、该坐（单元01/06）；若连桌都没有，重点在制度（单元13）与结构觉醒（波伏瓦）。合上书，写下你的判：你身边哪些女性卡在"没桌"、哪些卡在"有桌不敢坐"？再去读书 map 看"席位/声音"节点怎么连，最后听延伸视听里桑德伯格自己的演讲。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">席位：我最近一次本该坐前排却退到后排的是 ___</div><div class="ex">示例：行业闭门会我坐角落等点名，下次主动坐第一排、第一个发言。</div></div>
+  <div class="row"><div class="fl">冒充者：我用"还没准备好"替自己叫停的一次是 ___</div><div class="ex">示例：拒了某高端演讲邀约，觉得自己"还不够格讲 AI"——其实是冒充者综合征在说话。</div></div>
+  <div class="row"><div class="fl">赞助人：肯替我背书的老大哥/大姐是 ___</div><div class="ex">示例：我圈里有一位肯为我引荐客户的老师，但我从没主动请他"在场合里提我一句"。</div></div>
+  <div class="row"><div class="fl">完美主义：我卡在"还不够好"没发的是 ___</div><div class="ex">示例：那门女性认知课打磨半年没上——发出去，市场替我改。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="向前一步认知地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <!-- 曲线连线（实线：供给/驱动关系） -->
+  <path d="M340,235 C272,178 222,142 182,108" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C408,178 458,142 498,108" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C262,240 195,243 140,244" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C418,240 485,243 540,244" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C272,308 232,362 207,397" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C408,308 448,362 473,397" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C340,300 340,382 340,433" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <!-- 曲线连线（虚线：并列同源） -->
+  <path d="M212,95 C300,78 380,78 468,95" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M238,412 C310,425 370,425 442,412" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <!-- 中心：外环 + 主圆 -->
+  <circle cx="340" cy="235" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="235" r="58" fill="#41140e"/>
+  <text x="340" y="229" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">向前一步</text>
+  <text x="340" y="248" fill="#ADBCC3" font-size="11" text-anchor="middle">Lean In</text>
+  <!-- 节点：白底细描边 -->
+  <circle cx="175" cy="105" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="175" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">席位</text>
+  <text x="175" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">坐到桌前</text>
+  <circle cx="505" cy="105" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="505" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">声音</text>
+  <text x="505" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">敢发言</text>
+  <circle cx="128" cy="245" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="128" y="241" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">冒充者</text>
+  <text x="128" y="258" fill="#7A6B60" font-size="9.5" text-anchor="middle">自我低估</text>
+  <circle cx="552" cy="245" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="552" y="241" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">赞助人</text>
+  <text x="552" y="258" fill="#7A6B60" font-size="9.5" text-anchor="middle">替你背书</text>
+  <circle cx="200" cy="400" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="200" y="396" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">伴侣</text>
+  <text x="200" y="413" fill="#7A6B60" font-size="9.5" text-anchor="middle">平等分工</text>
+  <circle cx="480" cy="400" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="480" y="396" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">完美</text>
+  <text x="480" y="413" fill="#7A6B60" font-size="9.5" text-anchor="middle">完成优先</text>
+  <circle cx="340" cy="438" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="340" y="434" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">制度</text>
+  <text x="340" y="451" fill="#7A6B60" font-size="9.5" text-anchor="middle">结构性支持</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>向前一步由七条路径汇成——占据「席位」（坐到桌前）与发出「声音」（敢发言）是双引擎（虚线并列=都在场）；「冒充者综合征」是内部阻力、「赞助人」是外部推力，二者对抗；「伴侣平等」与「完成>完美」释放你的职业带宽（虚线并列=都是"拿下带宽"）；「制度」是底层托举。<br>
+  <b>你的落点：</b>高智女性弱在"席位+声音"——有认知差却退到后排、等被点名。先把这两节点连上中心，其余自然松动。
+</div>
+</div>
+
+<hr>
+
+<div class="sec-h">核心事物光谱 · 六种视角并置</div>
+<div class="sec-sub">Macro — 同一主心，不同作者的解法（他说的未必对，你来判断）</div>
+<div class="spectrum">
+  <div class="core">主心：<b>在资本与算法时代，女性如何不被定价、反向定价世界？</b><br>一本书只是一个人的解法。下面六位作者，对同一主心给出六种视角。没有标准答案，你的收获是"视野被拓宽"，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">谢丽尔·桑德伯格 ·《向前一步》</div><div class="view">女性破局：抢席位、发声音、找赞助人，用"在场"反向定价自己，不被"女性该谦虚"的叙事定价。</div></div>
+    <div class="spec"><div class="who">邓文迪 · 人物案例</div><div class="view">关系杠杆：用关键人际关系反向定价自己。把"靠近权力"做成跃迁的桥，而非依附。</div></div>
+    <div class="spec"><div class="who">卡戴珊 · 品牌案例</div><div class="view">个人品牌即资产：用注意力与叙事反向定价自己，把"人"做成可交易的杠杆。</div></div>
+    <div class="spec"><div class="who">波伏瓦 ·《第二性》</div><div class="view">结构枷锁：女性被"他者"叙事定价。先看清锁链（社会把女性定义为附属），才谈得上拆。</div></div>
+    <div class="spec"><div class="who">塔勒布 ·《反脆弱》</div><div class="view">女性抗风险：在婚姻/职场波动里受益而非被收割。承认被定价，但把脆弱转成反脆弱。</div></div>
+    <div class="spec"><div class="who">董明珠 / 孟晚舟 / 玫琳凯</div><div class="view">权力杠杆：女性直接掌资本与组织实权，用"在位"反向定价世界——不靠关系、不靠人设，靠实权。</div></div>
+  </div>
+  <div class="legend" style="color:var(--muted);font-size:.78em;line-height:1.6;margin-top:14px;"><b style="color:var(--brand);">光谱逻辑：</b>六位作者给出女性破局的六种路径——席位（本书）、关系（邓文迪）、人设（卡戴珊）、看清结构（波伏瓦）、抗风险（塔勒布）、实权（董明珠/孟晚舟/玫琳凯）。没有唯一正解，你看哪种能借用。邓文迪/卡戴珊的纪录片见下方延伸视听。</div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序（人物作为书之补充）</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E6%A1%91%E5%BE%B7%E6%9F%8F%E6%A0%BC%20TED%20%E5%A5%B3%E6%80%A7%20%E9%A2%86%E5%AF%BC" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/11</div>
+    <div class="mt">桑德伯格 TED「Why we have too few women leaders」</div>
+    <div class="md">听她真人讲"坐到桌前"与勇气是肌肉，回看单元 01/11。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E9%82%93%E6%96%87%E8%BF%AA%20%E7%BA%AA%E5%BD%95%E7%89%87" target="_blank" rel="noopener">
+    <div class="mk">纪录片 · 人物延伸·关系杠杆</div>
+    <div class="mt">邓文迪 传记 / 纪录片</div>
+    <div class="md">另一条破局路径：用关键人际关系反向定价自己。对照本书"席位"路线看差异。</div>
+    <div class="go">点击打开纪录片</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%8D%A1%E6%88%B4%E7%8F%8A%20%E7%BA%AA%E5%BD%95%E7%89%87" target="_blank" rel="noopener">
+    <div class="mk">纪录片 · 人物延伸·个人品牌</div>
+    <div class="mt">卡戴珊 纪录片</div>
+    <div class="md">把"人"做成可交易杠杆的极端样本。对照单元 04/06 看"叙事即资产"。</div>
+    <div class="go">点击打开纪录片</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%90%91%E5%89%8D%E4%B8%80%E6%AD%A5%20%E6%A1%91%E5%BE%B7%E6%9F%8F%E6%A0%BC%20%E8%A7%A3%E8%AF%BB" target="_blank" rel="noopener">
+    <div class="mk">书/深读 · 单元 08/09</div>
+    <div class="mt">《向前一步》解读 / 精读</div>
+    <div class="md">读完精读卡再来啃原书与长文，对应完成>完美与意义标尺。</div>
+    <div class="go">点击打开解读</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡打版 v5（向前一步）— 精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 人物作为书之补充（邓文迪/卡戴珊）· 对接 A/B 线女性破局书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="创业者的股权融资-费尔德.html"><div class="pn-label">← 上一篇</div><div class="pn-title">创业者的股权融资 费尔德</div></a><a class="pn-next" href="大道-段永平.html"><div class="pn-label">下一篇 →</div><div class="pn-title">大道 段永平</div></a></nav>
+</body>
+</html>

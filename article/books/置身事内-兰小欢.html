@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>置身事内 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>置身事内：中国政府与经济发展</h1>
+<div class="byline">兰小欢 / 复旦大学经济学院 · 把宏观叙事落到县乡与厂房的机制读本</div>
+<p class="lead">关于「中国经济这盘棋怎么下」的第一性原理。本卡是「资本人物馆·价值投资与思维模型书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架⑤ · 价值投资与思维模型</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">媒体延伸：讲座 · 访谈 · 政策讲解</span>
+  <span class="tag">对接 A 线认知 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点来自原书；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？纳瓦尔给你「个体杠杆」、芒格给你「多元思维」——而《置身事内》独有序增量是两点：<b>①它把「中国经济怎么转」翻译成「政府的钱从哪来、花到哪去」</b>——土地财政、地方竞争、债务，全是可触摸的机制；<b>②它让你看见「个体如何被制度定价」</b>——看懂游戏是谁设计的，才知道在哪用力、何时借势。这本书不可替代，是因为它把宏大叙事落到县乡与厂房，是书架里唯一一本「看懂系统」的钥匙。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺宏观判断，你缺的是「看懂中国这盘棋怎么下」的底层机制——土地、债务、产业激励，决定你能不能在风口上借势。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你能说清「你所在行业的补贴 / 监管，来自哪级政府、为什么」吗？又有多少次，你的决策被「看不懂的政策」反向定价？两个都含糊——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句（本书核心论点） → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">土地财政：城市化的原始资本</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">分税制后地方事权大、财权小。政府靠「卖地 + 土地抵押融资」搞基建招商，土地财政成了城市化的资本引擎。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">高房价不是「阴谋」，是这套融资模式的副产品。土地既是问题也是答案。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">「要理解中国经济的运作，得先看政府的『钱从哪来、花到哪去』。」</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做地产 / 基建只骂房价、不看得机制——看懂才能预判政策。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">地方竞争：增长的双刃剑</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">官员晋升看 GDP 与招商，地方间「为增长而竞争」→ 基建狂飙、产业链集聚；也带来重复建设与债务。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「内卷式招商」不是失灵，是这套激励的必然。竞争既造增长也造代价。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">「地方政府间的竞争，是中国经济增长的重要引擎。」</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你选创业城市只看补贴，没看「它为什么补贴」——竞争逻辑决定可持续性。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">事权与财权不匹配</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">1994 分税制把大头收归中央、支出责任留给地方 → 地方被迫「自谋财路」（土地、融资平台）。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">很多「地方乱作为」，根源在中央地方的财事错配，不是地方笨。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">「中央与地方关系，是理解中国经济的一把钥匙。」</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做 To G 业务卡在「上面给政策、下面没钱」——错配是常态。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">产业政策：选赛道与造生态</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">政府用补贴 + 准入 + 采购扶植战略产业（光伏、新能源、芯片）→ 先亏后赢，形成集群。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「补贴养懒汉」片面。正确用的补贴能换来整条产业链（如光伏反超）。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">「工业化靠补贴，城市化靠债务。」</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你投硬科技只看技术、不看政策周期——产业政策的「势」比技术更先到。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">融资平台与债务</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">地方成立城投平台，以土地为抵押举债搞建设 → 资产（基建）与负债（债务）同步膨胀。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「债务危机」喊了多年没爆，因为增长 + 置换在续命；但隐性债务是真实约束。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">「发展是硬道理，但发展也要算清账。」</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你买城投债只信「政府兜底」——要看它的资产与现金流。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">集聚逻辑：人往高处走</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">人口与资本向城市群集聚，是规模效应 + 公共服务的必然；区域差距是集聚的代价。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「均衡布局」难敌集聚效率。个人选择城市 = 选择被哪种力量定价。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">「人往高处走，钱往集聚处流。」</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你纠结留一二线还是回老家——本质是选被哪种集聚逻辑定价。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">贸易与失衡：出口导向的根源</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">高储蓄 + 出口导向 + 美元体系，形成「生产在美国消费、储蓄在中国」的全球失衡。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">贸易顺差不是「占便宜」，是国内分配与消费的镜像。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">「理解国际贸易，要先理解国内的经济结构。」</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做外贸只盯汇率、不盯国内结构——顺差的根在国内。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">政府与市场的边界</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">中国不是「市场 or 政府」，而是政府深度入场（规划、准入、采购）塑造市场。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">照搬「小政府」理论解释不了中国。政府既是运动员也是裁判。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">「中国政府不是市场的对立面，而是市场的塑造者。」</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做企业把政府当「干扰」——该当成「游戏规则制定者」来适配。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">债务风险与化解</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">化解靠「时间换空间」：增长稀释 + 债务置换 + 资产盘活，而非一次性出清。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「硬着陆」不是唯一结局，软化解靠的是持续的增长能力。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">「化解风险，靠的是把蛋糕做大，而不是把蛋糕切小。」</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你恐慌性避险 all cash——但增长才是最好的去杠杆。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">贫富与分化：增长的另一面</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">资产价格（房）上涨让有产者更富，放大贫富；城市化红利分配不均。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「做大蛋糕」同时会「切歪蛋糕」。增长不自动均等。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">「发展成果要共享，否则增长不可持续。」</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你资产配置重房产——正是这套分化机制的受益 / 承压者。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">看清「政策意图」的方法</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">别只读文件，要看政府的钱去哪、考核什么、谁升谁降——行为比口号诚实。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">口号是方向，账本是真相。看钱比看词准。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">「看政府，不能光读文件，还要看它的钱从哪来、花到哪去。」</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你判政策只信新闻标题——去翻财政预算与专项债。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">个体如何在系统里借势</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">看懂机制后，个体可把职业 / 创业卡在「政策激励 × 产业集聚」的交叉点，借系统之力。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">对抗系统最累，借势系统最省。柔性适配 > 硬刚。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">「看懂游戏是谁设计的，才知道在哪用力。」</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你创业选赛道避开「被政策压制」的、卡位「被激励」的。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">务实主义：少谈主义多解决问题</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">全书基调是「就事论事」：不纠缠意识形态，看机制、算账、解决问题。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「对不对」常让位于「行不行」。务实比站队重要。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">「少谈主义，多看机制，算清账——这是本书一以贯之的方法。」</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你陷于宏大叙事焦虑——回到「怎么让自己与身边人过好」。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位做新能源的创业者，纠结「拿政府补贴扩产」还是「靠市场自生」。兰小欢会劝「看懂产业政策的『势』，借地方竞争之力卡位」；但马尔基尔会泼冷水「补贴养出的繁荣，常在补贴退坡时崩，别把政策当护城河」；塔勒布更会说「你押注单一政策是脆弱的，要有反脆弱的备选」。三派都对，看政策周期位置。</p>
+  <p class="verdict"><b>当裁判：</b>看这个产业处在「政策上升期」还是「退坡期」。上升期→借兰小欢的势；退坡期→听马尔基尔，建真护城河。合上书，写下你的判：你所在的行业，政策在加力还是退潮？再去读书 map 看「制度 / 产业」节点。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">制度：我所在行业「钱从哪来」我说不清的是 ___</div><div class="ex">示例：我做教育，说不清监管与财政的逻辑——去翻账本。</div></div>
+  <div class="row"><div class="fl">借势：我本可借政策 / 集聚之力却没借的是 ___</div><div class="ex">示例：没把公司落在产业集群城市，白白多花成本。</div></div>
+  <div class="row"><div class="fl">债务：我最近一次忽视「隐性债务 / 现金流」的是 ___</div><div class="ex">示例：买某城投债只看兜底承诺，没看资产。</div></div>
+  <div class="row"><div class="fl">分化：我被「资产价格上涨」放大或承压的是 ___</div><div class="ex">示例：重仓房产，正是分化的承压侧。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="置身事内认知地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <path d="M340,238 C262,182 206,150 158,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C418,182 474,150 522,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C262,296 206,328 158,346" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C418,296 474,328 522,346" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M196,110 C300,94 380,94 524,110" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M540,156 C558,250 558,250 540,344" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M196,350 C262,382 300,398 332,404" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M524,350 C458,382 400,398 348,404" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <circle cx="340" cy="238" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="238" r="58" fill="#41140e"/>
+  <text x="340" y="232" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">看懂体制</text>
+  <text x="340" y="251" fill="#ADBCC3" font-size="11" text-anchor="middle">机制</text>
+  <circle cx="150" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">土地财政</text>
+  <text x="150" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">城市化资本</text>
+  <circle cx="540" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">地方竞争</text>
+  <text x="540" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">增长引擎</text>
+  <circle cx="150" cy="350" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="346" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">债务融资</text>
+  <text x="150" y="363" fill="#7A6B60" font-size="9.5" text-anchor="middle">城投平台</text>
+  <circle cx="540" cy="350" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="346" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">产业政策</text>
+  <text x="540" y="363" fill="#7A6B60" font-size="9.5" text-anchor="middle">补贴/准入</text>
+  <circle cx="340" cy="410" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="340" y="406" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">个体借势</text>
+  <text x="340" y="423" fill="#7A6B60" font-size="9.5" text-anchor="middle">卡位交叉点</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>看懂体制是中枢，靠<b>土地财政</b>提供城市化资本、<b>地方竞争</b>驱动增长、<b>债务融资</b>放大建设、<b>产业政策</b>扶植赛道；<b>个体借势</b>是落点——把职业 / 创业卡在「激励 × 集聚」交叉点。<br>
+  <b>你的落点：</b>多数人弱在「只看现象不看账本」——回单元 01/11，先看钱从哪来。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>在资本与算法时代，个体如何不被定价、反向定价世界？</b><br>一本书只是一个人的解法。下面九本，对同一主心给出九种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">兰小欢 ·《置身事内》</div><div class="view">制度定价：个体被制度与政绩逻辑定价，看懂「游戏是谁设计的」才知道借势。</div></div>
+    <div class="spec"><div class="who">芒格 ·《穷查理宝典》</div><div class="view">多元思维：不被任何单一叙事骗，用多学科透镜看同一件事。</div></div>
+    <div class="spec"><div class="who">周金涛 · 周期</div><div class="view">康波宿命：人生发财靠康波，你被周期定价。认命，但在窗口期下重注。</div></div>
+    <div class="spec"><div class="who">塔勒布 ·《反脆弱》</div><div class="view">制度也会失灵：留正凸性，别把所有筹码押在单一政策上。</div></div>
+    <div class="spec"><div class="who">纳瓦尔 ·《纳瓦尔宝典》</div><div class="view">杠杆逃离定价：建零边际成本资产，逃离被制度与雇主定价。</div></div>
+    <div class="spec"><div class="who">段永平 ·《大道》</div><div class="view">守本分：不管宏观怎么变，做对的事，慢就是快。</div></div>
+    <div class="spec"><div class="who">林奇 ·《战胜华尔街》</div><div class="view">从生活观察：政策落地在消费端，你能比别人先看见十倍股。</div></div>
+    <div class="spec"><div class="who">索罗斯 · 反身性</div><div class="view">政策与市场互塑：认知与价格彼此强化，谁能先看清谁定价。</div></div>
+    <div class="spec"><div class="who">马尔基尔 ·《漫步华尔街》</div><div class="view">指数 + 成本：个人别被宏大叙事定价，认输给指数反得自由。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>兰小欢（看制度）↔ 纳瓦尔（造杠杆）；周金涛（被周期推）↔ 段永平（守本分）；塔勒布（防失灵）↔ 索罗斯（抓互塑）↔ 林奇（用生活）。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的解法站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%85%B0%E5%B0%8F%E6%AC%A2%20%E7%BD%AE%E8%BA%AB%E4%BA%8B%E5%86%85%20%E8%A7%A3%E8%AF%BB" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/11</div>
+    <div class="mt">兰小欢《置身事内》解读</div>
+    <div class="md">听他讲「钱从哪来」，回看单元 01 与 11 的方法。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%85%B0%E5%B0%8F%E6%AC%A2%20%E8%AE%B2%E5%B8%AD%20%E7%BB%8F%E6%B5%8E%E5%AD%A6" target="_blank" rel="noopener">
+    <div class="mk">讲座 · 补单元 04/08</div>
+    <div class="mt">兰小欢 复旦讲座</div>
+    <div class="md">产业政策与政府市场边界的一手讲述，对应单元 04/08。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%9C%9F%E5%9C%B0%E8%B4%A2%E6%94%BF%20%E8%AE%B2%E8%A7%A3" target="_blank" rel="noopener">
+    <div class="mk">视频 · 深读单元 01/05</div>
+    <div class="mt">土地财政 讲解</div>
+    <div class="md">把「土地财政 + 城投债务」机制讲透，读完卡再来啃。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%88%86%E7%A8%8E%E5%88%B6%20%E8%A7%A3%E8%AF%BB%20%E4%B8%AD%E5%A4%AE%E5%9C%B0%E6%96%B9" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 03</div>
+    <div class="mt">分税制 解读</div>
+    <div class="md">中央地方财事关系，对应单元 03 的错配逻辑。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（置身事内·兰小欢）— 精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线思维模型书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="罗斯柴尔德-弗格森.html"><div class="pn-label">← 上一篇</div><div class="pn-title">罗斯柴尔德 弗格森</div></a><a class="pn-next" href="范德比尔特-彻诺.html"><div class="pn-label">下一篇 →</div><div class="pn-title">范德比尔特 彻诺</div></a></nav>
+</body>
+</html>

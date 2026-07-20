@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>摩根财团 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>摩根财团：银行王朝与现代金融的崛起</h1>
+<div class="byline">罗恩·彻诺 Ron Chernow 著 / 摩根家族百年史 · 私人银行家即「影子央行」的标本</div>
+<p class="lead">关于「资本如何变成权力、又被制度收回」的第一性原理。本卡是「资本人物馆·资本认知与权力游戏书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。主心：资本不只是钱，是权力、信息与游戏规则的设计权。</p>
+<div class="tags">
+  <span class="tag">书架④ · 资本认知与权力游戏</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">权力延伸：罗斯柴尔德 / 美联储 / 索罗斯</span>
+  <span class="tag">对接 A 线女性财富 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书与公开史料；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？《洛克菲勒传》给你「产业资本如何集中成经济权力」、《罗斯柴尔德家族》给你「家族信息网络即权力」——而 Chernow 的《摩根财团》独有序增量是三点：<b>①它把「私人银行家即影子央行」写透了</b>（1907 年恐慌，摩根一个人扮演了美联储，用私人信用给全市场止血）；<b>②它诚实记录了「银行家权力如何被制度化又如何被剥夺」</b>（1913 美联储成立收走货币权、1933 格拉斯-斯蒂格尔分业撕裂摩根）；<b>③它点明信息中介才是权力的真源</b>——谁掌握「谁有钱、谁缺钱、谁可信」，谁就握有规则设计权。这本书不可替代，是因为它专门回答「资本怎么变成了凌驾于国家之上的权力，又被国家收回」这个其他理财书绕开的盲点。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺「怎么赚钱」，你缺的是「看清资本背后的权力结构」——谁在定规则、谁掌握信息、谁的信用能救市。这本书把「钱怎么长出权力」一次讲透。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你所在的圈子里，你是「信息枢纽」（知道谁有钱、谁缺钱、谁可信），还是「信息末梢」（等别人通知）？你的信用，能不能在危机里替别人背书？前者低——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">私人央行：1907 恐慌，摩根独力救市</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">美联储尚未成立 → 信托危机引发挤兑 → 摩根召集银行家、用自家信用背书、亲自分配流动性 → 市场止跌。一人顶一国。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">救市的不是国家，是一个私人银行家。权力的位置，有时空在国家之前。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Before money or anything else. Money cannot buy it."（国会作证：信用的根基是品格，先于金钱）</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家企业若在危机里，靠「谁的背书」活下来？你的信用能给别人止血吗？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">信用 = 品格：借钱给谁，摩根看人</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">放款依据不是抵押物而是「trust」→ 他不信任的人，全基督教世界的债券也借不到钱 → 品格即授信额度。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">在摩根眼里，品格 &gt; 抵押品。最硬的担保，是一个人的名声。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"A man I do not trust could not get money from me on all the bonds in Christendom."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做决策时，看的是报表还是人？你愿意在不到场时为谁背书？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">信息中介：谁掌握全网信用地图，谁掌权</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">谁有钱、谁缺钱、谁可信，全在摩根一张表上 → 信息不对称为他创造撮合权与定价权。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">权力不来自钱多，来自信息全。信息差，才是真正的护城河。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）摩根是「信用地图」的持有者——权力来自知道别人不知道的。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你在圈里是「信息枢纽」还是「信息末梢」？两端信息都过你手，才是权力。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">三栋房子：信用靠传承，不靠血缘</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">从伦敦 Peabody 到纽约 J.P.Morgan，跨代接班靠的是信用符号的延续 → 金融王朝靠声誉，不靠血统。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最稳的「家族传承」不是把钱传下去，是把「别人信你」传下去。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）摩根之名是一块「信用牌照」，比任何遗产都长寿。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的「信用资产」能传给下一代吗？还是随你一人消散？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">铁路融资：资本塑造了美国版图</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">摩根为铁路发债 → 资本流向决定哪些城市崛起 → 金融权力重塑实体经济地理。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为是实业建了国家，其实是资本选了国家。钱流向哪，哪才被建起来。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）每一次发债，都是摩根对「未来地图」的一次投票。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你投的每一笔，都在「投票」决定什么被建起来。你的钱，是选票还是消费？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">银行家的政治：与总统平起平坐</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">克利夫兰、西奥多·罗斯福都要借重摩根 → 金融权力与政治权力对等谈判。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">有时银行家比总统更「不可或缺」。权力不看头衔，看谁离了谁转不动。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）摩根被称为「华尔街的加冕者」——他能在危机里决定谁能活。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你在你的行业里，是「被召见」还是「召见别人」？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">1913 美联储：私人权力的国有化</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">摩根式私人央行太强、问责缺失 → 国家另立美联储收走货币发行权 → 私人银行家权力被制度化剥夺。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最强的私人权力，最终被它自己催生的公共机构收编。你造的局，可能长出收编你的规则。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）1913 是「影子央行」谢幕、公共央行登场的转折点。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你今天的「规则设计权」，会不会也被平台 / 监管收走？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">1933 分业：格拉斯-斯蒂格尔撕裂摩根</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">大萧条 → 银证分离 → J.P.Morgan 分拆出摩根士丹利 → 商业银行与投资银行权力被切开。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">危机不是消灭权力，是重新分配权力。一次监管，重塑整张权力地图。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）一道法案，把一个名字劈成两个帝国。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">监管一来，你哪块业务会被切？你的「一体化优势」是不是别人眼里的风险？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">战争融资：banker 也能打「没有硝烟的战争」</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">一战 → 摩根代理英法在美国采购军备 → 金融权力直接转化为地缘影响力。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">banker 不拿枪，也能决定谁有弹药。资本即非军事的国家权力。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）摩根财团是协约国在美利坚的「采购总部」。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的资源调配，算不算一种「非军事影响力」？你的钱流向，改变谁的处境？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">摩根的体面：贵族式的自我约束</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">老摩根用「体面 / 荣誉」自我约束 → 声誉资本比短期利润更值钱 → 越有权越要「端着」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">放纵即透支权力。权力越大，举止越要「配得上」，否则一夜归零。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）「体面」是摩根权力最便宜的维护费。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你越成功，举止越「配得上」权力吗？一次失态，让三年声誉掉价？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">继承难题：二代权力靠制度补个人魅力</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">老摩根的个人权威无法复制 → 杰克·摩根靠委员会与制度补个人魅力缺口。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">王朝的弱点不是缺钱，是缺「那个人」。魅力不可继承，制度可以。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）「摩根」从一个人，变成一套流程。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你的权力系于你一人，还是制度？你休假一周，业务转不转？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">三个时代：权力从「人」流向「市场」</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">1838–1913 银行家时代 → 1913–1939 金融时代 → 1939–1989 货币时代 → 银行家权威递减、交易与流动性主导。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">权力不在「谁」手里，而在「什么」手里。时代一换，人退场、机制上位。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）从 banker 到 finance 到 money——权威被逐步去人格化。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你所在行业，权力正从「谁」流向「什么」？你押人是押对了，还是逆势？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">影子央行的现代回声：历史重演</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">2008 危机，又是「大而不倒」的私人机构被国家救 → 我们以为消灭了私人央行，只是换了壳。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「太大而不能倒」就是现代版摩根救市。权力从未消失，只是改头换面。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）今天的 systemic bank，就是昨天的 J.P.Morgan。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">今天谁的信用，在「太大而不能倒」？你离那张安全网，有多远？</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>1907 年，摩根以私人身份独力救市，高效却毫无公共问责；1913 年，国家成立美联储，把货币权收归公共机构，问责到位却 bureaucratic 迟缓。两派都说自己代表「更稳的金融秩序」。今天一家高净值女性掌舵的家族办公室，面临挤兑式信任危机——该信「一个人的信用」（摩根式），还是「一个制度」（美联储式）？</p>
+  <p class="verdict"><b>当裁判：</b>私人权威赢在速度与灵活，输在「谁来约束他」；公共制度赢在问责与可持续，输在迟钝与政治化。你的判不在二选一，而在：平时用制度攒声誉，危机时敢不敢以个人信用顶上去？合上书，写下你的判，再去读书 map 看「信息中介 / 规则设计权」节点怎么连，最后听延伸视听里 1907 救市的原委。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念 → 我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">信息权力：我在哪个圈子是「信用地图持有者」？</div><div class="ex">示例：你同时握有客户与资本两端信息，却只当「传话筒」，没把它做成撮合权力——两端都过你手，才是枢纽。</div></div>
+  <div class="row"><div class="fl">规则设计权：我能不能进制定桌，还是只在规则里玩？</div><div class="ex">示例：你只在行业规则里合规经营，从没进过标准制定委员会——赢家永远是写规则的人。</div></div>
+  <div class="row"><div class="fl">信用资产：我的「品格信用」可量化、可传承吗？</div><div class="ex">示例：别人愿在你不在场时为你背书吗？若只能你亲自站台才作数，信用没脱离你本人。</div></div>
+  <div class="row"><div class="fl">体面约束：我越成功越「端得住」还是越放？</div><div class="ex">示例：一次酒局失态，让三年攒下的「可靠」人设掉价——权力越大，一次放纵的代价越高。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="摩根财团概念地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <path d="M340,238 C 250,180 180,140 140,110" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 430,180 500,140 540,110" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 250,250 170,275 110,290" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 430,250 510,275 570,290" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 280,320 240,370 200,410" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C 400,320 440,370 480,410" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <circle cx="340" cy="238" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="238" r="58" fill="#41140e"/>
+  <text x="340" y="232" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">私人央行</text>
+  <text x="340" y="251" fill="#ADBCC3" font-size="11" text-anchor="middle">摩根</text>
+  <circle cx="140" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="140" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">信用即品格</text>
+  <text x="140" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">trust</text>
+  <circle cx="540" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">信息中介</text>
+  <text x="540" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">信用地图</text>
+  <circle cx="110" cy="290" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="110" y="286" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">规则设计权</text>
+  <text x="110" y="303" fill="#7A6B60" font-size="9.5" text-anchor="middle">谁定局</text>
+  <circle cx="570" cy="290" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="570" y="286" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">权力国有化</text>
+  <text x="570" y="303" fill="#7A6B60" font-size="9.5" text-anchor="middle">1913/1933</text>
+  <circle cx="200" cy="410" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="200" y="406" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">体面约束</text>
+  <text x="200" y="423" fill="#7A6B60" font-size="9.5" text-anchor="middle">声誉维护</text>
+  <circle cx="480" cy="410" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="480" y="406" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">战争融资</text>
+  <text x="480" y="423" fill="#7A6B60" font-size="9.5" text-anchor="middle">非军事影响</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>摩根的「私人央行」权威由五条线汇成——以 <b>信用即品格</b>（trust 是授信根基）为底座，靠 <b>信息中介</b>（全网信用地图）拿撮合权，用 <b>体面约束</b> 维护声誉，向外伸到 <b>战争融资</b>（非军事影响力），最终被 <b>权力国有化</b>（1913 美联储 / 1933 分业）收编。<br>
+  <b>你的落点：</b>多数高净值女性弱在「信息中介」与「规则设计权」——有资本却只在规则里玩。回单元 03/07 补链。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>资本不只是钱，是权力、信息与游戏规则的设计权。</b><br>一本书只是一个人的解法。下面九位，对同一主心给出九种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">摩根 /《摩根财团》</div><div class="view">私人银行家即影子央行：信用与信息中介即权力，能救市也能被国家收编。</div></div>
+    <div class="spec"><div class="who">罗斯柴尔德 · 弗格森</div><div class="view">家族信息网络横跨欧洲各国，信息差即权力，用信使跑赢官方的消息。</div></div>
+    <div class="spec"><div class="who">洛克菲勒 · Chernow</div><div class="view">产业资本集中成经济权力，但缺金融权威——钱多不等于能定规则。</div></div>
+    <div class="spec"><div class="who">美联储（制度）</div><div class="view">1913 收走私人货币权：公共问责取代私人信用，权力的去人格化。</div></div>
+    <div class="spec"><div class="who">索罗斯 ·《金融炼金术》</div><div class="view">用资本撬动国家规则：下注能改变基本面，个人资本打败央行。</div></div>
+    <div class="spec"><div class="who">高盛 · 埃利斯</div><div class="view">权力从银行家转向合伙文化与交易台：声誉资本 + 客户第一即护城河。</div></div>
+    <div class="spec"><div class="who">刘易斯 ·《说谎者的扑克牌》</div><div class="view">权力下沉到交易员个体：信息差 + 胆量 = 交易台的说话权。</div></div>
+    <div class="spec"><div class="who">兰小欢 ·《置身事内》</div><div class="view">国家是最终规则设计者：看懂游戏是谁设计的，才知道在哪借势。</div></div>
+    <div class="spec"><div class="who">邓文迪 · 人物案例</div><div class="view">关系杠杆接近权力：把「靠近权力」做成跃迁的桥，而非依附。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>摩根（私人央行，人即权力）↔ 美联储（制度收权）；罗斯柴尔德（信息网）↔ 索罗斯（资本改规则）；高盛（合伙文化）↔ 刘易斯（个体交易员）；洛克菲勒（产业资本）↔ 兰小欢（国家规则）。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的位置在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=摩根财团+解读+Chernow" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/07</div>
+    <div class="mt">《摩根财团》精读解读</div>
+    <div class="md">先把「私人央行」与 1913 美联储收权听真人讲一遍，回看单元 01/07。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=1907年恐慌+摩根救市" target="_blank" rel="noopener">
+    <div class="mk">纪录 · 补冲突现场</div>
+    <div class="mt">1907 年恐慌与摩根救市</div>
+    <div class="md">看摩根怎么一个人扮演美联储，给你的裁判案子找素材。</div>
+    <div class="go">点击打开纪录</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=美联储+成立+历史+1913" target="_blank" rel="noopener">
+    <div class="mk">科普 · 深读单元 07/08</div>
+    <div class="mt">美联储成立与格拉斯-斯蒂格尔</div>
+    <div class="md">私人权力如何被制度化剥夺，读完精读卡再来啃历史。</div>
+    <div class="go">点击打开科普</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=罗斯柴尔德+家族+传记+信息网" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 03 对照</div>
+    <div class="mt">罗斯柴尔德家族与情报网</div>
+    <div class="md">信息即权力的另一个样本，对应摩根的「信用地图」。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（书架④ 资本认知与权力游戏）— 彻诺《摩根财团》精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线资本权力书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="投资银行-罗森鲍姆.html"><div class="pn-label">← 上一篇</div><div class="pn-title">投资银行 罗森鲍姆</div></a><a class="pn-next" href="沃尔顿-沃尔顿.html"><div class="pn-label">下一篇 →</div><div class="pn-title">沃尔顿 沃尔顿</div></a></nav>
+</body>
+</html>

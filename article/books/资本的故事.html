@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>资本的故事 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.74em;line-height:1.6;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>资本的故事：资本运作史</h1>
+<div class="byline">资本运作史 · 央视《资本的故事》同名读物 · 写给想看清“定价与博弈四百年”的读者</div>
+<p class="lead">关于“资本怎么从一只股票长成一张网、人性怎么在定价里反复上演”的第一性原理。本卡是「资本人物馆·IPO 与资本运作书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架② · IPO 与资本运作</span><span class="tag">书卡 · 精读认知闭环</span><span class="tag">资本史 / 泡沫 / 定价博弈</span><span class="tag">长周期视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+
+<div id="article-body" class="prose">
+<div class="position">为什么单读这本？《读懂 IPO》讲今天怎么上、《Venture Deals》讲今天怎么拿钱——而《资本的故事》独有序增量是两点：①它把“今天的 IPO / 估值 / 泡沫”放进四百年长河(从 1602 年 VOC 第一只股票到 2008 次贷)，让你看见“结构在变、人性不变”；②它用一个个真实案例(郁金香 / 南海 / 摩根 / 次贷)讲清“定价与博弈”不是技术，是人性 + 制度的反复。这本书不可替代，是因为它专门解决“只盯眼前 K 线、看不见资本周期”这个最贵的短视。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺“怎么炒 / 怎么投”的技巧，你缺的是“这次泡沫和哪次像、人性哪根弦又被拨动”的历史坐标系。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你能说出几个“这次不一样、其实都一样”的泡沫案例？又有多少次，你被“新叙事”说服而忘了旧剧本？两个都少——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">荷兰东印度(VOC,1602)：世界第一只股票</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">VOC 为远洋贸易募资，发行可交易股份→人类第一次把“公司未来”切成可买卖的纸片，IPO 由此诞生。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为 IPO 是现代发明，其实 1602 年阿姆斯特丹就已有了公开募股与二级市场。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">1602 年，阿姆斯特丹把“公司的未来”第一次装进了可交易的股票里。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你今天融 A 轮，本质和 VOC 募股同构——把未来切片卖给人。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">郁金香泡沫(1637)：定价可以完全脱离价值</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">郁金香球茎被炒到一套房→没有内在价值支撑的共识价格，崩塌只需一个“没人接盘”。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“贵有贵的道理”，泡沫里价格只是“下一个愿买者”的信念，信念断即归零。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">当价格只依赖“还有人更傻”，泡沫就到了尾声。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你重仓一个“叙事很美但无现金流”的资产——问自己：谁接最后一棒？</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">南海泡沫(1720)与牛顿：算得出天体算不出人性</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">南海公司用“减国债”叙事拉估值→全民疯炒→崩盘；牛顿亏惨后留下名言。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“最聪明的人不会上钩”，连牛顿都栽在群体狂热里。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">I can calculate the motions of the heavenly bodies, but not the madness of people. — 牛顿</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你自信“我不会是最后接盘的”——牛顿也这么想过。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">梧桐树与华尔街(1792)：交易场所的诞生</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">24 名经纪人在梧桐树下签协议(Buttonwood)→纽约证交所前身，把“私下对敲”变成“公开规则”。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为市场天然有序，其实它始于一次“别互相坑”的君子协定。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">华尔街的起点，是一纸“不坑彼此”的约定。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你今天用的交易所规则，源头是 1792 年那棵梧桐树下的 24 人。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">汉密尔顿与国债：国家信用的定价</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">汉密尔顿把各州战争债统一为联邦信用→美国金融体系地基，国债成为“无风险定价锚”。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“国家借钱”是负担，汉密尔顿把它变成信用的发动机。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">国债，是把国家信用变成可定价资产的第一笔账。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你今天看到的利率 / 债市，地基是汉密尔顿那笔“统一债”。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">白芝浩与《伦巴第街》：最后贷款人</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">白芝浩提出危机时央行应“以好抵押、高利率”放贷→现代央行“最后贷款人”原则的源头。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为救市是“印钱”，白芝浩说救的是“流动性不是破产”，抵押要好。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">In a panic, lend freely, at a penalty rate, on good collateral. — 白芝浩</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你公司遇流动性危机——要的是“好抵押换救命钱”，不是贱卖资产。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">J.P.摩根(1907)：一个人扮演央行</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">1907 恐慌无美联储，摩根召集银行家自组“救市联盟”托市→证明私人资本也能临时充当稳定器。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“救市必是国家”，1907 年是私人银行家摩根一人扛的。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">1907 年，摩根一个人，干了后来央行的活。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你见识过“大而不能倒”——源头是摩根那次私人救市催生了美联储。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">铁路债券与证券化：资产被打包定价</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">19 世纪铁路靠发债筹资，再把未来运费收益“证券化”→资产被切片定价，影子银行雏形。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“资产证券化”是 2008 新词，铁路债两百年前就在玩。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">把未来现金流切片卖掉的游戏，铁路时代就开场了。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你买的“理财 / ABS”，老祖宗是 19 世纪铁路债。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">大萧条与罗斯福：监管登场</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">1929 崩盘→格拉斯-斯蒂格尔分业、SEC 成立→资本从“自由搏击”进入“戴铐起舞”。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“少监管更自由”，大萧条后用规则换回了市场信任。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">大萧条教会资本：没有规则的自由，终是一场崩盘。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你今天所有的披露 / 保荐制度，是大萧条后用惨痛换来的。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">战后牛市与共同基金：散户进场</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">二战后经济繁荣→共同基金让散户间接持股份→“炒股”从贵族游戏变全民参与。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“投资是专业的”，现代散户市场是战后才普及的。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">共同基金，把“资本”从少数人的牌桌搬到了大众的客厅。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你买的第一只基金，是战后那场“散户化”的延续。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">垃圾债券与杠杆收购(Milken,80s)：高风险高定价</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">米尔肯把“垃圾债”做成收购弹药→杠杆收购潮，用高息债撬动大盘收购。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“低评级 = 不能买”，米尔肯证明高风险债也能定价、能撬动 Control。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">垃圾债，是把“被嫌弃的信用”重新定价成收购的燃料。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你今天看到的杠杆收购 / 敌意并购，弹药来自米尔肯的垃圾债。</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">互联网泡沫(2000)：新叙事再演老剧本</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">“.com”无盈利靠“用户数”定价→和郁金香同构，叙事漂亮、现金流为零→崩。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“这次是科技革命不一样”，估值逻辑和 1637 没区别。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">2000 年的“.com”，只是 1637 年郁金香换了个域名。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你追过一个“烧钱换增长”的项目——问：它的现金流在哪？</div></div>
+  </div>
+</div>
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">次贷危机(2008)：定价的幽灵归来</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">房贷被层层打包(MBS / CDO)→风险被模型掩盖→房价一跌，全球连锁崩→资本故事的当代章。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">你以为“风险被分散了”，其实被打包后更看不清，系统性更脆。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">2008，是郁金香、南海、互联网泡沫在同一个模型里重演。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你买过“看似安全”的结构化产品——次贷告诉你：看不懂的分散 = 更集中的风险。</div></div>
+  </div>
+</div>
+
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位投资者，2021 年重仓某“颠覆性科技”IPO，估值靠叙事。乐观派引《资本的故事》说“每个时代都有新叙事，敢信者赢(如铁路 / 互联网长期向上)”；悲观派也引同一本书说“每一次都是郁金香 / 南海重演，叙事破灭即归零”。同一本书，两种判法。</p>
+  <p class="verdict"><b>当裁判：</b>看“叙事是否有现金流接住”。铁路 / 互联网长期有真实经济价值托底(单元 08/10)；纯叙事无现金流的资产(单元 02/12)只在“还有更傻的人”时涨。判：给你的持仓做“现金流压力测试”——若归零叙事它能否活？能，则像铁路；不能，则像郁金香。合上书，写你的判：你持仓里哪只是“铁路”、哪只是“郁金香”？再去读书 map 看“泡沫 / 危机”节点怎么连。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">周期：我最近一次“这次不一样”的念头是 ___</div><div class="ex">示例：追 AI 概念股，觉得“以前泡沫不适用 AI”——其实问的是现金流在哪。</div></div><div class="row"><div class="fl">泡沫：我持仓里“靠更傻接盘者”支撑的是 ___</div><div class="ex">示例：一个无盈利的叙事币，我赌有人更高接——设止损线。</div></div><div class="row"><div class="fl">监管：我把“规则当束缚”忽视的掩护是 ___</div><div class="ex">示例：以为少披露省事，其实披露 / 保荐制度是大萧条后用崩盘换的信任。</div></div><div class="row"><div class="fl">历史：我能对应上的“旧剧本”案例是 ___</div><div class="ex">示例：我那笔杠杆收购，弹药逻辑 = 米尔肯垃圾债(单元 11)——认清自己在哪幕戏里。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="资本的故事概念地图">
+<defs><marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/></marker></defs>
+<path d="M340,235 C245,216 245,129 150,110" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C435,216 435,129 530,110" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C235,237 235,248 130,250" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C445,237 445,248 550,250" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C265,260 265,375 190,400" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M340,235 C415,260 415,375 490,400" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M196,110 C300,94 380,94 484,110" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+<path d="M176,262 C300,300 380,300 504,262" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+<path d="M236,400 C310,415 370,415 444,400" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+<circle cx="340" cy="235" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+<circle cx="340" cy="235" r="58" fill="#41140e"/>
+<text x="340" y="229" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">资本的故事</text>
+<text x="340" y="248" fill="#ADBCC3" font-size="11" text-anchor="middle">四百年</text>
+<circle cx="150" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="150" y="107" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">东印度</text>
+<text x="150" y="124" fill="#7A6B60" font-size="9.5" text-anchor="middle">VOC 1602</text>
+<circle cx="530" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="530" y="107" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">郁金香</text>
+<text x="530" y="124" fill="#7A6B60" font-size="9.5" text-anchor="middle">泡沫</text>
+<circle cx="130" cy="250" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="130" y="247" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">南海</text>
+<text x="130" y="264" fill="#7A6B60" font-size="9.5" text-anchor="middle">牛顿</text>
+<circle cx="550" cy="250" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="550" y="247" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">摩根</text>
+<text x="550" y="264" fill="#7A6B60" font-size="9.5" text-anchor="middle">1907</text>
+<circle cx="190" cy="400" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="190" y="397" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">华尔街</text>
+<text x="190" y="414" fill="#7A6B60" font-size="9.5" text-anchor="middle">汉密尔顿</text>
+<circle cx="490" cy="400" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+<text x="490" y="397" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">次贷</text>
+<text x="490" y="414" fill="#7A6B60" font-size="9.5" text-anchor="middle">2008</text>
+</svg>
+<div class="legend"><b>微观层 · 本书概念网：</b>资本的故事由六条路径汇成——东印度(第一只股票)与郁金香(第一场泡沫)是起源(虚线并列 = 都在“定价的诞生”)；南海(牛顿)与摩根(1907 救市)是危机与操盘(虚线并列 = 都在“人性 vs 权力”)；华尔街(汉密尔顿)与次贷(2008)是制度与崩塌(虚线并列 = 都在“规则与反噬”)。<br><b>你的落点：</b>高智女性投资者常卡在“这次不一样”的自我催眠——读史即读今，先认出你持仓里的是铁路还是郁金香。</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>一家公司怎么从私有变成公开、怎么在资本市场上被定价与博弈？</b><br>一本书只是一个人的解法。下面围绕这一主心，并置多位作者 / 案例的视角。没有标准答案，你的收获是"视野被拓宽"，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">资本的故事 ·《资本的故事》</div><div class="view">定价与博弈是资本四百年的主旋律：从 VOC 第一只股票到次贷，结构在变、人性不变，看史即看今。</div></div>
+<div class="spec"><div class="who">牛顿(南海)</div><div class="view">人性的幽灵：再聪明也算不出群体疯狂，泡沫是定价的永恒风险。</div></div>
+<div class="spec"><div class="who">达摩达兰 ·《估值》</div><div class="view">价值锚：给几百年故事一个内在价值标尺，戳破“无现金流叙事”。</div></div>
+<div class="spec"><div class="who">索罗斯 ·《金融炼金术》</div><div class="view">反身性：历史里每一次泡沫都是“信念塑造价格、价格强化信念”的循环。</div></div>
+<div class="spec"><div class="who">摩根 · 资本操盘手</div><div class="view">1907 年私人资本临时充当稳定器，权力与责任一体的博弈者。</div></div>
+<div class="spec"><div class="who">迈克尔·刘易斯 ·《大空头》</div><div class="view">现代版博弈：2008 有人看清模型骗局做空，历史在当代重演。</div></div>
+<div class="spec"><div class="who">布拉德·费尔德 ·《Venture Deals》</div><div class="view">新章节：今天创业融资是资本故事的最新一页，条款即当代定价权。</div></div>
+<div class="spec"><div class="who">周金涛 ·《周期》</div><div class="view">长尺度：把四百年故事放进康波，个人努力敌不过趋势级力量。</div></div>
+
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>本书站位 ↔ 各路作者 / 案例，从"合规 / 条款 / 结构 / 历史"不同侧面切入同一主心。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的解法站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E8%B5%84%E6%9C%AC%E7%9A%84%E6%95%85%E4%BA%8B%20%E5%A4%AE%E8%A7%86%20%E7%BA%AA%E5%BD%95%E7%89%87" target="_blank" rel="noopener">
+  <div class="mk">视频 · 全书陪读</div>
+  <div class="mt">资本的故事 央视 纪录片</div>
+  <div class="md">原片陪读，全书案例的影像版。</div>
+  <div class="go">点击打开</div>
+</a>
+<a class="media-card" href="https://search.bilibili.com/all?keyword=%E9%83%81%E9%87%91%E9%A6%99%E6%B3%A1%E6%B2%AB%20%E5%8D%97%E6%B5%B7%E6%B3%A1%E6%B2%AB%20%E9%87%91%E8%9E%8D%E5%8F%B2" target="_blank" rel="noopener">
+  <div class="mk">史 · 印证单元 02/03</div>
+  <div class="mt">郁金香泡沫 南海泡沫 金融史</div>
+  <div class="md">两大泡沫对照，对应单元 02/03。</div>
+  <div class="go">点击打开</div>
+</a>
+<a class="media-card" href="https://search.bilibili.com/all?keyword=J.P.%E6%91%A9%E6%A0%B9%201907%20%E6%81%90%E6%85%8C%20%E6%95%91%E5%B8%82" target="_blank" rel="noopener">
+  <div class="mk">史 · 印证单元 07</div>
+  <div class="mt">J.P.摩根 1907 恐慌 救市</div>
+  <div class="md">摩根私人救市，对应单元 07。</div>
+  <div class="go">点击打开</div>
+</a>
+<a class="media-card" href="https://search.bilibili.com/all?keyword=%E6%AC%A1%E8%B4%B7%E5%8D%B1%E6%9C%BA%202008%20MBS%20CDO" target="_blank" rel="noopener">
+  <div class="mk">史 · 印证单元 13</div>
+  <div class="mt">次贷危机 2008 MBS CDO</div>
+  <div class="md">次贷结构与崩溃，对应单元 13。</div>
+  <div class="go">点击打开</div>
+</a>
+
+</div>
+
+<div class="foot">
+  资本人物馆 · 书架② IPO 与资本运作 —《资本的故事》精读认知卡：定位增量 → 13 单元拆解 → 冲突当裁判 → 落到自己 → 读书 map 闭环 → 延伸陪读<br>瑞士风视觉 · 零脚本 SVG · 对接 A/B 线 IPO 书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="日本财阀.html"><div class="pn-label">← 上一篇</div><div class="pn-title">日本财阀</div></a><a class="pn-next" href="马斯克.html"><div class="pn-label">下一篇 →</div><div class="pn-title">马斯克</div></a></nav>
+</body>
+</html>

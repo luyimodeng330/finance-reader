@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三星进化（韩系财阀） · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>三星进化（Samsung Rising · 韩系财阀）</h1>
+<div class="byline">韩系财阀研究 · 循环出资锁帝国 × 继承税命门 · 李秉喆 / 李健熙 / 李在镕</div>
+<p class="lead">关于「用最少股比锁住最大帝国，又怎么被税卡住」的第一性原理。本卡是「资本人物馆·财富守护与家族传承书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架③ · 财富守护与家族传承</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">传记延伸：日本财阀 / 洛克菲勒</span>
+  <span class="tag">对接 A 线女性财富 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与企业史来自公开资料与《三星进化》等著作；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？前几本给你「美系结构」「欧系凝聚」「东亚家宪」——而《三星进化》独有序增量是两点：<b>①它把「用极小个人股比控制庞大帝国」的工程写透了</b>——李秉喆以交叉持股 / 循环出资（구순출자）织成控股网，后用「法兰克福宣言」逼组织重生；<b>②它诚实展示了「继承税如何成为财阀的命门」</b>——李健熙去世留下创纪录遗产税，暴露了「控制权易得、税后传承难」的韩系死穴。这本书不可替代，是因为它专门解决「怎么用最少股比锁住最大 empire，又怎么被税卡住」这个盲点。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺「怎么把公司做上市」，你缺的是「怎么用最少的股比锁住整个集团，又不让继承税逼你卖壳」。这本书把韩系财阀的控制与税的两难摊开。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你家的「控制权」靠多少股比撑着？若控股靠堆股、又没留「缴税现金」——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">李秉喆创业：从贸易到「事业报国」</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">1938 年李秉喆在大邱开「三星商会」做贸易 / 碾米 → 战后转向制糖、纺织、保险 → 以「事业报国」为旗，借国家工业化扩张。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">起点是贸易行，不是技术。财阀的根是「敢在国家要什么时先上」，不是天赋资源。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（精神）李秉喆「事業報國」：以实业报国为创业旗。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家企业与国家产业方向是否同频？顺政策东风，省力一半。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">三星电子：从代工到全球帝国</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">1969 建三星电子 → 先给日企代工、再自研 → 押注半导体 / 显示屏 → 今天成全球存储与 OLED 之王。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">它是「后发者」靠「更长耐心 + 更大投入」反超先发者。追赶者的武器是时间，不是先机。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）后发者的武器是耐心，不是先机。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家是「抢风口」还是「选赛道长期投」？后者才长得出帝国。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">循环出资（구순출자）：用最小股比锁帝国</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">子公司 A 持 B、B 持 C、C 持 A → 闭环交叉持股 → 李氏仅持少数股权即可在顶端「一票控全局」→ 控制成本极低。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">他们不靠「多买股」控盘，靠「织网」。小股比 + 闭环，比堆股更省钱、更稳。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）控盘靠织网，不靠堆股。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家各公司是否「各自独立持股」？没有控股中枢，易被稀释 / 狙击。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">反直觉：控股不一定靠「多持股」</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">法律上网的结构让「少数股权」撬动「多数控制」→ 控制权与现金流权分离 → 用最少的钱拿最大的话事权。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">人们以为「控股要 51%」，财阀证明「结构与位序」比股比更致命。位置 > 比例。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）位置比比例更致命。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家控股靠「股比」还是「控股公司 + 一致行动」？后者更省、更抗稀释。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">李健熙「法兰克福宣言」：除了老婆孩子都要变</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">1993 年李健熙在法兰克福向高管连讲 7 小时，怒斥质量差 → 下「除了老婆孩子，一切都要变」的军令 → 三星从「以量取胜」转向「质量与品牌」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">一句狠话 + 最高权威背书，比十年 KPI 更能逼组织重生。变革的开关在「一把手亲自破」。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Change everything except your wife and children."（李健熙：除了妻儿，一切都要变）</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家有没有「一把手亲自破旧」的机制？没有，旧习惯永远赢。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">反直觉：逼组织重生靠一句狠话</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">质量门（1995 火烧次品）＋「第二名没用」的执念 → 全员从「交差」转「争第一」→ 文化一变，竞争力质变。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">组织惰性靠制度改不动，靠「羞耻感 + 最高权威的象征性动作」才破。符号比流程有力。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Second is no good."（李健熙：第二名没用）</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家对「差不多就行」容忍吗？容忍平庸，企业早晚被第一吞。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">半导体豪赌：逆周期压注内存</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">80s 逆周期巨投内存芯片 → 熬过价格战、逼退对手 → 成全球存储王 → 用「胆 + 现金」吃下周期。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">别人砍投资时它加注。财阀穿越周期靠「逆周期下注」，不是顺周期跟风。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）别人退潮时，才是你铺管道时。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家周期是「追涨杀跌」还是「逆周期储现金」？后者才能抄底。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">政商（정경유착）：财阀的杠杆与风险</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">财阀借政策贷款 / 特许扩张 → 也因政商纠葛吃官司（朴槿惠案牵连李在镕）→ 杠杆的另一面是「被权力反噬」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">与政府共舞放大了起飞，也埋下「人质风险」。近权力者，必须备「被查」的合规与现金。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）近权力者，先备合规与现金。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家企业与权力的距离是？没合规底线，一次调查就动摇控制权。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">李在镕接班与新掌门人法</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">李健熙卧病 → 李在镕逐步接掌 → 经历行贿案与「新掌门人法」松绑交叉持股 → 第三代正式掌舵，但控制链更复杂。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">接班不是「给股权」就完，是「在法律改来改去中保住控制」。代际传递是法律长跑。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）接班是场法律长跑，不是一次赠与。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家接班有「法律路线图」吗？没有，二代一接就乱 / 被税吃。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">反直觉：继承税是韩系财阀的命门</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">李健熙遗产触发韩国史上最高遗产税（约 12 万亿韩元）→ 继承人需卖股 / 抵押缴税 →「控制权易得、税后传承难」暴露。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最会控盘的人，也栽在「没留缴税现金」。控制是工程，税是现金流——两件事，别混。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）没留缴税现金，帝国也要打折卖。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家继承时「缴税的钱」在哪？全在股权 / 房产，只能折价出货缴税。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">周期穿越：从电子到生物 / 未来</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">存储见顶 → 转 OLED、生物制药、AI 芯片 → 每一波都「提前 10 年埋线」→ 靠集团现金池撑过投入期。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">穿越靠「集团现金池跨期调拨」，不是单业务自救。母舰的弹药，救子舰的寒冬。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）母舰的弹药，救子舰的寒冬。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家是「各公司各自过冬」还是「有家族现金池统筹」？后者才扛周期。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">反直觉：控制权和「税后传承」是两件事</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">循环出资解决「活着时控盘」，遗产税解决「死后传递」→ 前者靠结构、后者靠现金 / 信托 → 三星死在「后者没备齐」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">人们只学「怎么控」，不懂「怎么传」。控是 1/10 的功，传才是 9/10 的难。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）会控盘的人，不一定会传。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家「控」和「传」是两套方案吗？只做控、不做传，等于白忙一代。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">女性视角：洪罗喜与李富真在财阀网络中的角色</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">洪罗喜（李健熙妻）以艺术收藏与美术馆织「文化资本」、守家族声望；李富真（长女）掌新罗酒店、被视为潜在接班力量 → 女性是声望与治理的双重节点。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">表面「男丁接班」，底层「女性管声望 + 备选治理」。传承里女性不是配角，是保险栓与门面。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）让女性进治理与声望中枢，不只做慈善夫人。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你在家族是「慈善夫人」还是「治理 / 接班备选」？后者才是真护城河。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位女创始人，集团横跨制造与金融。三星式顾问劝她「用循环出资锁控、省股比」；洛克菲勒式顾问劝她「别玩那么险，用信托 + 慈善把结构洗白、留足传承现金」；日本财阀式顾问劝她「先立家宪、经营权交能者」。三人争「控盘与传承怎么做」。</p>
+  <p class="verdict"><b>当裁判：</b>三星证明「控盘可以很省」，但死在「税后传承没现金」。所以答案不是二选一：控盘用循环出资（三星），传承现金用信托 / 保险预置（Rockefeller /《保全你的财富》），底线用家宪（日本）。合上书，回光谱看三星 ↔ 洛克菲勒，写下你的判：你家的「控」和「传」，分别备齐了吗？</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">控制权工程：我家用「交叉 / 循环持股」锁控吗 ___</div><div class="ex">示例：各公司独立持股，没控股中枢，易被稀释或恶意狙击。</div></div>
+  <div class="row"><div class="fl">继承税流动性：我家有「缴税现金」吗 ___</div><div class="ex">示例：资产全在股权 / 房产，继承时要卖资产缴税，被迫折价出货。</div></div>
+  <div class="row"><div class="fl">组织重生：我家有「逼自己变」的机制吗 ___</div><div class="ex">示例：家族企业靠旧习惯，没人敢说「除了家人都要变」。</div></div>
+  <div class="row"><div class="fl">女性角色：女性在财阀网络的位置 ___</div><div class="ex">示例：女性只做慈善夫人，没进治理 / 接班序列，缺保险栓。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="三星财阀地图">
+  <defs>
+    <marker id="arwSa" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <path d="M340,232 C272,182 218,152 170,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwSa)"/>
+  <path d="M340,232 C408,182 462,152 510,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwSa)"/>
+  <path d="M340,232 C272,282 218,312 170,342" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwSa)"/>
+  <path d="M340,232 C408,282 462,312 510,342" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwSa)"/>
+  <path d="M340,232 C300,320 280,372 256,402" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwSa)"/>
+  <path d="M340,232 C380,320 400,372 424,402" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwSa)"/>
+  <path d="M196,100 C300,84 380,84 484,100" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arwSa)"/>
+  <path d="M196,348 C300,332 380,332 484,348" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arwSa)"/>
+  <path d="M262,408 C320,394 360,394 418,408" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arwSa)"/>
+  <circle cx="340" cy="232" r="70" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="232" r="60" fill="#41140e"/>
+  <text x="340" y="227" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">小股比锁大帝国</text>
+  <text x="340" y="246" fill="#ADBCC3" font-size="10.5" text-anchor="middle">控 ≠ 传</text>
+  <circle cx="150" cy="105" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">李秉喆</text>
+  <text x="150" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">事业报国</text>
+  <circle cx="530" cy="105" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="530" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">三星电子</text>
+  <text x="530" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">帝国</text>
+  <circle cx="150" cy="355" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="351" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">循环出资</text>
+  <text x="150" y="368" fill="#7A6B60" font-size="9.5" text-anchor="middle">小股比锁</text>
+  <circle cx="530" cy="355" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="530" y="351" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">法兰克福</text>
+  <text x="530" y="368" fill="#7A6B60" font-size="9.5" text-anchor="middle">宣言重生</text>
+  <circle cx="240" cy="425" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="240" y="421" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">继承税</text>
+  <text x="240" y="438" fill="#7A6B60" font-size="9.5" text-anchor="middle">命门</text>
+  <circle cx="440" cy="425" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="440" y="421" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">女性网络</text>
+  <text x="440" y="438" fill="#7A6B60" font-size="9.5" text-anchor="middle">洪罗喜/富真</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>「小股比锁大帝国」由六条路径汇成——<b>李秉喆（事业报国）</b>创业、<b>三星电子</b>成帝国（虚线并列 = 起点与巅峰）；<b>循环出资</b>（小股比锁）是控制工程、<b>法兰克福宣言</b>是组织重生（虚线并列 = 控盘 + 维新）；<b>继承税</b>是命门、<b>女性网络</b>（洪罗喜 / 李富真）是声望与治理保险栓（虚线并列 = 税险 + 人险）。底层还有「半导体豪赌」「政商」「周期穿越」托底。<br>
+  <b>你的落点：</b>高净值家族弱在「控 ≠ 传」——会织网控盘，却没留「缴税现金」。回到单元 10 / 12 补链。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同家族 / 方法论视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>财富如何跨越周期、跨代传递、不被稀释与收割？</b><br>一本书只是一个家族的解法。下面八位家族 / 作者，对同一主心给出八种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">三星李氏 · 韩系财阀</div><div class="view">循环出资控盘：极小个人股比 + 交叉持股锁帝国，代价是继承税命门与政商纠葛。</div></div>
+    <div class="spec"><div class="who">洛克菲勒 ·《Titan》</div><div class="view">美系：信托 + 慈善 + 办公室，用结构把暴富洗成制度，跨三代不散。</div></div>
+    <div class="spec"><div class="who">范德比尔特 · 传记</div><div class="view">反面：创富极狠却没做传承结构，财富在二三代被挥霍、内斗、征税啃光。</div></div>
+    <div class="spec"><div class="who">沃尔顿 ·《富甲美国》</div><div class="view">股权集中 + 合伙人文化：把公司当长期作品，后代共享股权不散伙。</div></div>
+    <div class="spec"><div class="who">罗斯柴尔德 · 传记</div><div class="view">欧系：五子布网 + 族内联姻，用凝聚锁股权，几世纪不散。</div></div>
+    <div class="spec"><div class="who">日本财阀（三井 / 三菱 / 住友）</div><div class="view">养子继承 + 家宪：制度先于血缘，被拆解还能以系列重生。</div></div>
+    <div class="spec"><div class="who">詹姆斯·休斯 ·《家族财富》</div><div class="view">人力资本大于金融资本：不培养「人」只传「钱」，三代必散。</div></div>
+    <div class="spec"><div class="who">《保全你的财富》</div><div class="view">工具层：保险 + 离岸信托 + 税务居民规划，用法律壳隔离、节税、定向传承。</div></div>
+  </div>
+  <div class="legend" style="color:var(--muted);font-size:.78em;line-height:1.6;margin-top:14px;"><b style="color:var(--brand);">光谱逻辑：</b>三星（循环出资控盘）↔ 范德比尔特（无结构散）；洛克菲勒（结构洗白）↔ 沃尔顿（股权集中）；罗斯柴尔德（联姻锁）↔ 日本财阀（养子 + 家宪）；休斯（人先于钱）↔《保全你的财富》（工具先行）。<b>没有谁对，只有哪句戳中你家族此刻的缺口。</b>合上卡，写下：我的解法站在光谱哪一格？</div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=三星帝国+李健熙+纪录片" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/02/07</div>
+    <div class="mt">三星帝国与李健熙</div>
+    <div class="md">看李氏三代如何把贸易行做成全球帝国，回看单元 01 / 02 / 07。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=李健熙+法兰克福宣言+质量经营" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 05/06</div>
+    <div class="mt">法兰克福宣言与质量经营</div>
+    <div class="md">理解「除了妻儿都要变」如何逼组织重生，对应单元 05 / 06。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=韩国财阀+继承税+李在镕" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 09/10</div>
+    <div class="mt">韩国财阀与继承税</div>
+    <div class="md">看「控制权易得、税后传承难」的韩系死穴，对应单元 09 / 10。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=交叉持股+循环出资+家族控股结构" target="_blank" rel="noopener">
+    <div class="mk">科普 · 单元 03/04/12</div>
+    <div class="mt">交叉持股与控股结构</div>
+    <div class="md">把书里的「循环出资 / 控 ≠ 传」翻译成今天的实操工具。</div>
+    <div class="go">点击打开科普</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（书架③ 财富守护与家族传承）— 三星《Samsung Rising》精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线财富传承书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="安德森-Andreessen.html"><div class="pn-label">← 上一篇</div><div class="pn-title">安德森 Andreessen</div></a><a class="pn-next" href="保全你的财富.html"><div class="pn-label">下一篇 →</div><div class="pn-title">保全你的财富</div></a></nav>
+</body>
+</html>

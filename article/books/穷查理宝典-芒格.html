@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>穷查理宝典 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>穷查理宝典：查理·芒格的智慧箴言录</h1>
+<div class="byline">查理·芒格 / 沃伦·巴菲特的黄金搭档 · 多元思维模型与理性决策手册</div>
+<p class="lead">关于「如何不愚蠢地变聪明」的第一性原理。本卡是「资本人物馆·价值投资与思维模型书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架⑤ · 价值投资与思维模型</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">媒体延伸：传记 · 演讲 · 纪录片</span>
+  <span class="tag">对接 A 线认知 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？纳瓦尔给你「杠杆与自由」、段永平给你「本分价值投资」、巴菲特给你「复利雪球」——而芒格独有序增量是两点：<b>①多元思维模型（multidisciplinary mental models）</b>：用心理学 / 数学 / 物理 / 会计等多学科透镜看同一件事，不被任何单一叙事定价；<b>②逆向思维 + 理性清单</b>：先想「怎么死」再想「怎么活」，用 25 条人类误判心理倾向对抗本能。这本书不可替代，是因为它把「如何不犯傻」做成一套可复用的认知操作系统，是书架上所有价值投资思想的底层语法。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺投资方法，你缺的是「不被任何单一框架骗」的透镜库，以及「先避开愚蠢、再追求聪明」的判断纪律。这本书一次性给两套。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你最近一次重大决策，是先用几个学科（心理 / 概率 / 会计）交叉验证，还是只听一个声音？又有多少次，你因为「没反过来想」踩了坑？两个都低——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">多元思维模型：用多学科透镜看世界</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">单一学科是盲人摸象。芒格主张把心理学、数学、物理、生物、会计等模型叠加，逼近现实全貌。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「专精一门」反而危险：专家最易被自己学科的盲点骗，因为只会用一把锤子。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"To the man with only a hammer, every problem looks like a nail."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做并购只看财务模型（锤子），没看组织心理与制度激励——补上「激励」透镜再判。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">能力圈：知道自己不知道什么</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">圈内你真懂、圈外你只是在赌博。承认边界，比盲目扩大边界更重要。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">说「这个我不懂」是优势不是羞耻。圈外的诱惑最贵。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Acknowledging what you don't know is the dawning of wisdom."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你被拉去投一个「风口」项目，明显超出能力圈——芒格会说：不懂不做。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">逆向思维：先想怎么死</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">想成功难、想失败易。先列「怎么必死」，逐一避开，剩下的就是活路。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">正向规划常落空，反向排雷更稳。避开愚蠢 > 追求聪明。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"All I want to know is where I'm going to die, so I'll never go there."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你规划职业只想「怎么升」，没想「怎么崩」——列一份失败的清单。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">复利：不只是钱，是知识与声誉</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">金融复利只是特例；知识、声誉、信任的复利曲线前平后陡，是更值钱的资产。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">一次坑人买卖赚的快钱，会永久损伤一条指数级曲线。短视极贵。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The first rule of compounding: Never interrupt it unnecessarily."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你为单笔佣金答应超能力承诺，归零了那条信任曲线。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">避免愚蠢：理性误判清单</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">芒格列「人类误判心理倾向」25 条（激励偏差、社会认同、嫉妒、锚定…），用清单对抗本能。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">聪明人更易被偏见骗，因为他们更会自圆其说。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"If you don't get elementary probability into your repertoire, then you go through a long life like a one-legged man in an ass-kicking contest."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你跟风买「大家都在买」的票——社会认同偏差正在你脑子里生效。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">好生意优于便宜货</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">伟大公司（高 ROIC、深护城河）配合理价格，胜过平庸公司配超低价格。质量复利更稳。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「捡烟蒂」有天花板，好生意的复利无上限。便宜不是安全边际的全部。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"A great business at a fair price is superior to a fair business at a great price."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你贪便宜买差公司，长期跑输「持有好公司」——换质量。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">耐心：大钱在等待</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">价值实现靠时间。多数回报集中在少数时刻，空仓等待本身就是一种能力。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「频繁操作」是损耗不是勤奋。不动比乱动难。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The big money is not in the buying and selling, but in the waiting."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你每月调仓，摩擦成本吃掉收益——学着等待与持有。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">激励：看清谁被激励</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">「给我看激励，我就告诉你结果。」人的行为由激励结构决定，不看人、看制度。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">好人也坏在错激励下。别信人，信激励设计。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Show me the incentive and I will show you the outcome."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你合作的销售按成交额提成——他推高佣金产品，不是为你。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">理性：每天变聪明一点点</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">优势不靠天赋爆发，靠每天「比醒来时聪明一点点」的复利。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">持续小幅进步 > 偶尔大招。智商是慢变量。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Spend each day trying to be a little wiser than you were when you woke up."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你追求「顿悟」，忽略日常积累——把习惯改过来。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">避免从众：随大流回归均值</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">模仿群体 = 回归均值，失去超额收益。独立判断才是 alpha 的来源。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「大家都在做」是减分项信号，不是安全信号。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Mimicking the herd invites regression to the mean."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你买「爆款基金」——你正在回归均值。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">配得上：想要先值得</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">稀缺好东西不会便宜给你。先让自己配得上，再谈得到。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">怨「拿不到」前，先问「我配不配」。价值是双向的。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The safest way to get what you want is to deserve what you want."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你艳羡某资源 / 关系，却没积累对等价值——先建设自己。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">简单：复杂是糊涂的借口</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">真懂的事能讲简单。讲不清 = 没真懂。简洁是力量的信号。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">用复杂掩盖无知的人最多。越真懂越能简化。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Take a simple idea and take it seriously."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你用 jargon 包装浅见——芒格会让你讲人话。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">纪律：长期主义的底色</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">芒格把「理性 + 耐心 + 正直」收束成纪律：不必比他人聪明，只需更自律。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">天赋稀缺，纪律可练。长期赢家赢在「少犯错」而非「多押对」。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"We don't have to be smarter than the rest. We have to be more disciplined than the rest."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你年年设目标却年年破戒——纪律缺口才是真瓶颈。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位基金经理重仓持有一家「便宜但平庸」的烟蒂公司，坚信格雷厄姆式捡便宜。芒格会劝他「换成好生意合理价，质量复利更稳」；但施洛斯（Walter Schloss，纯捡烟蒂派）会反驳「便宜就是安全边际，好生意的『质量』常是事后滤镜」；批评者更会说「多元思维模型听着漂亮，真做投资还是回到现金流折现」。三种都对，适用环境不同。</p>
+  <p class="verdict"><b>当裁判：</b>看宏观利率环境（低利率利好质量成长、高利率利好深度价值）与他自己的认知边界。合上书，写下你的判：你持仓里几成是「质量」、几成是「便宜」？再去读书 map 看「能力圈 / 好生意」节点怎么连，最后听延伸视听里芒格自己的演讲。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">多元思维：我决策时只用的单一透镜是 ___</div><div class="ex">示例：我做并购只盯财务模型，从没用「激励 / 心理」透镜——补上再判。</div></div>
+  <div class="row"><div class="fl">能力圈：我最近一次超出能力圈还出手的是 ___</div><div class="ex">示例：跟投一个区块链项目，其实不懂——芒格说不懂不做。</div></div>
+  <div class="row"><div class="fl">逆向：我本该先列「失败清单」却没列的一次是 ___</div><div class="ex">示例：创业合伙没想「怎么散伙」，结果真散得难看。</div></div>
+  <div class="row"><div class="fl">复利：我最近一次为短期利益损伤长期声誉的是 ___</div><div class="ex">示例：为赶一单佣金答应超能力承诺，信任曲线归零。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="穷查理宝典认知地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <path d="M340,238 C262,182 206,150 158,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C418,182 474,150 522,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C262,296 206,328 158,346" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,238 C418,296 474,328 522,346" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M196,110 C300,94 380,94 524,110" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M540,156 C558,250 558,250 540,344" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M196,350 C262,382 300,398 332,404" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <path d="M524,350 C458,382 400,398 348,404" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <circle cx="340" cy="238" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="238" r="58" fill="#41140e"/>
+  <text x="340" y="232" fill="#ffffff" font-size="14.5" font-weight="600" text-anchor="middle">多元思维</text>
+  <text x="340" y="251" fill="#ADBCC3" font-size="11" text-anchor="middle">模型</text>
+  <circle cx="150" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">能力圈</text>
+  <text x="150" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">知道边界</text>
+  <circle cx="540" cy="110" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="106" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">逆向思维</text>
+  <text x="540" y="123" fill="#7A6B60" font-size="9.5" text-anchor="middle">先想怎么死</text>
+  <circle cx="150" cy="350" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="346" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">复利</text>
+  <text x="150" y="363" fill="#7A6B60" font-size="9.5" text-anchor="middle">声誉/知识</text>
+  <circle cx="540" cy="350" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="540" y="346" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">好生意</text>
+  <text x="540" y="363" fill="#7A6B60" font-size="9.5" text-anchor="middle">护城河</text>
+  <circle cx="340" cy="410" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="340" y="406" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">耐心</text>
+  <text x="340" y="423" fill="#7A6B60" font-size="9.5" text-anchor="middle">等待价值</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>多元思维模型是中枢，靠<b>能力圈</b>划定边界、<b>逆向思维</b>排雷、<b>复利</b>滚雪球、<b>好生意</b>提供质量复利、<b>耐心</b>等待价值兑现。<br>
+  <b>你的落点：</b>多数高净值女性弱在「能力圈」边界模糊——回单元 02 把圈画清楚。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>在资本与算法时代，个体如何不被定价、反向定价世界？</b><br>一本书只是一个人的解法。下面九本，对同一主心给出九种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">芒格 ·《穷查理宝典》</div><div class="view">多元思维模型：用多学科透镜看同一件事，不被任何单一叙事定价；逆向 + 理性清单避开愚蠢。</div></div>
+    <div class="spec"><div class="who">纳瓦尔 ·《纳瓦尔宝典》</div><div class="view">零边际成本杠杆：建资产逃离时薪定价，反向定价世界。自由靠「建资产」不是「卖时间」。</div></div>
+    <div class="spec"><div class="who">段永平 ·《大道》</div><div class="view">本分 + 能力圈：不被风口与泡沫定价，守住看得懂的，慢就是快。拒绝被市场情绪反向定价。</div></div>
+    <div class="spec"><div class="who">巴菲特 ·《滚雪球》</div><div class="view">复利雪球：长期持有好生意，让时间替你定价世界。好公司是最好的定价权。</div></div>
+    <div class="spec"><div class="who">林奇 ·《战胜华尔街》</div><div class="view">常识投资：从生活观察反向定价市场，散户也能赢。你熟知的，就是你的 alpha。</div></div>
+    <div class="spec"><div class="who">马尔基尔 ·《漫步华尔街》</div><div class="view">有效市场 + 指数：个人别想战胜市场，先别被费率与情绪定价。认输给指数，反得自由。</div></div>
+    <div class="spec"><div class="who">兰小欢 ·《置身事内》</div><div class="view">制度定价：个体被制度与政绩逻辑定价。看懂「游戏是谁设计的」，才知道在哪用力、何时借势。</div></div>
+    <div class="spec"><div class="who">塔勒布 ·《反脆弱》</div><div class="view">在随机性里受益：不被黑天鹅收割，让波动为你工作。承认被定价，但把脆弱转成反脆弱。</div></div>
+    <div class="spec"><div class="who">索罗斯 · 反身性</div><div class="view">认知与价格互塑：谁能先看清偏见，谁就反向定价市场。偏见即机会。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>芒格（多透镜）↔ 马尔基尔（认输指数）；段永平（守本分）↔ 林奇（用常识）；纳瓦尔（造杠杆）↔ 兰小欢（看制度）↔ 索罗斯（抓偏见）。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的解法站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E6%9F%A5%E7%90%86%C2%B7%E8%8A%92%E6%A0%BC%20%E4%BA%BA%E7%B1%BB%E8%AF%AF%E5%88%A4%E5%BF%83%E7%90%86%E5%AD%A6" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 05</div>
+    <div class="mt">芒格 2007 USC 毕业演讲</div>
+    <div class="md">听真人讲「人类误判心理倾向」，回看单元 05 理性清单。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E4%BC%AF%E5%85%8B%E5%B8%8C%E5%B0%94%E8%82%A1%E4%B8%9C%E5%A4%A7%E4%BC%9A%20%E8%8A%92%E6%A0%BC" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补冲突现场</div>
+    <div class="mt">伯克希尔股东大会 · 芒格问答</div>
+    <div class="md">看芒格怎么用逆向与多元思维怼提问，给你的裁判案子找素材。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E7%A9%B7%E6%9F%A5%E7%90%86%E5%AE%9D%E5%85%B8%20%E8%A7%A3%E8%AF%BB" target="_blank" rel="noopener">
+    <div class="mk">视频 · 深读单元 01/02</div>
+    <div class="mt">《穷查理宝典》精读解读</div>
+    <div class="md">多元思维模型与能力圈的长视频，读完精读卡再来啃。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E8%8A%92%E6%A0%BC%20%E4%BB%B7%E5%80%BC%E6%8A%95%E8%B5%84%20%E5%A4%8D%E5%88%A9" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 04/07</div>
+    <div class="mt">芒格谈复利与耐心</div>
+    <div class="md">对应复利曲线与长期持有，听他本人怎么讲等待。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（穷查理宝典·芒格）— 精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线思维模型书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="漫步华尔街-马尔基尔.html"><div class="pn-label">← 上一篇</div><div class="pn-title">漫步华尔街 马尔基尔</div></a><a class="pn-next" href="纳瓦尔宝典-纳瓦尔.html"><div class="pn-label">下一篇 →</div><div class="pn-title">纳瓦尔宝典 纳瓦尔</div></a></nav>
+</body>
+</html>

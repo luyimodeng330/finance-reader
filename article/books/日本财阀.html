@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本财阀：三井 / 三菱 / 住友 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>日本财阀：三井 / 三菱 / 住友（合卷）</h1>
+<div class="byline">东亚财阀研究 · 制度先于血缘的传承范本 · 养子继承 + 家宪 + 系列</div>
+<p class="lead">关于「没有亲儿子、后代不肖时，怎么让企业不死」的第一性原理。本卡是「资本人物馆·财富守护与家族传承书架」的精读认知卡：先讲清这本（合卷）不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架③ · 财富守护与家族传承</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">传记延伸：洛克菲勒 / 罗斯柴尔德</span>
+  <span class="tag">对接 A 线女性财富 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与原则来自公开史料与财阀家宪；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本（合卷）？《Titan》《富甲美国》给你「美系个人英雄式传承」——而日本财阀（三井 / 三菱 / 住友）独有序增量是两点：<b>①它把「制度先于血缘」写透了</b>——用「家（ie）」这个比人长的永续主体、用「养子继承」把最优经营者（哪怕外姓）接进来、用「家宪 / 社是」把价值观写成契约；<b>②它诚实展示了「被 GHQ 拆了还能长回来」</b>——战后财阀解体，却以交叉持股的「系列（keiretsu）」重生。这本书不可替代，是因为它专门解决「没有亲儿子 / 后代不肖时，怎么让企业不死」这个盲点，是东亚式传承的基准样本。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺「怎么把企业做上市」，你缺的是「后代不肖 / 没有儿子时，企业凭什么不死」。这本书把「用制度替代理血」的东亚范本摊开。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你家的「接班人」是靠血缘默认，还是靠「制度 + 能力」筛选？若只靠血缘、且后代能力存疑——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">三井：从越后屋布庄到财阀</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">1673 年三井高利在江户开「越后屋」布庄（现金现卖、不赊账）→ 攒下信用与现金流 → 明治后做银行（三井银行 1876）→ 扩张成多元财阀。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">起点是「小布庄的现卖纪律」，不是资源。财阀的根是几百年前的经营纪律。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（原则）三井《大綱》（家宪）：把家族价值写成可执行的契约。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家的「经营纪律」有成文吗？没成文的规矩，传一代就走样。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">三菱：岩崎弥太郎的「三钻石」帝国</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">岩崎弥太郎借土佐藩海运起家 → 九十九商会 → 三菱汽船 → 横向扩到采矿 / 造船 / 金融 →「三钻石」成日本第一财阀。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">三菱靠「国家特许 + 敢赌」起家。东亚财阀常与国家权力共舞，这是它的杠杆也是它的风险。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（精神）岩崎遗训：以「所期奉公 / 处事光明 / 立业贸易」为三菱社是。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家企业与「权力 / 政策」的距离是？共舞能放大，也能被反噬。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">住友：别子铜山与「事業本位」</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">住友政友起家于书铺与别子铜山冶炼 → 以「事業本位」为家是：事业是家族第一目的 → 不把企业当私产挥霍，而当作永续使命。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">他们把「企业」看得比「家族消费」重。事业不死，家族才不散——顺序反了就败。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（原则）住友《事業本位》：事业是家族的第一目的，非私财。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家是「企业服务家族消费」还是「家族服务企业永续」？后者才传得代。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">「家（ie）」制度：比人长的永续主体</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">日本「家」不是血缘小家庭，而是「永续的经营主体」→ 当家者可以换、家不亡 → 企业有了不依赖某个人的法律人格。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">他们先有「不死的家」，再有「当家的个人」。主体先于个人，才是真传承。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）家は永続する主体 —— 家是比人长的主体。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家有没有「不依赖某个人的主体」（控股公司 / 基金会）？没有，人走茶凉。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">养子继承：没儿子就「收养」最强经营者</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">亲儿子无能 / 无子时，收养有能力的外姓才俊为「养子」接班 → 能力优先于血统 → 企业总能拿到最优当家人。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">他们不「死守血缘」，反而「用收养换能力」。东亚式「代际杠杆」= 宁可改姓也要能者接。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）宁改姓，不交班给庸才。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家若后代能力一般，愿「外聘 CEO / 设家族办公室」保企业吗？不肯，企业随庸才亡。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">反直觉：能继承的不一定是亲儿子</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">血统给的是「姓」，能力给的是「命」→ 财阀选择保命（企业永续）而非保姓 → 后代可当「大股东」，经营权交能者。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最反常识的一点：传承的尽头是「所有权归血、经营权归能」。死守「儿子必须管」反而毁企业。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）姓可以留，权必须给能者。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家是「后代必须坐帅位」还是「后代当董事、请职业 CEO」？后者更稳。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">家宪 / 社是：用宪法约束后代</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">三井《大綱》、各家家宪把「不许败家 / 重大决策合议 / 分红上限」写死 → 后代想乱来也被章程卡住 → 制度替父管子。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">他们不相信「后代自觉」，相信「章程硬约束」。家宪就是家族的宪法。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（原则）家宪とは、父の代わりに子を律する法 —— 家宪是替父管子的法。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家有「家族宪法」吗？没有，后代挥霍 / 内斗无据可裁。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">所有权与经营分离：请职业经理人</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">家族持控股、日常交职业经理人 → 专业治理替代家族瞎管 → 企业不因「某代不肖」停转。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「放权给外人」不是失去控制，是「用制度保住控制」。所有权在，经营权可外包。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）持股份不持日常，企业才不被家人拖垮。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家事事自己盯吗？一旦不在，企业就停。该建「所有权在、经营权外包」的结构。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">反直觉：财阀被 GHQ 拆了，又长回来</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">1945 后盟军强制解散财阀（拆分持股、驱散家族控制）→ 看似消亡 → 却以银行居中、交叉持股的「系列」重生。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">最反直觉：被强制拆解，反而逼出更隐形的「交叉持股」结构。打不散的，是人与关系网。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）拆得散壳，拆不散网。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家资产若被「强拆 / 强监管」，有「重生结构」吗？单一架构等于无备份。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">系列（keiretsu）：战后以交叉持股重生</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">银行 + 制造商 + 商社互相交叉持股、互派董事 → 形成「你中有我」的稳定圈 → 敌意收购难入、长期协作稳。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">他们用「互相持股」代替「一家独大」。股权分散反而更稳，因为没人能单挑。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）互相持股，等于互相上锁。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家有没有「盟友交叉持股 / 一致行动」？没有，容易被恶意稀释或狙击。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">周期穿越：从纺织到重工到金融</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">明治纺织 → 大正重工 / 化工 → 战后金融 / 电子 → 每轮产业升级都跟上 → 靠「家宪里的长期主义」穿越周期。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">穿越周期靠的不是赌对一次，是「制度允许长期不下牌桌」。短期投机者早出局。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）不下牌桌，才有下一局的筹码。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家是「赚快钱就撤」还是「留长期筹码」？后者才抗周期。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">反直觉：最稳的传承是「制度」不是「血缘」</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">三井 / 三菱 / 住友各历数百年、换无数当家人仍不倒 → 真正不倒的是「家宪 + 养子 + 分离治理」这套制度，不是某根血脉。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">人们迷信「血脉延续」，财阀证明「制度延续」才扛事。血会弱，制度不弱。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）传制度，不传血。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你家押注「血脉」还是「制度」？押血脉，一代不肖就清零。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">女性视角：财阀女主人与「嫁入」网络</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">财阀通过「联姻」织关系网，女主人主持内帏与慈善、维系跨房联络 → 女性是「关系 + 凝聚」的隐形枢纽（现代则更多进入基金会与治理）。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">表面「男当家」，底层「女织网」。传承里女性不是花瓶，是关系网与价值观的守门人。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">（概念）让家里的女性进网络与治理，不进只为联姻的笼。</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你在家族是「联姻筹码」还是「治理参与者」？后者才是真护城河。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位女创始人，独子能力平平却想接班。日本财阀式顾问劝她「设家宪 + 用养子 / 职业 CEO，所有权留家族、经营权交能者」；范德比尔特式老臣劝她「信血缘、全给儿子，权力不能外授」；休斯式提醒她「先投入培养儿子的人力资本」。三人争的是「平庸后代怎么办」。</p>
+  <p class="verdict"><b>当裁判：</b>日本财阀的解法最稳：用家宪锁底线 + 经营权交能者（养子 / CEO）+ 所有权留家族，同时休斯式地尽量培养。范德比尔特式「全给平庸儿子」是豪赌，常输。合上书，回光谱看日本财阀 ↔ 范德比尔特，写下你的判：你家的「能力」和「血缘」，怎么排？</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">制度先于血缘：我家有「家宪 / 家族宪法」吗 ___</div><div class="ex">示例：没写下的规矩，全靠家长口头，换代就乱、后代易挥霍。</div></div>
+  <div class="row"><div class="fl">继承机制：我家「接班人是谁」怎么定 ___</div><div class="ex">示例：默认传亲儿子，但他能力一般，企业可能毁在他手里。</div></div>
+  <div class="row"><div class="fl">所有权经营分离：我家敢用职业经理人吗 ___</div><div class="ex">示例：事事自己盯，一旦不在企业就停转，无职业治理层。</div></div>
+  <div class="row"><div class="fl">抗拆解：我家有「重生结构」吗 ___</div><div class="ex">示例：单一公司单一架构，一旦被监管 / 变故冲击无交叉持股备份。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="日本财阀传承地图">
+  <defs>
+    <marker id="arwJ" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <path d="M340,232 C272,182 218,152 170,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwJ)"/>
+  <path d="M340,232 C408,182 462,152 510,122" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwJ)"/>
+  <path d="M340,232 C272,282 218,312 170,342" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwJ)"/>
+  <path d="M340,232 C408,282 462,312 510,342" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwJ)"/>
+  <path d="M340,232 C300,320 280,372 256,402" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwJ)"/>
+  <path d="M340,232 C380,320 400,372 424,402" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arwJ)"/>
+  <path d="M196,100 C300,84 380,84 484,100" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arwJ)"/>
+  <path d="M196,348 C300,332 380,332 484,348" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arwJ)"/>
+  <path d="M262,408 C320,394 360,394 418,408" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arwJ)"/>
+  <circle cx="340" cy="232" r="70" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="232" r="60" fill="#41140e"/>
+  <text x="340" y="227" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">制度先于血缘</text>
+  <text x="340" y="246" fill="#ADBCC3" font-size="10.5" text-anchor="middle">不死的家</text>
+  <circle cx="150" cy="105" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">三井</text>
+  <text x="150" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">越后屋</text>
+  <circle cx="530" cy="105" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="530" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">三菱</text>
+  <text x="530" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">三钻石</text>
+  <circle cx="150" cy="355" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="150" y="351" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">住友</text>
+  <text x="150" y="368" fill="#7A6B60" font-size="9.5" text-anchor="middle">事業本位</text>
+  <circle cx="530" cy="355" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="530" y="351" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">养子继承</text>
+  <text x="530" y="368" fill="#7A6B60" font-size="9.5" text-anchor="middle">能者接班</text>
+  <circle cx="240" cy="425" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="240" y="421" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">家宪社是</text>
+  <text x="240" y="438" fill="#7A6B60" font-size="9.5" text-anchor="middle">宪法</text>
+  <circle cx="440" cy="425" r="46" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="440" y="421" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">系列</text>
+  <text x="440" y="438" fill="#7A6B60" font-size="9.5" text-anchor="middle">交叉持股</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>「制度先于血缘」由六条路径汇成——<b>三井 / 三菱 / 住友</b>是三大样本（虚线并列 = 同属东亚财阀范式）；<b>养子继承</b>（能者接班）与 <b>家宪社是</b>（宪法）是双闸（虚线并列 = 能力筛选 + 章程硬约束）；<b>系列</b>（交叉持股）是战后重生的抗拆解结构。底层还有「家（ie）永续主体」与「所有权 / 经营分离」托底。<br>
+  <b>你的落点：</b>高净值家族弱在「家宪 + 养子机制」——有血缘没制度、有企业没分离治理。回到单元 05 / 07 / 08 补链。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同家族 / 方法论视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>财富如何跨越周期、跨代传递、不被稀释与收割？</b><br>一本书只是一个家族的解法。下面八位家族 / 作者，对同一主心给出八种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">日本财阀（三井 / 三菱 / 住友）</div><div class="view">养子继承 + 家宪 + 所有权经营分离：制度先于血缘，被拆还能以系列重生。东亚式「传制度不传血」。</div></div>
+    <div class="spec"><div class="who">洛克菲勒 ·《Titan》</div><div class="view">美系：信托 + 慈善 + 办公室，用结构把暴富洗成制度，跨三代不散。</div></div>
+    <div class="spec"><div class="who">范德比尔特 · 传记</div><div class="view">反面：创富极狠却没做传承结构，财富在二三代被挥霍、内斗、征税啃光。</div></div>
+    <div class="spec"><div class="who">沃尔顿 ·《富甲美国》</div><div class="view">股权集中 + 合伙人文化：把公司当长期作品，后代共享股权不散伙。</div></div>
+    <div class="spec"><div class="who">罗斯柴尔德 · 传记</div><div class="view">欧系：五子布网 + 族内联姻，用凝聚锁股权，几世纪不散。</div></div>
+    <div class="spec"><div class="who">三星李氏 · 韩系财阀</div><div class="view">循环出资控盘：极小个人股比 + 交叉持股锁帝国，代价是继承税与政商纠葛。</div></div>
+    <div class="spec"><div class="who">詹姆斯·休斯 ·《家族财富》</div><div class="view">人力资本大于金融资本：不培养「人」只传「钱」，三代必散。</div></div>
+    <div class="spec"><div class="who">《保全你的财富》</div><div class="view">工具层：保险 + 离岸信托 + 税务居民规划，用法律壳隔离、节税、定向传承。</div></div>
+  </div>
+  <div class="legend" style="color:var(--muted);font-size:.78em;line-height:1.6;margin-top:14px;"><b style="color:var(--brand);">光谱逻辑：</b>日本财阀（养子 + 家宪）↔ 范德比尔特（无结构散）；洛克菲勒（结构洗白）↔ 沃尔顿（股权集中）；罗斯柴尔德（联姻锁）↔ 三星（循环出资）；休斯（人先于钱）↔《保全你的财富》（工具先行）。<b>没有谁对，只有哪句戳中你家族此刻的缺口。</b>合上卡，写下：我的解法站在光谱哪一格？</div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=日本财阀+三井三菱住友+纪录片" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/02/03</div>
+    <div class="mt">日本财阀 三井 / 三菱 / 住友</div>
+    <div class="md">看三大财阀的起家与家宪，回看单元 01 / 02 / 03。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=日本+养子继承+家族企业" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 05/06</div>
+    <div class="mt">日本养子继承与家族企业</div>
+    <div class="md">理解「宁改姓不交庸才」的代际杠杆，对应单元 05 / 06。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=战后日本+财阀解体+系列+keiretsu" target="_blank" rel="noopener">
+    <div class="mk">视频 · 补单元 09/10</div>
+    <div class="mt">财阀解体与系列重生</div>
+    <div class="md">看 GHQ 拆解后如何以交叉持股重生，对应单元 09 / 10。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=家族宪法+所有权经营分离+家族办公室" target="_blank" rel="noopener">
+    <div class="mk">科普 · 单元 07/08/12</div>
+    <div class="mt">家族宪法与两权分离</div>
+    <div class="md">把书里的「家宪 / 养子 / 分离治理」翻译成今天的实操工具。</div>
+    <div class="go">点击打开科普</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（书架③ 财富守护与家族传承）— 日本财阀（三井 / 三菱 / 住友）合卷精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线财富传承书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="小红筹.html"><div class="pn-label">← 上一篇</div><div class="pn-title">小红筹</div></a><a class="pn-next" href="资本的故事.html"><div class="pn-label">下一篇 →</div><div class="pn-title">资本的故事</div></a></nav>
+</body>
+</html>

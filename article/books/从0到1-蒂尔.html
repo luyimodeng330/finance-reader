@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>从0到1 · 资本人物馆</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#ffffff;
+  --surface:#E6C2C0; --text:#332b2b; --brand:#41140e; --wine:#41140e;
+  --accent:#a8bdc3; --border:rgba(65,20,14,.16); --white:#ffffff; --muted:#8a7d72;
+  --line:rgba(51,43,43,.12); --line-wine:rgba(65,20,14,.2); --pink:#E6C2C0; --sand:#CBA877;
+  --serif:"Songti SC","SimSun","STSong","Noto Serif CJK SC","Noto Serif SC",serif;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.8;max-width:900px;margin:0 auto;padding:72px 36px 120px;font-size:15.5px;font-weight:300;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+.eyebrow{color:var(--muted);letter-spacing:.32em;font-size:.68em;text-transform:uppercase;font-weight:400;}
+h1{color:var(--brand);font-size:2.3em;line-height:1.25;margin:.35em 0 0;font-weight:500;letter-spacing:-.01em;}
+.byline{color:var(--muted);font-size:.9em;margin:10px 0 0;}
+.lead{color:var(--text);font-size:1.02em;line-height:1.75;margin:22px 0 6px;font-weight:300;}
+.tags{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px;}
+.tag{background:var(--surface);color:var(--brand);font-size:.73em;letter-spacing:.06em;padding:5px 12px;border:1px solid var(--border);}
+.disclaimer{margin:22px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);font-size:.78em;line-height:1.7;}
+hr{border:none;border-top:1px solid var(--border);margin:42px 0;}
+.sec-h{color:var(--brand);font-size:1.18em;font-weight:600;letter-spacing:.04em;margin:0 0 6px;}
+.sec-sub{color:var(--muted);font-size:.76em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.position{background:var(--brand);color:var(--white);padding:18px 22px;font-size:.95em;line-height:1.7;font-weight:300;}
+.position b{color:var(--accent);font-weight:600;}
+.pre{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.pre .hook{color:var(--brand);font-size:1em;font-weight:400;line-height:1.7;margin:0 0 12px;}
+.pre .check{background:var(--surface);padding:12px 16px;border-left:3px solid var(--brand);}
+.pre .check .lab{color:var(--brand);font-size:.7em;letter-spacing:.12em;font-weight:600;text-transform:uppercase;}
+.pre .check .q{color:var(--text);font-size:.92em;margin-top:5px;}
+.unit{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:11px;}
+.unit .no{color:var(--accent);font-size:.68em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.unit .t{color:var(--brand);font-weight:600;font-size:1.02em;margin:.2em 0 .5em;line-height:1.4;}
+.unit .g{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.unit .cell{padding:6px 0;border-top:1px dashed var(--border);}
+.unit .ck{color:var(--accent);font-size:.67em;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.unit .cv{color:var(--text);font-size:.87em;line-height:1.55;margin-top:2px;}
+.unit .cv.q{font-style:italic;color:var(--brand);}
+.clash{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.clash .scene{color:var(--text);font-size:.92em;line-height:1.65;margin:0 0 10px;}
+.clash .verdict{color:var(--muted);font-size:.84em;line-height:1.55;border-left:2px solid var(--accent);padding-left:12px;}
+.clash .verdict b{color:var(--brand);}
+.mine{background:var(--white);border:1px solid var(--border);padding:20px 22px;}
+.mine .row{padding:11px 0;border-bottom:1px dashed var(--border);}
+.mine .row:last-child{border-bottom:none;}
+.mine .fl{color:var(--brand);font-size:.88em;font-weight:600;margin-bottom:5px;}
+.mine .ex{color:var(--muted);font-size:.84em;line-height:1.5;font-style:italic;}
+.mapwrap{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.mapwrap svg{width:100%;height:auto;display:block;}
+.mapwrap .legend{color:var(--muted);font-size:.78em;line-height:1.6;margin-top:12px;}
+.mapwrap .legend b{color:var(--brand);}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px;}
+a.media-card{display:block;background:var(--white);border:1px solid var(--border);padding:15px 17px;color:var(--text);text-decoration:none;transition:border-color .2s,transform .2s;}
+a.media-card:hover{border-color:var(--brand);transform:translateY(-2px);}
+a.media-card .mk{color:var(--accent);font-size:.66em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+a.media-card .mt{color:var(--brand);font-weight:600;font-size:.94em;margin:.3em 0 .2em;}
+a.media-card .md{color:var(--muted);font-size:.78em;line-height:1.5;}
+a.media-card .go{color:var(--accent);font-size:.7em;font-weight:600;letter-spacing:.04em;margin-top:7px;}
+a.media-card .go::after{content:" ↗";}
+.spectrum{background:var(--white);border:1px solid var(--brand);padding:20px 22px;}
+.spectrum .core{background:var(--brand);color:var(--white);padding:14px 18px;font-size:.98em;line-height:1.6;font-weight:400;margin-bottom:16px;}
+.spectrum .core b{color:var(--accent);font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.spec{background:var(--surface);border:1px solid var(--border);padding:13px 15px;}
+.spec .who{color:var(--brand);font-size:.84em;font-weight:600;}
+.spec .view{color:var(--text);font-size:.82em;line-height:1.5;margin-top:4px;}
+.spec.me{background:var(--white);border:2px solid var(--accent);}
+.spec .tag-me{color:var(--accent);font-size:.64em;letter-spacing:.1em;font-weight:600;text-transform:uppercase;}
+.foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--brand);color:var(--muted);font-size:.72em;letter-spacing:.04em;}
+@media(max-width:640px){.unit .g{grid-template-columns:1fr;}.media-grid{grid-template-columns:1fr;}.spec-grid{grid-template-columns:1fr;}body{padding:46px 22px 90px;}}
+/* 付费门禁（复用 assets/app.js，不引深咖 styles.css） */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:6px;}
+.topbar .brand{color:var(--brand);text-decoration:none;font-size:.9em;font-weight:600;letter-spacing:.02em;}
+.topbar .brand-sub{color:var(--muted);font-size:.76em;}
+
+/* —— 约定 VI：标题宋体 + 标签 Mono —— */
+h1,h2,.sec-h{font-family:var(--serif);color:var(--brand);}
+.eyebrow,.tag,.byline .no,.unit .no,.topbar .brand-sub{font-family:var(--mono);}
+.tag{background:var(--brand);color:#fff;border:none;}
+.tags .tag{font-family:var(--mono);letter-spacing:.04em;}
+.disclaimer{background:var(--surface);border-left:3px solid var(--accent);color:var(--muted);}
+.position{background:var(--brand);color:#fff;}
+.position b{color:var(--accent);font-weight:600;}
+.foot{border-top:1px solid var(--brand);color:var(--muted);font-family:var(--mono);}
+.topbar{border-bottom:1px solid var(--border);}
+.topbar .brand{color:var(--brand);}
+
+/* —— 文章内导航：返回栏目 + 上一篇/下一篇（约定 VI）—— */
+.art-nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line-wine, rgba(65,20,14,.12));padding:10px 16px;margin:0 -16px 4px;}
+.art-nav .back{font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.04em;
+  color:var(--brand,#41140e);text-decoration:none;border:1px solid rgba(65,20,14,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .15s ease;}
+.art-nav .back:hover{background:var(--brand,#41140e);color:#fff;}
+.art-nav .crumb{font-family:var(--mono,monospace);font-size:.7rem;color:rgba(51,43,43,.55);
+  letter-spacing:.06em;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.page-nav{display:flex;gap:12px;margin:40px 0 8px;}
+.page-nav a{flex:1;text-decoration:none;display:block;border:1px solid rgba(65,20,14,.18);
+  border-radius:12px;padding:14px 16px;background:#fff;transition:all .18s ease;}
+.page-nav a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(65,20,14,.12);
+  border-color:rgba(65,20,14,.4);}
+.page-nav .pn-label{font-family:var(--mono,monospace);font-size:.68rem;letter-spacing:.08em;
+  color:rgba(51,43,43,.5);text-transform:uppercase;}
+.page-nav .pn-title{font-family:var(--serif,"Songti SC","SimSun",serif);
+  font-weight:700;font-size:1rem;color:var(--brand,#41140e);margin-top:4px;line-height:1.35;}
+.page-nav .pn-next{text-align:right;}
+.page-nav .pn-disabled{flex:1;border:1px dashed rgba(51,43,43,.18);border-radius:12px;
+  padding:14px 16px;background:rgba(51,43,43,.03);}
+</style>
+</head>
+<body>
+<div class="art-nav"><a class="back" href="../../hall-books.html">← 返回栏目</a><span class="crumb">资本人物馆 · 33 篇书卡</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../../index.html">强女思维 · 金融资本库</a>
+  <span class="brand-sub" id="greet-bar">Reader</span>
+</header>
+
+<div class="eyebrow">Qiangnv Capital Library · Capital Figures Hall</div>
+<h1>从0到1：垄断式创造</h1>
+<div class="byline">Peter Thiel / 彼得·蒂尔 · PayPal 黑帮 · Founders Fund 合伙人 · 斯坦福创业课讲义</div>
+<p class="lead">关于「如何做别人没做过的事、用垄断而非竞争重写规则」的第一性原理。本卡是「资本人物馆·硅谷新派书架」的精读认知卡：先讲清这本不可替代的增量，再拆成 13 个认知单元细读，最后用读书 map 把线织成网、形成闭环。</p>
+<div class="tags">
+  <span class="tag">书架⑥ · 硅谷新派与女性破局</span>
+  <span class="tag">书卡 · 精读认知闭环</span>
+  <span class="tag">人物延伸：马斯克 · 安德森（硅谷新派）</span>
+  <span class="tag">对接 A 线认知 / B 线资本视角</span>
+</div>
+
+<div class="disclaimer">本卡为精读框架，非原书替代。观点与金句来自原书《Zero to One》；外链媒体请在合规平台观看，注意信息甄别。请读者独立判断，决策自负。</div>
+
+<div id="article-body" class="prose">
+
+<div class="position">为什么单读这本？《黑客与画家》给你「制造者心态」、《纳瓦尔宝典》给你「杠杆」——而蒂尔独有序增量是<b>两点</b>：<b>①他把「竞争」定性为陷阱</b>（红海里没人赢，真正的利润来自 monopoly）；<b>②他给了「从 0 到 1」的具体打法</b>——占小市场、守秘密、下集中赌注。这本书不可替代，是因为它专门解决「高智女性总在红海里拼性价比、不敢独占一个赛道」这个破局盲点。</div>
+
+<hr>
+
+<div class="sec-h">读前 · 为什么是这本？</div>
+<div class="sec-sub">Activate — 先戳中你的问题</div>
+<div class="pre">
+  <p class="hook">你不是缺「怎么努力」的方法，你缺的是「怎么避开竞争、独占一个被低估的赛道」的框架，以及「敢下集中赌注」的勇气。</p>
+  <div class="check">
+    <div class="lab">读前自检</div>
+    <div class="q">你做的事里，有几成是在「别人也在做、只能拼价格」的红海？又有多少是「只有你能做、别人进不来」的垄断位？前者多——这本书是给你写的。</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">精读拆解 · 13 个认知单元</div>
+<div class="sec-sub">Deep Read — 每个单元：论证链 → 反直觉 → 金句 → 你的情境</div>
+
+<div class="unit">
+  <div class="no">单元 01</div>
+  <div class="t">从 0 到 1：做别人没做过的</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">全球化是 1→n（复制已知），科技是 0→1（创造未知）。前者内卷，后者创造新价值。蒂尔把「科技」定义为「唯一的 0→1」。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「努力复制」是安全幻觉；真正回报在「没人做过的那一跳」。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Going from 0 to 1 means doing what no one else has ever done."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做内容总在「跟进热点」——试试从 0 到 1 做个没人做的「女性×资本」垂直认知。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 02</div>
+  <div class="t">没人建的有价值公司（开篇之问）</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">蒂尔开篇就问：什么有价值的公司，是「根本没人建」的？答案藏在未被满足的、反共识的需求里。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「大家都在做的」不值钱；「没人做但有人想要」才值钱。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"What valuable company is nobody building?"</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你抱怨「高智女性没好内容」——那恰是「没人建却有人要」的公司。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 03</div>
+  <div class="t">竞争是给输家的</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">竞争把利润压到零。越「血拼」，越证明你在错的地方。逃避竞争才是聪明。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「打败对手」不是目标，「避开对手」才是。红海里的冠军也是输家。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Competition is for losers."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你陷入「和同行拼课时费」——这是竞争陷阱，该换赛道而非拼价。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 04</div>
+  <div class="t">垄断才是成功企业的常态</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">表面「竞争」的公司才喊竞争；真赚钱的公司都在一个细分里独占。垄断不是恶，是价值信号。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「我们不和人竞争」听着狂，却常是实话——它在一个别人没占的市场里。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Monopoly is the condition of every successful business."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你能否说出「我在哪一块是独一份」？说不出，就还在竞争里。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 05</div>
+  <div class="t">别复制巨人（下一个盖茨不造系统）</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">模仿成功者=做他们已做完的事。真正的从 0 到 1 是找到未被占领的新大陆。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「向标杆看齐」是抄袭路径；标杆的下一步才是你的机会。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The next Bill Gates will not build an operating system. ... If you are copying these people, you are not learning from them."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你想「做中国的 XX」——蒂尔会说，那是 1→n，不是 0→1。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 06</div>
+  <div class="t">创业 = 说服一群人信一个不同未来</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">创业不是写代码，是「让最多人相信一个尚未存在的未来」。创始人=首席信念销售。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「产品好自然有人来」是神话；说服与叙事本身就是核心能力。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"A startup is the largest group of people you can convince of a plan to build a different future."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做个人IP，本质是在「说服一群人信你定义的未来」——别只埋头做内容。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 07</div>
+  <div class="t">你不是彩票（确定性乐观）</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">「 indefinite optimism 」信未来会好但不知怎么好，于是买彩票；「 definite optimism 」信未来可设计，于是动手造。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">把成功归因运气=把定价权交给概率。蒂尔说：你不是彩票。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"You are not a lottery ticket."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你常说「看命」——换成「我能设计哪块未来」，就从被定价变定价者。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 08</div>
+  <div class="t">秘密还存在：押注 hidden truth</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">进步来自「别人不知道、但你知道」的秘密。越相信「没有秘密」，越找不到秘密。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「什么都已被发现」是共识幻觉；每个伟大生意都绕着一条隐藏真相。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Every great business is built around a secret that's hidden from the rest of the world."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你「高智女性×资本认知」就是一条少人看见的秘密——敢把它做成生意。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 09</div>
+  <div class="t">小市场才是被忽略的机会</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">垄断从小起步：先在一个极小市场里 100% 占有，再扩张。大市场一开始就被巨头分食。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「我要拿 1% 的万亿市场」是谎言；「我独占一个 tiny 市场」才是真路径。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Monopoly starts with a very small market."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你从「一二线城市高净值女性」这种小池子起步独占，比「服务所有女性」更现实。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 10</div>
+  <div class="t">销售被严重低估</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">工程师鄙视销售，但「把东西卖出去」才是价值闭环最后一环。不会卖，再好的 0→1 也死。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「酒香不怕巷子深」是致命自负；distribution 是被低估的护城河。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"Sales is the most underrated skill in business."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你羞于「推销自己」——蒂尔说销售是核心能力，尤其对女性破局者。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 11</div>
+  <div class="t">创始人即公司：最奇怪的镜子</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">公司会越长越像创始人。创始人的偏执、视野、秘密，直接刻进组织 DNA。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「去人格化经营」是神话；你的独特性恰是壁垒，别抹平它。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"A company is the strangest mirror of its founders."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你做女性认知品牌，你的「强女视角」就是公司灵魂——别藏起来。</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 12</div>
+  <div class="t">确定性乐观：我们要的是飞行汽车</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">社会陷进「不确定性乐观」——说未来好却只敢做小改进（140 字符）。真进步需要「设计未来」的笃定。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「微小迭代」不是进步，是逃避宏大。敢想飞行汽车，才配从 0 到 1。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"We wanted flying cars, and instead we got 140 characters."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你满足于「小步优化」——蒂尔会逼你问：我本可造的那架飞行汽车在哪？</div></div>
+  </div>
+</div>
+
+<div class="unit">
+  <div class="no">单元 13</div>
+  <div class="t">幂次法则：集中下注</div>
+  <div class="g">
+    <div class="cell"><div class="ck">论证链</div><div class="cv">风险回报服从幂律——一只赢家抵过其余全部。分散下注是平庸，集中压中最重要的一注才赢。</div></div>
+    <div class="cell"><div class="ck">反直觉</div><div class="cv">「别把鸡蛋放一个篮」在幂律世界是错的；该把最大赌注压在最高赔率处。</div></div>
+    <div class="cell"><div class="ck">金句</div><div class="cv q">"The returns of a venture fund are determined by its single best investment."</div></div>
+    <div class="cell"><div class="ck">你的情境</div><div class="cv">你精力均摊在 5 条线——幂律说该把 80% 压在一个最高杠杆的赌注上。</div></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">冲突现场 · 当裁判</div>
+<div class="sec-sub">Clash — 不同作者的观点打架，你来判断</div>
+<div class="clash">
+  <p class="scene"><b>案子：</b>一位女性创始人做「高净值女性财务认知」产品。蒂尔会劝她「占一个小到对手看不上的利基、做垄断、守秘密、集中下注（单元09/08/13）」；但安德森（a16z）会反驳「软件吞噬世界，先冲规模、PMF 后猛涨（增长优先）」；《向前一步》的桑德伯格更补「你得坐到桌前、敢谈条件拿走垄断利润」。三种都对，适用阶段不同。</p>
+  <p class="verdict"><b>当裁判：</b>先占小市场垄断（蒂尔）——没有独占位，规模只是给巨头喂数据；再用增长扩张（安德森）——垄断位稳了才放大；同时敢要价（桑德伯格）——造出垄断却不敢拿走利润，等于白干。合上书，写下你的判：你卡在「不敢独占」还是「独占后不敢放大」？再去读书 map 看「垄断/小市场」节点怎么连，最后听延伸视听里蒂尔的 CS183 讲义。</p>
+</div>
+
+<hr>
+
+<div class="sec-h">落到自己 · 概念→我的情境映射</div>
+<div class="sec-sub">Mine — 把书里的概念翻译成你自己的生活决策（附示例）</div>
+<div class="mine">
+  <div class="row"><div class="fl">垄断：我做的事里，哪块是「别人没做、我能独占」的 ___</div><div class="ex">示例：「女性×资本认知」垂直赛道几乎空白，这就是我的垄断位，别扩张去拼泛理财。</div></div>
+  <div class="row"><div class="fl">秘密：我掌握的「别人不知道但我知道」的认知是 ___</div><div class="ex">示例：我懂券商+创业+战略的交集视角，这是少人同时具备的秘密，做成内容杠杆。</div></div>
+  <div class="row"><div class="fl">小市场：我有没有从一个足够小的市场起步 ___</div><div class="ex">示例：先服务「一二线高净值女性」这个小池子做深，再扩，而非一上来服务所有女性。</div></div>
+  <div class="row"><div class="fl">幂次：我的下注是分散还是集中压一个 ___</div><div class="ex">示例：把 80% 精力压在「课程产品」这一最高杠杆赌注，而非均摊 5 条线。</div></div>
+</div>
+
+<hr>
+
+<div class="sec-h">读书 map · 两层闭环</div>
+<div class="sec-sub">微观：本书概念网（读透一本） · 宏观：核心事物光谱（看多可能）</div>
+
+<div class="mapwrap">
+<svg viewBox="0 0 680 470" role="img" aria-label="从0到1认知地图">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ADBCC3"/>
+    </marker>
+  </defs>
+  <!-- 曲线连线（实线：驱动关系） -->
+  <path d="M340,235 C272,178 222,142 182,108" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C408,178 458,142 498,108" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C262,240 195,243 140,244" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C418,240 485,243 540,244" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C272,308 232,362 207,397" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <path d="M340,235 C408,308 448,362 473,397" fill="none" stroke="#ADBCC3" stroke-width="1.3" marker-end="url(#arw)"/>
+  <!-- 曲线连线（虚线：并列同源 / 垄断+小市场 双起点） -->
+  <path d="M180,250 C260,268 300,268 300,268" fill="none" stroke="#E5DAD0" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arw)"/>
+  <!-- 中心：外环 + 主圆 -->
+  <circle cx="340" cy="235" r="68" fill="none" stroke="#ADBCC3" stroke-width="1" opacity=".55"/>
+  <circle cx="340" cy="235" r="58" fill="#41140e"/>
+  <text x="340" y="229" fill="#ffffff" font-size="15" font-weight="600" text-anchor="middle">从0到1</text>
+  <text x="340" y="248" fill="#ADBCC3" font-size="11" text-anchor="middle">0→1</text>
+  <!-- 节点：白底细描边 -->
+  <circle cx="175" cy="105" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="175" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">垄断</text>
+  <text x="175" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">独占利润</text>
+  <circle cx="505" cy="105" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="505" y="101" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">秘密</text>
+  <text x="505" y="118" fill="#7A6B60" font-size="9.5" text-anchor="middle">hidden truth</text>
+  <circle cx="128" cy="245" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="128" y="241" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">小市场</text>
+  <text x="128" y="258" fill="#7A6B60" font-size="9.5" text-anchor="middle">利基起步</text>
+  <circle cx="552" cy="245" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="552" y="241" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">不同未来</text>
+  <text x="552" y="258" fill="#7A6B60" font-size="9.5" text-anchor="middle">说服一群人</text>
+  <circle cx="200" cy="400" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="200" y="396" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">确定性乐观</text>
+  <text x="200" y="413" fill="#7A6B60" font-size="9.5" text-anchor="middle">设计未来</text>
+  <circle cx="480" cy="400" r="44" fill="#ffffff" stroke="#41140e" stroke-width="1.3"/>
+  <text x="480" y="396" fill="#33251B" font-size="12.5" font-weight="600" text-anchor="middle">幂次法则</text>
+  <text x="480" y="413" fill="#7A6B60" font-size="9.5" text-anchor="middle">集中下注</text>
+</svg>
+<div class="legend">
+  <b>微观层 · 本书概念网：</b>从0到1由六条路径汇成——「垄断」（独占利润）与「小市场」（利基起步）是双起点（虚线并列=都从占小池起）；二者靠「秘密」（hidden truth）支撑；向外推到「不同未来」（说服一群人）；底层是「确定性乐观」（设计未来）与「幂次法则」（集中下注）。<br>
+  <b>你的落点：</b>高智女性弱在「垄断+小市场」——总在红海拼价。先把这两节点连上中心，其余自然松动。
+</div>
+</div>
+
+<div class="sec-h" style="margin-top:38px;">宏观层 · 核心事物光谱</div>
+<div class="sec-sub">围绕一个主心，并置不同作者的视角——他说的未必对，看见可能性，你来判断</div>
+<div class="spectrum">
+  <div class="core">主心：<b>硅谷新派如何用「创造/杠杆」重写规则，不被竞争定价、反向定价世界？</b><br>一本书只是一个人的解法。下面九位，对同一主心给出九种视角。没有标准答案，你的收获是「视野被拓宽」，然后自己判。</div>
+  <div class="spec-grid">
+    <div class="spec me"><div class="tag-me">本书站位</div><div class="who">彼得·蒂尔 ·《从0到1》</div><div class="view">垄断式创造：占小市场、守秘密、集中下注，逃离竞争定价，反向定价世界。0→1 &gt; 1→n。</div></div>
+    <div class="spec"><div class="who">纳瓦尔 ·《纳瓦尔宝典》</div><div class="view">特定知识+杠杆：垄断的本质是「别人没有的特定知识」。蒂尔的秘密≈Naval 的特定知识。</div></div>
+    <div class="spec"><div class="who">马克·安德森 · a16z</div><div class="view">软件吞噬世界：先冲规模、PMF 后猛涨。和蒂尔「先垄断」次序不同，但都信科技重写规则。</div></div>
+    <div class="spec"><div class="who">保罗·格雷厄姆 · YC</div><div class="view">做出人们想要的：蒂尔的「垄断」要先有「人们真想要的东西」（PG 的起点）。</div></div>
+    <div class="spec"><div class="who">马斯克 · 传记</div><div class="view">第一性原理+大赌注：把蒂尔的「集中下注」推到造火箭的极端，用硬科技从 0 到 1。</div></div>
+    <div class="spec"><div class="who">卡戴珊 · 品牌案例</div><div class="view">人设即垄断：用注意力独占一个叙事位。蒂尔说垄断从利基起——卡戴珊的利基是「 herself」。</div></div>
+    <div class="spec"><div class="who">段永平 / 芒格 · 价值派</div><div class="view">能力圈+本分：守看得懂的、拒绝红海。和蒂尔「避竞争」共振，但更偏「守」而非「创」。</div></div>
+    <div class="spec"><div class="who">波伏瓦 ·《第二性》</div><div class="view">结构觉醒：女性造物常被更低估值。先看清「单价机制」，才谈得上独占定价。</div></div>
+    <div class="spec"><div class="who">塔勒布 ·《反脆弱》</div><div class="view">杠铃+幂律：蒂尔的幂次法则与塔勒布的「少数大赢家」同源——集中压高赔率。</div></div>
+  </div>
+  <div class="legend" style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">
+    <b>看光谱：</b>蒂尔（独占避竞争）↔ 安德森（冲规模）；纳瓦尔（特定知识）↔ 卡戴珊（人设垄断）；马斯克（硬科技大赌）↔ 段永平（守能力圈）；波伏瓦（看清结构）↔ 塔勒布（杠铃幂律）。<b>没有谁对，只有哪句戳中你此刻的处境。</b>合上卡，写下：我的解法站在光谱哪一格？
+  </div>
+</div>
+
+<hr>
+
+<div class="sec-h">延伸视听 · 陪读顺序</div>
+<div class="sec-sub">Companion — 按阅读顺序听，每个链接印证卡里哪一段</div>
+<div class="media-grid">
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%BD%BC%E5%BE%97%E8%92%82%E5%B0%94%20%E4%BB%8E0%E5%88%B01" target="_blank" rel="noopener">
+    <div class="mk">视频 · 印证单元 01/03</div>
+    <div class="mt">Peter Thiel《从0到1》演讲</div>
+    <div class="md">听蒂尔真人讲「竞争是给输家的」，回看单元 01/03。</div>
+    <div class="go">点击打开视频</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E4%BB%8E0%E5%88%B01%20%E8%A7%A3%E8%AF%BB" target="_blank" rel="noopener">
+    <div class="mk">书/深读 · 印证单元 04/09</div>
+    <div class="mt">《从0到1》解读 / 精读</div>
+    <div class="md">读完精读卡再来啃原书，对应垄断与小市场。</div>
+    <div class="go">点击打开解读</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=Peter%20Thiel%20CS183%20startup%20class" target="_blank" rel="noopener">
+    <div class="mk">课程/视频 · 补单元 08/13</div>
+    <div class="mt">Thiel CS183 斯坦福创业课</div>
+    <div class="md">听他讲「秘密」与「幂次法则」，给你的裁判案子找素材。</div>
+    <div class="go">点击打开课程</div>
+  </a>
+  <a class="media-card" href="https://search.bilibili.com/all?keyword=%E5%BD%BC%E5%BE%97%E8%92%82%E5%B0%94%20%E8%AE%BF%E8%B0%88" target="_blank" rel="noopener">
+    <div class="mk">访谈 · 补冲突现场</div>
+    <div class="mt">彼得·蒂尔 深度访谈</div>
+    <div class="md">看他怎么把「确定性乐观」落到投资，对照安德森/桑德伯格冲突。</div>
+    <div class="go">点击打开访谈</div>
+  </a>
+</div>
+
+<div class="foot">
+  资本人物馆 · 书卡（从0到1 / Peter Thiel）— 精读认知卡：定位增量 → 13单元拆解 → 冲突当裁判 → 落到自己 → 读书map闭环 → 延伸陪读<br>
+  瑞士风视觉 · 零脚本 SVG · 对接 A/B 线硅谷新派书架 · 生成于 2026-07-18
+</div>
+
+</div>
+
+<nav class="page-nav" aria-label="上一篇 / 下一篇"><a class="pn-prev" href="马斯克.html"><div class="pn-label">← 上一篇</div><div class="pn-title">马斯克</div></a><a class="pn-next" href="读懂IPO.html"><div class="pn-label">下一篇 →</div><div class="pn-title">读懂IPO</div></a></nav>
+</body>
+</html>
