@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-20 12:21",
-  "count": 5,
+  "generated": "2026-07-21 17:51",
+  "count": 6,
   "members": [
     {
       "email": "demo@vip.com",
@@ -36,6 +36,13 @@
       "order": "朋友圈测试03",
       "product": "资本认知",
       "expire": "2027-07-20"
+    },
+    {
+      "email": "25135743g@connect.polyu.hk",
+      "name": "Eric项目笔记",
+      "order": "陈建Eric",
+      "product": "资本认知",
+      "expire": "2027-07-22"
     }
   ]
 }
