@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-21 17:51",
-  "count": 6,
+  "generated": "2026-07-24 19:30",
+  "count": 7,
   "members": [
     {
       "email": "demo@vip.com",
@@ -43,6 +43,13 @@
       "order": "陈建Eric",
       "product": "资本认知",
       "expire": "2027-07-22"
+    },
+    {
+      "email": "309419488@qq.com",
+      "name": "沈诗淇",
+      "order": "",
+      "product": "资本认知",
+      "expire": "2027-07-27"
     }
   ]
 }
