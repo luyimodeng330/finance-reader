@@ -1,7 +1,14 @@
 {
-  "generated": "2026-07-29 17:35",
-  "count": 7,
+  "generated": "2026-07-31 16:54",
+  "count": 8,
   "members": [
+    {
+      "email": "demo@vip.com",
+      "name": "小红书_Anna",
+      "order": "XHS_2026010",
+      "product": "私享会员",
+      "expire": "2027-07-11"
+    },
     {
       "email": "13551842343@163.com",
       "name": "Lulu",
@@ -45,11 +52,11 @@
       "expire": "2027-07-28"
     },
     {
-      "email": "demo@vip.com",
-      "name": "小红书_Anna",
-      "order": "XHS_2026010",
-      "product": "私享会员",
-      "expire": "2027-07-11"
+      "email": "871179472@qq.com",
+      "name": "Ms.赵",
+      "order": "朋友圈",
+      "product": "资本认知",
+      "expire": "2027-07-30"
     }
   ]
 }
