@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-31 16:54",
-  "count": 8,
+  "generated": "2026-08-06 10:00",
+  "count": 9,
   "members": [
     {
       "email": "demo@vip.com",
@@ -57,6 +57,13 @@
       "order": "朋友圈",
       "product": "资本认知",
       "expire": "2027-07-30"
+    },
+    {
+      "email": "594954120@qq.com",
+      "name": "是Sugar呀",
+      "order": "XHS_20260806",
+      "product": "资本认知",
+      "expire": "2027-08-07"
     }
   ]
 }
