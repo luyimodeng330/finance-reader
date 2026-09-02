@@ -1,6 +1,6 @@
 {
   "generated": "2026-08-25 22:38",
-  "count": 10,
+  "count": 12,
   "members": [
     {
       "email": "demo@vip.com",
@@ -78,6 +78,13 @@
       "order": "",
       "product": "资本认知",
       "expire": "2027-08-31"
+    },
+    {
+      "email": "33741986@qq.com",
+      "name": "",
+      "order": "",
+      "product": "资本认知",
+      "expire": "2027-09-02"
     }
   ]
 }
