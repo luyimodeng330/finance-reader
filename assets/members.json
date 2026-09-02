@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-25 22:38",
-  "count": 12,
+  "generated": "2026-09-02 10:41",
+  "count": 11,
   "members": [
     {
       "email": "demo@vip.com",
@@ -38,13 +38,6 @@
       "expire": "2027-07-22"
     },
     {
-      "email": "309419488@qq.com",
-      "name": "沈诗淇",
-      "order": "",
-      "product": "资本认知",
-      "expire": "2027-07-27"
-    },
-    {
       "email": "koko2013@163.com",
       "name": "王巧",
       "order": "朋友圈",
@@ -67,24 +60,24 @@
     },
     {
       "email": "1533554531@qq.com",
-      "name": "1533554531",
-      "order": "",
+      "name": "招财与进宝",
+      "order": "XHS_20260825",
       "product": "资本认知",
-      "expire": "2027-08-25"
+      "expire": "2027-08-26"
     },
     {
       "email": "funny-lovely@163.com",
-      "name": "",
-      "order": "",
+      "name": "funny283-1",
+      "order": "XHS_20260831",
       "product": "资本认知",
-      "expire": "2027-08-31"
+      "expire": "2027-09-01"
     },
     {
       "email": "33741986@qq.com",
-      "name": "",
-      "order": "",
+      "name": "EdgeCap",
+      "order": "XHS_20260902",
       "product": "资本认知",
-      "expire": "2027-09-02"
+      "expire": "2027-10-03"
     }
   ]
 }
