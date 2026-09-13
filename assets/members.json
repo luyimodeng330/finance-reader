@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-12 10:45",
-  "count": 13,
+  "generated": "2026-09-13 15:58",
+  "count": 14,
   "members": [
     {
       "email": "demo@vip.com",
@@ -92,6 +92,13 @@
       "order": "XHS_20260912",
       "product": "资本认知",
       "expire": "2027-09-13"
+    },
+    {
+      "email": "563841184@qq.com",
+      "name": "Lucky lulu酱",
+      "order": "XHS_20260913",
+      "product": "资本认知",
+      "expire": "2027-09-14"
     }
   ]
 }
