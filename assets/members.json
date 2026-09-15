@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-14 08:48",
-  "count": 15,
+  "generated": "2026-09-16 00:06",
+  "count": 16,
   "members": [
     {
       "email": "demo@vip.com",
@@ -106,6 +106,13 @@
       "order": "XHS_20260914",
       "product": "资本认知",
       "expire": "2027-09-15"
+    },
+    {
+      "email": "hehongting001@outlook.com",
+      "name": "lom",
+      "order": "XHS_20260915",
+      "product": "资本认知",
+      "expire": "2027-09-17"
     }
   ]
 }
