@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-22 13:27",
-  "count": 19,
+  "generated": "2026-09-22 14:58",
+  "count": 20,
   "members": [
     {
       "email": "demo@vip.com",
@@ -131,6 +131,13 @@
     {
       "email": "15836138802@163.com",
       "name": "一只小笼包",
+      "order": "XHS_20260922",
+      "product": "资本认知",
+      "expire": "2027-09-23"
+    },
+    {
+      "email": "2669709669@qq.com",
+      "name": "被窝探险家",
       "order": "XHS_20260922",
       "product": "资本认知",
       "expire": "2027-09-23"
