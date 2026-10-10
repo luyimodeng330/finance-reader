@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-23 22:19",
-  "count": 22,
+  "generated": "2026-10-10 10:00",
+  "count": 23,
   "members": [
     {
       "email": "demo@vip.com",
@@ -155,6 +155,13 @@
       "order": "XHS_20260923",
       "product": "资本认知",
       "expire": "2027-09-25"
+    },
+    {
+      "email": "412084893@qq.com",
+      "name": "串爆踩落月球",
+      "order": "XHS_20261010",
+      "product": "资本认知",
+      "expire": "2027-10-11"
     }
   ]
 }
