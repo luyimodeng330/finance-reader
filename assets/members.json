@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-19 23:43",
-  "count": 26,
+  "generated": "2026-10-20 09:36",
+  "count": 27,
   "members": [
     {
       "email": "demo@vip.com",
@@ -183,6 +183,13 @@
       "order": "XHS_20261019",
       "product": "资本认知",
       "expire": "2027-10-20"
+    },
+    {
+      "email": "3496215359@qq.com",
+      "name": "Anastasia",
+      "order": "XHS_20261020",
+      "product": "资本认知",
+      "expire": "2027-10-21"
     }
   ]
 }
