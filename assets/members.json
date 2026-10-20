@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-20 11:14",
-  "count": 28,
+  "generated": "2026-10-20 12:31",
+  "count": 29,
   "members": [
     {
       "email": "demo@vip.com",
@@ -194,6 +194,13 @@
     {
       "email": "2812767457@qq.com",
       "name": "复利法则",
+      "order": "XHS_20261020",
+      "product": "资本认知",
+      "expire": "2027-10-21"
+    },
+    {
+      "email": "487216844@qq.com",
+      "name": "百毒不侵",
       "order": "XHS_20261020",
       "product": "资本认知",
       "expire": "2027-10-21"
