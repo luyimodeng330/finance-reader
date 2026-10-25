@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-25 08:45",
-  "count": 31,
+  "generated": "2026-10-25 13:44",
+  "count": 32,
   "members": [
     {
       "email": "demo@vip.com",
@@ -215,6 +215,13 @@
     {
       "email": "hyfjsjs@163.com",
       "name": "一直有酒窝的鱼",
+      "order": "XHS_20261025",
+      "product": "资本认知",
+      "expire": "2027-10-26"
+    },
+    {
+      "email": "6662888@qq.com",
+      "name": "超哥",
       "order": "XHS_20261025",
       "product": "资本认知",
       "expire": "2027-10-26"
