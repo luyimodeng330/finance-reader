@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-27 21:45",
-  "count": 36,
+  "generated": "2026-10-27 22:10",
+  "count": 37,
   "members": [
     {
       "email": "demo@vip.com",
@@ -250,6 +250,13 @@
     {
       "email": "498588868@qq.com",
       "name": "星期日不上发条",
+      "order": "XHS_20261027",
+      "product": "资本认知",
+      "expire": "2027-10-28"
+    },
+    {
+      "email": "allenxiaohui@163.com",
+      "name": "晓晖",
       "order": "XHS_20261027",
       "product": "资本认知",
       "expire": "2027-10-28"
