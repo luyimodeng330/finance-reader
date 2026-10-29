@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-28 11:06",
-  "count": 39,
+  "generated": "2026-10-29 19:04",
+  "count": 40,
   "members": [
     {
       "email": "demo@vip.com",
@@ -274,6 +274,13 @@
       "order": "XHS_20261028",
       "product": "资本认知",
       "expire": "2027-10-29"
+    },
+    {
+      "email": "jenjencool@163.com",
+      "name": "小卷卷",
+      "order": "XHS_20261029",
+      "product": "资本认知",
+      "expire": "2027-10-30"
     }
   ]
 }
