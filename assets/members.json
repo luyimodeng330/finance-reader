@@ -1,6 +1,6 @@
 {
-  "generated": "2026-11-06 21:52",
-  "count": 45,
+  "generated": "2026-11-08 19:53",
+  "count": 46,
   "members": [
     {
       "email": "demo@vip.com",
@@ -312,10 +312,17 @@
     },
     {
       "email": "13602762762@139.com",
-      "name": "用户78935",
+      "name": "菜菜",
       "order": "XHS_20261106",
       "product": "资本认知",
       "expire": "2027-11-07"
+    },
+    {
+      "email": "2547192284@qq.com",
+      "name": "李初一",
+      "order": "XHS_20261108",
+      "product": "资本认知",
+      "expire": "2027-11-09"
     }
   ]
 }
