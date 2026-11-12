@@ -1,6 +1,6 @@
 {
-  "generated": "2026-11-11 17:40",
-  "count": 47,
+  "generated": "2026-11-12 19:48",
+  "count": 48,
   "members": [
     {
       "email": "demo@vip.com",
@@ -330,6 +330,13 @@
       "order": "XHS_20261111",
       "product": "资本认知",
       "expire": "2027-11-12"
+    },
+    {
+      "email": "13661607450@163.com",
+      "name": "西西里自留地",
+      "order": "XHS_20261112",
+      "product": "资本认知",
+      "expire": "2027-11-13"
     }
   ]
 }
